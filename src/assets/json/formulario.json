@@ -1,0 +1,27 @@
+{
+    "aspirante":{
+        "codigo":"0101",
+        "nombre":"aspirante",
+        "modulo":"donante"
+    },
+    "aspirantesligth":{
+        "codigo":"0111",
+        "nombre":"aspirantelight",
+        "modulo":"donante"
+    },
+    "chequeo":{
+        "codigo":"0102",
+        "nombre":"chequeo",
+        "modulo":"donante"
+    },
+    "entrevista":{
+        "codigo":"0103",
+        "nombre":"entrevista",
+        "modulo":"donante"
+    },
+    "donantes":{
+        "codigo":"0104",
+        "nombre":"donantes",
+        "modulo":"donante"
+    }
+}

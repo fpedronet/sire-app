@@ -1,0 +1,161 @@
+/* ::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.5em 0px !important;}
+::ng-deep .mat-form-field-label-wrapper { top: -1.5em; }
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.1em) scale(.75);
+    width: 133.33333%;
+} */
+
+#chart {
+    max-width: 380px;
+    margin: -12px auto;
+    padding: 0;
+  } 
+  
+  
+#chart2 {
+    max-width: 380px;
+    margin: 56px auto;
+    padding: 0;
+  } 
+
+  .chartvacio1{
+    color: #921427;
+    text-align: center;
+    font-weight: 400;
+    margin-top:114px;
+    margin-bottom:113px;
+  }
+  
+  .chartvacio2{
+    color: #921427;
+    text-align: center;
+    font-weight: 400;
+    margin-top:180px;
+    margin-bottom:180px;
+  }
+
+  /* .apexcharts-legend apexcharts-align-center apx-legend-position-bottom{
+      inset: auto -30px -3px 10px;
+  } */
+.p-2 {
+    padding: 0.5rem!important;
+}
+
+.tile {
+    text-align: right;
+}
+
+.tile .mat-icon {
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    line-height: 0;
+    font-size: 54px;
+    /* opacity: .3; */
+}
+
+.mat-divider{
+    margin: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.app.indigo-light .mat-card {
+    background: white;
+    color: #000000de;
+}
+
+.cardtitles{
+    font-size:initial;
+    font-weight:500;
+    color: #0000008a;
+}
+
+
+.title-label {
+    text-align: center;
+    color: #fff;
+    padding-top: 4px;
+}
+.mat-toolbar.cardtitle1 {
+    height:50px;
+    background: #881439cc;
+}
+
+.mat-toolbar.cardtitle2 {
+    height:50px;
+    background: #75155ccf;
+}
+
+.m-section__title {
+    margin: 0 9px 6px;
+    color: #681575;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.15;
+}
+
+.m-section__title2 {
+    color: #9b1417;
+    font-size: 26px;
+    font-weight: 500;
+}
+
+
+
+.gradient-green {
+    background: #2E7D32!important;
+    background: linear-gradient(50deg,#C5D429,#2E7D32)!important;
+    color: #fff!important;
+}
+
+.gradient-red {
+    background: #D50000!important;
+    background: linear-gradient(50deg,#FF9E80,#D50000)!important;
+    color: #fff!important;
+}
+
+.gradient-orange {
+    background: #FF7043!important;
+    background: linear-gradient(50deg,#ffd86f,#FF7043)!important;
+    color: #fff!important;
+}
+
+.gradient-pink {
+    background: #E91E63!important;
+    background: linear-gradient(50deg,#F59E99,#E91E63)!important;
+    color: #fff!important;
+}
+
+.gradient-gray {
+    background: #263238!important;
+    background: linear-gradient(50deg,#8EF9FE,#263238)!important;
+    color: #fff!important;
+}
+
+.gradient-brown {
+    background: #5D4037!important;
+    background: linear-gradient(50deg,#FA9151,#5D4037)!important;
+    color: #fff!important;
+}
+
+.tabla-stock{
+    border-width: 1px;
+    border-style: solid;
+    display: table;
+    border-collapse: initial;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 0px;
+    border-color: #9b1417;
+    text-align: center;
+    border-color: #9b1417;
+}
+
+.celda-stock{
+    width: 30px;
+    word-wrap: break-word;
+    line-break: anywhere;
+    height: 25px;
+}

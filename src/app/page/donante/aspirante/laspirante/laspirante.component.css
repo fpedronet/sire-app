@@ -1,0 +1,11 @@
+.widthTable{ flex: 0 0 75px; cursor: pointer; }
+.mat-divider{
+  margin-top: -8px;
+}
+
+.responsive-estado{
+  color: rgba(0,0,0,.87);
+  font-family: monospace;
+  width: 70px;
+  text-align: initial;
+}

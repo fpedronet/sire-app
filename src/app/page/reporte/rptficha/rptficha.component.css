@@ -1,0 +1,283 @@
+td {
+    vertical-align: middle;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    height: 22px;
+    /*Para ver como se divide la tabla*/
+    border-style: outset;
+    border-width: 1px;
+    border-color: blue;
+}
+
+.rpt-table-b{
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+}
+
+.rpt-img{
+    width: 128px;
+    aspect-ratio: auto 128 / 96;
+    height: 96px;
+}
+
+.rpt-input-h1{
+    border-style: solid;
+    border-width: thin;
+    height: 20px;
+}
+
+.rpt-input-h2{
+    border-style: solid;
+    border-width: thin;
+    height: 31px;
+}
+
+.rpt-input-h3{
+    border-style: solid;
+    border-width: thin;
+    height: 70px;
+}
+
+.rpt-input-h4{
+    border-style: solid;
+    border-width: thin;
+    height: 120px;
+}
+
+.rpt-input-b{
+    border-style: solid;
+    border-width: 2px;
+    height: 20px;
+}
+
+.rpt-input-b-2{
+    border-style: solid;
+    border-width: 2px;
+    height: 32px;
+}
+
+.rpt-label{
+    border-style: none;
+    /*height: 21px;*/
+    line-height: 1;
+}
+
+.rpt-input-firma{
+    border-style: solid;
+    border-width: 2px;
+    height: 62px;
+}
+
+.rpt-input-h1 .rpt-font-8{
+    margin-left: 5px;
+}
+
+.rpt-input-h1 .rpt-font-9{
+    margin-left: 5px;
+}
+
+.rpt-input-h3 .rpt-font-7{
+    margin-left: 0px;
+    vertical-align: sub;
+}
+
+.rpt-input-h3 .rpt-font-8{
+    margin-left: 0px;
+    vertical-align: sub;
+}
+
+.rpt-input-h2 .rpt-font-9-b{
+    margin-left: 5px;
+    vertical-align: sub;
+}
+
+.rpt-input-h1 .rpt-font-10{
+    margin-left: 5px;
+}
+
+.rpt-input-h4 .rpt-font-9{
+    font-size: 9pt;
+    color: #808080;
+}
+
+.rpt-input-firma .rpt-font-9{
+    font-size: 9pt;
+    color: #808080;
+}
+
+.rpt-shadow{
+    border-style: none;
+    height: 25px;
+    background-color: #c0c0c0;
+    line-height: 1;
+}
+
+.rpt-label-r{
+    border-style: none;
+    height: 21px;
+    /*line-height: 0.9;*/
+    text-align: right;
+}
+
+.rpt-td-w1{ /*Para X*/
+    width: 36px;
+    text-align: center;
+}
+
+.rpt-td-w2{
+    width: 53px;
+}
+
+.rpt-td-w3{
+    width: 60px;
+}
+
+.rpt-td-w4{
+    width: 85px;
+}
+
+.rpt-td-w5{
+    width: 112px;
+}
+
+.rpt-td-w6{
+    width: 167px;
+}
+
+.rpt-td-w7{
+    width: 248px;
+}
+
+.rpt-td-w8{
+    width: 254px;
+}
+
+.rpt-td-w9{
+    width: 290px;
+}
+
+.rpt-td-w50{
+    width: 445px;
+}
+
+.rpt-td-preg-1{
+    height: 10px;
+    max-height: 10px;
+}
+
+.rpt-tr-preg-1 td .rpt-label{
+    height: 12px;
+    max-height: 12px;
+}
+
+.rpt-tr-preg-1 td{
+    height: 12px;
+    max-height: 12px;
+    border-bottom-width: thin;
+    border-bottom-color: #000000;
+}
+
+.rpt-tr-preg-2 td .rpt-label{
+    height: 24px;
+    max-height: 24px;
+}
+
+.rpt-tr-preg-2 td{
+    height: 24px;
+    max-height: 24px;
+    border-bottom-width: thin;
+    border-bottom-color: #000000;
+}
+
+.rpt-tr-preg-3 td .rpt-label{
+    height: 36px;
+    max-height: 36px;
+}
+
+.rpt-tr-preg-3 td{
+    height: 36px;
+    max-height: 36px;
+    border-bottom-width: thin;
+    border-bottom-color: #000000;
+}
+
+.rpt-td-preg-1 .rpt-label{
+    height: 10px;
+    max-height: 10px;
+}
+
+.rpt-font-7{
+    font-size: 7pt;
+    color: #000000;
+    font-family: Arial;
+    font-weight: normal;
+}
+
+.rpt-font-7-b{
+    font-size: 7pt;
+    color: #000000;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.rpt-font-8{
+    font-size: 8pt;
+    color: #000000;
+    font-family: Arial;
+    font-weight: normal;
+}
+
+.rpt-font-9{
+    font-size: 9pt;
+    color: #000000;
+    font-family: Arial;
+    font-weight: normal;
+}
+
+.rpt-font-9-u{
+    font-size: 9pt;
+    color: #000000;
+    font-family: Arial;
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+.rpt-font-10{
+    font-size: 10pt;
+    color: #000000;
+    font-family: Arial;
+    font-weight: normal;
+}
+
+.rpt-font-8-b{
+    font-size: 8pt;
+    color: #000000;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.rpt-font-9-b{
+    font-size: 9pt;
+    color: #000000;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.rpt-font-10-b{
+    font-size: 10pt;
+    color: #000000;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.rpt-divider{
+    border-color: black;
+    height: 0px;
+    margin-block-start: 0.0em;
+    margin-block-end: 0.0em;
+    width: 760px;
+    display: table-caption;
+}

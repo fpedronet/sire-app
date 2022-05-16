@@ -1,0 +1,231 @@
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+  }
+
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden !important;
+    z-index: auto;
+  }
+
+
+/*MENU HORIZONTAL*/
+
+
+
+
+/*MENU VERTICAL*/
+.menu-header-bg{
+  height: 180px;
+  width: 320px;
+  background: linear-gradient(90deg, #9b1417 28%, #681575 100%);
+  box-shadow: 0px 1px 10px rgb(192 19 67 / 82%);
+  transform: rotate(-15deg);
+  border-radius: 10px 10px 10px 50px;
+  margin-left: -18px;
+  margin-top: -61px;
+  margin-bottom: 41px;
+}
+
+.header-content{
+  position: absolute;
+  top: 22px;
+  left: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.header-content img{
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  margin-right: 14px;
+}
+
+.header-content h2{
+  font-weight: 400;
+  color: #fff;
+  margin-top: -7px;
+  margin-bottom: -2px;
+  font-size: 16px;
+}
+
+.header-content p{
+  font-size: 12px;
+  color: #e4e4e4;
+  font-weight: 100px;
+  letter-spacing: 0.4px;
+}
+
+.mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+
+.submenu{
+  padding:0 32px 0px;
+}
+
+.mat-expansion-panel{
+  box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%), 0px 0px 0px 0px rgb(0 0 0 / 12%)
+  /* box-shadow: 1px 0px 1px 0px rgb(0 0 0 / 10%), 0px 3px 0px -3px rgb(0 0 0 / 64%), 0px 0px 0px 0px rgb(0 0 0 / 0%); */
+}
+
+
+
+  div {
+      overflow: inherit;
+  }
+
+  .menu{
+      text-decoration: none;
+      font-size: 120%;
+      white-space: normal;
+      text-align:left;
+      line-height:36px;
+      padding:2px 60px;
+      color:#1b70c7;
+  }
+
+  .nav1{
+    height: 100%;
+  }
+
+  .nav1 > ul{
+    height: 100%;
+    display: flex;
+  }
+
+  .nav1 ul li{
+    height: 100%;
+    list-style: none;
+    position: relative;
+  }
+
+  .nav1 > ul > li > a{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+    transition: all 300ms ease;
+  }
+
+  .nav1 > ul > li > a:hover{
+    transform: scale(1.1);
+    background: #9b1417;
+    box-shadow: 0px 0px 10px 0px rgb(0, 0, 0, 0.5);
+  }
+
+  
+  /*SUB MENU*/
+  .nav1 ul li ul{
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    position: absolute;
+    top: 80px;
+    left: -5px;
+    padding: 14x 0px;
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: 0px 0px 10px 0px rgb(0, 0, 0, 0.5);
+    z-index: 10;
+    transition: all 300ms ease;
+  }
+
+  .nav1 ul li:hover ul{
+    visibility: visible;
+    opacity: 1;
+    top: 70px;
+  }
+
+  .nav1 ul li ul::before{
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid white;
+    position: absolute;
+    top: -14px;
+    left: 20px;
+  }
+
+  .nav1 ul li ul li a{
+    display: block;
+    color: #681575;
+    padding: 0px;
+    padding-left: 14px;
+    margin-top: 4px;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: all 300ms ease;
+  }
+
+  .nav1 ul li ul li a:hover{
+      background: #9b1417;
+      color: #fff;
+      transform: scale(1.1);
+      padding-left: 30px;
+      font-size: 13px;
+      box-shadow: 0px 0px 10px 0px rgb(0, 0, 0, 0.5);
+  }
+
+  
+
+button{
+    font-size: 110%;
+    min-width: min-content;
+}
+
+.example-icon {
+    padding: 0 14px;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+
+  .mat-drawer{
+    /* top:43px; */
+    z-index:400;
+  }
+
+  .mat-drawer-inner-container ng-tns-c117-2{
+    --overflow:hidden;
+  }
+
+  .mat-toolbar-row, .mat-toolbar-single-row{
+    height:47px;
+  }
+
+  .close{
+    background-color:#c50202;
+    color:white;
+  }
+
+  .example-button {
+    margin-top: 16px;
+  }
+  
+  .example-tooltip-red {
+    background: #b71c1c;
+  }
+
+  .mat-divider {
+    border-top-color: #5a585a61;
+}

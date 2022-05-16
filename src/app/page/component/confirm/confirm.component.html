@@ -1,0 +1,23 @@
+<div style="text-align: center;border-radius:4px;">
+    <div class="">
+        <h6 style="font-size:1.25rem; color: #003f94;" mat-dialog-title>{{data.message}}</h6>
+        <mat-divider *ngIf="data.message2!=='' && data.message3!=='' && data.message3!=='' && data.message4!==''"></mat-divider>
+        <br *ngIf="data.message2!=='' && data.message3!=='' && data.message3!=='' && data.message4!==''">
+        <div id="otrasLineas" *ngIf="data.message2!=='' && data.message3!=='' && data.message3!=='' && data.message4!==''" style = "display: block" id = "otrasLineas">
+            <!-- <br> -->
+            <h6 style="font-size:1.20rem; text-align:left;" mat-dialog-title>{{data.message2}}</h6>
+            <!-- <br> -->
+            <h6 style="font-size:1.20rem; text-align:left;" mat-dialog-title>{{data.message3}}</h6>
+            <!-- <br> -->
+            <mat-divider></mat-divider>
+            
+            <h6 style="font-size:1.10rem;color: #003f94;padding-top:10px;" mat-dialog-title>{{data.message4}}</h6>
+        </div>        
+    </div>    
+    <div class="example-button-row" style="padding-top: 0px; margin: auto;">
+        <button *ngIf="data.onlyOk" mat-button mat-dialog-close color="primary" [mat-dialog-close]="true">Ok</button>
+        <button *ngIf="!data.onlyOk" mat-button mat-dialog-close color="primary" [mat-dialog-close]="false">No</button>        
+        <button *ngIf="!data.onlyOk" mat-stroked-button color="accent" [mat-dialog-close]="true">Sí</button>
+      </div>
+      
+</div>

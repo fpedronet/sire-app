@@ -1,0 +1,182 @@
+<div style="padding-top:69px;margin-left:12px;margin-right:12px;">
+
+    <h1 class="m-section__title">Bienvenido : <span class="m-section__title2">{{usuario}}</span></h1>
+
+    <div style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+
+        <div *ngFor="let et of arrayLabel6; let i = index" fxFlex="{{valorMaximo(100/arrayLabel6.length,100/5)}}%" fxFlex.xs="100%" fxFlex.sm="{{valorMaximo(100/arrayLabel6.length,100/3)}}%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+            <mat-card [class]="arrayCardClasses[i % arrayCardClasses.length]">
+                <mat-icon>{{arrayIcons6[i]}}</mat-icon>
+                <h2>{{arraySeries6![i]}}</h2>
+                <p>{{et}}</p>
+            </mat-card>
+        </div>
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
+        <div fxFlex="45%" fxFlex.xs="100%" fxFlex.sm="45%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha Inicio</mat-label>
+                <input matInput [matDatepicker]="fechaInicio" [max]="$fechaMax" placeholder="dd/mm/yyyy" 
+                [(ngModel)]="$fechaInicio" (dateChange)="onDateChange()" onkeydown="return false">
+                <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+                <mat-datepicker #fechaInicio></mat-datepicker>
+                </mat-form-field>
+        </div>
+
+        <div fxFlex="45%" fxFlex.xs="80%" fxFlex.sm="45%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha Fin</mat-label>
+                <input matInput [matDatepicker]="fechaFin" [max]="$fechaMax" placeholder="dd/mm/yyyy" 
+                [(ngModel)]="$fechaFin" (dateChange)="onDateChange()" onkeydown="return false">
+                <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
+                <mat-datepicker #fechaFin></mat-datepicker>
+                </mat-form-field>
+        </div>
+
+        <div fxFlex="10%" fxFlex.xs="20%" fxFlex.sm="10%" class="btnHeader">
+            <button mat-stroked-button type="button" style="margin-top: 15px; height: 45%;" (click)="reiniciaFechas()">
+                <mat-icon class="maticon">cleaning_services</mat-icon>
+            </button>
+        </div>
+
+        <div *ngIf="registro5_1 || registro5_2 || registro5_3" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+            <mat-card class="mat-card mat-focus-indicator">
+                <mat-card-content>
+                    <div>
+                        <mat-card-title class="cardtitles">{{title5}}</mat-card-title>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+                        <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="50%">
+                            <mat-grid-list cols="12" rowHeight="350px" gutterSize="15px" *ngIf="registro5_1">
+                                <apx-chart
+                                [series]="reportesgrafico5[0].series"
+                                [chart]="reportesgrafico5[0].chart"
+                                [plotOptions]="reportesgrafico5[0].plotOptions"
+                                [legend]="reportesgrafico5[0].legend"
+                                [labels]="reportesgrafico5[0].labels"
+                                [responsive]="reportesgrafico5[0].responsive"
+                                ></apx-chart>
+                            </mat-grid-list>
+                            <mat-grid-list cols="12" rowHeight="350px" gutterSize="15px" *ngIf="registro5_2">
+                                <apx-chart
+                                [series]="reportesgrafico5[1].series"
+                                [chart]="reportesgrafico5[1].chart"
+                                [plotOptions]="reportesgrafico5[1].plotOptions"
+                                [legend]="reportesgrafico5[1].legend"
+                                [labels]="reportesgrafico5[1].labels"
+                                [responsive]="reportesgrafico5[1].responsive"
+                                ></apx-chart>
+                            </mat-grid-list>
+                        </div>
+                        <div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="50%" *ngIf="registro5_3">
+                            <mat-grid-list cols="12" rowHeight="350px" gutterSize="15px" *ngIf="registro5_3">
+                                <apx-chart
+                                [series]="reportesgrafico5[2].series"
+                                [chart]="reportesgrafico5[2].chart"
+                                [plotOptions]="reportesgrafico5[2].plotOptions"
+                                [legend]="reportesgrafico5[2].legend"
+                                [labels]="reportesgrafico5[2].labels"
+                                [responsive]="reportesgrafico5[2].responsive"
+                                ></apx-chart>
+                            </mat-grid-list>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div *ngIf="registro1" fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="50%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+            <mat-card class="mat-card mat-focus-indicator">
+                <mat-card-content>
+                    <div>
+                        <mat-card-title class="cardtitles">{{title1}}</mat-card-title>
+                    </div>
+                    <div id="chart">
+                        <apx-chart
+                         [series]="reportegrafico1!.series"
+                         [chart]="reportegrafico1.chart"
+                         [labels]="reportegrafico1.labels"
+                         [responsive]="reportegrafico1.responsive"
+                        ></apx-chart>
+                    </div>
+                    <div *ngIf="!registro1">
+                        <p class="chartvacio1">{{msgVacio}}</p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div *ngIf="registro2" fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="50%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+            <mat-card class="mat-card mat-focus-indicator">
+                <mat-card-content>
+                    <div>
+                        <mat-card-title class="cardtitles">{{title2}}</mat-card-title>
+                    </div>
+                    <div id="chart">
+                        <apx-chart
+                         [series]="reportegrafico2!.series"
+                         [chart]="reportegrafico2.chart"
+                         [labels]="reportegrafico2.labels"
+                         [responsive]="reportegrafico2.responsive"
+                        ></apx-chart>
+                    </div>
+                    <div *ngIf="!registro2">
+                        <p class="chartvacio1">{{msgVacio}}</p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div *ngIf="registro3" fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="50%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+            <mat-card class="mat-card mat-focus-indicator">
+                <mat-card-content>
+                    <div>
+                        <mat-card-title class="cardtitles">{{title3}}</mat-card-title>
+                    </div>
+                    <div id="chart">
+                        <apx-chart
+                        [series]="reportegrafico3.series"
+                        [chart]="reportegrafico3.chart"
+                        [dataLabels]="reportegrafico3.dataLabels"
+                        [plotOptions]="reportegrafico3.plotOptions"
+                        [yaxis]="reportegrafico3.yaxis"
+                        [legend]="reportegrafico3.legend"
+                        [fill]="reportegrafico3.fill"
+                        [stroke]="reportegrafico3.stroke"
+                        [tooltip]="reportegrafico3.tooltip"
+                        [xaxis]="reportegrafico3.xaxis"
+                    ></apx-chart>
+                    </div>
+                    <div *ngIf="!registro3">
+                        <p class="chartvacio2">{{msgVacio}}</p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div *ngIf="registro4" fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="50%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+            <mat-card class="mat-card mat-focus-indicator">
+                <mat-card-content>
+                    <div>
+                        <mat-card-title class="cardtitles">{{title4}}</mat-card-title>
+                    </div>
+                    <div id="chart2">
+                        <apx-chart
+                         [series]="reportegrafico4!.series"
+                         [chart]="reportegrafico4.chart"
+                         [labels]="reportegrafico4.labels"
+                         [responsive]="reportegrafico4.responsive"
+                        ></apx-chart>
+                    </div>
+                    <div *ngIf="!registro4">
+                        <p class="chartvacio2">{{msgVacio}}</p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>        
+    </div>
+</div>
