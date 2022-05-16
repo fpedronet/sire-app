@@ -1,6 +1,6 @@
 <div style="padding-top:69px;margin-left:12px;margin-right:12px;">
 
-    <h1 class="m-section__title">Bienvenido : <span class="m-section__title2">{{usuario}}</span></h1>
+    <h1 class="m-section__title">Bienvenido a Sire <span class="m-section__title2">{{usuario}}</span></h1>
 
     <div style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
 
@@ -14,10 +14,10 @@
 
     </div>
 
-    <mat-divider></mat-divider>
+    <!-- <mat-divider></mat-divider> -->
 
     <div style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
-        <div fxFlex="45%" fxFlex.xs="100%" fxFlex.sm="45%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+        <!-- <div fxFlex="45%" fxFlex.xs="100%" fxFlex.sm="45%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
             <mat-form-field appearance="outline">
                 <mat-label>Fecha Inicio</mat-label>
                 <input matInput [matDatepicker]="fechaInicio" [max]="$fechaMax" placeholder="dd/mm/yyyy" 
@@ -25,9 +25,9 @@
                 <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
                 <mat-datepicker #fechaInicio></mat-datepicker>
                 </mat-form-field>
-        </div>
+        </div> -->
 
-        <div fxFlex="45%" fxFlex.xs="80%" fxFlex.sm="45%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
+        <!-- <div fxFlex="45%" fxFlex.xs="80%" fxFlex.sm="45%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
             <mat-form-field appearance="outline">
                 <mat-label>Fecha Fin</mat-label>
                 <input matInput [matDatepicker]="fechaFin" [max]="$fechaMax" placeholder="dd/mm/yyyy" 
@@ -35,13 +35,13 @@
                 <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
                 <mat-datepicker #fechaFin></mat-datepicker>
                 </mat-form-field>
-        </div>
+        </div> -->
 
-        <div fxFlex="10%" fxFlex.xs="20%" fxFlex.sm="10%" class="btnHeader">
+        <!-- <div fxFlex="10%" fxFlex.xs="20%" fxFlex.sm="10%" class="btnHeader">
             <button mat-stroked-button type="button" style="margin-top: 15px; height: 45%;" (click)="reiniciaFechas()">
                 <mat-icon class="maticon">cleaning_services</mat-icon>
             </button>
-        </div>
+        </div> -->
 
         <div *ngIf="registro5_1 || registro5_2 || registro5_3" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
             <mat-card class="mat-card mat-focus-indicator">

@@ -41,32 +41,32 @@ export class LayoutComponent implements OnInit {
   }
 
   listar(){
-    this.spinner.showLoading();
-    let session = this.usuarioService.sessionUsuario();
+    // this.spinner.showLoading();
+    // let session = this.usuarioService.sessionUsuario();
 
-    this.username= session.nombre.toUpperCase();
-    this.userdni= (session.documento=="")? this.userdni: session.documento;
+    // this.username= session.nombre.toUpperCase();
+    // this.userdni= (session.documento=="")? this.userdni: session.documento;
 
-    this.ConfigPermisoService.listar().subscribe(data=>{
+    // this.ConfigPermisoService.listar().subscribe(data=>{
 
-      this.menus.listaMenu = data.listaMenu;
-      this.menus.listaBanco = data.listaBanco;
-      let bancoselect = session.codigobanco;
+    //   this.menus.listaMenu = data.listaMenu;
+    //   this.menus.listaBanco = data.listaBanco;
+    //   let bancoselect = session.codigobanco;
 
-      if(bancoselect!=null){
-        this.codigo = bancoselect;
-        this.banco = data.listaBanco?.filter(x=>x.codigo==bancoselect)[0].descripcion
-      }else{
-        this.codigo = data.listaBanco![0].codigo;
-        this.banco = data.listaBanco![0].descripcion;
-      }
+    //   if(bancoselect!=null){
+    //     this.codigo = bancoselect;
+    //     this.banco = data.listaBanco?.filter(x=>x.codigo==bancoselect)[0].descripcion
+    //   }else{
+    //     this.codigo = data.listaBanco![0].codigo;
+    //     this.banco = data.listaBanco![0].descripcion;
+    //   }
 
-      this.count = (data.listaBanco?.length!>1)? true: false;     
+    //   this.count = (data.listaBanco?.length!>1)? true: false;     
 
-      localStorage.setItem(environment.CODIGO_BANCO, this.codigo!);
+    //   localStorage.setItem(environment.CODIGO_BANCO, this.codigo!);
 
-      this.spinner.hideLoading();
-    });  
+    //   this.spinner.hideLoading();
+    // });  
   }
 
   selectbanco(idbanco: number){

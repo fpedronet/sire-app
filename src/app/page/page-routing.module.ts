@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { Not403Component } from './configuracion/not403/not403.component';
 
 const routes: Routes = [
-  {path:'home', component: HomeComponent, canActivate: [GuardService]},
+  {path:'home', component: HomeComponent},
 
   {path: 'not-403', component: Not403Component},
 

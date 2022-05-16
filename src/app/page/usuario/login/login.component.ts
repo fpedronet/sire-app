@@ -45,58 +45,57 @@ export class LoginComponent implements OnInit {
       'idHospital': new FormControl("")
     });
 
-    this.listaHospital();
+    // this.listaHospital();
   }
 
-  listaHospital(){
+  // listaHospital(){
 
-    let model = new Usuario();
-    this.spinner.showLoading();
-      this.usuarioService.listaHospital(model).subscribe(data=>{
-        this.hospital = data.items;
-        this.idHospital = this.hospital[0].idHospital;
-        this.verHospital = (data.items.length>1)? true: false;
-        this.spinner.hideLoading();
-      }); 
-  }
+  //   let model = new Usuario();
+  //   this.spinner.showLoading();
+  //     this.usuarioService.listaHospital(model).subscribe(data=>{
+  //       this.hospital = data.items;
+  //       this.idHospital = this.hospital[0].idHospital;
+  //       this.verHospital = (data.items.length>1)? true: false;
+  //       this.spinner.hideLoading();
+  //     }); 
+  // }
   
   login(){
     let model = new Usuario();
 
     model.usuario = this.form.value['usuario'];
     model.contrasenia= this.form.value['clave'];
-    model.idHospital= (this.verHospital == false)? this.idHospital:   this.form.value['idHospital'];
+    // model.idHospital= (this.verHospital == false)? this.idHospital:   this.form.value['idHospital'];
 
-    if(model.usuario==null || model.contrasenia=="" || model.idHospital==""){
+    if(model.usuario==null || model.contrasenia==""){
       if(model.usuario==null || model.usuario==""){
         this.notifierService.showNotification(environment.ALERT,'Mensaje','Ingresa el usuario');
       }
       else if(model.contrasenia==null || model.contrasenia==""){
         this.notifierService.showNotification(environment.ALERT,'Mensaje','Ingresa la contraseña');
       }
-      else if(model.contrasenia==null || model.contrasenia==""){
-        this.notifierService.showNotification(environment.ALERT,'Mensaje','Seleccione el Hospital');
-      }
       this.spinner.hideLoading();
 
     }else{
 
-      this.spinner.showLoading();
-      this.usuarioService.login(model).subscribe(data=>{
+      // this.spinner.showLoading();
+      // this.usuarioService.login(model).subscribe(data=>{
         
-        if(data.typeResponse==environment.EXITO){
-          localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
-          localStorage.setItem(environment.CODIGO_BANCO, data.codigoBanco!);
+      //   if(data.typeResponse==environment.EXITO){
+      //     localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
+      //     localStorage.setItem(environment.CODIGO_BANCO, data.codigoBanco!);
 
-          this.router.navigate(['/page/home']);
-        }
-        this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.mensaje!);
-        this.spinner.hideLoading();
-        if(data.typeResponse!=environment.EXITO){
-          this.input.focus();
-          this.input.select();
-        }
-      }); 
+      //     this.router.navigate(['/page/home']);
+      //   }
+      //   this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.mensaje!);
+      //   this.spinner.hideLoading();
+      //   if(data.typeResponse!=environment.EXITO){
+      //     this.input.focus();
+      //     this.input.select();
+      //   }
+      // }); 
+
+      this.router.navigate(['/page/home']);
     }
   }
 
