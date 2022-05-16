@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Persona, PersonaPoclab } from '../../_model/donante/persona';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class PoclabService {
 
     var url = api + "0" + tipoDocu + "/" + numDocu + "/" + 0 + "/" + 1;
 
-    var p = this.http.get<PersonaPoclab>(url);
+    var p = this.http.get<object>(url);
     return p;
   }
 }
