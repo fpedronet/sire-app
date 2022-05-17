@@ -43,11 +43,11 @@ export class LayoutComponent implements OnInit {
   listar(){
     let session = this.usuarioService.sessionUsuario();
 
-    this.spinner.showLoading();
     if(session!=null){
       this.username= session.nombreConocido.toUpperCase();
       let empresaselect = session.codigoEmpresa;
 
+      this.spinner.showLoading();
       this.ConfigPermisoService.listar(empresaselect).subscribe(data=>{
         this.menus.listaEmpresa = data.listaEmpresa;
   
@@ -58,7 +58,7 @@ export class LayoutComponent implements OnInit {
           this.codigo = data.listaEmpresa![0].codigo;
           this.empresa = data.listaEmpresa![0].nombreEmpresa;
         }
-        debugger;
+       
         this.count = (data.listaEmpresa?.length!>1)? true: false;     
         this.menus.listaMenu = data.listaMenu;
 

@@ -66,9 +66,10 @@ export class LoginComponent implements OnInit {
           localStorage.setItem(environment.CODIGO_EMPRESA, data.codigoEmpresa!);
 
           this.router.navigate(['/page/home']);
+        }else{
+          this.spinner.hideLoading();
         }
         this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.mensaje!);
-        this.spinner.hideLoading();
       }); 
 
     }
