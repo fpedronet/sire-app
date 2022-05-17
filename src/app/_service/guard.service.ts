@@ -44,9 +44,9 @@ export class GuardService implements CanActivate {
          this.router.navigate(['/page/home']);
          return false;
       }
-
+      debugger;
       //3) OBTENIENDO EL ID DEL USUARIO PARA TRAER LAS OPCIONES DE MENU Y LOS PERMISO
-      return this.configPermisoService.listar().pipe(map(x => {
+      return this.configPermisoService.listar("1").pipe(map(x => {
         let cont = 0;
         for (let m of x.listaOpcionesMenu!) {
 

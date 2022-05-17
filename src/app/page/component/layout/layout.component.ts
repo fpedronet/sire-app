@@ -28,8 +28,8 @@ export class LayoutComponent implements OnInit {
   menus: MenuResponse = {};
   codigo?:string;
   panelOpenState = false;
-  count=true;
-  banco?: string = "";
+  count=false;
+  empresa?: string = "";
   logo?: string =environment.UrlImage + "logoMenu.png";
   user?: string =environment.UrlImage + "userMenu.png";
   username: string = "";
@@ -41,38 +41,40 @@ export class LayoutComponent implements OnInit {
   }
 
   listar(){
-    // this.spinner.showLoading();
-    // let session = this.usuarioService.sessionUsuario();
+    let session = this.usuarioService.sessionUsuario();
 
-    // this.username= session.nombre.toUpperCase();
-    // this.userdni= (session.documento=="")? this.userdni: session.documento;
+    this.spinner.showLoading();
+    if(session!=null){
+      this.username= session.nombreConocido.toUpperCase();
+      let empresaselect = session.codigoEmpresa;
 
-    // this.ConfigPermisoService.listar().subscribe(data=>{
+      this.ConfigPermisoService.listar(empresaselect).subscribe(data=>{
+        this.menus.listaEmpresa = data.listaEmpresa;
+  
+        if(empresaselect!=null){
+          this.codigo = empresaselect;
+          this.empresa = data.listaEmpresa?.filter(x=>x.codigo==empresaselect)[0].nombreEmpresa
+        }else{
+          this.codigo = data.listaEmpresa![0].codigo;
+          this.empresa = data.listaEmpresa![0].nombreEmpresa;
+        }
+        debugger;
+        this.count = (data.listaEmpresa?.length!>1)? true: false;     
+        this.menus.listaMenu = data.listaMenu;
 
-    //   this.menus.listaMenu = data.listaMenu;
-    //   this.menus.listaBanco = data.listaBanco;
-    //   let bancoselect = session.codigobanco;
-
-    //   if(bancoselect!=null){
-    //     this.codigo = bancoselect;
-    //     this.banco = data.listaBanco?.filter(x=>x.codigo==bancoselect)[0].descripcion
-    //   }else{
-    //     this.codigo = data.listaBanco![0].codigo;
-    //     this.banco = data.listaBanco![0].descripcion;
-    //   }
-
-    //   this.count = (data.listaBanco?.length!>1)? true: false;     
-
-    //   localStorage.setItem(environment.CODIGO_BANCO, this.codigo!);
-
-    //   this.spinner.hideLoading();
-    // });  
+        localStorage.setItem(environment.CODIGO_EMPRESA, this.codigo!);
+  
+        this.spinner.hideLoading();
+      });
+    }else{
+      this.usuarioService.closeLogin();
+    }  
   }
 
-  selectbanco(idbanco: number){
+  selectempresa(idbanco: number){
     this.spinner.showLoading();
     let split = this.router.url.split('/');
-    localStorage.setItem(environment.CODIGO_BANCO, idbanco.toString()!);
+    localStorage.setItem(environment.CODIGO_EMPRESA, idbanco.toString()!);
 
     if(split.length > 3 && split.length <=4){
 

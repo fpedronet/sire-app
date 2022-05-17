@@ -1,23 +1,38 @@
+import { Byte } from "@angular/compiler/src/util";
+
 export class Usuario{
-    idHospital?: string;
+    ideUsuario?: string;
     usuario? : string;
     contrasenia? : string;
+    id? : string;
     key? : string;
 }
 
-export class CadenaConexionDto{
-    idHospital?: string;
-    nombre? : string;
+export class TokenUsuario{
+    ideUsuario? : number;
+    nombreConocido? : string;
+    idePuesto? : string;
+    emailEmp? : string;
+    telefonoTrabajo? : string;
+    codigoEmpresa?: string;
+    access_token? : string;
+    typeResponse? : number;
+    mensaje? : string;
 }
 
-export class TokenUsuario{
-    swt?: number;
-    mensaje? : string;
-    ideUsuario? : number;
-    idePersona? : number;
+export class EmpresaPorUsuario{
+    codigo? : string;
     documento? : string;
-    nombres? : string;
-    access_token? : string;
-    codigoBanco? : string;
-    typeResponse? : number;
+    nombreEmpresa? : string;
+    razonSocial? : string;
+    otro1? : string;
+    tipoEmpresa?: string;
+    foto? : Byte[];
+    logo? : string;
+    longitud? : string;
+    latitud? : string;
+    otro2? : string;
+    fecha1? : string;
+    otro3? : string;
+    fecha3? : string;
 }

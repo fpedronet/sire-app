@@ -15,15 +15,15 @@
         <mat-form-field style="padding-left:12px;width:260px;font-weight:500">
           <mat-select 
           [(ngModel)]="codigo"
-          (selectionChange)="selectbanco($event.value)"
+          (selectionChange)="selectempresa($event.value)"
           >
-            <mat-option *ngFor="let el of menus.listaBanco" [value]="el.codigo">
-            {{el.descripcion}}
+            <mat-option *ngFor="let el of menus.listaEmpresa" [value]="el.codigo">
+            {{el.nombreEmpresa}}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </span>
-      <span *ngIf="!count" style="padding-left:12px;font-size:13px;font-weight:500">{{banco}}</span>
+      <span *ngIf="!count" style="padding-left:12px;font-size:13px;font-weight:500">{{empresa}}</span>
     </a>
 
     <span class="example-spacer"></span>
@@ -32,8 +32,8 @@
       <nav class="nav1">
         <ul>
             <li *ngFor="let m of menus.listaMenu">
-              <a *ngIf="m.url=='/page/home'" (click)="clearLocalStore()" routerLink="{{m.url}}">{{m.modulo}}</a>
-              <a *ngIf="m.url!='/page/home' && m.url!='/page/cerrar'">{{m.modulo}}</a>
+              <a *ngIf="m.url=='/page/home'" (click)="clearLocalStore()" routerLink="{{m.url}}">{{m.desModulo}}</a>
+              <a *ngIf="m.url!='/page/home' && m.url!='/page/cerrar'">{{m.desModulo}}</a>
               <ul>
                 <li *ngFor="let s of m.listaSubMenu">
                   <a (click)="clearLocalStore()" routerLink="{{s.url}}">{{s.pantalla}}</a>
@@ -69,9 +69,9 @@
             <mat-expansion-panel *ngIf="m.url=='/page/home'" disabled="">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <a style="font-size: 17px;font-weight: 400; color: #464242;" *ngIf="m.url=='/page/home'" routerLink="{{m.url}}" (click)="clearLocalStore()">
+                  <a style="font-size: 16px;font-weight: 400; color: #464242;" *ngIf="m.url=='/page/home'" routerLink="{{m.url}}" (click)="clearLocalStore()">
                     <mat-icon>home</mat-icon>
-                    {{m.modulo}}
+                    {{m.desModulo}}
                   </a>
                 </mat-panel-title>
               </mat-expansion-panel-header>
@@ -82,14 +82,14 @@
             <mat-expansion-panel *ngIf="m.url!='/page/home' && m.url!='/page/cerrar'">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <a style="font-size: 17px;font-weight: 400;color: #464242;" *ngIf="m.url!='/page/home'">
+                  <a style="font-size: 16px;font-weight: 400;color: #464242;" *ngIf="m.url!='/page/home'">
                     <mat-icon>peopleoutline</mat-icon>
-                    {{m.modulo}}
+                    {{m.desModulo}}
                   </a>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <p class="submenu" *ngFor="let s of m.listaSubMenu">
-                <a style="font-size: 17px;font-weight: 400;color: #696868;" routerLink="{{s.url}}" (click)="clearLocalStore()">
+                <a style="font-size: 16px;font-weight: 400;color: #696868;" routerLink="{{s.url}}" (click)="clearLocalStore()">
                   <mat-icon>menuopen</mat-icon>
                   {{s.pantalla}}
                 </a>
@@ -103,7 +103,7 @@
                 <mat-panel-title>
                   <a style="font-size: 17px;font-weight: 400;color: #464242;" routerLink="" (click)="closeLogin()">
                     <mat-icon>logout</mat-icon>
-                    {{m.modulo}}
+                    {{m.desModulo}}
                   </a>
                 </mat-panel-title>
               </mat-expansion-panel-header>

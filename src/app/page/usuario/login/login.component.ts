@@ -8,7 +8,7 @@ import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { NotifierService } from '../../component/notifier/notifier.service';
 import { SpinnerService } from '../../component/spinner/spinner.service';
 
-import { CadenaConexionDto, Usuario } from './../../../_model/configuracion/usuario';
+import { Usuario } from './../../../_model/configuracion/usuario';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private notifierService : NotifierService,
     private spinner : SpinnerService,
-    private usuarioService : UsuarioService, 
-    private elementRef: ElementRef 
+    private usuarioService : UsuarioService
   ) { }
 
 
@@ -32,40 +31,22 @@ export class LoginComponent implements OnInit {
   mensaje?: string;
   error?: string;
   logologin?: string =environment.UrlImage + "logo.png";
-  hospital?: CadenaConexionDto[] = [];
-  idHospital?: any;
-  verHospital: boolean = false;
   input: any;
 
   ngOnInit(): void {
 
     this.form = new FormGroup({
       'usuario': new FormControl(""),
-      'clave': new FormControl(""),
-      'idHospital': new FormControl("")
+      'clave': new FormControl("")
     });
-
-    // this.listaHospital();
   }
 
-  // listaHospital(){
 
-  //   let model = new Usuario();
-  //   this.spinner.showLoading();
-  //     this.usuarioService.listaHospital(model).subscribe(data=>{
-  //       this.hospital = data.items;
-  //       this.idHospital = this.hospital[0].idHospital;
-  //       this.verHospital = (data.items.length>1)? true: false;
-  //       this.spinner.hideLoading();
-  //     }); 
-  // }
-  
   login(){
     let model = new Usuario();
 
     model.usuario = this.form.value['usuario'];
     model.contrasenia= this.form.value['clave'];
-    // model.idHospital= (this.verHospital == false)? this.idHospital:   this.form.value['idHospital'];
 
     if(model.usuario==null || model.contrasenia==""){
       if(model.usuario==null || model.usuario==""){
@@ -78,24 +59,18 @@ export class LoginComponent implements OnInit {
 
     }else{
 
-      // this.spinner.showLoading();
-      // this.usuarioService.login(model).subscribe(data=>{
-        
-      //   if(data.typeResponse==environment.EXITO){
-      //     localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
-      //     localStorage.setItem(environment.CODIGO_BANCO, data.codigoBanco!);
+      this.spinner.showLoading();
+      this.usuarioService.login(model).subscribe(data=>{
+        if(data.typeResponse==environment.EXITO){
+          localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
+          localStorage.setItem(environment.CODIGO_EMPRESA, data.codigoEmpresa!);
 
-      //     this.router.navigate(['/page/home']);
-      //   }
-      //   this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.mensaje!);
-      //   this.spinner.hideLoading();
-      //   if(data.typeResponse!=environment.EXITO){
-      //     this.input.focus();
-      //     this.input.select();
-      //   }
-      // }); 
+          this.router.navigate(['/page/home']);
+        }
+        this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.mensaje!);
+        this.spinner.hideLoading();
+      }); 
 
-      this.router.navigate(['/page/home']);
     }
   }
 

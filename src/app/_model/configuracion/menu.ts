@@ -1,38 +1,34 @@
 import { Combobox } from "../combobox";
+import { EmpresaPorUsuario } from "./usuario";
 
 export class MenuResponse {
     listaMenu?:MenuDto[];
     listaOpcionesMenu?:OpcionMenuDto[];
-    listaBanco?:Combobox[];
+    listaEmpresa?:EmpresaPorUsuario[];
 }
 
 export class MenuDto {
-    ideAcceso?: string;
     codModulo?: string;
-    modulo?: string;
+    desModulo?: string;
     codPantalla?:string;
     pantalla?:string;
-    Permiso?:string;
     url?:string;
     listaSubMenu?:SubMenuDto[]
 }
 
 export class SubMenuDto {
-    ideAcceso?: string;
     codModulo?: string;
-    modulo?: string;
+    desModulo?: string;
     codPantalla?:string;
     pantalla?:string;
-    Permiso?:string;
     url?:string;
+    listaSubMenu?:SubMenuDto[]
 }
 
 export class OpcionMenuDto {
-    ideAcceso?: string;
     codModulo?: string;
-    modulo?: string;
+    desModulo?: string;
     codPantalla?:string;
     pantalla?:string;
-    Permiso?:string;
     url?:string;
 }

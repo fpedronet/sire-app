@@ -16,8 +16,8 @@ export class ConfigPermisoService {
     
   private url: string = `${environment.UrlApi}/configpermiso`;
   
-  listar() {
-    let urls = `${this.url}/GetAllOpcionMenu`;
+  listar(idempresa: string) {
+    let urls = `${this.url}/GetAllOpcionMenu?idempresa=${idempresa}`;
     return this.http.get<MenuResponse>(urls);
   }
 

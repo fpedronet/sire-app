@@ -141,9 +141,9 @@ export class HomeComponent implements OnInit {
 
     //this.curTipoStock = 5;
 
-    for (let i = 1; i <= this.cantGraficos; i++) {
-      this.listargrafico(i);
-    }
+    // for (let i = 1; i <= this.cantGraficos; i++) {
+    //   this.listargrafico(i);
+    // }
   }
 
   listargrafico(idgrafico: number){
