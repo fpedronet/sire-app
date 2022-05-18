@@ -12,8 +12,8 @@ form {
     transform: translate(-50%, -50%);
     display: block;
     width: 84%;
-    max-width: 370px;
-    background-color: #4545456b;
+    max-width: 430px;
+    background-color: #45454587;
     margin: 0;
     padding: 2.25em;
     box-sizing: border-box;
@@ -104,7 +104,7 @@ form button {
     margin: 0;
     padding: 0.65em 1em 1em;
     /* background: linear-gradient(90deg, #9b1417 0%, #681575 100%);; */
-    background: #95081b;
+    background: #da4f14;
     border: none;
     border-radius: 20px;
     box-sizing: border-box;
