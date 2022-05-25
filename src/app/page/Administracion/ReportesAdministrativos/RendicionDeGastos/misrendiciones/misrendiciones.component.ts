@@ -119,7 +119,7 @@ export class MisrendicionesComponent implements OnInit {
           if (res === null) {
             return [];
           }
-
+          debugger;
           this.countRegistro = res.pagination.total;
           return res.items;
         }),

@@ -6,6 +6,7 @@ export class RendicionM {
     motivo?: string
     monedaRecibe?: string
     montoRecibe?: number
+    ingresos?: number
     vFechaPresenta?: string
     vFechaApruebaRechaza?: string
     vFechaProcesa?: string
@@ -21,6 +22,7 @@ export class RendicionM {
     tipo?: string
     vFechaRevisado?: string
     ideUsuRevisa?: number
+    correo?: string
 }
 
 export class RendicionRequest {
