@@ -1,0 +1,127 @@
+<mat-toolbar color="primary" class="example-toolbar submenu example-button">
+    <div class="example-button-rowR">
+      <button mat-stroked-button class="btnHeader" routerLink="/page/rendicion/lrendicion">
+        <mat-icon class="maticon">subdirectory_arrow_left</mat-icon>
+      </button>
+    </div>
+    <div class="example-button-row">
+      <button *ngIf="edit && permiso.guardar" mat-stroked-button class="btnHeader" type="submit" [disabled]="frmGrupo.invalid" form="ngForm">
+        <mat-icon class="maticon">save</mat-icon>
+      </button>
+    </div>
+</mat-toolbar>
+
+<div class="container">  
+<mat-card class="cardborde">   
+  <mat-toolbar class="cardtitle"></mat-toolbar>
+
+  <h2 *ngIf="id==0" class="title-label">CREAR RENDICIÓN</h2>
+  <h2 *ngIf="id!==0 && !edit" class="title-label">VER ENTREVISTA</h2>
+  <h2 *ngIf="id!==0 && edit" class="title-label">EDITAR ENTREVISTA</h2>
+
+  <mat-divider></mat-divider>
+  
+  <div id="content"> 
+      <div style="width: 100%; float:left;margin-bottom: -17px;"> 
+        <div style="text-align: center; color: #1a0da4; font-weight: 500;padding-top: 11px;">{{nombres}}</div> 
+        <div style="text-align: center; color: #1a0da4; font-weight:600">{{documento}}</div> 
+      </div> 
+  </div>
+
+  <br style="clear:both;"/>
+
+  <form onkeydown="return event.key != 'Enter';" class="forms" id="ngForm" [formGroup]="form" #frmGrupo="ngForm" (ngSubmit)="guardar()">
+    <mat-stepper #stepper id="stepper" [selectedIndex]="currentTab" (click)="changestepper(stepper)" labelPosition="bottom">
+      <mat-step>
+        <ng-template matStepLabel>Principal</ng-template>        
+        <div class="content">
+          <div fxLayout="row wrap" fxLayoutGap="16px grid">    
+              <div fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="50%">  
+    
+                <div [hidden]="true">
+                    <mat-form-field appearance="outline">
+                        <input matInput placeholder="Id" formControlName="ideRendicion">
+                    </mat-form-field>
+                </div> 
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Código</mat-label>
+                    <input matInput formControlName="codigo" minlength="1" maxlength="15" required>
+                </mat-form-field>
+              </div>
+
+              <div div fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="50%">
+                <mat-form-field appearance="outline">
+                    <mat-label>Estado</mat-label>
+                    <input matInput formControlName="estado" required>
+                </mat-form-field>
+              </div>
+
+              <div div fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="50%">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha</mat-label>
+                    <input matInput [matDatepicker]="dFechaCreacion" placeholder="dd/mm/yyyy" formControlName="fechaCreacion" required>
+                    <mat-datepicker-toggle matSuffix [for]="dFechaCreacion"></mat-datepicker-toggle>
+                    <mat-datepicker #dFechaCreacion></mat-datepicker>
+                  </mat-form-field>
+              </div>
+              
+
+              <div fxFlex="40%" fxFlex.xs="100%" fxFlex.sm="50%">
+                <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+                  <mat-grid-tile [colspan]="12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Peso (Kg)</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="pesoDonacion" placeholder="0.00">
+                    </mat-form-field>
+                  </mat-grid-tile>                
+                </mat-grid-list>
+
+                <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+                  <mat-grid-tile [colspan]="12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Talla (m)</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="tallaDonacion" placeholder="0.00">
+                    </mat-form-field>
+                  </mat-grid-tile>
+                </mat-grid-list>
+              </div>
+
+                <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+                  <mat-grid-tile [colspan]="12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Estado Venoso</mat-label>
+                      <mat-select formControlName="estadoVenoso">
+                        <!--mat-option *ngFor="let c of []" [value]="c.codigo">
+                         {{c.descripcion}}
+                        </mat-option-->
+                      </mat-select>
+                    </mat-form-field>
+                  </mat-grid-tile>
+                </mat-grid-list>                 
+              </div>
+
+              
+
+          </div>
+        <div style="padding-top: 10px">
+          <button class="btnnext" mat-button matStepperNext type="button">Siguiente</button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Detalle</ng-template>
+        <div class="content contentTable">          
+
+          
+
+        </div>
+        <div style="padding-top: 10px">
+          <button class="btnprevio" mat-button matStepperPrevious type="button">Atrás</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+   
+  </form>
+ 
+</mat-card>
+</div>

@@ -13,6 +13,10 @@ import { Not403Component } from './configuracion/not403/not403.component';
 
 import {SocketIoModule, SocketIoConfig} from 'ngx-socket-io';
 import { environment } from 'src/environments/environment';
+import { MisrendicionesComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/misrendiciones/misrendiciones.component';
+import { InsertareditarrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/insertareditarrendicion/insertareditarrendicion.component';
+import { RevisionmovilidadesComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/revisionmovilidades/revisionmovilidades.component';
+import { SeguimientorendicionesComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/seguimientorendiciones/seguimientorendiciones.component';
 
 const config: SocketIoConfig = { url: environment.UrlApi, options: {} };
 
@@ -22,7 +26,11 @@ const config: SocketIoConfig = { url: environment.UrlApi, options: {} };
     LayoutComponent,
     HomeComponent,
     Not404Component,
-    Not403Component
+    Not403Component,
+    MisrendicionesComponent,
+    InsertareditarrendicionComponent,
+    RevisionmovilidadesComponent,
+    SeguimientorendicionesComponent
   ],
   imports: [
     MaterialModule,

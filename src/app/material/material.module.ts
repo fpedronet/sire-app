@@ -33,10 +33,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatListModule} from '@angular/material/list';
 import {MatTabsModule} from '@angular/material/tabs';
-import {NgApexchartsModule} from 'ng-apexcharts';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTreeModule} from '@angular/material/tree';
-import {WebcamModule} from 'ngx-webcam';
 import {NgxPrintModule} from 'ngx-print' ;
 
 
@@ -77,10 +75,8 @@ import {NgxPrintModule} from 'ngx-print' ;
     MatStepperModule,
     MatListModule,
     MatTabsModule,
-    NgApexchartsModule,
     MatExpansionModule,
     MatTreeModule,
-    WebcamModule,
     NgxPrintModule,
   ],
   providers: [
