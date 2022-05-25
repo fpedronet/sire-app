@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -11,7 +12,10 @@ import { SpinnerService } from 'src/app/page/component/spinner/spinner.service';
 import { Permiso } from 'src/app/_model/permiso';
 import { RendicionM, RendicionRequest } from 'src/app/_model/rendiciones/rendicionM';
 import { ConfigPermisoService } from 'src/app/_service/configpermiso.service';
+import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { RendicionService } from 'src/app/_service/rendicion.service';
+import { environment } from 'src/environments/environment';
+import { FrendicionComponent } from '../frendicion/frendicion.component';
 
 @Component({
   selector: 'app-misrendiciones',
@@ -25,6 +29,8 @@ export class MisrendicionesComponent implements OnInit {
   loading = true;
   existRegistro = false;
   countRegistro = 0;
+
+  idPantalla: number = 1;
 
   request = new RendicionRequest();
 
@@ -42,34 +48,41 @@ export class MisrendicionesComponent implements OnInit {
     private spinner: SpinnerService,    
     private notifierService : NotifierService,
     private rendicionService : RendicionService,
+    private usuarioService : UsuarioService,
     private configPermisoService : ConfigPermisoService,
   ) { }
 
   ngOnInit(): void {
     this.obtenerpermiso();
 
-    /*let filtro = this.usuarioService.sessionFiltro();
+    this.obtieneFiltros();
 
-    if(filtro!=null){   
-      this.predonante.Nombres! = filtro[0];
-      this.predonante.Idecampania! = parseInt(filtro[1]);
-      this.predonante.IdeOrigen! = parseInt(filtro[2]);
-      this.predonante.IdeEstado! = parseInt(filtro[3]);
-      this.predonante.FechaDesde! = new Date(filtro[4]);
-      this.predonante.FechaHasta! = new Date(filtro[5]);
-    }else{
-
-      this.predonante.Nombres! = "";
-      this.predonante.Idecampania! = 0;
-      this.predonante.IdeOrigen! = 0;
-      this.predonante.IdeEstado! = 1;
-      this.predonante.FechaDesde! = new Date();
-      this.predonante.FechaHasta! = new Date();
-    }    
-
-    localStorage.setItem(environment.CODIGO_FILTRO, this.predonante.Nombres +"|"+ this.predonante.Idecampania+"|"+this.predonante.IdeOrigen+"|"+this.predonante.IdeEstado+"|"+this.predonante.FechaDesde+"|"+this.predonante.FechaHasta);
+    //localStorage.setItem(environment.CODIGO_FILTRO, this.predonante.Nombres +"|"+ this.predonante.Idecampania+"|"+this.predonante.IdeOrigen+"|"+this.predonante.IdeEstado+"|"+this.predonante.FechaDesde+"|"+this.predonante.FechaHasta);
 
     // this.startTimer();*/
+  }
+
+  obtieneFiltros(){
+    let filtro = this.usuarioService.sessionFiltro();
+
+    if(filtro!=null){   
+      this.request.Codigo! = filtro[0];
+      var strEstados = filtro![1].split(',');
+      this.request.LstEstados = [];
+      strEstados.forEach(e => {
+        this.request.LstEstados?.push(parseInt(e))
+      });
+      this.request.Tipo! = filtro[2];
+      this.request.FechaIni! = new Date(filtro[3]);
+      this.request.FechaFin! = new Date(filtro[4]);
+    }else{
+      this.request.Codigo! = "";
+      this.request.LstEstados! = [0, 1, 1, 1, 0, 0, 0];
+      this.request.Tipo! = "";
+      this.request.FechaIni! = new Date();
+      this.request.FechaIni.setMonth(this.request.FechaIni!.getMonth() - 6);
+      this.request.FechaFin! = new Date();
+    }
   }
 
   actualizar(){
@@ -80,20 +93,20 @@ export class MisrendicionesComponent implements OnInit {
     this.rendicionService = new RendicionService(this.http);
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
+    this.obtieneFiltros();
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
           this.loading = true;
-          //let filtro = this.usuarioService.sessionFiltro();
           
           return this.rendicionService!.listar(
-            '',
-            1,
-            new Array(1,1,1,1,1,1,1),
-            new Date(),
-            new Date(),
-            '',
+            this.request.Codigo!,
+            this.idPantalla,
+            this.request.LstEstados!,
+            this.request.FechaIni!,
+            this.request.FechaFin!,
+            this.request.Tipo,
             this.paginator.pageIndex,
             this.paginator.pageSize
           ).pipe(catchError(() => observableOf(null)));
@@ -119,7 +132,7 @@ export class MisrendicionesComponent implements OnInit {
   }
 
   abrirBusqueda(){
-    /*const dialogRef =this.dialog.open(MfaspiranteComponent, {
+    const dialogRef =this.dialog.open(FrendicionComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
       width: '850px',
@@ -133,7 +146,7 @@ export class MisrendicionesComponent implements OnInit {
         this.paginator.pageSize = 5
         this.ngAfterViewInit();
         }
-    })*/
+    })
   }
 
   

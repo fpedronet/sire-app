@@ -15,7 +15,7 @@ export class RendicionService {
 
   private url: string = `${environment.UrlApi}/rendicion`;
 
-  listar(codigo: string, idPantalla: number, lstEstados: number[], fechaIni: Date, fechaFin: Date, tipo: string, page: number,pages: number) {
+  listar(codigo: string, idPantalla: number, lstEstados: number[], fechaIni?: Date, fechaFin?: Date, tipo?: string, page?: number,pages?: number) {
     //debugger;
     let req = new RendicionRequest()
     req.Codigo = codigo;
@@ -24,7 +24,7 @@ export class RendicionService {
     req.FechaIni= fechaIni;
     req.FechaFin = fechaFin;
     req.Tipo = tipo;
-    req.Page = page+1;
+    req.Page = page!+1;
     req.Pages = pages;
    
     let urls = `${this.url}/GetAllRendicionM`;

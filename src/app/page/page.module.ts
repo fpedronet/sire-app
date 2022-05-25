@@ -17,6 +17,7 @@ import { MisrendicionesComponent } from './Administracion/ReportesAdministrativo
 import { InsertareditarrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/insertareditarrendicion/insertareditarrendicion.component';
 import { RevisionmovilidadesComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/revisionmovilidades/revisionmovilidades.component';
 import { SeguimientorendicionesComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/seguimientorendiciones/seguimientorendiciones.component';
+import { FrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/frendicion/frendicion.component';
 
 const config: SocketIoConfig = { url: environment.UrlApi, options: {} };
 
@@ -30,7 +31,8 @@ const config: SocketIoConfig = { url: environment.UrlApi, options: {} };
     MisrendicionesComponent,
     InsertareditarrendicionComponent,
     RevisionmovilidadesComponent,
-    SeguimientorendicionesComponent
+    SeguimientorendicionesComponent,
+    FrendicionComponent
   ],
   imports: [
     MaterialModule,

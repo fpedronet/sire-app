@@ -1,0 +1,37 @@
+[
+    {
+        "nIdEstado":0,
+        "vDescripcion":"ELIMINADO",
+        "visual":false
+    },
+    {
+        "nIdEstado":1,
+        "vDescripcion":"EN CURSO",
+        "visual":true
+    },
+    {
+        "nIdEstado":2,
+        "vDescripcion":"POR APROBAR",
+        "visual":true
+    },
+    {
+        "nIdEstado":3,
+        "vDescripcion":"APROBADO",
+        "visual":true
+    },
+    {
+        "nIdEstado":4,
+        "vDescripcion":"RECHAZADO",
+        "visual":false
+    },
+    {
+        "nIdEstado":5,
+        "vDescripcion":"PROCESADO",
+        "visual":true
+    },
+    {
+        "nIdEstado":6,
+        "vDescripcion":"REVISADO",
+        "visual":true
+    }
+]

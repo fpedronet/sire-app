@@ -1,16 +1,12 @@
 export class Combobox {
     constructor() {
-        this.codTabla = '';
-        this.codigo = '';
+        this.valor = '';
         this.descripcion = '';
-        this.orden = 0;
-        this.codAsocia = '';
-        this.dias = '';
+        this.isChecked = false;
+        this.visual = true;
     }
-    orden?: number;
-    codTabla?: string;
-    codigo?: string;
+    valor?: string;
     descripcion?: string;
-    codAsocia?: string;
-    dias?: string;
+    isChecked?: boolean;
+    visual?: boolean;
 }
