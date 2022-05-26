@@ -4,13 +4,18 @@ import { environment } from 'src/environments/environment';
 
 import { MenuResponse } from '../_model/configuracion/menu';
 import { Permiso } from './../_model/permiso';
+import { UsuarioService } from './configuracion/usuario.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigPermisoService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private usuarioService: UsuarioService
+    ) { }
     
   private url: string = `${environment.UrlApi}/configpermiso`;
   
@@ -25,9 +30,8 @@ export class ConfigPermisoService {
   }
 
   obtenerpermiso(codpantalla: string) {
-    
-    let urls = `${this.url}/GetFirstPermiso?codpantalla=${codpantalla}`;
+    let idempresa = this.usuarioService.sessionUsuario().codigoempresa;
+    let urls = `${this.url}/GetFirstPermiso?idempresa=${idempresa}&codpantalla=${codpantalla}`;
     return this.http.get<Permiso>(urls);
   }
-
 }
