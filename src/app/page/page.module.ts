@@ -13,6 +13,9 @@ import { Not403Component } from './configuracion/not403/not403.component';
 
 import {SocketIoModule, SocketIoConfig} from 'ngx-socket-io';
 import { environment } from 'src/environments/environment';
+import { LrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/lrendicion/lrendicion.component';
+import { CrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crendicion/crendicion.component';
+import { FrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/frendicion/frendicion.component';
 
 const config: SocketIoConfig = { url: environment.UrlApi, options: {} };
 
@@ -22,7 +25,10 @@ const config: SocketIoConfig = { url: environment.UrlApi, options: {} };
     LayoutComponent,
     HomeComponent,
     Not404Component,
-    Not403Component
+    Not403Component,
+    LrendicionComponent,
+    CrendicionComponent,
+    FrendicionComponent
   ],
   imports: [
     MaterialModule,

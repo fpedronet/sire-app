@@ -40,6 +40,16 @@ export class UsuarioService {
     }
   }
 
+  sessionFiltro(){
+    let filtro = localStorage.getItem(environment.CODIGO_FILTRO);
+
+    let result = null;
+    if(filtro!="" && filtro!=null && filtro!=undefined){
+       result = filtro?.split('|');
+    }      
+    return result;
+  }
+
   closeLogin(){
     localStorage.clear();
     this.router.navigate(['']);

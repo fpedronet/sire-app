@@ -5,11 +5,17 @@ import { GuardService } from '../_service/guard.service';
 import { HomeComponent } from './home/home.component';
 
 import { Not403Component } from './configuracion/not403/not403.component';
+import { LrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/lrendicion/lrendicion.component';
+import { CrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crendicion/crendicion.component';
 
 const routes: Routes = [
   {path:'home', component: HomeComponent},
 
   {path: 'not-403', component: Not403Component},
+
+  {path:'rendicion/lrendicion', component: LrendicionComponent},
+
+  {path:'rendicion/lrendicion/edit/:id/:edit', component: CrendicionComponent},
 
   /********* Como ejemplo *******/
   // {path:'donante/donacion', component: LdonacionComponent, canActivate: [GuardService]},
