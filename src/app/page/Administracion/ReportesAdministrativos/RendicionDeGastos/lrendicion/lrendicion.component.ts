@@ -18,11 +18,11 @@ import { environment } from 'src/environments/environment';
 import { FrendicionComponent } from '../frendicion/frendicion.component';
 
 @Component({
-  selector: 'app-misrendiciones',
-  templateUrl: './misrendiciones.component.html',
-  styleUrls: ['./misrendiciones.component.css']
+  selector: 'app-lrendicion',
+  templateUrl: './lrendicion.component.html',
+  styleUrls: ['./lrendicion.component.css']
 })
-export class MisrendicionesComponent implements OnInit {
+export class LrendicionComponent implements OnInit {
 
   dataSource: RendicionM[] = [];
   displayedColumns: string[] = ['codigo', 'lugar', 'motivo', 'ingresos', 'estado','correo', 'tipo', 'accion'];
@@ -119,7 +119,7 @@ export class MisrendicionesComponent implements OnInit {
           if (res === null) {
             return [];
           }
-          debugger;
+          //debugger;
           this.countRegistro = res.pagination.total;
           return res.items;
         }),

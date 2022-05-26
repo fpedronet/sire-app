@@ -35,7 +35,13 @@
       <mat-step>
         <ng-template matStepLabel>Principal</ng-template>        
         <div class="content">
-          <div fxLayout="row wrap" fxLayoutGap="16px grid">    
+          <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">
+              <mat-form-field appearance="outline">
+                  <mat-label>Estado</mat-label>
+                  <input matInput formControlName="estado" required>
+              </mat-form-field>
+            </div>   
               <div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">  
     
                 <div [hidden]="true">
@@ -48,14 +54,7 @@
                     <mat-label>Código</mat-label>
                     <input matInput formControlName="codigo" minlength="1" maxlength="15" required>
                 </mat-form-field>
-              </div>
-
-              <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">
-                <mat-form-field appearance="outline">
-                    <mat-label>Estado</mat-label>
-                    <input matInput formControlName="estado" required>
-                </mat-form-field>
-              </div>
+              </div>              
 
               <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">
                 <mat-form-field appearance="outline">
@@ -71,8 +70,8 @@
                 <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
                   <mat-grid-tile [colspan]="12">
                     <mat-form-field appearance="outline">
-                      <mat-label>Peso (Kg)</mat-label>
-                      <input matInput type="number" class="example-right-align" formControlName="pesoDonacion" placeholder="0.00">
+                      <mat-label>Ingresos</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="ingresos" placeholder="0.00">
                     </mat-form-field>
                   </mat-grid-tile>                
                 </mat-grid-list>
@@ -80,8 +79,26 @@
                 <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
                   <mat-grid-tile [colspan]="12">
                     <mat-form-field appearance="outline">
-                      <mat-label>Talla (m)</mat-label>
-                      <input matInput type="number" class="example-right-align" formControlName="tallaDonacion" placeholder="0.00">
+                      <mat-label>Gastos</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="gastos" placeholder="0.00">
+                    </mat-form-field>
+                  </mat-grid-tile>
+                </mat-grid-list>
+
+                <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+                  <mat-grid-tile [colspan]="12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Balance</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="balance" placeholder="0.00">
+                    </mat-form-field>
+                  </mat-grid-tile>
+                </mat-grid-list>
+
+                <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+                  <mat-grid-tile [colspan]="12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Tipo</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="tipo" placeholder="0.00">
                     </mat-form-field>
                   </mat-grid-tile>
                 </mat-grid-list>

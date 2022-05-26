@@ -5,7 +5,7 @@ import { Combobox } from 'src/app/_model/combobox';
 import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { RendicionService } from 'src/app/_service/rendicion.service';
 import { environment } from 'src/environments/environment';
-import jsonEstado from 'src/assets/json/rendicion.json';
+import jsonEstado from 'src/assets/json/rendicion/renestado.json';
 import { formatDate } from '@angular/common';
 
 @Component({

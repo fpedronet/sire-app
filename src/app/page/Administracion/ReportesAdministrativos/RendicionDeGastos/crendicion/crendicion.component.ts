@@ -13,11 +13,11 @@ import { RendicionService } from 'src/app/_service/rendicion.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-insertareditarrendicion',
-  templateUrl: './insertareditarrendicion.component.html',
-  styleUrls: ['./insertareditarrendicion.component.css']
+  selector: 'app-crendicion',
+  templateUrl: './crendicion.component.html',
+  styleUrls: ['./crendicion.component.css']
 })
-export class InsertareditarrendicionComponent implements OnInit {
+export class CrendicionComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
   permiso: Permiso = {};
