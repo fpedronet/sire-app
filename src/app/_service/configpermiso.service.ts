@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
-import { MenuResponse, OpcionMenuDto } from '../_model/configuracion/menu';
+import { MenuResponse } from '../_model/configuracion/menu';
 import { Permiso } from './../_model/permiso';
 
 @Injectable({
@@ -11,11 +11,14 @@ import { Permiso } from './../_model/permiso';
 export class ConfigPermisoService {
 
   constructor(private http: HttpClient) { }
-
-  listaOpcionesMenu?:OpcionMenuDto[];
     
   private url: string = `${environment.UrlApi}/configpermiso`;
   
+  configmenu(idempresa: string) {
+    let urls = `${this.url}/GetAllConfigMenu?idempresa=${idempresa}`;
+    return this.http.get<MenuResponse>(urls);
+  }
+
   listar(idempresa: string) {
     let urls = `${this.url}/GetAllOpcionMenu?idempresa=${idempresa}`;
     return this.http.get<MenuResponse>(urls);

@@ -1,34 +1,61 @@
-import { Combobox } from "../combobox";
 import { EmpresaPorUsuario } from "./usuario";
 
 export class MenuResponse {
     listaMenu?:MenuDto[];
-    listaOpcionesMenu?:OpcionMenuDto[];
+    listaConfigMenu?:ConfiguracionMenu[];
     listaEmpresa?:EmpresaPorUsuario[];
 }
 
 export class MenuDto {
+    ideUsuario? : string;
     codModulo?: string;
     desModulo?: string;
     codPantalla?:string;
-    pantalla?:string;
+    desPantallaWeb?:string;
+    desSubMenuWeb?:string;
+    desFuncionWeb?:string;
+    ideEmpresa?:string;
+    perfil?:string;
     url?:string;
-    listaSubMenu?:SubMenuDto[]
+    listaSubMenu1?:SubMenu1Dto[]
 }
 
-export class SubMenuDto {
+export class SubMenu1Dto {
+    ideUsuario? : string;
     codModulo?: string;
     desModulo?: string;
     codPantalla?:string;
-    pantalla?:string;
+    desPantallaWeb?:string;
+    desSubMenuWeb?:string;
+    desFuncionWeb?:string;
+    ideEmpresa?:string;
+    perfil?:string;
     url?:string;
-    listaSubMenu?:SubMenuDto[]
+    listaSubMenu2?:SubMenu2Dto[]
 }
 
-export class OpcionMenuDto {
+export class SubMenu2Dto {
+    ideUsuario? : string;
     codModulo?: string;
     desModulo?: string;
     codPantalla?:string;
-    pantalla?:string;
+    desPantallaWeb?:string;
+    desSubMenuWeb?:string;
+    desFuncionWeb?:string;
+    ideEmpresa?:string;
+    perfil?:string;
+    url?:string;
+}
+
+export class ConfiguracionMenu {
+    ideUsuario? : string;
+    codModulo?: string;
+    desModulo?: string;
+    codPantalla?:string;
+    desPantallaWeb?:string;
+    desSubMenuWeb?:string;
+    desFuncionWeb?:string;
+    ideEmpresa?:string;
+    perfil?:string;
     url?:string;
 }

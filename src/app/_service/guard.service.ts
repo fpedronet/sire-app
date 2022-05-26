@@ -3,7 +3,6 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 
-
 import { ConfigPermisoService } from './configpermiso.service';
 import { map } from 'rxjs';
 import { UsuarioService } from './configuracion/usuario.service';
@@ -44,30 +43,19 @@ export class GuardService implements CanActivate {
          this.router.navigate(['/page/home']);
          return false;
       }
-      debugger;
+
       //3) OBTENIENDO EL ID DEL USUARIO PARA TRAER LAS OPCIONES DE MENU Y LOS PERMISO
-      return this.configPermisoService.listar("1").pipe(map(x => {
+      let session = this.usuarioService.sessionUsuario();
+      return this.configPermisoService.configmenu(session.codigoempresa).pipe(map(x => {
         let cont = 0;
-        for (let m of x.listaOpcionesMenu!) {
-
+        for (let m of x.listaConfigMenu!) {
+          m.url = "/page/"+m.url;
           if (url.startsWith(m.url!)) {
-
-            var split1 = url.split('/')[3];
-
-            if(split1=="aspirantelight"){
-              var split2 = m.url!.split('/')[3];
-              if(split1==split2){
-                cont++;
-                break;
-              }
-            }else{
-              cont++;
-              break;
-            }
-
+            cont++;
+            break;
           }
         }
-      
+        
         if (cont > 0) {
           return true;
         } else {
