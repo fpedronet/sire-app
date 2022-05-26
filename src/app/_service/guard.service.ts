@@ -49,7 +49,6 @@ export class GuardService implements CanActivate {
       return this.configPermisoService.configmenu(session.codigoempresa).pipe(map(x => {
         let cont = 0;
         for (let m of x.listaConfigMenu!) {
-          m.url = "/page/"+m.url;
           if (url.startsWith(m.url!)) {
             cont++;
             break;
