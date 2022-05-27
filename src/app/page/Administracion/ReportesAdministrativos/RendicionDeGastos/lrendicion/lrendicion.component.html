@@ -6,7 +6,7 @@
       <button mat-stroked-button class="btnHeader" (click)="abrirBusqueda()">
         <mat-icon class="maticon">filter_alt</mat-icon>
       </button>
-      <button mat-stroked-button class="btnHeader" routerLink="/page/rendicion/lrendicion/edit/0/true">
+      <button mat-stroked-button class="btnHeader" routerLink="/page/administracion/rendicion/create">
         <mat-icon class="maticon">add</mat-icon>
       </button>
     </div>
@@ -32,7 +32,7 @@
             <ng-container matColumnDef="codigo">
               <mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="Código"> 
-                <div style="font-weight:600;color: #7f388a;">{{element.codigo}}</div>     
+                <div style="font-weight:500;color: #898989;">{{element.codigo}}</div>     
               </mat-cell>
             </ng-container>
 

@@ -10,7 +10,7 @@ import { RendicionM } from 'src/app/_model/rendiciones/rendicionM';
 import { ConfigPermisoService } from 'src/app/_service/configpermiso.service';
 import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { RendicionService } from 'src/app/_service/rendicion.service';
-import { environment } from 'src/environments/environment';
+import forms from 'src/assets/json/formulario.json';
 
 @Component({
   selector: 'app-crendicion',
@@ -169,9 +169,9 @@ export class CrendicionComponent implements OnInit {
   }
 
   obtenerpermiso(){
-    /*this.configPermisoService.obtenerpermiso(forms.entrevista.codigo).subscribe(data=>{
+    this.configPermisoService.obtenerpermiso(forms.rendicionGasto.codigo).subscribe(data=>{
       this.permiso = data;
-    });*/
+    }); 
   }
 
   changestepper(stepper: any){

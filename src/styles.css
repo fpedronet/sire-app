@@ -43,8 +43,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .btnHeader{
-  /* background-color: #681575d9; */
-  color: #681575d9;
+  /* background-color: #002b8bc9; */
+  color: #4c60d0;
 }
 
 .btnnext{
@@ -64,7 +64,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .labelSubtittle{
-  color: #681575d9;
+  color: #e77d07;
   font-weight: 500;
   font-size: larger;
 }
@@ -83,7 +83,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .mat-toolbar.cardtitle{
-  background: #681575d9;
+  background: #fb4f00;
   color: white;
   height:4px;
   font-size:17px;
@@ -91,12 +91,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .title-label{
   text-align: center;
-  color: #85153e;
+  color: #075bdd;
   padding-top: 4px;  
 }
 
 .sub-title-label{
-  color: #85153e;
+  color: #075bdd;
   padding-top: 4px;
   font-weight: 500
 }
@@ -143,8 +143,8 @@ form{
   min-width: 60px;
   line-height: 33px;
   border-radius:11px;
-  box-shadow: 0 0.125rem 0.625rem rgb(127 56 138 / 9%), 0 0.0625rem 0.125rem rgb(127 56 138 / 33%);
-  border-color: #7f388a87;
+  box-shadow: 0 0.125rem 0.625rem rgb(61 56 138 / 9%), 0 0.0625rem 0.125rem rgb(56 72 138 / 33%);
+  border-color: #002b8b78;
   margin-left: 7px;
   margin-top:18px;
 }
@@ -154,8 +154,8 @@ form{
   min-width: 60px;
   line-height: 33px;
   border-radius:11px;
-  box-shadow: 0 0.125rem 0.625rem rgb(127 56 138 / 9%), 0 0.0625rem 0.125rem rgb(127 56 138 / 33%);
-  border-color: #7f388a87;
+  box-shadow: 0 0.125rem 0.625rem rgb(61 56 138 / 9%), 0 0.0625rem 0.125rem rgb(56 72 138 / 33%);
+  border-color: #002b8b78;
   margin-top:18px;
 }
 
@@ -197,11 +197,11 @@ form{
 }
 
 .mat-divider{
-  border-top-color:#68157561;
+  border-top-color:#f2292145;
 }
 
 .mat-dialog-title{
-  color: #85153e;
+  color: #4457bf;
 }
 
 .circulo {
@@ -222,7 +222,7 @@ form{
 }
 
 .mat-toolbar.mat-primary{
-  background: linear-gradient(90deg, #da4f14 0%, #f62323 100%);
+  background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%);
   z-index:200;
   position:fixed;
 }
@@ -244,7 +244,7 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
 }
 
@@ -256,13 +256,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
 }
 
@@ -274,13 +274,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
 }
 
@@ -292,13 +292,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: llinear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
 }
 
@@ -390,7 +390,7 @@ form{
     background-repeat:initial;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
   .mat-table .mat-cell.web{
     display: none;
@@ -430,7 +430,7 @@ form{
     background-repeat:initial;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
   .mat-table .mat-cell.web{
     display: none;
@@ -540,7 +540,7 @@ form{
 }
 
 .file-select::before {
-  background-color: #85153e;
+  background-color: #4457bf;
   color: white;
   display: flex;
   justify-content: center;
@@ -562,12 +562,12 @@ form{
 }
 
 .photo-btn{
-  background-color: #85153e;
+  background-color: #4457bf;
   color: white;
   display: flex;
   border-radius: 3px;
   border-style: solid;
-  border-color: #85153e;
+  border-color: #4457bf;
   margin-left: 1px;
   margin-right: 1px;
   align-items: center;

@@ -15,6 +15,7 @@ import { ConfigPermisoService } from 'src/app/_service/configpermiso.service';
 import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { RendicionService } from 'src/app/_service/rendicion.service';
 import forms from 'src/assets/json/formulario.json';
+import { environment } from 'src/environments/environment';
 import { FrendicionComponent } from '../frendicion/frendicion.component';
 
 @Component({
@@ -55,14 +56,6 @@ export class LrendicionComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerpermiso();
 
-    this.obtieneFiltros();
-
-    //localStorage.setItem(environment.CODIGO_FILTRO, this.predonante.Nombres +"|"+ this.predonante.Idecampania+"|"+this.predonante.IdeOrigen+"|"+this.predonante.IdeEstado+"|"+this.predonante.FechaDesde+"|"+this.predonante.FechaHasta);
-
-    // this.startTimer();*/
-  }
-
-  obtieneFiltros(){
     let filtro = this.usuarioService.sessionFiltro();
 
     if(filtro!=null){   
@@ -83,6 +76,9 @@ export class LrendicionComponent implements OnInit {
       this.request.FechaIni.setMonth(this.request.FechaIni!.getMonth() - 6);
       this.request.FechaFin! = new Date();
     }
+
+    // localStorage.setItem(environment.CODIGO_FILTRO, this.predonante.Nombres +"|"+ this.predonante.Idecampania+"|"+this.predonante.IdeOrigen+"|"+this.predonante.IdeEstado+"|"+this.predonante.FechaDesde+"|"+this.predonante.FechaHasta);
+
   }
 
   actualizar(){
@@ -93,7 +89,6 @@ export class LrendicionComponent implements OnInit {
     this.rendicionService = new RendicionService(this.http);
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
-    this.obtieneFiltros();
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
@@ -152,7 +147,7 @@ export class LrendicionComponent implements OnInit {
     })
   }
 
-  routeUrl(id: string, tipo:string){
+  routeUrl(id: string){
     var editar = true;
 
     //PERMISO
@@ -163,5 +158,7 @@ export class LrendicionComponent implements OnInit {
       editar = false;
     else
       return; 
+
+    this.router.navigate(['/page/administracion/rendicion/edit/'+id+"/"+editar]);
   }
 }
