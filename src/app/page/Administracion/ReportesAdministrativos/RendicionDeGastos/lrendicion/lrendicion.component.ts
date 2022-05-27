@@ -14,7 +14,7 @@ import { RendicionM, RendicionRequest } from 'src/app/_model/rendiciones/rendici
 import { ConfigPermisoService } from 'src/app/_service/configpermiso.service';
 import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { RendicionService } from 'src/app/_service/rendicion.service';
-import { environment } from 'src/environments/environment';
+import forms from 'src/assets/json/formulario.json';
 import { FrendicionComponent } from '../frendicion/frendicion.component';
 
 @Component({
@@ -128,7 +128,10 @@ export class LrendicionComponent implements OnInit {
 
   obtenerpermiso(){
     this.spinner.showLoading();
-    /*Pendiente*/
+    this.configPermisoService.obtenerpermiso(forms.rendicionGasto.codigo).subscribe(data=>{
+      this.permiso = data;
+       this.spinner.hideLoading();
+    });   
   }
 
   abrirBusqueda(){
@@ -149,7 +152,6 @@ export class LrendicionComponent implements OnInit {
     })
   }
 
-  
   routeUrl(id: string, tipo:string){
     var editar = true;
 

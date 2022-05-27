@@ -83,10 +83,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .mat-toolbar.cardtitle{
-  /* background: linear-gradient(90deg, #9b1417 0%, #681575 100%); */
   background: #681575d9;
   color: white;
-  /* height:36px; */
   height:4px;
   font-size:17px;
 }
@@ -224,7 +222,7 @@ form{
 }
 
 .mat-toolbar.mat-primary{
-  background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+  background: linear-gradient(90deg, #da4f14 0%, #f62323 100%);
   z-index:200;
   position:fixed;
 }
@@ -246,7 +244,7 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
   }
 }
 
@@ -258,13 +256,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
   }
 }
 
@@ -276,13 +274,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
   }
 }
 
@@ -294,13 +292,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
   }
 }
 
@@ -392,7 +390,7 @@ form{
     background-repeat:initial;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
   }
   .mat-table .mat-cell.web{
     display: none;
@@ -432,7 +430,7 @@ form{
     background-repeat:initial;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #9b1417 0%, #681575 100%);
+    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
   }
   .mat-table .mat-cell.web{
     display: none;
@@ -476,7 +474,7 @@ form{
     background-repeat:initial;
   }
   .mat-toolbar.mat-primary{
-    background: #95081b;
+    background: #dc4d10;
   }
   .mat-table .mat-cell.web{
     display: none;
@@ -520,7 +518,7 @@ form{
   }
 
   .mat-toolbar.mat-primary{
-    background: #95081b;
+    background: #dc4d10;
   }
 
   .mat-table .mat-cell.web{

@@ -29,7 +29,6 @@
     "jsbarcode": "^3.11.5",
     "ng-apexcharts": "^1.7.0",
     "ngx-print": "^1.2.1",
-    "ngx-socket-io": "^4.2.0",
     "ngx-toastr": "^14.2.1",
     "ngx-webcam": "^0.4.1",
     "public-ip": "^5.0.0",

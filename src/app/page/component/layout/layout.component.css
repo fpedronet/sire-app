@@ -22,12 +22,11 @@
 
 
 
-
 /*MENU VERTICAL*/
 .menu-header-bg{
   height: 180px;
   width: 320px;
-  background: linear-gradient(90deg, #9b1417 28%, #681575 100%);
+  background: linear-gradient(90deg, #d1490f 28%, #c90808 100%);
   box-shadow: 0px 1px 10px rgb(192 19 67 / 82%);
   transform: rotate(-15deg);
   border-radius: 10px 10px 10px 50px;
@@ -92,7 +91,8 @@
       white-space: normal;
       text-align:left;
       line-height:36px;
-      padding:2px 60px;
+      /* padding:2px 60px; */
+      padding: 2px 174px;
       color:#1b70c7;
   }
 
@@ -125,12 +125,12 @@
 
   .nav1 > ul > li > a:hover{
     transform: scale(1.1);
-    background: #9b1417;
+    background: #dc100c;
     box-shadow: 0px 0px 10px 0px rgb(0, 0, 0, 0.5);
   }
 
   
-  /*SUB MENU*/
+  /*SUB MENU1*/
   .nav1 ul li ul{
     width: 200px;
     display: flex;
@@ -147,13 +147,36 @@
     transition: all 300ms ease;
   }
 
+    /*SUB MENU2*/
+    .nav1 ul li ul .submenu2{
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      position: absolute;
+      top: 0px;
+      left: 214px;
+      padding: 14x 0px;
+      /* visibility: hidden;
+      opacity: 0; */
+      box-shadow: 0px 0px 10px 0px rgb(0, 0, 0, 0.5);
+      z-index: 10;
+      transition: all 300ms ease;
+    }
+
   .nav1 ul li:hover ul{
     visibility: visible;
     opacity: 1;
     top: 70px;
   }
 
-  .nav1 ul li ul::before{
+  .nav1 ul li:hover ul{
+    visibility: visible;
+    opacity: 1;
+    top: 70px;
+  }
+
+  /* .nav1 ul li ul::before{
     content: '';
     width: 0;
     height: 0;
@@ -163,11 +186,12 @@
     position: absolute;
     top: -14px;
     left: 20px;
-  }
+  } */
+
 
   .nav1 ul li ul li a{
     display: block;
-    color: #681575;
+    color: #dc100c;
     padding: 0px;
     padding-left: 14px;
     margin-top: 4px;
@@ -177,7 +201,7 @@
   }
 
   .nav1 ul li ul li a:hover{
-      background: #9b1417;
+      background: #dc100c;
       color: #fff;
       transform: scale(1.1);
       padding-left: 30px;

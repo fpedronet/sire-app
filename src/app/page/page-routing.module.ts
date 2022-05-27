@@ -13,9 +13,9 @@ const routes: Routes = [
 
   {path: 'not-403', component: Not403Component},
 
-  {path:'rendicion/lrendicion', component: LrendicionComponent},
+  {path:'rendicion/lrendicion', component: LrendicionComponent, canActivate: [GuardService]},
 
-  {path:'rendicion/lrendicion/edit/:id/:edit', component: CrendicionComponent},
+  {path:'rendicion/lrendicion/edit/:id/:edit', component: CrendicionComponent, canActivate: [GuardService]},
 
   /********* Como ejemplo *******/
   // {path:'donante/donacion', component: LdonacionComponent, canActivate: [GuardService]},

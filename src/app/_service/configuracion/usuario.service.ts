@@ -28,12 +28,11 @@ export class UsuarioService {
   sessionUsuario(){
     let helper = new JwtHelperService();
     let token = localStorage.getItem(environment.TOKEN_NAME);
-    // let banco = localStorage.getItem(environment.CODIGO_BANCO);
+    let codigoempresa = localStorage.getItem(environment.CODIGO_EMPRESA);
 
     if (!helper.isTokenExpired(token!)){
-      let decodedToken = helper.decodeToken(token!); 
-      
-      // decodedToken.codigobanco =banco;
+      let decodedToken = helper.decodeToken(token!);       
+          decodedToken.codigoempresa =codigoempresa;
       return decodedToken;
     }else{
       return null;

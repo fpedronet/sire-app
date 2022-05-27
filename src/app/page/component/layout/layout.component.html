@@ -35,8 +35,13 @@
               <a *ngIf="m.url=='/page/home'" (click)="clearLocalStore()" routerLink="{{m.url}}">{{m.desModulo}}</a>
               <a *ngIf="m.url!='/page/home' && m.url!='/page/cerrar'">{{m.desModulo}}</a>
               <ul>
-                <li *ngFor="let s of m.listaSubMenu">
-                  <a (click)="clearLocalStore()" routerLink="{{s.url}}">{{s.pantalla}}</a>
+                <li *ngFor="let s of m.listaSubMenu1">
+                  <a (click)="clearLocalStore()" routerLink="{{s.url}}">{{s.desPantallaWeb}}</a>
+                  <ul class="submenu2">
+                    <li *ngFor="let s1 of s.listaSubMenu2">
+                      <a (click)="clearLocalStore()" routerLink="{{s1.url}}">{{s1.desSubMenuWeb}}</a>                    
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
@@ -88,10 +93,10 @@
                   </a>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <p class="submenu" *ngFor="let s of m.listaSubMenu">
+              <p class="submenu" *ngFor="let s of m.listaSubMenu1">
                 <a style="font-size: 16px;font-weight: 400;color: #696868;" routerLink="{{s.url}}" (click)="clearLocalStore()">
                   <mat-icon>menuopen</mat-icon>
-                  {{s.pantalla}}
+                  {{s.desPantallaWeb}}
                 </a>
               </p>
             </mat-expansion-panel>
