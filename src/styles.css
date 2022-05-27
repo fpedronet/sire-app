@@ -83,7 +83,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .mat-toolbar.cardtitle{
-  background: #e77d07;
+  background: #fb4f00;
   color: white;
   height:4px;
   font-size:17px;
@@ -91,12 +91,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .title-label{
   text-align: center;
-  color: #4457bf;
+  color: #075bdd;
   padding-top: 4px;  
 }
 
 .sub-title-label{
-  color: #4457bf;
+  color: #075bdd;
   padding-top: 4px;
   font-weight: 500
 }
@@ -222,7 +222,7 @@ form{
 }
 
 .mat-toolbar.mat-primary{
-  background: linear-gradient(90deg, #384ecbe6 0%, #3f51b5 100%);
+  background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%);
   z-index:200;
   position:fixed;
 }
@@ -244,7 +244,7 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
 }
 
@@ -256,13 +256,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
 }
 
@@ -274,13 +274,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
 }
 
@@ -292,13 +292,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: llinear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
 }
 
@@ -390,7 +390,7 @@ form{
     background-repeat:initial;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
   .mat-table .mat-cell.web{
     display: none;
@@ -430,7 +430,7 @@ form{
     background-repeat:initial;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14 0%, #f62323 100%)
+    background: linear-gradient(90deg, #0a62e9 0%, #0558d6 100%)
   }
   .mat-table .mat-cell.web{
     display: none;
