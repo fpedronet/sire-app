@@ -153,7 +153,7 @@ export class FrendicionComponent implements OnInit {
     this.fechaFin = new Date();
     this.fechaSelectFin = new Date();
 
-    localStorage.setItem(environment.CODIGO_FILTRO, this.codigo +"|"+ this.idEstados?.toString()+"|"+""+"|"+this.fechaIni+"|"+this.fechaFin);
+    localStorage.setItem(environment.CODIGO_FILTRO, this.codigo +"|"+ this.idEstados?.toString()+"||"+this.fechaIni+"|"+this.fechaFin);
   }
 
   resetEstados(){
@@ -177,7 +177,7 @@ export class FrendicionComponent implements OnInit {
         this.idEstados?.push(0);
     });
 
-    localStorage.setItem(environment.CODIGO_FILTRO, (this.codigo===undefined?'':this.codigo) +"|"+ this.idEstados?.toString()+"|"+""+"|"+this.fechaIni+"|"+this.fechaFin);
+    localStorage.setItem(environment.CODIGO_FILTRO, (this.codigo===undefined?'':this.codigo) +"|"+ this.idEstados?.toString()+"|"+this.idTipo+"|"+this.fechaIni+"|"+this.fechaFin);
 
     this.dialogRef.close();
   }
