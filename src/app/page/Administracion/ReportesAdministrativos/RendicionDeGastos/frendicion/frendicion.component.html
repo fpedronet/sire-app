@@ -8,13 +8,25 @@
       <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 
-    <mat-label>Estado</mat-label>
-    <div *ngFor="let el of listaEstados">
-        <label *ngIf="el.visual">
-            <input type="checkbox" [value]="el.valor" (change)="onCheckboxChange($event)" [(ngModel)]="el.isChecked"/>
-            {{el.descripcion}}
-        </label>
-    </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Tipo</mat-label>
+    <mat-select 
+    [(ngModel)]="idTipo"
+    (selectionChange)="selecttipo($event.value)"
+    >
+      <mat-option value="R">Rendición</mat-option>
+      <mat-option value="M">Movilidad</mat-option>
+      <mat-option value="">Todos</mat-option> 
+    </mat-select>
+  </mat-form-field>
+
+  <mat-label>Estado</mat-label>
+  <div *ngFor="let el of listaEstados">
+      <label *ngIf="el.visual">
+          <input type="checkbox" [value]="el.valor" (change)="onCheckboxChange($event)" [(ngModel)]="el.isChecked"/>
+          {{el.descripcion}}
+      </label>
+  </div>
   
   <mat-form-field appearance="outline">
     <mat-label>Fecha Inicio</mat-label>
@@ -30,18 +42,6 @@
     [(ngModel)]="fechaSelectFin" (dateChange)="onDateChange()" [max]="fechaMax">
     <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
     <mat-datepicker #fechaFin></mat-datepicker>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Tipo</mat-label>
-    <mat-select 
-    [(ngModel)]="idTipo"
-    (selectionChange)="selecttipo($event.value)"
-    >
-      <mat-option value="R">Rendición</mat-option>
-      <mat-option value="M">Movilidad</mat-option>
-      <mat-option value="">Todos</mat-option> 
-    </mat-select>
   </mat-form-field>
 
 </mat-dialog-content>

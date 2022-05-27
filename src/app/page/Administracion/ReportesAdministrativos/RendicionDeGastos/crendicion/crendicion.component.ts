@@ -31,6 +31,8 @@ export class CrendicionComponent implements OnInit {
   $disable: boolean =false;
   currentTab: number = 0;
 
+  existRendicion: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -49,6 +51,8 @@ export class CrendicionComponent implements OnInit {
     this.inicializar();
 
     this.obtenerpermiso();
+
+    this.existRendicion = this.id !== 0
 
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
@@ -70,8 +74,8 @@ export class CrendicionComponent implements OnInit {
       'fechaApruebaRechaza': new FormControl({ value: new Date(), disabled: true}),
       'fechaProcesa': new FormControl({ value: new Date(), disabled: true}),
       'ideUsuProcesa': new FormControl({ value: 0, disabled: true}),
-      //'ideEstado': new FormControl({ value: 1, disabled: false}),
-      //'estado': new FormControl({ value: '', disabled: false}),
+      'ideEstado': new FormControl({ value: -1, disabled: false}),
+      'estado': new FormControl({ value: 'NUEVO', disabled: false}),
       'fechaCreacion': new FormControl({ value: new Date(), disabled: false}),
       'docuGenerado': new FormControl({ value: 0, disabled: true}),
       'fechaAceptado': new FormControl({ value: new Date(), disabled: true}),
@@ -82,6 +86,10 @@ export class CrendicionComponent implements OnInit {
       'fechaRevisado': new FormControl({ value: new Date(), disabled: true}),
       'ideUsuRevisa': new FormControl({ value: 0, disabled: true})
     });
+  }
+
+  getControlLabel(type: string){
+    return this.form.controls[type].value;
   }
 
   obtener(codigo: any){
