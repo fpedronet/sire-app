@@ -12,7 +12,7 @@
     <a mat-button>      
       <img style="width: 41px;" src="{{logo}}"/>
       <span *ngIf="count" > 
-        <mat-form-field style="padding-left:12px;width:260px;font-weight:500">
+        <mat-form-field style="padding-left:14px;width:260px;font-weight:500">
           <mat-select 
           [(ngModel)]="codigo"
           (selectionChange)="selectempresa($event.value)"
@@ -23,7 +23,7 @@
           </mat-select>
         </mat-form-field>
       </span>
-      <span *ngIf="!count" style="padding-left:12px;font-size:13px;font-weight:500">{{empresa}}</span>
+      <span *ngIf="!count" style="padding-left:12px;font-size:15px;font-weight:500">{{empresa}}</span>
     </a>
 
     <span class="example-spacer"></span>
@@ -94,7 +94,7 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <p class="submenu" *ngFor="let s of m.listaSubMenu1">
-                <a style="font-size: 16px;font-weight: 400;color: #696868;" routerLink="{{s.url}}" (click)="clearLocalStore()">
+                <a style="font-size: 16px;font-weight: 400;color: #696868;" (click)="clearLocalStore()">
                   <mat-icon>menuopen</mat-icon>
                   {{s.desPantallaWeb}}
                 </a>
