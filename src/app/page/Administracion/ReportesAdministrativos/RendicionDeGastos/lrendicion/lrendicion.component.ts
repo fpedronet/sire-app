@@ -24,7 +24,7 @@ import { FrendicionComponent } from '../frendicion/frendicion.component';
 export class LrendicionComponent implements OnInit {
 
   dataSource: RendicionM[] = [];
-  displayedColumns: string[] = ['codigo', 'lugar', 'motivo', 'ingresos', 'tipo','correo','estado','accion','mo'];
+  displayedColumns: string[] = ['codigo', 'lugar', 'motivo', 'ingresos', 'tipo','estado','correo','accion','mo'];
   loading = true;
   existRegistro = false;
   countRegistro = 0;
