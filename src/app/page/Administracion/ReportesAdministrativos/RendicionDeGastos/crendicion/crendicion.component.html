@@ -71,7 +71,7 @@
                   <mat-grid-tile [colspan]="12">
                     <mat-form-field appearance="outline">
                       <mat-label>Ingresos</mat-label>
-                      <input #INGRESOS matInput type="number" class="example-right-align" formControlName="montoRecibe" placeholder="0.00">
+                      <input matInput type="number" class="example-right-align" formControlName="montoRecibe" placeholder="0.00">
                     </mat-form-field>
                   </mat-grid-tile>                
                 </mat-grid-list>
@@ -80,7 +80,7 @@
                   <mat-grid-tile [colspan]="12">
                     <mat-form-field appearance="outline">
                       <mat-label>Gastos</mat-label>
-                      <input #GASTOS matInput type="number" class="example-right-align" formControlName="gastos" placeholder="0.00">
+                      <input matInput type="number" class="example-right-align" formControlName="gastos" placeholder="0.00">
                     </mat-form-field>
                   </mat-grid-tile>
                 </mat-grid-list>
@@ -89,7 +89,7 @@
                   <mat-grid-tile [colspan]="12">
                     <mat-form-field appearance="outline">
                       <mat-label>Balance</mat-label>
-                      <input [value]="#INGRESOS - #GASTOS" matInput type="number" class="example-right-align" placeholder="0.00">
+                      <input matInput type="number" class="example-right-align" placeholder="0.00" disabled>
                     </mat-form-field>
                   </mat-grid-tile>
                 </mat-grid-list>
