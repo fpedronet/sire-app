@@ -22,11 +22,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding:5px;
 }
 .edit{
-  color: #1f516f;
+  color: #1b70c7;
   padding:5px;
 }
 .delete{
-  color: #da3f1e;
+  color: #cf3411;
   padding:5px;
 }
 
@@ -83,7 +83,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .mat-toolbar.cardtitle{
-  background: #fb4f00;
+  background: #4c60d0;
   color: white;
   height:4px;
   font-size:17px;
@@ -91,12 +91,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .title-label{
   text-align: center;
-  color: #075bdd;
+  color: #b93a00;
   padding-top: 4px;  
 }
 
 .sub-title-label{
-  color: #075bdd;
+  color: #b93a00;
   padding-top: 4px;
   font-weight: 500
 }
@@ -313,7 +313,7 @@ form{
   }
   
   .mat-row, .mat-footer-row{
-    min-height:39px;
+    min-height:29px;
   }
    /* Enable this to hide header */
   .mat-table .mat-header-cell {
@@ -335,12 +335,12 @@ form{
   .mat-table .mat-row:nth-child(odd) {background: #FFF} */
  
   .mat-table .mat-cell {
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
     display: block;
     /* font-size: 1em; */
     text-align: right;
     /* font-weight: bold; */
-    height: 30px;
+    /* height: 30px; */
     /* margin-bottom: 4%;*/
   }
   .mat-table .mat-cell:before {
@@ -367,6 +367,7 @@ form{
   .mat-cell:last-of-type, .mat-header-cell:last-of-type, .mat-footer-cell:last-of-type{
     padding-right:2px;
   }
+
   .example-button{
     justify-content:initial;
   }
