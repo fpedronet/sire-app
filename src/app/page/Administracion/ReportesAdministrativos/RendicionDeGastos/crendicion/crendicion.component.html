@@ -16,8 +16,8 @@
   <mat-toolbar class="cardtitle"></mat-toolbar>
 
   <h2 *ngIf="id==0" class="title-label">CREAR RENDICIÓN</h2>
-  <h2 *ngIf="id!==0 && !edit" class="title-label">VER ENTREVISTA</h2>
-  <h2 *ngIf="id!==0 && edit" class="title-label">EDITAR ENTREVISTA</h2>
+  <h2 *ngIf="id!==0 && !edit" class="title-label">VER RENDICIÓN</h2>
+  <h2 *ngIf="id!==0 && edit" class="title-label">EDITAR RENDICIÓN</h2>
 
   <mat-divider></mat-divider>
   
@@ -47,14 +47,14 @@
 
                 <mat-form-field appearance="outline">
                     <mat-label>Código</mat-label>
-                    <input matInput formControlName="codigo" minlength="1" maxlength="15" required>
+                    <input matInput formControlName="codigo" minlength="1" maxlength="15">
                 </mat-form-field>
               </div>              
 
               <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">
                 <mat-form-field appearance="outline">
                     <mat-label>Fecha</mat-label>
-                    <input matInput [matDatepicker]="dFechaCreacion" placeholder="dd/mm/yyyy" formControlName="fechaCreacion" required>
+                    <input matInput [matDatepicker]="dFechaCreacion" placeholder="dd/mm/yyyy" formControlName="fechaCreacion" readonly [disabled]="id===0">
                     <mat-datepicker-toggle matSuffix [for]="dFechaCreacion"></mat-datepicker-toggle>
                     <mat-datepicker #dFechaCreacion></mat-datepicker>
                   </mat-form-field>
@@ -75,7 +75,7 @@
                   <mat-grid-tile [colspan]="12">
                     <mat-form-field appearance="outline">
                       <mat-label>Gastos</mat-label>
-                      <input matInput type="number" class="example-right-align" formControlName="gastos" placeholder="0.00">
+                      <input matInput type="number" class="example-right-align" formControlName="gastos" placeholder="0.00" [disabled]="true">
                     </mat-form-field>
                   </mat-grid-tile>
                 </mat-grid-list>
@@ -95,10 +95,10 @@
                       <mat-label>Tipo</mat-label>
                       <mat-select
                         formControlName="tipo"
+                        required
                       >
                         <mat-option value="R">Rendición</mat-option>
                         <mat-option value="M">Movilidad</mat-option>
-                        <mat-option value="">Todos</mat-option> 
                       </mat-select>
                     </mat-form-field>
                   </mat-grid-tile>

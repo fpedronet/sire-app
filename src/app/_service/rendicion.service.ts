@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { dataCollection } from '../_model/dataCollection';
-import { RendicionRequest } from '../_model/rendiciones/rendicionM';
+import { RendicionM, RendicionRequest } from '../_model/rendiciones/rendicionM';
+import { Response } from 'src/app/_model/response';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,17 @@ export class RendicionService {
    
     let urls = `${this.url}/GetAllRendicionM`;
     return this.http.post<dataCollection>(urls,req);
+  }
+
+  obtener(id: number){
+    let urls = `${this.url}/GetFirstRendicion?id=${id}`;
+
+    return this.http.get<RendicionM>(urls);
+  }
+
+  guardar(model: RendicionM){
+    //debugger;
+    let urls = `${this.url}/PostSaveRendicionM`;
+    return this.http.post<Response>(urls, model);
   }
 }

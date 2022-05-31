@@ -1,3 +1,5 @@
+import { RendicionD } from "./rendicionD"
+
 export class RendicionM {
     ideRendicion?: number
     codigo?: string
@@ -7,6 +9,7 @@ export class RendicionM {
     monedaRecibe?: string
     montoRecibe?: number
     ingresos?: number
+    vIngresos?: string
     vFechaPresenta?: string
     vFechaApruebaRechaza?: string
     vFechaProcesa?: string
@@ -23,6 +26,7 @@ export class RendicionM {
     vFechaRevisado?: string
     ideUsuRevisa?: number
     correo?: string
+    lstDetalle?: RendicionD[]
 }
 
 export class RendicionRequest {

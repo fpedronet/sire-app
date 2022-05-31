@@ -95,7 +95,7 @@ export class LrendicionComponent implements OnInit {
             this.request.LstEstados?.push(parseInt(e))
           });
 
-          console.log(filtro);
+          //console.log(filtro);
           return this.rendicionService!.listar(
             filtro![0],
             this.idPantalla,
