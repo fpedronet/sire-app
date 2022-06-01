@@ -5,6 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ConfimService } from 'src/app/page/component/confirm/confim.service';
 import { NotifierService } from 'src/app/page/component/notifier/notifier.service';
 import { SpinnerService } from 'src/app/page/component/spinner/spinner.service';
+import { Combobox } from 'src/app/_model/combobox';
 import { Permiso } from 'src/app/_model/permiso';
 import { RendicionD } from 'src/app/_model/rendiciones/rendicionD';
 import { RendicionM } from 'src/app/_model/rendiciones/rendicionM';
@@ -12,7 +13,9 @@ import { ConfigPermisoService } from 'src/app/_service/configpermiso.service';
 import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { RendicionService } from 'src/app/_service/rendicion.service';
 import forms from 'src/assets/json/formulario.json';
+import jsonEstado from 'src/assets/json/rendicion/renestado.json';
 import { environment } from 'src/environments/environment';
+import { CdetalleComponent } from '../cdetalle/cdetalle.component';
 
 @Component({
   selector: 'app-crendicion',
@@ -23,6 +26,8 @@ export class CrendicionComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
   permiso: Permiso = {};
+
+  listaEstados?: Combobox[] = [];
   
   nombres: string = "";
   documento: string ="";
@@ -34,8 +39,10 @@ export class CrendicionComponent implements OnInit {
   currentTab: number = 0;
 
   existRendicion: boolean = false;
+  existDetalle: boolean = false;
 
-  listaDetalle: RendicionD[] = [];
+  dataSource: RendicionD[] = [];
+  displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'codMoneda', 'vMonto','proveedor','descripcion','comodato','accion'];
 
   constructor(
     private route: ActivatedRoute,
@@ -51,6 +58,8 @@ export class CrendicionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.listarestados();
     
     this.inicializar();
 
@@ -65,6 +74,20 @@ export class CrendicionComponent implements OnInit {
     });
   }
 
+  listarestados(){
+      this.listaEstados = [];
+
+      for(var i in jsonEstado) {
+        let el: Combobox = {};
+  
+        el.valor = jsonEstado[i].nIdEstado;
+        el.descripcion = jsonEstado[i].vDescripcion;
+        el.visual = jsonEstado[i].visual;
+        
+        this.listaEstados.push(el);
+      }    
+  }
+
   inicializar(){
     this.form = new FormGroup({
       'ideRendicion': new FormControl({ value: 0, disabled: false}),
@@ -73,7 +96,7 @@ export class CrendicionComponent implements OnInit {
       'motivo': new FormControl({ value: '', disabled: false}),
       'ideUsuario': new FormControl({ value: 0, disabled: false}),
       'monedaRecibe': new FormControl({ value: '', disabled: true}),
-      'montoRecibe': new FormControl({ value: 0, disabled: false}),
+      'ingresos': new FormControl({ value: 0, disabled: false}),
       'gastos': new FormControl({ value: 0, disabled: false}),
       'fechaPresenta': new FormControl({ value: new Date(), disabled: true}),
       'fechaApruebaRechaza': new FormControl({ value: new Date(), disabled: true}),
@@ -102,19 +125,24 @@ export class CrendicionComponent implements OnInit {
       this.spinner.showLoading();
       this.rendicionService.obtener(this.id).subscribe(data=>{
         if(data!== undefined && data.ideRendicion !== 0){
+          //debugger;
+          this.existRendicion = true;
           this.form.patchValue({
             ideRendicion: data.ideRendicion,
             codigo: data.codigo,
             lugar: data.lugar,
             motivo: data.motivo,
             ideUsuario: data.ideUsuario,
-            montoRecibe: data.montoRecibe,
-            fechaPresenta: data.vFechaPresenta,
+            ingresos: data.ingresos,
+            gastos: data.gastos,
             ideEstado: data.ideEstado,
-            estado: 'a',
-            fechaCreacion: data.vFechaCreacion,
+            estado: this.listaEstados?.find(e => e.valor === data.ideEstado)?.descripcion,
+            fechaCreacion: data.fechaCreacion,
             tipo: data.tipo
           });
+          //debugger;
+          this.dataSource = data.listaDetalle!;
+          this.existDetalle = this.dataSource.length > 0;
         }
         this.spinner.hideLoading();
       });
@@ -159,6 +187,21 @@ export class CrendicionComponent implements OnInit {
 
   limpiar(){
     this.inicializar();
+  }
+
+  abrirDetalle(){
+    const dialogRef =this.dialog.open(CdetalleComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      width: '850px',
+      panelClass: 'full-screen-modal',
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if(res!=""){
+        this.obtener();
+      }
+    })
   }
 
 }

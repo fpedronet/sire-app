@@ -34,6 +34,7 @@ export class RendicionService {
 
   obtener(id: number){
     let urls = `${this.url}/GetFirstRendicion?id=${id}`;
+    //debugger;
 
     return this.http.get<RendicionM>(urls);
   }

@@ -14,6 +14,7 @@ import { Not403Component } from './configuracion/not403/not403.component';
 import { LrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/lrendicion/lrendicion.component';
 import { CrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crendicion/crendicion.component';
 import { FrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/frendicion/frendicion.component';
+import { CdetalleComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/cdetalle/cdetalle.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { FrendicionComponent } from './Administracion/ReportesAdministrativos/Re
     Not403Component,
     LrendicionComponent,
     CrendicionComponent,
-    FrendicionComponent
+    FrendicionComponent,
+    CdetalleComponent
   ],
   imports: [
     MaterialModule,

@@ -45,16 +45,13 @@
               <mat-label>{{getControlLabel('estado')}}</mat-label>
               <div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Código</mat-label>
-                    <input matInput formControlName="codigo" minlength="1" maxlength="15">
-                </mat-form-field>
+                  <mat-label>{{getControlLabel('codigo')}}</mat-label>
               </div>              
 
               <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">
                 <mat-form-field appearance="outline">
                     <mat-label>Fecha</mat-label>
-                    <input matInput [matDatepicker]="dFechaCreacion" placeholder="dd/mm/yyyy" formControlName="fechaCreacion" readonly [disabled]="id===0">
+                    <input matInput [matDatepicker]="dFechaCreacion" placeholder="dd/mm/yyyy" formControlName="fechaCreacion">
                     <mat-datepicker-toggle matSuffix [for]="dFechaCreacion"></mat-datepicker-toggle>
                     <mat-datepicker #dFechaCreacion></mat-datepicker>
                   </mat-form-field>
@@ -66,7 +63,7 @@
                   <mat-grid-tile [colspan]="12">
                     <mat-form-field appearance="outline">
                       <mat-label>Ingresos</mat-label>
-                      <input matInput type="number" class="example-right-align" formControlName="montoRecibe" placeholder="0.00">
+                      <input matInput type="number" class="example-right-align" formControlName="ingresos" placeholder="0.00">
                     </mat-form-field>
                   </mat-grid-tile>                
                 </mat-grid-list>
@@ -124,10 +121,83 @@
       </mat-step>
       <mat-step *ngIf="existRendicion">
         <ng-template matStepLabel>Detalle</ng-template>
-        <div class="content contentTable">          
-
+        <div class="content contentTable">
+            <mat-card class="cardborde">   
+              <mat-toolbar class="cardtitle"></mat-toolbar>
+              <div class="example-button-row">
+                <button mat-stroked-button class="btnHeader" type="button" (click)="abrirDetalle()">
+                  <mat-icon class="maticon">add</mat-icon>
+                </button>
+              </div>
+              <mat-divider></mat-divider>
+              <form>     
+                
+                  <div *ngIf="!existDetalle">
+                    No se encontraron registros.
+                  </div>
           
+                <div *ngIf="existDetalle" class="example-container mat-elevation-z0">
+                  <mat-table [dataSource]="dataSource" matSort>
+                   
+                    <ng-container matColumnDef="concepto">
+                      <mat-header-cell *matHeaderCellDef>Concepto</mat-header-cell>
+                      <mat-cell *matCellDef="let element" data-label="Concepto"> 
+                        <div style="font-weight:500;color: #696868;font-size: 16px;">{{element.codConcepto}}</div>     
+                      </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="vFecha">
+                      <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                      <mat-cell *matCellDef="let element" data-label="Fecha"> {{element.vFecha}} </mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="documento">
+                      <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
+                      <mat-cell *matCellDef="let element" data-label="Documento"> {{element.documento}} </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="codMoneda">
+                      <mat-header-cell *matHeaderCellDef> Moneda </mat-header-cell>
+                      <mat-cell *matCellDef="let element" data-label="Moneda"> {{element.codMoneda}} </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="vMonto">
+                      <mat-header-cell *matHeaderCellDef> Monto </mat-header-cell>
+                      <mat-cell *matCellDef="let element" data-label="Monto"> {{element.vMonto}} </mat-cell>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="proveedor">
+                      <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Proveedor </mat-header-cell>
+                      <mat-cell *matCellDef="let element" data-label="Proveedor"> {{element.proveedor}} </mat-cell>
+                    </ng-container>
+                    
+                    <ng-container matColumnDef="descripcion">
+                      <mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>
+                      <mat-cell *matCellDef="let element" data-label="Descripcion"> {{element.descripcion}} </mat-cell>
+                    </ng-container>
 
+                    <ng-container matColumnDef="comodato">
+                      <mat-header-cell *matHeaderCellDef> Comodato </mat-header-cell>
+                      <mat-cell *matCellDef="let element" data-label="Comodato"> {{element.comodato}} </mat-cell>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="accion">
+                      <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> </mat-header-cell>
+                      <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
+                        <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion, true]">
+                          <mat-icon>edit</mat-icon>
+                        </a>
+                      </mat-cell>
+                    </ng-container>
+                                
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                  
+                  </mat-table>
+                </div>
+          
+              </form>    
+            </mat-card>
         </div>
         <div style="padding-top: 10px">
           <button class="btnprevio" mat-button matStepperPrevious type="button">Atrás</button>
