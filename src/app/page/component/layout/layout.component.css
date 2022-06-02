@@ -66,7 +66,7 @@
 }
 
 .submenu{
-  padding:0 32px 0px;
+  padding:0 23px 0px;
 }
 
 .mat-expansion-panel{
@@ -100,6 +100,7 @@ div {
     transform: scale(1.1);
     background: #da4f14;
     font-size: 70%;
+    cursor: pointer;
     box-shadow: 0px 0px 10px 0px rgb(0, 0, 0, 0.5);
   }
   .menu .nav1 ul li ul{
@@ -126,6 +127,12 @@ div {
   .menu .nav1 ul li:hover > ul{
     display: block;
 
+  }
+
+  .menuvertical{
+    font-size: 13px;
+    font-weight: 400;
+    color: #464242;
   }
 
 
