@@ -126,7 +126,7 @@ export class CrendicionComponent implements OnInit {
       this.spinner.showLoading();
       this.rendicionService.obtener(this.id).subscribe(data=>{
         if(data!== undefined && data.ideRendicion !== 0){
-          //debugger;
+          debugger;
           this.existRendicion = true;
           this.form.patchValue({
             ideRendicion: data.ideRendicion,
@@ -192,13 +192,14 @@ export class CrendicionComponent implements OnInit {
     this.inicializar();
   }
 
-  abrirDetalle(){
+  abrirDetalle(ideRendicionDet: number = 0){
     const dialogRef =this.dialog.open(CdetalleComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
       width: '850px',
       panelClass: 'full-screen-modal',
       data: {
+        id: ideRendicionDet,
         idMaster: this.id
       }
     });

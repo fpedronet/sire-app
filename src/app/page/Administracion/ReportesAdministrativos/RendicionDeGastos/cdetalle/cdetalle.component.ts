@@ -21,7 +21,11 @@ export class CdetalleComponent implements OnInit {
     private rendicionService : RendicionService,
     private usuarioService: UsuarioService,
 
-  ) { this.idMaster = this.data.idMaster; }
+  )
+  {
+    this.idMaster = this.data.idMaster;
+    this.id = this.data.id;
+  }
 
   form: FormGroup = new FormGroup({});
   loading = true;
@@ -54,7 +58,7 @@ export class CdetalleComponent implements OnInit {
 
   inicializar(){
     this.form = new FormGroup({
-      'ideRendicionDet': new FormControl({ value: 0, disabled: false}),
+      'ideRendicionDet': new FormControl({ value: this.id, disabled: false}),
       'ideRendicion': new FormControl({ value: this.idMaster, disabled: false}),
       'fecha': new FormControl({ value: new Date(), disabled: false}),
       'comodato': new FormControl({ value: '', disabled: false}),
