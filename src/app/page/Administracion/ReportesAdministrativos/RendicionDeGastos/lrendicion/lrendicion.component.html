@@ -68,7 +68,7 @@
             <ng-container matColumnDef="correo">
               <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="Correo"> 
-                <mat-icon *ngIf="element.correo!='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
+                <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
               </mat-cell>
             </ng-container>
 

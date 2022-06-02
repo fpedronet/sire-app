@@ -5,12 +5,17 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ConfimService } from 'src/app/page/component/confirm/confim.service';
 import { NotifierService } from 'src/app/page/component/notifier/notifier.service';
 import { SpinnerService } from 'src/app/page/component/spinner/spinner.service';
+import { Combobox } from 'src/app/_model/combobox';
 import { Permiso } from 'src/app/_model/permiso';
+import { RendicionD } from 'src/app/_model/rendiciones/rendicionD';
 import { RendicionM } from 'src/app/_model/rendiciones/rendicionM';
 import { ConfigPermisoService } from 'src/app/_service/configpermiso.service';
 import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { RendicionService } from 'src/app/_service/rendicion.service';
 import forms from 'src/assets/json/formulario.json';
+import jsonEstado from 'src/assets/json/rendicion/renestado.json';
+import { environment } from 'src/environments/environment';
+import { CdetalleComponent } from '../cdetalle/cdetalle.component';
 
 @Component({
   selector: 'app-crendicion',
@@ -21,6 +26,8 @@ export class CrendicionComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
   permiso: Permiso = {};
+
+  listaEstados?: Combobox[] = [];
   
   nombres: string = "";
   documento: string ="";
@@ -32,6 +39,10 @@ export class CrendicionComponent implements OnInit {
   currentTab: number = 0;
 
   existRendicion: boolean = false;
+  existDetalle: boolean = false;
+
+  dataSource: RendicionD[] = [];
+  displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'codMoneda', 'vMonto','proveedor','descripcion','comodato','accion'];
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +58,8 @@ export class CrendicionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.listarestados();
     
     this.inicializar();
 
@@ -57,8 +70,22 @@ export class CrendicionComponent implements OnInit {
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
       this.edit =(data["edit"]==undefined) ? true : (data["edit"]=='true')? true : false;
-      this.obtener(0);
+      this.obtener();
     });
+  }
+
+  listarestados(){
+      this.listaEstados = [];
+
+      for(var i in jsonEstado) {
+        let el: Combobox = {};
+  
+        el.valor = jsonEstado[i].nIdEstado;
+        el.descripcion = jsonEstado[i].vDescripcion;
+        el.visual = jsonEstado[i].visual;
+        
+        this.listaEstados.push(el);
+      }    
   }
 
   inicializar(){
@@ -67,10 +94,11 @@ export class CrendicionComponent implements OnInit {
       'codigo': new FormControl({ value: '', disabled: false}),
       'lugar': new FormControl({ value: '', disabled: false}),
       'motivo': new FormControl({ value: '', disabled: false}),
+      'ideUsuario': new FormControl({ value: 0, disabled: false}),
       'monedaRecibe': new FormControl({ value: '', disabled: true}),
-      'montoRecibe': new FormControl({ value: 0, disabled: false}),
+      'ingresos': new FormControl({ value: 0, disabled: false}),
       'gastos': new FormControl({ value: 0, disabled: false}),
-      'fechaPresenta': new FormControl({ value: new Date(), disabled: false}),
+      'fechaPresenta': new FormControl({ value: new Date(), disabled: true}),
       'fechaApruebaRechaza': new FormControl({ value: new Date(), disabled: true}),
       'fechaProcesa': new FormControl({ value: new Date(), disabled: true}),
       'ideUsuProcesa': new FormControl({ value: 0, disabled: true}),
@@ -82,7 +110,7 @@ export class CrendicionComponent implements OnInit {
       'ideUsuApruebaRechaza': new FormControl({ value: 0, disabled: true}),
       'obsAprobador': new FormControl({ value: '', disabled: true}),
       'obsRevisor': new FormControl({ value: '', disabled: true}),
-      'tipo': new FormControl({ value: '', disabled: false}),
+      'tipo': new FormControl({ value: 'M', disabled: false}),
       'fechaRevisado': new FormControl({ value: new Date(), disabled: true}),
       'ideUsuRevisa': new FormControl({ value: 0, disabled: true})
     });
@@ -92,80 +120,33 @@ export class CrendicionComponent implements OnInit {
     return this.form.controls[type].value;
   }
 
-  obtener(codigo: any){
-    //this.spinner.showLoading();
-
-    if(codigo!=0){
-    }else{
+  obtener(){
+    if(this.id > 0){
+      this.spinner.showLoading();
+      this.rendicionService.obtener(this.id).subscribe(data=>{
+        if(data!== undefined && data.ideRendicion !== 0){
+          //debugger;
+          this.existRendicion = true;
+          this.form.patchValue({
+            ideRendicion: data.ideRendicion,
+            codigo: data.codigo,
+            lugar: data.lugar,
+            motivo: data.motivo,
+            ideUsuario: data.ideUsuario,
+            ingresos: data.ingresos,
+            gastos: data.gastos,
+            ideEstado: data.ideEstado,
+            estado: this.listaEstados?.find(e => e.valor === data.ideEstado)?.descripcion,
+            fechaCreacion: data.fechaCreacion,
+            tipo: data.tipo
+          });
+          //debugger;
+          this.dataSource = data.listaDetalle!;
+          this.existDetalle = this.dataSource.length > 0;
+        }
+        this.spinner.hideLoading();
+      });
     }
-
-    /*this.entrevistaService.obtener(ids,cod,codigobanco).subscribe(data=>{
-
-      this.listaTipoExtraccion = data.listaTipoExtraccion;
-      this.listaLesionesPuncion = data.listaLesionesPuncion;
-      this.listaGrupoSanguineo = data.listaGrupoSanguineo;
-      this.listaAspectoVenoso = data.listaAspectoVenoso;
-      this.listaPregunta = data.listaPregunta;
-      this.listaMotivoRechazo2 = data.listaMotivoRechazo;
-
-      if(ids!=0 || cod!=0){
-
-        this.form = new FormGroup({
-          'idePreDonante': new FormControl({ value: data.idePreDonante, disabled: false}),
-          'idePersona': new FormControl({ value: data.idePersona, disabled: false}),
-          'codigo': new FormControl({ value: data.codigo, disabled: this.$disable}),
-          'pesoDonacion': new FormControl({ value: data.pesoDonacion, disabled: true}),
-          'hemoglobina': new FormControl({ value: data.hemoglobina, disabled: true}),
-          'nIdTipoProceso': new FormControl({ value: data.nIdTipoProceso, disabled: !this.edit}),
-          'tallaDonacion': new FormControl({ value: data.tallaDonacion, disabled: true}),
-          'hematocrito': new FormControl({ value: data.hematocrito, disabled: true}),
-          'tipoExtraccion': new FormControl({ value: data.tipoExtraccion, disabled: true}),
-          'ideGrupo': new FormControl({ value: data.ideGrupo, disabled: true}),
-          'estadoVenoso': new FormControl({ value: data.estadoVenoso, disabled: true}),
-          'lesionesVenas': new FormControl({ value: data.lesionesVenas, disabled: true}),
-          'fechaMed': new FormControl({ value: new Date(), disabled: !this.edit}),
-          'observacionesMed': new FormControl({ value: data.observacionesMed, disabled: !this.edit}),
-        });
-      
-        this.Codigo = data.codigo;
-        this.CodEstado = (data.codEstado!=null)? data.codEstado!.toString()! : "0";
-        this.nombres = data.nombres!;
-        this.documento = data.documento!;
-
-        if(this.CodEstado=="1"){
-          this.btnaceptado= true;
-          this.btnrechazado= false;
-        }else if (this.CodEstado=="2"){
-          this.btnaceptado= false;
-          this.btnrechazado= true;
-        }else{
-          this.btnaceptado= false;
-          this.btnrechazado= false;
-        }
-
-        if(!this.edit){
-          this.motivoRec.disable();
-        }else{
-          this.motivoRec.enable();
-        }
-
-        this.ideMotivoRec = (this.btnrechazado==false)? 0: data.ideMotivoRec!;
-
-        if(this.ideMotivoRec!=0 && this.ideMotivoRec!=null){
-          var distFind = this.listaMotivoRechazo2!.find(e => e.codigo === this.ideMotivoRec.toString());
-          let setMotivo: Combobox = distFind!;
-         
-          this.motivoRec.setValue(setMotivo);
-        }
-
-        if(data.idePreDonante==0 || data.idePreDonante==null){
-          this.notifierService.showNotification(environment.ALERT,'Mensaje','El código al que hace referencia no existe');
-        }
-
-      }
-
-      this.spinner.hideLoading();
-    });      */
   }
 
   obtenerpermiso(){
@@ -179,28 +160,48 @@ export class CrendicionComponent implements OnInit {
   }
 
   guardar(){
-    let id = this.form.value['idePreDonante'];
-    let submit = true;
-    let $estado = this.CodEstado;
-
-    if(submit){
       let model = new RendicionM();
      
+      model.ideUsuario = this.form.value['ideUsuario'];
       model.ideRendicion = this.form.value['ideRendicion'];
       model.lugar = this.form.value['lugar'];
       model.motivo = this.form.value['motivo'];
       model.montoRecibe = this.form.value['montoRecibe'];
       model.tipo = this.form.value['tipo'];
   
-      this.$guardar(model);
+      this.spinner.showLoading();
+      //debugger;
+      this.rendicionService.guardar(model).subscribe(data=>{
+  
+        this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+  
+          if(data.typeResponse==environment.EXITO){
+            this.existRendicion = true;
+            this.currentTab = 1; //Segunda pestaña            
+            this.spinner.hideLoading();
+          }else{
+            this.spinner.hideLoading();
+          }
+        });
     }
-  }
-
-  $guardar(model: RendicionM){
-  }
 
   limpiar(){
     this.inicializar();
+  }
+
+  abrirDetalle(){
+    const dialogRef =this.dialog.open(CdetalleComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      width: '850px',
+      panelClass: 'full-screen-modal',
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if(res!=""){
+        this.obtener();
+      }
+    })
   }
 
 }
