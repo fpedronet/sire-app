@@ -29,6 +29,12 @@
     <span class="example-spacer"></span>
 
     <div fxShow="true" fxHide.lt-md="true" class="menu">
+      
+      <!-- <nav>
+        <ul>
+
+        </ul>
+      </nav> -->
       <nav class="nav1">
         <ul>
             <li *ngFor="let m of menus.listaMenu">
@@ -47,6 +53,7 @@
             </li>
         </ul>
       </nav>
+      
     </div>
 
     <a id="closemenu" style="cursor: pointer;" (click)="closeLogin()">
