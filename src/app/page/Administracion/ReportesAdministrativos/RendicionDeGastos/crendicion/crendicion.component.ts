@@ -42,7 +42,7 @@ export class CrendicionComponent implements OnInit {
   existDetalle: boolean = false;
 
   dataSource: RendicionD[] = [];
-  displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'codMoneda', 'vMonto','proveedor','descripcion','comodato','accion'];
+  displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'codMoneda', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'accion', 'mo'];
 
   constructor(
     private route: ActivatedRoute,

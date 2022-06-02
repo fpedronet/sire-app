@@ -183,9 +183,20 @@
                     <ng-container matColumnDef="accion">
                       <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> </mat-header-cell>
                       <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
-                        <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion, true]">
+                        <a class="pointer edit" matTooltip="Editar" (click)="abrirDetalle()">
                           <mat-icon>edit</mat-icon>
                         </a>
+                      </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="mo">
+                      <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Mobil</mat-header-cell>
+                      <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">        
+                        <div style="margin-left:auto;">
+                          <a class="pointer edit" matTooltip="Editar" (click)="abrirDetalle()">
+                            <mat-icon>edit</mat-icon>
+                          </a>
+                        </div>
                       </mat-cell>
                     </ng-container>
                                 

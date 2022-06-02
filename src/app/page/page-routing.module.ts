@@ -15,7 +15,7 @@ const routes: Routes = [
 
   {path:'administracion/rendicion', component: LrendicionComponent, canActivate: [GuardService]},
   {path:'administracion/rendicion/create', component: CrendicionComponent, canActivate: [GuardService]},
-  {path:'administracion/rendicion/edit/:id/:edit', component: CrendicionComponent, canActivate: [GuardService]},
+  {path:'administracion/rendicion/edit/:id', component: CrendicionComponent, canActivate: [GuardService]},
 
   /********* Como ejemplo *******/
   // {path:'donante/donacion', component: LdonacionComponent, canActivate: [GuardService]},

@@ -2,15 +2,15 @@
 <h2 *ngIf="id!==0" mat-dialog-title>EDITAR GASTO</h2>
 
 <mat-dialog-content class="modal">
-
+    <form onkeydown="return event.key != 'Enter';" class="forms" id="ngForm" [formGroup]="form" #frmGrupo="ngForm" (ngSubmit)="guardar()">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-        <div [hidden]="true">
-          <mat-form-field appearance="outline">
-              <input matInput placeholder="Id" formControlName="ideRendicionDet">
-              <input matInput placeholder="IdPadre" formControlName="ideRendicion">
-          </mat-form-field>
-      </div>
-
+      
+      <div [hidden]="true">
+        <mat-form-field appearance="outline">
+            <input matInput placeholder="Id" formControlName="ideRendicionDet">
+            <input matInput placeholder="IdPadre" formControlName="ideRendicion">
+        </mat-form-field>
+    </div>
           <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">
             <mat-form-field appearance="outline">
                 <mat-label>Fecha</mat-label>
@@ -115,7 +115,7 @@
             </mat-grid-list>
           </div>
           </div>
-
+        </form>
 
 </mat-dialog-content>
 
