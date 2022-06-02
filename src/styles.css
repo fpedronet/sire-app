@@ -83,7 +83,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .mat-toolbar.cardtitle{
-  background: #4c60d0;
+  background: #b93a00;
   color: white;
   height:4px;
   font-size:17px;
@@ -210,6 +210,49 @@ form{
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+.circulotitle {
+  width: 26px;
+  height: 26px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.encurso{
+  font-size:12px; 
+  line-height: 27px; 
+  background: rgb(143, 148, 148); 
+  display: inline-block;
+  margin:-7px;
+  margin-left:7px
+}
+
+.poraprobar{
+  font-size:12px; 
+  line-height: 27px; 
+  background: rgb(0 0 255); 
+  display: inline-block;
+  margin:-7px;
+  margin-left:7px
+}
+
+.aprobado{
+  font-size:12px; 
+  line-height: 27px; 
+  background: rgb(0, 219, 39); 
+  display: inline-block;
+  margin:-7px;
+  margin-left:7px
+}
+
+.rechazado{
+  font-size:12px; 
+  line-height: 27px; 
+  background: rgb(255, 0, 0); 
+  display: inline-block;
+  margin:-7px;
+  margin-left:7px
 }
 
 

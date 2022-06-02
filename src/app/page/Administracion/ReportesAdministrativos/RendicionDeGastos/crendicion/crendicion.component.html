@@ -22,8 +22,14 @@
   
   <div id="content"> 
       <div style="width: 100%; float:left;margin-bottom: -17px;"> 
-        <div style="text-align: center; color: #1a0da4; font-weight: 500;padding-top: 11px;">{{nombres}}</div> 
-        <div style="text-align: center; color: #1a0da4; font-weight:600">{{documento}}</div> 
+        <div style="text-align: center; color: #1a0da4; font-weight: 500;padding-top: 11px;">
+          ESTADO {{estado}}
+          <div *ngIf="estado=='EN CURSO'" class="circulotitle encurso"></div>
+          <div *ngIf="estado=='POR APROBAR'" class="circulotitle poraprobar"></div>
+          <div *ngIf="estado=='APROBADO'" class="circulotitle aprobado"></div>
+          <div *ngIf="estado=='RECHAZADO'" class="circulotitle rechazado"></div>
+        </div> 
+        <div style="text-align: center; color: #1a0da4; font-weight:600;">CODIGO: {{documento}}</div> 
       </div> 
   </div>
 
@@ -40,24 +46,62 @@
                   <input matInput placeholder="Id" formControlName="ideRendicion">
                   <input matInput placeholder="IdEstado" formControlName="ideEstado">
               </mat-form-field>
-          </div>
+            </div>
+
+            <div style="display: none;">
               <mat-label>{{getControlLabel('estado')}}</mat-label>
-              <div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">
-
+              <div>
                   <mat-label>{{getControlLabel('codigo')}}</mat-label>
-              </div>              
+              </div>  
+            </div>            
 
-              <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">
-                <mat-form-field appearance="outline">
+            <div div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%">
+              <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+                <mat-grid-tile [colspan]="12">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Lugar</mat-label>
+                    <input matInput formControlName="lugar" required>
+                  </mat-form-field>
+                </mat-grid-tile>
+              </mat-grid-list>
+
+              <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+                <mat-grid-tile [colspan]="12">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Motivo</mat-label>
+                    <input matInput formControlName="motivo" required>
+                  </mat-form-field>
+                </mat-grid-tile>
+              </mat-grid-list>
+
+              <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+                <mat-grid-tile [colspan]="12">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select
+                      formControlName="tipo"
+                      required
+                    >
+                      <mat-option value="R">Rendición</mat-option>
+                      <mat-option value="M">Movilidad</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </mat-grid-tile>
+              </mat-grid-list>
+
+              <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">              
+                <mat-grid-tile [colspan]="12">
+                  <mat-form-field appearance="outline">
                     <mat-label>Fecha</mat-label>
                     <input matInput [matDatepicker]="dFechaCreacion" placeholder="dd/mm/yyyy" formControlName="fechaCreacion">
                     <mat-datepicker-toggle matSuffix [for]="dFechaCreacion"></mat-datepicker-toggle>
                     <mat-datepicker #dFechaCreacion></mat-datepicker>
                   </mat-form-field>
-              </div>
-              
+                </mat-grid-tile>
+              </mat-grid-list>
+            </div>              
 
-              <div fxFlex="40%" fxFlex.xs="100%" fxFlex.sm="100%">
+            <div div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%">
                 <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
                   <mat-grid-tile [colspan]="12">
                     <mat-form-field appearance="outline">
@@ -83,97 +127,30 @@
                       <input matInput type="number" class="example-right-align" placeholder="0.00" disabled>
                     </mat-form-field>
                   </mat-grid-tile>
-                </mat-grid-list>
-
-                <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
-                  <mat-grid-tile [colspan]="12">
-                    <mat-form-field appearance="outline">
-                      <mat-label>Tipo</mat-label>
-                      <mat-select
-                        formControlName="tipo"
-                        required
-                      >
-                        <mat-option value="R">Rendición</mat-option>
-                        <mat-option value="M">Movilidad</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </mat-grid-tile>
-                </mat-grid-list>
-              </div>
-
-                <mat-form-field appearance="outline">
-                  <mat-label>Lugar</mat-label>
-                  <input matInput formControlName="lugar" required>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                  <mat-label>Motivo</mat-label>
-                  <input matInput formControlName="motivo" required>
-              </mat-form-field>
-              </div>
-
-              
-
+                </mat-grid-list>              
+            </div>
           </div>
+         </div>
         <div *ngIf="id!==0" style="padding-top: 10px">
           <button class="btnnext" mat-button matStepperNext type="button">Siguiente</button>
         </div>
       </mat-step>
+
       <mat-step *ngIf="existRendicion">
         <ng-template matStepLabel>Detalle</ng-template>
         <div class="content contentTable">
-            <mat-card class="cardborde">   
-              <mat-toolbar class="cardtitle"></mat-toolbar>
+          <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div div fxFlex="45%" fxFlex.xs="45%" fxFlex.sm="100%">
+
+            </div>
+            <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">  
               <div class="example-button-row">
                 <button mat-stroked-button class="btnHeader" type="button" (click)="abrirDetalle()">
                   <mat-icon class="maticon">add</mat-icon>
-                </button>
-              </div>
-              <mat-divider></mat-divider>
-              <form>     
-                
-                  <div *ngIf="!existDetalle">
-                    No se encontraron registros.
-                  </div>
-          
-                <div *ngIf="existDetalle" class="example-container mat-elevation-z0">
-                  <mat-table [dataSource]="dataSource" matSort>
-                   
-                    <ng-container matColumnDef="concepto">
-                      <mat-header-cell *matHeaderCellDef>Concepto</mat-header-cell>
-                      <mat-cell *matCellDef="let element" data-label="Concepto"> 
-                        <div style="font-weight:500;color: #696868;font-size: 16px;">{{element.codConcepto}}</div>     
-                      </mat-cell>
-                    </ng-container>
-        
-                    <ng-container matColumnDef="vFecha">
-                      <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
-                      <mat-cell *matCellDef="let element" data-label="Fecha"> {{element.vFecha}} </mat-cell>
-                    </ng-container>
-                  
-                    <ng-container matColumnDef="documento">
-                      <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
-                      <mat-cell *matCellDef="let element" data-label="Documento"> {{element.documento}} </mat-cell>
-                    </ng-container>
-        
-                    <ng-container matColumnDef="codMoneda">
-                      <mat-header-cell *matHeaderCellDef> Moneda </mat-header-cell>
-                      <mat-cell *matCellDef="let element" data-label="Moneda"> {{element.codMoneda}} </mat-cell>
-                    </ng-container>
-        
-                    <ng-container matColumnDef="vMonto">
-                      <mat-header-cell *matHeaderCellDef> Monto </mat-header-cell>
-                      <mat-cell *matCellDef="let element" data-label="Monto"> {{element.vMonto}} </mat-cell>
-                    </ng-container>
-                    
-                    <ng-container matColumnDef="proveedor">
-                      <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Proveedor </mat-header-cell>
-                      <mat-cell *matCellDef="let element" data-label="Proveedor"> {{element.proveedor}} </mat-cell>
-                    </ng-container>
-                    
-                    <ng-container matColumnDef="descripcion">
-                      <mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>
-                      <mat-cell *matCellDef="let element" data-label="Descripcion"> {{element.descripcion}} </mat-cell>
-                    </ng-container>
+                </button>  
+              </div>        
+            </div>
+          </div>
 
                     <ng-container matColumnDef="comodato">
                       <mat-header-cell *matHeaderCellDef> Comodato </mat-header-cell>
@@ -208,8 +185,72 @@
           
               </form>    
             </mat-card>
+          <div *ngIf="!existDetalle">
+            No se encontraron registros.
+          </div>
+    
+          <div *ngIf="existDetalle" class="example-container mat-elevation-z0">
+            <mat-table [dataSource]="dataSource" matSort>
+              
+              <ng-container matColumnDef="concepto">
+                <mat-header-cell *matHeaderCellDef>Concepto</mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Concepto"> 
+                  <div style="font-weight:500;color: #696868;font-size: 16px;">{{element.codConcepto}}</div>     
+                </mat-cell>
+              </ng-container>
+  
+              <ng-container matColumnDef="vFecha">
+                <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Fecha"> {{element.vFecha}} </mat-cell>
+              </ng-container>
+            
+              <ng-container matColumnDef="documento">
+                <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Documento"> {{element.documento}} </mat-cell>
+              </ng-container>
+  
+              <ng-container matColumnDef="codMoneda">
+                <mat-header-cell *matHeaderCellDef> Moneda </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Moneda"> {{element.codMoneda}} </mat-cell>
+              </ng-container>
+  
+              <ng-container matColumnDef="vMonto">
+                <mat-header-cell *matHeaderCellDef> Monto </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Monto"> {{element.vMonto}} </mat-cell>
+              </ng-container>
+              
+              <ng-container matColumnDef="proveedor">
+                <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Proveedor </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Proveedor"> {{element.proveedor}} </mat-cell>
+              </ng-container>
+              
+              <ng-container matColumnDef="descripcion">
+                <mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Descripcion"> {{element.descripcion}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="comodato">
+                <mat-header-cell *matHeaderCellDef> Comodato </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Comodato"> {{element.comodato}} </mat-cell>
+              </ng-container>
+  
+              <ng-container matColumnDef="accion">
+                <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> </mat-header-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
+                  <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion, true]">
+                    <mat-icon>edit</mat-icon>
+                  </a>
+                </mat-cell>
+              </ng-container>
+                          
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            
+            </mat-table>
+          </div>
         </div>
         <div style="padding-top: 10px">
+          
           <button class="btnprevio" mat-button matStepperPrevious type="button">Atrás</button>
         </div>
       </mat-step>

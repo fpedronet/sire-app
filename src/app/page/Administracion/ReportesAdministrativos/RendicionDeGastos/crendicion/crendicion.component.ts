@@ -29,8 +29,9 @@ export class CrendicionComponent implements OnInit {
 
   listaEstados?: Combobox[] = [];
   
-  nombres: string = "";
+  estado: string = "";
   documento: string ="";
+
   CodEstado: string = "0";
   Codigo?: number;
   id: number = 0;
@@ -141,6 +142,8 @@ export class CrendicionComponent implements OnInit {
             tipo: data.tipo
           });
           //debugger;
+          this.estado = this.listaEstados?.find(e => e.valor === data.ideEstado)?.descripcion!;
+          this.documento= data.codigo!;
           this.dataSource = data.listaDetalle!;
           this.existDetalle = this.dataSource.length > 0;
         }

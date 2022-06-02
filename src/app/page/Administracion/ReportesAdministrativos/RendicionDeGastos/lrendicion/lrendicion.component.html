@@ -77,6 +77,12 @@
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
                 <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion]">
                   <mat-icon>edit</mat-icon>
+                <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion, true]">
+                  <!-- <mat-icon>edit</mat-icon> -->
+                  <div *ngIf="element.estado=='EN CURSO'" class="circulo encurso"></div>
+                  <div *ngIf="element.estado=='POR APROBAR'" class="circulo poraprobar"></div>
+                  <div *ngIf="element.estado=='APROBADO'" class="circulo aprobado"></div>
+                  <div *ngIf="element.estado=='RECHAZADO'" class="circulo rechazado"></div>
                 </a>
               </mat-cell>
             </ng-container>   
@@ -84,10 +90,16 @@
             <ng-container matColumnDef="mo">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Mobil</mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
-                <div class="responsive-estado">{{element.estado}}</div>                
+                <div class="responsive-estado" style="font-weight:600;color: #696868;">{{element.estado}}</div>     
                 <div style="margin-left:auto;">
                   <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion]">
                     <mat-icon>edit</mat-icon>
+                  <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion, true]">
+                    <!-- <mat-icon>edit</mat-icon> -->
+                    <div *ngIf="element.estado=='EN CURSO'" class="circulo encurso"></div>
+                    <div *ngIf="element.estado=='POR APROBAR'" class="circulo poraprobar"></div>
+                    <div *ngIf="element.estado=='APROBADO'" class="circulo aprobado"></div>
+                    <div *ngIf="element.estado=='RECHAZADO'" class="circulo rechazado"></div>
                   </a>
                 </div>
               </mat-cell>
