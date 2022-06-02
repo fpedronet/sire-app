@@ -135,7 +135,7 @@ export class LrendicionComponent implements OnInit {
       maxWidth: '100vw',
       maxHeight: '100vh',
       width: '850px',
-      panelClass: 'full-screen-modal',
+      panelClass: 'full-screen-modal'
     });
 
     dialogRef.afterClosed().subscribe(res => {

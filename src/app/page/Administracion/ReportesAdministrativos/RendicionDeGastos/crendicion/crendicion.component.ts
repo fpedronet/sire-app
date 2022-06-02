@@ -195,6 +195,9 @@ export class CrendicionComponent implements OnInit {
       maxHeight: '100vh',
       width: '850px',
       panelClass: 'full-screen-modal',
+      data: {
+        idMaster: this.id
+      }
     });
 
     dialogRef.afterClosed().subscribe(res => {
