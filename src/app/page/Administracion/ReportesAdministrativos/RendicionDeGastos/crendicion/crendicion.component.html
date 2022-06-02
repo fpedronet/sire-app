@@ -34,7 +34,6 @@
   </div>
 
   <br style="clear:both;"/>
-
   <form onkeydown="return event.key != 'Enter';" class="forms" id="ngForm" [formGroup]="form" #frmGrupo="ngForm" (ngSubmit)="guardar()">
     <mat-stepper #stepper id="stepper" [selectedIndex]="currentTab" (click)="changestepper(stepper)" labelPosition="bottom">
       <mat-step>
