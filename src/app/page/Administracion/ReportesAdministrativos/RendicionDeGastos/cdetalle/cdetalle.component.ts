@@ -21,7 +21,11 @@ export class CdetalleComponent implements OnInit {
     private rendicionService : RendicionService,
     private usuarioService: UsuarioService,
 
-  ) { this.idMaster = this.data.idMaster; }
+  )
+  {
+    this.idMaster = this.data.idMaster;
+    this.id = this.data.id;
+  }
 
   form: FormGroup = new FormGroup({});
   loading = true;
@@ -54,20 +58,20 @@ export class CdetalleComponent implements OnInit {
 
   inicializar(){
     this.form = new FormGroup({
-      'ideRendicionDet': new FormControl({ value: 0, disabled: false}),
+      'ideRendicionDet': new FormControl({ value: this.id, disabled: false}),
       'ideRendicion': new FormControl({ value: this.idMaster, disabled: false}),
-      'fecha': new FormControl({ value: new Date(), disabled: true}),
-      'comodato': new FormControl({ value: '', disabled: true}),
-      'ideSede': new FormControl({ value: 0, disabled: true}),
-      'codLinea': new FormControl({ value: '', disabled: true}),
-      'codConcepto': new FormControl({ value: '', disabled: true}),
-      'tipDocu': new FormControl({ value: '', disabled: true}),
-      'documento': new FormControl({ value: '', disabled: true}),
-      'codMoneda': new FormControl({ value: '', disabled: true}),
-      'monto': new FormControl({ value: 0, disabled: true}),
-      'descripcion': new FormControl({ value: '', disabled: true}),
-      'rucPrv': new FormControl({ value: '', disabled: true}),
-      'proveedor': new FormControl({ value: '', disabled: true}),
+      'fecha': new FormControl({ value: new Date(), disabled: false}),
+      'comodato': new FormControl({ value: '', disabled: false}),
+      'ideSede': new FormControl({ value: 0, disabled: false}),
+      'codLinea': new FormControl({ value: '', disabled: false}),
+      'codConcepto': new FormControl({ value: '', disabled: false}),
+      'tipDocu': new FormControl({ value: '', disabled: false}),
+      'documento': new FormControl({ value: '', disabled: false}),
+      'codMoneda': new FormControl({ value: '', disabled: false}),
+      'monto': new FormControl({ value: 0, disabled: false}),
+      'descripcion': new FormControl({ value: '', disabled: false}),
+      'rucPrv': new FormControl({ value: '', disabled: false}),
+      'proveedor': new FormControl({ value: '', disabled: false}),
     });
   }
 

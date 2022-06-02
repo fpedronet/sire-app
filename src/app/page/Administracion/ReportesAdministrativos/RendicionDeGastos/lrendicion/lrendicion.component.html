@@ -75,7 +75,7 @@
             <ng-container matColumnDef="accion">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> </mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
-                <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion, true]">
+                <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion]">
                   <!-- <mat-icon>edit</mat-icon> -->
                   <div *ngIf="element.estado=='EN CURSO'" class="circulo encurso"></div>
                   <div *ngIf="element.estado=='POR APROBAR'" class="circulo poraprobar"></div>
@@ -90,7 +90,7 @@
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
                 <div class="responsive-estado" style="font-weight:600;color: #696868;">{{element.estado}}</div>     
                 <div style="margin-left:auto;">
-                  <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion, true]">
+                  <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion]">
                     <!-- <mat-icon>edit</mat-icon> -->
                     <div *ngIf="element.estado=='EN CURSO'" class="circulo encurso"></div>
                     <div *ngIf="element.estado=='POR APROBAR'" class="circulo poraprobar"></div>
