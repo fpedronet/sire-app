@@ -1,8 +1,8 @@
-<h2 *ngIf="id==0" mat-dialog-title>CREAR GASTO</h2>
-<h2 *ngIf="id!==0" mat-dialog-title>EDITAR GASTO</h2>
+<h2 *ngIf="rendDet!.ideRendicionDet==0" mat-dialog-title>CREAR GASTO</h2>
+<h2 *ngIf="rendDet!.ideRendicionDet!==0" mat-dialog-title>EDITAR GASTO</h2>
 
 <mat-dialog-content class="modal">
-  <form onkeydown="return event.key != 'Enter';" class="forms" id="ngForm" [formGroup]="form" #frmGrupo="ngForm" (ngSubmit)="guardar()">
+  <form onkeydown="return event.key != 'Enter';" class="forms" id="ngForm" [formGroup]="form" #frmGrupo="ngForm">
       <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
       

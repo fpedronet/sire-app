@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SpinnerService } from 'src/app/page/component/spinner/spinner.service';
 import { Combobox } from 'src/app/_model/combobox';
+import { RendicionD } from 'src/app/_model/rendiciones/rendicionD';
 import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { RendicionService } from 'src/app/_service/rendicion.service';
 import { environment } from 'src/environments/environment';
@@ -23,8 +24,8 @@ export class CdetalleComponent implements OnInit {
 
   )
   {
-    this.idMaster = this.data.idMaster;
-    this.id = this.data.id;
+    if(this.data.detalle !== undefined)
+      this.rendDet = this.data.detalle;
   }
 
   form: FormGroup = new FormGroup({});
@@ -47,8 +48,7 @@ export class CdetalleComponent implements OnInit {
 
   fechaMax?: Date;
 
-  idMaster?: number = 0;
-  id?: number = 0;
+  rendDet?: RendicionD = new RendicionD();
 
   ngOnInit(): void {
     this.fechaMax = new Date();
@@ -58,15 +58,15 @@ export class CdetalleComponent implements OnInit {
 
   inicializar(){
     this.form = new FormGroup({
-      'ideRendicionDet': new FormControl({ value: this.id, disabled: false}),
-      'ideRendicion': new FormControl({ value: this.idMaster, disabled: false}),
-      'fecha': new FormControl({ value: new Date(), disabled: false}),
+      'ideRendicionDet': new FormControl({ value: this.rendDet?.ideRendicionDet, disabled: false}),
+      'ideRendicion': new FormControl({ value: this.rendDet?.ideRendicion, disabled: false}),
+      'fecha': new FormControl({ value: this.rendDet?.fecha, disabled: false}),
       'comodato': new FormControl({ value: '', disabled: false}),
       'ideSede': new FormControl({ value: 0, disabled: false}),
       'codLinea': new FormControl({ value: '', disabled: false}),
       'codConcepto': new FormControl({ value: '', disabled: false}),
       'tipDocu': new FormControl({ value: '', disabled: false}),
-      'documento': new FormControl({ value: '', disabled: false}),
+      'documento': new FormControl({ value: this.rendDet?.documento, disabled: false}),
       'codMoneda': new FormControl({ value: '', disabled: false}),
       'monto': new FormControl({ value: 0, disabled: false}),
       'descripcion': new FormControl({ value: '', disabled: false}),
@@ -107,7 +107,7 @@ export class CdetalleComponent implements OnInit {
   }
 
   guardar(){
-
+    
     this.dialogRef.close();
   }
 }
