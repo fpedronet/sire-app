@@ -1,1 +1,126 @@
-<p>cdetalle works!</p>
+<h2 *ngIf="id==0" mat-dialog-title>CREAR GASTO</h2>
+<h2 *ngIf="id!==0" mat-dialog-title>EDITAR GASTO</h2>
+
+<mat-dialog-content class="modal">
+
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div [hidden]="true">
+          <mat-form-field appearance="outline">
+              <input matInput placeholder="Id" formControlName="ideRendicionDet">
+              <input matInput placeholder="IdPadre" formControlName="ideRendicion">
+          </mat-form-field>
+      </div>
+
+          <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha</mat-label>
+                <input matInput [matDatepicker]="dFecha" placeholder="dd/mm/yyyy" formControlName="fecha">
+                <mat-datepicker-toggle matSuffix [for]="dFecha"></mat-datepicker-toggle>
+                <mat-datepicker #dFecha></mat-datepicker>
+              </mat-form-field>
+          </div>          
+
+          <div fxFlex="40%" fxFlex.xs="100%" fxFlex.sm="100%">
+            <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+              <mat-grid-tile [colspan]="12">
+                <mat-form-field>
+                    <mat-select placeholder="Concepto" formControlName="codConcepto" required>
+                        <mat-option *ngFor="let el of tbConcepto" [value]="el.valor">
+                        {{el.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-select placeholder="Tipo Doc" formControlName="tipDocu" required>
+                        <mat-option *ngFor="let el of tbTipoDocu" [value]="el.valor">
+                        {{el.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>                
+            </mat-grid-list>
+
+            <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+              <mat-grid-tile [colspan]="12">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nro Docu</mat-label>
+                    <input matInput formControlName="documento" required>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-select placeholder="Moneda" formControlName="codMoneda" required>
+                        <mat-option *ngFor="let el of tbMoneda" [value]="el.valor">
+                        {{el.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+            </mat-grid-list>
+
+            <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+              <mat-grid-tile [colspan]="12">
+                <mat-form-field appearance="outline">
+                    <mat-label>Monto</mat-label>
+                    <input matInput type="number" class="example-right-align" formControlName="monto" placeholder="0.00">
+                  </mat-form-field>
+              </mat-grid-tile>
+            </mat-grid-list>
+
+            <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+                <mat-grid-tile [colspan]="12">
+                  <mat-form-field appearance="outline">
+                      <mat-label>Descripción</mat-label>
+                      <input matInput formControlName="descripcion" required>
+                  </mat-form-field>                  
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="12">
+                <mat-form-field appearance="outline">
+                    <mat-label>Ruc</mat-label>
+                    <input matInput formControlName="rucPrv" required>
+                </mat-form-field>                  
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="12">
+                <mat-form-field appearance="outline">
+                    <mat-label>Proveedor</mat-label>
+                    <input matInput formControlName="proveedor" required>
+                </mat-form-field>                  
+            </mat-grid-tile>
+            </mat-grid-list>
+
+            <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+              <mat-grid-tile [colspan]="12">
+                <mat-form-field>
+                    <mat-select placeholder="Comodato" formControlName="comodato" required>
+                        <mat-option *ngFor="let el of tbComodato" [value]="el.valor">
+                        {{el.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select placeholder="Sede" formControlName="ideSede" required>
+                        <mat-option *ngFor="let el of tbSede" [value]="el.valor">
+                        {{el.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select placeholder="Linea" formControlName="codLinea" required>
+                        <mat-option *ngFor="let el of tbLinea" [value]="el.valor">
+                        {{el.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </div>
+          </div>
+
+
+</mat-dialog-content>
+
+<div class="btnModal" align="end">
+  <button mat-stroked-button class="btnRed" mat-dialog-close><mat-icon>close</mat-icon>Cerrar</button> 
+  <button mat-stroked-button class="btnYellow"(click)="limpiar()"><mat-icon>cleaning_services</mat-icon>Limpiar</button>
+  <button mat-stroked-button class="btnBlue" (click)="guardar()"><mat-icon>save</mat-icon>Guardar</button>
+</div>
