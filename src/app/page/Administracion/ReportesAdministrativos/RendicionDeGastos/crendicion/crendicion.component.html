@@ -203,7 +203,7 @@
               <ng-container matColumnDef="accion">
                 <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> </mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
-                  <a class="pointer edit" matTooltip="Editar" (click)="abrirDetalle(element.ideRendicionDet)">
+                  <a class="pointer edit" matTooltip="Editar" (click)="abrirDetalle(element)">
                     <mat-icon>edit</mat-icon>
                   </a>
                 </mat-cell>
@@ -213,7 +213,7 @@
                 <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Mobil</mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
                   <div style="margin-left:auto;">
-                    <a class="pointer edit" matTooltip="Editar" (click)="abrirDetalle(element.ideRendicionDet)">
+                    <a class="pointer edit" matTooltip="Editar" (click)="abrirDetalle(element)">
                       <mat-icon class="maticon">edit</mat-icon>
                     </a>
                   </div>
