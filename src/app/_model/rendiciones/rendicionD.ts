@@ -4,18 +4,19 @@ export class RendicionD {
         this.ideRendicion = 0;
         this.fecha = new Date();
         this.vFecha = '';
-        this.comodato = '';
+        this.comodato = 'CMD';
         this.ideSede = 0;
-        this.codLinea = '';
+        this.nCodLinea = '';
         this.codConcepto = '';
-        this.tipDocu = '';
+        this.nTipDocu = '';
         this.documento = '';
-        this.codMoneda = '';
+        this.codMoneda = '001';
         this.monto = 0;
         this.vMonto = '';
         this.descripcion = '';
         this.rucPrv = '';
         this.proveedor = '';
+        this.swt = 1;
     }
     ideRendicionDet?: number
     ideRendicion?: number
@@ -23,9 +24,9 @@ export class RendicionD {
     vFecha?: string
     comodato?: string
     ideSede?: number
-    codLinea?: string
+    nCodLinea?: string
     codConcepto?: string
-    tipDocu?: string
+    nTipDocu?: string
     documento?: string
     codMoneda?: string
     monto?: number
@@ -33,4 +34,5 @@ export class RendicionD {
     descripcion?: string
     rucPrv?: string
     proveedor?: string
+    swt?: number
 }

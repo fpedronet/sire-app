@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { dataCollection } from '../_model/dataCollection';
 import { RendicionM, RendicionRequest } from '../_model/rendiciones/rendicionM';
 import { Response } from 'src/app/_model/response';
+import { RendicionD } from '../_model/rendiciones/rendicionD';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,6 @@ export class RendicionService {
   private url: string = `${environment.UrlApi}/rendicion`;
 
   listar(codigo: string, idPantalla: number, lstEstados: number[], fechaIni?: Date, fechaFin?: Date, tipo?: string, page?: number,pages?: number) {
-    //debugger;
     let req = new RendicionRequest()
     req.Codigo = codigo;
     req.IdPantalla = idPantalla
@@ -34,14 +34,17 @@ export class RendicionService {
 
   obtener(id: number){
     let urls = `${this.url}/GetFirstRendicion?id=${id}`;
-    //debugger;
 
     return this.http.get<RendicionM>(urls);
   }
 
   guardar(model: RendicionM){
-    //debugger;
     let urls = `${this.url}/PostSaveRendicionM`;
+    return this.http.post<Response>(urls, model);
+  }
+
+  guardarDet(model: RendicionD){
+    let urls = `${this.url}/PostSaveRendicionD`;
     return this.http.post<Response>(urls, model);
   }
 }

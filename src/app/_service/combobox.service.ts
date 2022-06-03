@@ -13,12 +13,11 @@ export class ComboboxService {
 
   constructor(private http: HttpClient) { }
 
-  public cargarDatos(CodigosTabla: string[], IdeUsuario: number, IdeBanco: number = 0){
-    var CodTabla = CodigosTabla.join('|');
-    //debugger;
+  public cargarDatos(etiquetas: string[]){
 
     let href = `${this.url}/GetAllTablaMaestra`;
-    let urls = `${href}?CodTabla=${CodTabla}&IdeUsuario=${IdeUsuario}&IdeBanco=${IdeBanco}`;
+    let urls = `${href}?Etiquetas=${etiquetas.join('|')}`;
+    //debugger;
     return this.http.get<dataCollection>(urls);
   }
   

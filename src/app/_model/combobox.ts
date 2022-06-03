@@ -7,6 +7,7 @@ export class Combobox {
     }
     valor?: string;
     descripcion?: string;
+    etiqueta?: string;
     isChecked?: boolean;
     visual?: boolean;
 }

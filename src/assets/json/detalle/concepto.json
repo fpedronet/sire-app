@@ -1,0 +1,22 @@
+[
+    {
+        "valor": "001",
+        "descripcion": "ALIMENTACIÓN",
+        "visual": true
+    },
+    {
+        "valor": "002",
+        "descripcion": "MOVILIDAD",
+        "visual": true
+    },
+    {
+        "valor": "003",
+        "descripcion": "HOSPEDAJE",
+        "visual": true
+    },
+    {
+        "valor": "004",
+        "descripcion": "OTROS",
+        "visual": true
+    }
+]

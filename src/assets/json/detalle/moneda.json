@@ -1,0 +1,12 @@
+[
+    {
+        "valor": "001",
+        "descripcion": "S/",
+        "visual": true
+    },
+    {
+        "valor": "002",
+        "descripcion": "US$",
+        "visual": true
+    }
+]

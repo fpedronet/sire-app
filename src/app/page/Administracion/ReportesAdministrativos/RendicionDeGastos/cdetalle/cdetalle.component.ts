@@ -4,8 +4,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SpinnerService } from 'src/app/page/component/spinner/spinner.service';
 import { Combobox } from 'src/app/_model/combobox';
 import { RendicionD } from 'src/app/_model/rendiciones/rendicionD';
+import { ComboboxService } from 'src/app/_service/combobox.service';
 import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { RendicionService } from 'src/app/_service/rendicion.service';
+import jsonConcepto from 'src/assets/json/detalle/concepto.json';
+import jsonMoneda from 'src/assets/json/detalle/moneda.json';
+import jsonTipoDocu from 'src/assets/json/detalle/tipoDocu.json';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -14,6 +18,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./cdetalle.component.css']
 })
 export class CdetalleComponent implements OnInit {
+  notifierService: any;
 
   constructor(
     private dialogRef: MatDialogRef<CdetalleComponent>,
@@ -21,9 +26,10 @@ export class CdetalleComponent implements OnInit {
     private spinner : SpinnerService,
     private rendicionService : RendicionService,
     private usuarioService: UsuarioService,
-
+    private comboboxService: ComboboxService,
   )
   {
+    //debugger;
     if(this.data.detalle !== undefined)
       this.rendDet = this.data.detalle;
   }
@@ -33,6 +39,7 @@ export class CdetalleComponent implements OnInit {
 
   codigo? : string;
 
+  tablasMaestras = ['COMODATO', 'SEDE', 'LINEA'];
   tbConcepto: Combobox[] = [];
   tbTipoDocu: Combobox[] = [];
   tbMoneda: Combobox[] = [];
@@ -52,38 +59,67 @@ export class CdetalleComponent implements OnInit {
 
   ngOnInit(): void {
     this.fechaMax = new Date();
-
+    this.listarCombo();
     this.inicializar();
   }
 
   inicializar(){
+    //debugger;
     this.form = new FormGroup({
       'ideRendicionDet': new FormControl({ value: this.rendDet?.ideRendicionDet, disabled: false}),
       'ideRendicion': new FormControl({ value: this.rendDet?.ideRendicion, disabled: false}),
       'fecha': new FormControl({ value: this.rendDet?.fecha, disabled: false}),
-      'comodato': new FormControl({ value: '', disabled: false}),
-      'ideSede': new FormControl({ value: 0, disabled: false}),
-      'codLinea': new FormControl({ value: '', disabled: false}),
-      'codConcepto': new FormControl({ value: '', disabled: false}),
-      'tipDocu': new FormControl({ value: '', disabled: false}),
+      'comodato': new FormControl({ value: this.rendDet?.comodato, disabled: false}),
+      'ideSede': new FormControl({ value: this.rendDet?.ideSede, disabled: false}),
+      'nCodLinea': new FormControl({ value: this.rendDet?.nCodLinea, disabled: false}),
+      'codConcepto': new FormControl({ value: this.rendDet?.codConcepto, disabled: false}),
+      'nTipDocu': new FormControl({ value: this.rendDet?.nTipDocu, disabled: false}),
       'documento': new FormControl({ value: this.rendDet?.documento, disabled: false}),
-      'codMoneda': new FormControl({ value: '', disabled: false}),
-      'monto': new FormControl({ value: 0, disabled: false}),
-      'descripcion': new FormControl({ value: '', disabled: false}),
-      'rucPrv': new FormControl({ value: '', disabled: false}),
-      'proveedor': new FormControl({ value: '', disabled: false}),
+      'codMoneda': new FormControl({ value: this.rendDet?.codMoneda, disabled: false}),
+      'monto': new FormControl({ value: this.rendDet?.monto, disabled: false}),
+      'descripcion': new FormControl({ value: this.rendDet?.descripcion, disabled: false}),
+      'rucPrv': new FormControl({ value: this.rendDet?.rucPrv, disabled: false}),
+      'proveedor': new FormControl({ value: this.rendDet?.proveedor, disabled: false}),
     });
   }
 
-  obtener(){    
+  listarCombo(){
+    this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
+      if(data === undefined){
+        this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
+      }
+      else{
+        var tbCombobox: Combobox[] = data.items;
+        debugger;
+        this.tbComodato = this.obtenerSubtabla(tbCombobox,'COMODATO');
+        this.tbSede = this.obtenerSubtabla(tbCombobox,'SEDE');
+        this.tbLinea = this.obtenerSubtabla(tbCombobox,'LINEA');
+        //debugger;
+        this.tbConcepto = this.completarCombo(jsonConcepto);
+        this.tbMoneda = this.completarCombo(jsonMoneda);
+        this.tbTipoDocu = this.completarCombo(jsonTipoDocu);
+      }
+    });
+  }
 
-    this.spinner.showLoading();
-  
-    let filtro = this.usuarioService.sessionFiltro();
+  completarCombo(json: any){
+    var tbCombo = [];
 
-    
+    for(var i in json) {
+      let el: Combobox = {};
 
-    this.spinner.hideLoading();
+      el.valor = json[i].valor;
+      el.descripcion = json[i].descripcion;
+      el.visual = json[i].visual;
+      
+      tbCombo.push(el);
+    }
+
+    return tbCombo;
+  }
+
+  obtenerSubtabla(tb: Combobox[], cod: string){
+    return tb.filter(e => e.etiqueta?.toString()?.trim() === cod);
   }
 
   onCheckboxChange(e: any) {
@@ -96,17 +132,53 @@ export class CdetalleComponent implements OnInit {
   }
 
   limpiar(){
-    this.codigo = '';
-
-    this.fechaIni = new Date();
-    this.fechaSelectIni = new Date();
-    this.fechaIni.setMonth(this.fechaMax!.getMonth() - 6);
-    this.fechaSelectIni.setMonth(this.fechaMax!.getMonth() - 6);
-    this.fechaFin = new Date();
-    this.fechaSelectFin = new Date();
+    let rendDet: RendicionD = new RendicionD();
+    this.form.patchValue({
+      fecha: rendDet?.fecha,
+      comodato: rendDet?.comodato,
+      ideSede: rendDet?.ideSede,
+      nCodLinea: rendDet?.nCodLinea,
+      codConcepto: rendDet?.codConcepto,
+      nTipDocu: rendDet?.nTipDocu,
+      documento: rendDet?.documento,
+      codMoneda: rendDet?.codMoneda,
+      monto: rendDet?.monto,
+      descripcion: rendDet?.descripcion,
+      rucPrv: rendDet?.rucPrv,
+      proveedor: rendDet?.proveedor
+    })
   }
 
   guardar(){
+    let model = new RendicionD();
+    
+    model.ideRendicionDet = this.form.value['ideRendicionDet'];
+    model.ideRendicion = this.form.value['ideRendicion'];
+    model.fecha = this.form.value['fecha'];
+    model.comodato = this.form.value['comodato'];
+    model.ideSede = this.form.value['ideSede'];
+    model.nCodLinea = this.form.value['nCodLinea'];
+    model.codConcepto = this.form.value['codConcepto'];
+    model.nTipDocu = this.form.value['nTipDocu'];
+    model.documento = this.form.value['documento'];
+    model.codMoneda = this.form.value['codMoneda'];
+    model.monto = this.form.value['monto'];
+    model.descripcion = this.form.value['descripcion'];
+    model.rucPrv = this.form.value['rucPrv'];
+    model.proveedor = this.form.value['proveedor'];
+
+    this.spinner.showLoading();
+
+    this.rendicionService.guardarDet(model).subscribe(data=>{
+
+      this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+
+      if(data.typeResponse==environment.EXITO){      
+        this.spinner.hideLoading();
+      }else{
+        this.spinner.hideLoading();
+      }
+    });
     
     this.dialogRef.close();
   }

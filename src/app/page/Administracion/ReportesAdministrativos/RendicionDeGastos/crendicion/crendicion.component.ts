@@ -145,6 +145,7 @@ export class CrendicionComponent implements OnInit {
           this.estado = this.listaEstados?.find(e => e.valor === data.ideEstado)?.descripcion!;
           this.documento= data.codigo!;
           this.dataSource = data.listaDetalle!;
+          //debugger;
           this.existDetalle = this.dataSource.length > 0;
         }
         this.spinner.hideLoading();
@@ -200,8 +201,7 @@ export class CrendicionComponent implements OnInit {
       width: '850px',
       panelClass: 'full-screen-modal',
       data: {
-        detalle: rendDet,
-        idMaster: this.id
+        detalle: rendDet
       }
     });
 
