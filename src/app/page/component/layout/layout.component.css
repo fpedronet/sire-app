@@ -22,8 +22,8 @@
 .menu-header-bg{
   height: 180px;
   width: 320px;
-  background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%);
-  box-shadow: 4px 0px 10px #f44336;
+  background: linear-gradient(90deg, #da4f14eb 0%, #be3900 100%);
+  box-shadow: 4px 0px 10px #00c243;
   transform: rotate(-15deg);
   border-radius: 10px 10px 10px 50px;
   margin-left: -18px;

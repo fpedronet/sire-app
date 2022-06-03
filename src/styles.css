@@ -13,6 +13,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .btnModal{
   padding-top:13px;
+  width: 101%;
 }
 .pointer{
   cursor: pointer;
@@ -144,7 +145,7 @@ form{
   line-height: 33px;
   border-radius:11px;
   box-shadow: 0 0.125rem 0.625rem rgb(61 56 138 / 9%), 0 0.0625rem 0.125rem rgb(56 72 138 / 33%);
-  border-color: #002b8b78;
+  border-color: #002c8b9f;
   margin-left: 7px;
   margin-top:18px;
 }
@@ -155,7 +156,7 @@ form{
   line-height: 33px;
   border-radius:11px;
   box-shadow: 0 0.125rem 0.625rem rgb(61 56 138 / 9%), 0 0.0625rem 0.125rem rgb(56 72 138 / 33%);
-  border-color: #002b8b78;
+  border-color: #002c8b9f;
   margin-top:18px;
 }
 
