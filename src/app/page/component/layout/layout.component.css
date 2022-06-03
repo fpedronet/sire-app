@@ -91,17 +91,18 @@ div {
   }
   .opcion{
       text-decoration: none;
-      font-size: 70%;
+      font-size: 60%;
       color:#fff;
-      padding: 2px 25px;
+      padding: 2px 40px;
       display: block;
   }
   .opcion:hover{
     transform: scale(1.1);
     background: #da4f14;
-    font-size: 70%;
+    font-size: 60%;
     cursor: pointer;
     box-shadow: 0px 0px 10px 0px rgb(0, 0, 0, 0.5);
+    font-family:sans-serif
   }
   .menu .nav1 ul li ul{
     display: flex;
@@ -109,7 +110,7 @@ div {
   }
   .menu .nav1 ul li ul{
     position: absolute;
-    background: #0659d8;
+    background: #cf4205;
   }
   .menu .nav1 ul li ul li{
     width: 180px;
