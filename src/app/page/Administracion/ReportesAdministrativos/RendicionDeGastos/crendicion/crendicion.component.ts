@@ -42,6 +42,9 @@ export class CrendicionComponent implements OnInit {
   existRendicion: boolean = false;
   existDetalle: boolean = false;
 
+  adjunto: string = '';
+  nombreAdjunto: string = '';
+
   dataSource: RendicionD[] = [];
   displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'codMoneda', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'accion', 'mo'];
 
@@ -113,7 +116,9 @@ export class CrendicionComponent implements OnInit {
       'obsRevisor': new FormControl({ value: '', disabled: true}),
       'tipo': new FormControl({ value: 'M', disabled: false}),
       'fechaRevisado': new FormControl({ value: new Date(), disabled: true}),
-      'ideUsuRevisa': new FormControl({ value: 0, disabled: true})
+      'ideUsuRevisa': new FormControl({ value: 0, disabled: true}),
+      'nombreAdjunto': new FormControl({ value: '', disabled: true})
+      
     });
   }
 
@@ -172,7 +177,9 @@ export class CrendicionComponent implements OnInit {
       model.motivo = this.form.value['motivo'];
       model.montoRecibe = this.form.value['montoRecibe'];
       model.tipo = this.form.value['tipo'];
-  
+      model.adjunto =this.adjunto;
+      model.nombreAdjunto =this.nombreAdjunto;
+
       this.spinner.showLoading();
       //debugger;
       this.rendicionService.guardar(model).subscribe(data=>{
@@ -210,6 +217,19 @@ export class CrendicionComponent implements OnInit {
         this.obtener();
       }
     })
+  }
+
+  subirArchivo(fileInput: any) {
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const imgBase64Path = e.target.result;
+        this.adjunto = imgBase64Path;
+        this.nombreAdjunto = fileInput.target.files[0].name;
+        console.log(this.nombreAdjunto)
+      };
+      reader.readAsDataURL(fileInput.target.files[0]);
+    }
   }
 
 }
