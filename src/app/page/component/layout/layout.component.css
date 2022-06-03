@@ -95,6 +95,7 @@ div {
       color:#fff;
       padding: 2px 40px;
       display: block;
+      font-family:sans-serif
   }
   .opcion:hover{
     transform: scale(1.1);
