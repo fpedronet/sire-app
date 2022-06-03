@@ -42,7 +42,7 @@ export class CrendicionComponent implements OnInit {
   existRendicion: boolean = false;
   existDetalle: boolean = false;
 
-  urlAdjunto: string = '';
+  adjunto: string = '';
   nombreAdjunto: string = '';
 
   dataSource: RendicionD[] = [];
@@ -176,7 +176,7 @@ export class CrendicionComponent implements OnInit {
       model.motivo = this.form.value['motivo'];
       model.montoRecibe = this.form.value['montoRecibe'];
       model.tipo = this.form.value['tipo'];
-      model.urlAdjunto =this.urlAdjunto;
+      model.adjunto =this.adjunto;
       model.nombreAdjunto =this.nombreAdjunto;
 
       this.spinner.showLoading();
@@ -223,19 +223,10 @@ export class CrendicionComponent implements OnInit {
     if (fileInput.target.files && fileInput.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        // const image = new Image();
-        // image.src = e.target.result;
         const imgBase64Path = e.target.result;
-        this.urlAdjunto = imgBase64Path;
+        this.adjunto = imgBase64Path;
         this.nombreAdjunto = fileInput.target.files[0].name;
         console.log(this.nombreAdjunto)
-
-        // image.onload = rs => {
-        //   const imgBase64Path = e.target.result;
-        //   this.urlAdjunto = imgBase64Path;
-        //   this.nombreAdjunto = fileInput.target.files[0].name;
-        //   console.log(this.nombreAdjunto)
-        // };
       };
       reader.readAsDataURL(fileInput.target.files[0]);
     }

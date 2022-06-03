@@ -31,7 +31,7 @@ export class RendicionM {
     ideUsuRevisa?: number
     correo?: string
     nombreAdjunto?: string
-    urlAdjunto?: string
+    adjunto?: string
     listaDetalle?: RendicionD[]
 }
 
