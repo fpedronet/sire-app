@@ -82,7 +82,8 @@ div {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 140px;
+    padding: 12px;
+    margin-right:125px;
   }
   .menu .nav1 ul{
     list-style: none;
