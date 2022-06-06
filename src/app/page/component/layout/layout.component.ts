@@ -41,16 +41,17 @@ export class LayoutComponent implements OnInit {
   }
 
   listar(){
+
     let session = this.usuarioService.sessionUsuario();
 
     if(session!=null){
       this.username= session.nombreConocido.toUpperCase();
-      let empresaselect = session.codigoEmpresa;
+      let empresaselect = session.codigoempresa;
 
       this.spinner.showLoading();
       this.ConfigPermisoService.listar(empresaselect).subscribe(data=>{
         this.menus.listaEmpresa = data.listaEmpresa;
-  
+        
         if(empresaselect!=null){
           this.codigo = empresaselect;
           this.empresa = data.listaEmpresa?.filter(x=>x.codigo==empresaselect)[0].nombreEmpresa

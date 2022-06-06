@@ -9,12 +9,12 @@
 
     <div class="inputGroup inputGroup1">
       <label for="email1">Usuario</label>
-      <input type="text" #usuario name="usuario" formControlName="usuario"  class="email" maxlength="256" required/>
+      <input type="text" #usuario name="usuario" formControlName="usuario"  class="email" maxlength="256" required (keyup.enter)="focus(clave,usuario)"/>
     </div>
    
     <div class="inputGroup inputGroup2">
       <label for="password">Contraseña</label>
-      <input type="password" #clave name="clave" formControlName="clave" class="password" required minlength="8" maxlength="16"/>
+      <input type="password" #clave name="clave" formControlName="clave" class="password" required minlength="8" maxlength="16" (keyup.enter)="focus('',usuario,'btnlogin')"/>
     </div>
 
     <div class="inputGroup inputGroup3">
