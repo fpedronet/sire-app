@@ -24,8 +24,10 @@ export class RendicionD {
     vFecha?: string
     comodato?: string
     ideSede?: number
+    codLinea?: string
     nCodLinea?: string
     codConcepto?: string
+    tipDocu?: string
     nTipDocu?: string
     documento?: string
     codMoneda?: string

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { dataCollection } from '../_model/dataCollection';
-import { RendicionM, RendicionRequest } from '../_model/rendiciones/rendicionM';
+import { EstadoRequest, RendicionM, RendicionRequest } from '../_model/rendiciones/rendicionM';
 import { Response } from 'src/app/_model/response';
 import { RendicionD } from '../_model/rendiciones/rendicionD';
 
@@ -44,7 +44,18 @@ export class RendicionService {
   }
 
   guardarDet(model: RendicionD){
+    //debugger;
     let urls = `${this.url}/PostSaveRendicionD`;
     return this.http.post<Response>(urls, model);
+  }
+
+  cambiarEstado(id: number, est: number, obs: string){
+    let req = new EstadoRequest()
+    req.IdeRendicion = id;
+    req.NuevoEstado = est
+    req.ObsRechazo= obs;
+    
+    let urls = `${this.url}/PostCambiarEstado`;
+    return this.http.post<Response>(urls, req);
   }
 }
