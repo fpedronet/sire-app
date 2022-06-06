@@ -2,36 +2,85 @@
     {
         "nIdEstado":0,
         "vDescripcion":"ELIMINADO",
-        "visual":false
+        "visual":false,
+        "txtCambiarEstado":{"txt1":"","txt2":""},
+        "sgteEstado":{"num1":0,"num2":0},
+        "mostrarPdf":false,
+        "reenviarPdf":false,
+        "eliminar":false,
+        "edicion":false,
+        "class":""
     },
     {
         "nIdEstado":1,
         "vDescripcion":"EN CURSO",
-        "visual":true
+        "visual":true,
+        "txtCambiarEstado":{"txt1":"Enviar a evaluar","txt2":"Enviar a evaluar"},
+        "sgteEstado":{"num1":2,"num2":2},
+        "mostrarPdf":false,
+        "reenviarPdf":false,
+        "eliminar":true,
+        "edicion":true,
+        "class":"encurso"
     },
     {
         "nIdEstado":2,
         "vDescripcion":"POR APROBAR",
-        "visual":true
+        "visual":true,
+        "txtCambiarEstado":{"txt1":"Recuperar","txt2":"Recuperar"},
+        "sgteEstado":{"num1":1,"num2":1},
+        "mostrarPdf":true,
+        "reenviarPdf":true,
+        "eliminar":true,
+        "edicion":false,
+        "class":"poraprobar"
     },
     {
         "nIdEstado":3,
         "vDescripcion":"APROBADO",
-        "visual":true
+        "visual":true,
+        "txtCambiarEstado":{"txt1":"Revisar","txt2":"Procesar"},
+        "sgteEstado":{"num1":6,"num2":5},
+        "mostrarPdf":true,
+        "reenviarPdf":false,
+        "eliminar":false,
+        "edicion":false,
+        "class":"aprobado"
     },
     {
         "nIdEstado":4,
         "vDescripcion":"RECHAZADO",
-        "visual":false
+        "visual":false,
+        "txtCambiarEstado":{"txt1":"","txt2":""},
+        "sgteEstado":{"num1":0,"num2":0},
+        "mostrarPdf":false,
+        "reenviarPdf":false,
+        "eliminar":false,
+        "edicion":false,
+        "class":"rechazado"
     },
     {
         "nIdEstado":5,
         "vDescripcion":"PROCESADO",
-        "visual":true
+        "visual":true,
+        "txtCambiarEstado":{"txt1":"","txt2":""},
+        "sgteEstado":{"num1":0,"num2":0},
+        "mostrarPdf":false,
+        "reenviarPdf":false,
+        "eliminar":false,
+        "edicion":false,
+        "class":""
     },
     {
         "nIdEstado":6,
         "vDescripcion":"REVISADO",
-        "visual":true
+        "visual":true,
+        "txtCambiarEstado":{"txt1":"Procesar","txt2":"Procesar"},
+        "sgteEstado":{"num1":5,"num2":5},
+        "mostrarPdf":false,
+        "reenviarPdf":false,
+        "eliminar":false,
+        "edicion":false,
+        "class":""
     }
 ]

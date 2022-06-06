@@ -48,3 +48,9 @@ export class RendicionRequest {
     Page?: number;
     Pages?:number;
 }
+
+export class EstadoRequest {
+    IdeRendicion?: number
+    NuevoEstado?: number
+    ObsRechazo?: string
+}

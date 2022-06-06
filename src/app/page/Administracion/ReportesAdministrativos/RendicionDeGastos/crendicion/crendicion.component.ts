@@ -32,6 +32,13 @@ export class CrendicionComponent implements OnInit {
   estado: string = "";
   documento: string ="";
 
+  txtEditarR: string = "";
+  txtEditarM: string = "";
+  sgteEstadoR: number = 0;
+  sgteEstadoM: number = 0;
+  delete: boolean = false;
+  claseEstado: string = "";
+
   CodEstado: string = "0";
   Codigo?: number;
   id: number = 0;
@@ -54,7 +61,7 @@ export class CrendicionComponent implements OnInit {
     private dialog: MatDialog,
     private spinner: SpinnerService,
     private notifierService : NotifierService,
-    private confirm : ConfimService,
+    private confirmService : ConfimService,
     private usuarioService: UsuarioService,
     private configPermisoService : ConfigPermisoService,
     private rendicionService: RendicionService
@@ -73,7 +80,6 @@ export class CrendicionComponent implements OnInit {
 
     this.route.params.subscribe((data: Params)=>{
       this.id = (data["id"]==undefined)? 0:data["id"];
-      this.edit =(data["edit"]==undefined) ? true : (data["edit"]=='true')? true : false;
       this.obtener();
     });
   }
@@ -147,7 +153,8 @@ export class CrendicionComponent implements OnInit {
             tipo: data.tipo
           });
           //debugger;
-          this.estado = this.listaEstados?.find(e => e.valor === data.ideEstado)?.descripcion!;
+          this.muestraEstado(data.ideEstado);
+          
           this.documento= data.codigo!;
           this.dataSource = data.listaDetalle!;
           //debugger;
@@ -156,6 +163,66 @@ export class CrendicionComponent implements OnInit {
         this.spinner.hideLoading();
       });
     }
+  }
+
+  muestraEstado(idEstado?: number){
+    this.estado = this.listaEstados?.find(e => e.valor === idEstado)?.descripcion!;
+
+    var objEstado = jsonEstado.find((e: any) => e.nIdEstado === idEstado);
+    if(objEstado !== undefined){
+      this.edit = objEstado.edicion;
+      this.delete = objEstado.eliminar;
+      this.txtEditarR = objEstado.txtCambiarEstado.txt1;
+      this.txtEditarM = objEstado.txtCambiarEstado.txt2;
+      this.sgteEstadoR = objEstado.sgteEstado.num1;
+      this.sgteEstadoM = objEstado.sgteEstado.num2;
+      this.claseEstado = objEstado.class;
+    }    
+  }
+
+  cambiaEstado(sgteEstado: number){
+    this.spinner.showLoading();
+      //debugger;
+    this.rendicionService.cambiarEstado(this.id, sgteEstado, "").subscribe(data=>{
+
+      this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+
+        if(data.typeResponse==environment.EXITO){
+          this.muestraEstado(sgteEstado);         
+          this.spinner.hideLoading();
+          
+        }else{
+          this.spinner.hideLoading();
+        }
+      });    
+  }
+
+  eliminarDetalle(model: RendicionD){
+    this.confirmService.openConfirmDialog(false, "¿Desea eliminar esta rendición? (Esta acción es irreversible)").afterClosed().subscribe(res =>{
+      //Ok
+      if(res){
+        //console.log('Sí');
+        this.spinner.showLoading();
+
+        model.swt = 0;
+
+        this.rendicionService.guardarDet(model).subscribe(data=>{
+          //debugger;
+          this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+
+          if(data.typeResponse==environment.EXITO){      
+            this.spinner.hideLoading();
+          }else{
+            this.spinner.hideLoading();
+          }
+          
+          this.obtener();
+        });
+      }
+      else{
+        //console.log('No');
+      }
+    });
   }
 
   obtenerpermiso(){
@@ -187,8 +254,14 @@ export class CrendicionComponent implements OnInit {
         this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
   
           if(data.typeResponse==environment.EXITO){
-            this.existRendicion = true;
-            this.currentTab = 1; //Segunda pestaña            
+
+            if(this.id === 0){ // Cambia de pestaña y actualiza id en el primer registro
+              this.existRendicion = true;
+              this.currentTab = 1; //Segunda pestaña
+              this.id = data.ide!;
+              this.obtener()
+            }            
+            
             this.spinner.hideLoading();
           }else{
             this.spinner.hideLoading();
@@ -209,7 +282,8 @@ export class CrendicionComponent implements OnInit {
       panelClass: 'full-screen-modal',
       data: {
         detalle: rendDet,
-        idPadre: this.id
+        idPadre: this.id,
+        edit: this.edit
       }
     });
 

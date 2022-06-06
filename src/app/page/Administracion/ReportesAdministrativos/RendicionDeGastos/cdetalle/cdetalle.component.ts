@@ -35,6 +35,8 @@ export class CdetalleComponent implements OnInit {
       this.rendDet = this.data.detalle;
     else
       this.rendDet!.ideRendicion = this.data.idPadre;
+
+    this.edit = this.data.edit;
   }
 
   form: FormGroup = new FormGroup({});
@@ -61,6 +63,7 @@ export class CdetalleComponent implements OnInit {
   fechaMax?: Date;
 
   rendDet?: RendicionD = new RendicionD();
+  edit?: boolean = true;
 
   ngOnInit(): void {
     this.fechaMax = new Date();
