@@ -145,8 +145,8 @@ export class CrendicionComponent implements OnInit {
             lugar: data.lugar,
             motivo: data.motivo,
             ideUsuario: data.ideUsuario,
-            ingresos: data.ingresos,
-            gastos: data.gastos,
+            ingresos: data.ingresos?.toFixed(2),
+            gastos: data.gastos?.toFixed(2),
             ideEstado: data.ideEstado,
             estado: this.listaEstados?.find(e => e.valor === data.ideEstado)?.descripcion,
             fechaCreacion: data.fechaCreacion,
@@ -308,7 +308,8 @@ export class CrendicionComponent implements OnInit {
   }
 
   restarCampos(num1: string, num2: string){
-    return parseInt(num1) - parseInt(num2);
+    let valor = parseFloat(num1) - parseFloat(num2);
+    return valor.toFixed(2);
   }
 
 }

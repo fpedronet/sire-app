@@ -37,7 +37,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTreeModule} from '@angular/material/tree';
 import {NgxPrintModule} from 'ngx-print' ;
 
-
 @NgModule({
   declarations: [],
   imports: [
