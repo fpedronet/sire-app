@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotifierService } from 'src/app/page/component/notifier/notifier.service';
 import { SpinnerService } from 'src/app/page/component/spinner/spinner.service';
 import { Combobox } from 'src/app/_model/combobox';
 import { RendicionD } from 'src/app/_model/rendiciones/rendicionD';
@@ -18,7 +19,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./cdetalle.component.css']
 })
 export class CdetalleComponent implements OnInit {
-  notifierService: any;
 
   constructor(
     private dialogRef: MatDialogRef<CdetalleComponent>,
@@ -27,17 +27,22 @@ export class CdetalleComponent implements OnInit {
     private rendicionService : RendicionService,
     private usuarioService: UsuarioService,
     private comboboxService: ComboboxService,
+    private notifierService : NotifierService,
   )
   {
     //debugger;
     if(this.data.detalle !== undefined)
       this.rendDet = this.data.detalle;
+    else
+      this.rendDet!.ideRendicion = this.data.idPadre;
   }
 
   form: FormGroup = new FormGroup({});
   loading = true;
 
   codigo? : string;
+
+  tipDocuNoDeclaracion: boolean = true;
 
   tablasMaestras = ['COMODATO', 'SEDE', 'LINEA'];
   tbConcepto: Combobox[] = [];
@@ -70,7 +75,7 @@ export class CdetalleComponent implements OnInit {
       'ideRendicion': new FormControl({ value: this.rendDet?.ideRendicion, disabled: false}),
       'fecha': new FormControl({ value: this.rendDet?.fecha, disabled: false}),
       'comodato': new FormControl({ value: this.rendDet?.comodato, disabled: false}),
-      'ideSede': new FormControl({ value: this.rendDet?.ideSede, disabled: false}),
+      'ideSede': new FormControl({ value: this.rendDet?.ideSede?.toString(), disabled: false}),
       'nCodLinea': new FormControl({ value: this.rendDet?.nCodLinea, disabled: false}),
       'codConcepto': new FormControl({ value: this.rendDet?.codConcepto, disabled: false}),
       'nTipDocu': new FormControl({ value: this.rendDet?.nTipDocu, disabled: false}),
@@ -90,7 +95,7 @@ export class CdetalleComponent implements OnInit {
       }
       else{
         var tbCombobox: Combobox[] = data.items;
-        debugger;
+        //debugger;
         this.tbComodato = this.obtenerSubtabla(tbCombobox,'COMODATO');
         this.tbSede = this.obtenerSubtabla(tbCombobox,'SEDE');
         this.tbLinea = this.obtenerSubtabla(tbCombobox,'LINEA');
@@ -156,21 +161,22 @@ export class CdetalleComponent implements OnInit {
     model.ideRendicion = this.form.value['ideRendicion'];
     model.fecha = this.form.value['fecha'];
     model.comodato = this.form.value['comodato'];
-    model.ideSede = this.form.value['ideSede'];
-    model.nCodLinea = this.form.value['nCodLinea'];
+    model.ideSede = this.form.value['ideSede']==""?0:parseInt(this.form.value['ideSede']);
+    model.codLinea = this.form.value['nCodLinea'];
     model.codConcepto = this.form.value['codConcepto'];
-    model.nTipDocu = this.form.value['nTipDocu'];
+    model.tipDocu = this.form.value['nTipDocu'];
     model.documento = this.form.value['documento'];
     model.codMoneda = this.form.value['codMoneda'];
-    model.monto = this.form.value['monto'];
+    model.monto = this.form.value['monto'] === ''?0:this.form.value['monto'];
     model.descripcion = this.form.value['descripcion'];
     model.rucPrv = this.form.value['rucPrv'];
     model.proveedor = this.form.value['proveedor'];
+    //debugger;
 
     this.spinner.showLoading();
 
     this.rendicionService.guardarDet(model).subscribe(data=>{
-
+      //debugger;
       this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
       if(data.typeResponse==environment.EXITO){      

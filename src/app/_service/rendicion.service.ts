@@ -44,6 +44,7 @@ export class RendicionService {
   }
 
   guardarDet(model: RendicionD){
+    //debugger;
     let urls = `${this.url}/PostSaveRendicionD`;
     return this.http.post<Response>(urls, model);
   }

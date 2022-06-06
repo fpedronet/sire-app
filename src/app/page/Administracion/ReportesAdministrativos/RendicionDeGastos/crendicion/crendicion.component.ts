@@ -208,7 +208,8 @@ export class CrendicionComponent implements OnInit {
       width: '850px',
       panelClass: 'full-screen-modal',
       data: {
-        detalle: rendDet
+        detalle: rendDet,
+        idPadre: this.id
       }
     });
 
@@ -230,6 +231,10 @@ export class CrendicionComponent implements OnInit {
       };
       reader.readAsDataURL(fileInput.target.files[0]);
     }
+  }
+
+  restarCampos(num1: string, num2: string){
+    return parseInt(num1) - parseInt(num2);
   }
 
 }
