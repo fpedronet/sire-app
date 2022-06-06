@@ -1,3 +1,17 @@
-.example-right-align {
+.example-right-align-ingreso {
     text-align: right;
+    color:#0f0fd3;
+    font-weight:500
+  }
+
+  .example-right-align-gasto {
+    text-align: right;
+    color:#dd0707;
+    font-weight:500
+  }
+
+  .example-right-align-balance{
+    text-align: right;
+    color:#807e7e;
+    font-weight:500
   }
