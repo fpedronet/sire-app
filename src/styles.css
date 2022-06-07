@@ -220,7 +220,7 @@ form{
   border-radius: 50%;
 }
 
-.encurso{
+.gris{
   font-size:12px; 
   line-height: 27px; 
   background: rgb(143, 148, 148); 
@@ -229,7 +229,7 @@ form{
   margin-left:7px
 }
 
-.poraprobar{
+.azul{
   font-size:12px; 
   line-height: 27px; 
   background: rgb(0 0 255); 
@@ -238,7 +238,7 @@ form{
   margin-left:7px
 }
 
-.aprobado{
+.verde{
   font-size:12px; 
   line-height: 27px; 
   background: rgb(0, 219, 39); 
@@ -247,7 +247,7 @@ form{
   margin-left:7px
 }
 
-.rechazado{
+.rojo{
   font-size:12px; 
   line-height: 27px; 
   background: rgb(255, 0, 0); 
@@ -256,6 +256,32 @@ form{
   margin-left:7px
 }
 
+.negro{
+  font-size:12px; 
+  line-height: 27px; 
+  background: rgb(0, 0, 0); 
+  display: inline-block;
+  margin:-7px;
+  margin-left:7px
+}
+
+.celeste{
+  font-size:12px; 
+  line-height: 27px; 
+  background: rgb(0, 224, 224);
+  display: inline-block;
+  margin:-7px;
+  margin-left:7px
+}
+
+.amarillo{
+  font-size:12px; 
+  line-height: 27px; 
+  background: rgb(255, 255, 0); 
+  display: inline-block;
+  margin:-7px;
+  margin-left:7px
+}
 
 .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label{
   color: rgb(0 0 0 / 51%);

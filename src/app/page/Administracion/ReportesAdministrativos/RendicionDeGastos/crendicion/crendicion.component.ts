@@ -14,8 +14,11 @@ import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { RendicionService } from 'src/app/_service/rendicion.service';
 import forms from 'src/assets/json/formulario.json';
 import jsonEstado from 'src/assets/json/rendicion/renestado.json';
+import jsonTipo from 'src/assets/json/rendicion/rentipo.json';
 import { environment } from 'src/environments/environment';
 import { CdetalleComponent } from '../cdetalle/cdetalle.component';
+import jsonConcepto from 'src/assets/json/detalle/concepto.json';
+import jsonMoneda from 'src/assets/json/detalle/moneda.json';
 
 @Component({
   selector: 'app-crendicion',
@@ -28,6 +31,7 @@ export class CrendicionComponent implements OnInit {
   permiso: Permiso = {};
 
   listaEstados?: Combobox[] = [];
+  listaTipos?: Combobox[] = [];
   
   estado: string = "";
   documento: string ="";
@@ -52,6 +56,9 @@ export class CrendicionComponent implements OnInit {
   adjunto: string = '';
   nombreAdjunto: string = '';
 
+  tbConcepto: Combobox[] = [];
+  tbMoneda: Combobox[] = [];  
+
   dataSource: RendicionD[] = [];
   displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'codMoneda', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'accion', 'mo'];
 
@@ -71,6 +78,9 @@ export class CrendicionComponent implements OnInit {
   ngOnInit(): void {
 
     this.listarestados();
+    this.listartipos();
+    this.tbConcepto = this.completarCombo(jsonConcepto);
+    this.tbMoneda = this.completarCombo(jsonMoneda);
     
     this.inicializar();
 
@@ -84,6 +94,22 @@ export class CrendicionComponent implements OnInit {
     });
   }
 
+  completarCombo(json: any){
+    var tbCombo = [];
+
+    for(var i in json) {
+      let el: Combobox = {};
+
+      el.valor = json[i].valor;
+      el.descripcion = json[i].descripcion;
+      el.visual = json[i].visual;
+      
+      tbCombo.push(el);
+    }
+
+    return tbCombo;
+  }
+
   listarestados(){
       this.listaEstados = [];
 
@@ -95,7 +121,22 @@ export class CrendicionComponent implements OnInit {
         el.visual = jsonEstado[i].visual;
         
         this.listaEstados.push(el);
-      }    
+      }
+  }
+
+  listartipos(){
+    this.listaTipos = [];
+
+    for(var i in jsonTipo) {
+      let el: Combobox = {};
+
+      el.valor = jsonTipo[i].nIdTipo;
+      el.descripcion = jsonTipo[i].vDescripcion;
+      el.visual = jsonTipo[i].visual;
+      
+      this.listaTipos.push(el);
+    }
+    //debugger;
   }
 
   inicializar(){
@@ -118,7 +159,7 @@ export class CrendicionComponent implements OnInit {
       'docuGenerado': new FormControl({ value: 0, disabled: true}),
       'fechaAceptado': new FormControl({ value: new Date(), disabled: true}),
       'ideUsuApruebaRechaza': new FormControl({ value: 0, disabled: true}),
-      'obsAprobador': new FormControl({ value: '', disabled: true}),
+      'obsverder': new FormControl({ value: '', disabled: true}),
       'obsRevisor': new FormControl({ value: '', disabled: true}),
       'tipo': new FormControl({ value: 'M', disabled: false}),
       'fechaRevisado': new FormControl({ value: new Date(), disabled: true}),
@@ -130,6 +171,10 @@ export class CrendicionComponent implements OnInit {
 
   getControlLabel(type: string){
     return this.form.controls[type].value;
+  }
+
+  getDescTipo(value: string){
+    return this.listaTipos?.find(e => e.valor === value)?.descripcion?.toUpperCase();
   }
 
   obtener(){
@@ -188,12 +233,14 @@ export class CrendicionComponent implements OnInit {
       this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
         if(data.typeResponse==environment.EXITO){
-          this.muestraEstado(sgteEstado);         
+          this.muestraEstado(sgteEstado);
           this.spinner.hideLoading();
           
         }else{
           this.spinner.hideLoading();
         }
+
+        this.obtener();
       });    
   }
 
@@ -242,7 +289,7 @@ export class CrendicionComponent implements OnInit {
       model.ideRendicion = this.form.value['ideRendicion'];
       model.lugar = this.form.value['lugar'];
       model.motivo = this.form.value['motivo'];
-      model.montoRecibe = this.form.value['montoRecibe'];
+      model.montoRecibe = this.form.value['ingresos'];
       model.tipo = this.form.value['tipo'];
       model.adjunto =this.adjunto;
       model.nombreAdjunto =this.nombreAdjunto;
@@ -312,4 +359,7 @@ export class CrendicionComponent implements OnInit {
     return valor.toFixed(2);
   }
 
+  getDescripcion(value: string, lista: Combobox[]){
+    return lista?.find(e => e.valor === value)?.descripcion?.toUpperCase();
+  }
 }

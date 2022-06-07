@@ -95,7 +95,13 @@
             <mat-grid-tile [colspan]="12">
               <mat-form-field appearance="outline">
                 <mat-label>Ruc</mat-label>
-                <input matInput formControlName="rucPrv" [readonly]="!edit">
+                <input #RUC matInput formControlName="rucPrv" [readonly]="!edit || existeProveedor" (blur)="obtenerProveedor($event)" (keydown)="obtenerProveedorEnter($event.keyCode)">
+                <button *ngIf="RUC.value" type="button" matSuffix mat-icon-button aria-label="Limpiar" (mouseup)="RUC.value='';reiniciaProveedor()">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                  <button *ngIf="RUC.value" type="button" matSuffix mat-icon-button aria-label="Buscar" (mouseup)="obtenerProveedor($event)">
+                    <mat-icon>search</mat-icon>
+                  </button>
               </mat-form-field> 
             </mat-grid-tile>
           </mat-grid-list>
@@ -104,7 +110,7 @@
             <mat-grid-tile [colspan]="12">
               <mat-form-field appearance="outline">
                 <mat-label>Proveedor</mat-label>
-                <input matInput formControlName="proveedor" [required]="TIPDOCU.value !== '000'" [readonly]="!edit">
+                <input matInput formControlName="proveedor" [required]="TIPDOCU.value !== '000'" [readonly]="!edit || existeProveedor">
               </mat-form-field>  
             </mat-grid-tile>
           </mat-grid-list>
@@ -112,7 +118,7 @@
           <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
             <mat-grid-tile [colspan]="12">
               <mat-form-field>
-                <mat-select placeholder="Comodato" formControlName="comodato" [disabled]="!edit">
+                <mat-select #COMODATO placeholder="Comodato" formControlName="comodato" [disabled]="!edit" (selectionChange)="selectcomodato($event.value)">
                     <mat-option *ngFor="let el of tbComodato" [value]="el.valor">
                     {{el.descripcion}}
                     </mat-option>
@@ -124,7 +130,7 @@
           <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
             <mat-grid-tile [colspan]="12">
               <mat-form-field>
-                <mat-select placeholder="Sede" formControlName="ideSede" [disabled]="!edit" required>
+                <mat-select placeholder="Sede" formControlName="ideSede" [disabled]="!edit || COMODATO.value !== 'CMD'" required>
                     <mat-option *ngFor="let el of tbSede" [value]="el.valor">
                     {{el.descripcion}}
                     </mat-option>
@@ -136,7 +142,7 @@
           <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
             <mat-grid-tile [colspan]="12">
               <mat-form-field>
-                <mat-select placeholder="Linea" formControlName="nCodLinea" [disabled]="!edit" required>
+                <mat-select placeholder="Linea" formControlName="nCodLinea" [disabled]="!edit || COMODATO.value !== 'CMD'" required>
                     <mat-option *ngFor="let el of tbLinea" [value]="el.valor">
                     {{el.descripcion}}
                     </mat-option>

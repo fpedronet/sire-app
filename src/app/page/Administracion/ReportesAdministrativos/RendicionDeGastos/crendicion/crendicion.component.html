@@ -9,12 +9,13 @@
         <mat-icon class="maticon">save</mat-icon>
       </button>
       <button mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="{{txtEditarR}}" *ngIf="TIPO.value === 'R' && txtEditarR !== ''" type="button" (click)="cambiaEstado(sgteEstadoR)">
-        <mat-icon class="maticon">send</mat-icon> 
+        <mat-icon *ngIf="txtEditarR === 'Recuperar'" class="maticon">cancel_schedule_send</mat-icon> 
+        <mat-icon *ngIf="txtEditarR !== 'Recuperar'" class="maticon">send</mat-icon> 
         <!-- {{txtEditarR}} -->
       </button>
       <button mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="{{txtEditarM}}"  *ngIf="TIPO.value === 'M' && txtEditarM !== ''" type="button" (click)="cambiaEstado(sgteEstadoM)">
         <mat-icon *ngIf="txtEditarM === 'Recuperar'" class="maticon">cancel_schedule_send</mat-icon> 
-        <mat-icon *ngIf="txtEditarM === 'Enviar a evaluar'" class="maticon">send</mat-icon> 
+        <mat-icon *ngIf="txtEditarM !== 'Recuperar'" class="maticon">send</mat-icon> 
         <!-- {{txtEditarM}} -->
       </button>
 
@@ -25,9 +26,9 @@
 <mat-card class="cardborde">   
   <mat-toolbar class="cardtitle"></mat-toolbar>
 
-  <h2 *ngIf="id==0" class="title-label">CREAR RENDICIÓN/MOVILIDAD</h2>
-  <h2 *ngIf="id!==0 && edit" class="title-label">EDITAR RENDICIÓN/MOVILIDAD</h2>
-  <h2 *ngIf="id!==0 && !edit" class="title-label">VER RENDICIÓN/MOVILIDAD</h2>
+  <h2 *ngIf="id==0" class="title-label">CREAR {{getDescTipo(TIPO.value)}}</h2>
+  <h2 *ngIf="id!==0 && edit" class="title-label">EDITAR {{getDescTipo(TIPO.value)}}</h2>
+  <h2 *ngIf="id!==0 && !edit" class="title-label">VER {{getDescTipo(TIPO.value)}}</h2>
 
   <mat-divider></mat-divider>
   
@@ -91,8 +92,9 @@
                       [disabled]="!edit" 
                       required
                     >
-                      <mat-option value="R">Rendición</mat-option>
-                      <mat-option value="M">Movilidad</mat-option>
+                      <mat-option *ngFor="let el of listaTipos" [value]="el.valor">
+                        {{el.descripcion}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </mat-grid-tile>
@@ -177,16 +179,16 @@
           </div>
 
           <div *ngIf="!existDetalle">
-            No se encontraron registros.
+            No se encontraron detalles.
           </div>
     
           <div *ngIf="existDetalle" class="example-container mat-elevation-z0">
             <mat-table [dataSource]="dataSource" matSort>
               
               <ng-container matColumnDef="concepto">
-                <mat-header-cell *matHeaderCellDef>Concepto</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> Concepto </mat-header-cell>
                 <mat-cell *matCellDef="let element" data-label="Concepto"> 
-                  <div style="font-weight:500;color: #696868;font-size: 16px;">{{element.codConcepto}}</div>     
+                  <div style="font-weight:500;color: #696868;font-size: 16px;">{{getDescripcion(element.codConcepto, tbConcepto)}}</div>     
                 </mat-cell>
               </ng-container>
   
@@ -202,7 +204,7 @@
   
               <ng-container matColumnDef="codMoneda">
                 <mat-header-cell *matHeaderCellDef> Moneda </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Moneda"> {{element.codMoneda}} </mat-cell>
+                <mat-cell *matCellDef="let element" data-label="Moneda"> {{getDescripcion(element.codMoneda, tbMoneda)}} </mat-cell>
               </ng-container>
   
               <ng-container matColumnDef="vMonto">

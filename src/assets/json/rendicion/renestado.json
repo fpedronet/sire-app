@@ -9,7 +9,7 @@
         "reenviarPdf":false,
         "eliminar":false,
         "edicion":false,
-        "class":""
+        "class":"negro"
     },
     {
         "nIdEstado":1,
@@ -21,7 +21,7 @@
         "reenviarPdf":false,
         "eliminar":true,
         "edicion":true,
-        "class":"encurso"
+        "class":"gris"
     },
     {
         "nIdEstado":2,
@@ -33,7 +33,7 @@
         "reenviarPdf":true,
         "eliminar":true,
         "edicion":false,
-        "class":"poraprobar"
+        "class":"amarillo"
     },
     {
         "nIdEstado":3,
@@ -45,7 +45,7 @@
         "reenviarPdf":false,
         "eliminar":false,
         "edicion":false,
-        "class":"aprobado"
+        "class":"verde"
     },
     {
         "nIdEstado":4,
@@ -57,7 +57,7 @@
         "reenviarPdf":false,
         "eliminar":false,
         "edicion":false,
-        "class":"rechazado"
+        "class":"rojo"
     },
     {
         "nIdEstado":5,
@@ -69,7 +69,7 @@
         "reenviarPdf":false,
         "eliminar":false,
         "edicion":false,
-        "class":""
+        "class":"azul"
     },
     {
         "nIdEstado":6,
@@ -81,6 +81,6 @@
         "reenviarPdf":false,
         "eliminar":false,
         "edicion":false,
-        "class":""
+        "class":"celeste"
     }
 ]

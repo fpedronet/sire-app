@@ -3,6 +3,6 @@ export class Permiso {
     guardar?:boolean;
     autoexclusión?:boolean;
     reporteResultado?:boolean;
-    registrarInclusoRechazado?:boolean;
+    registrarInclusorojo?:boolean;
     registrarInclusoCalificado?:boolean;
 }

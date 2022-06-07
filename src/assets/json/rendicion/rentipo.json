@@ -1,0 +1,12 @@
+[
+    {
+        "nIdTipo":"R",
+        "vDescripcion":"Rendición",
+        "visual":true
+    },
+    {
+        "nIdTipo":"M",
+        "vDescripcion":"Movilidad",
+        "visual":true
+    }
+]

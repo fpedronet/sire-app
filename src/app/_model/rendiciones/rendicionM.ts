@@ -23,7 +23,7 @@ export class RendicionM {
     docuGenerado?: number
     vFechaAceptado?: string
     ideUsuApruebaRechaza?: number
-    obsAprobador?: string
+    obsverder?: string
     obsRevisor?: string
     tipo?: string
     fechaRevisado?: Date

@@ -65,6 +65,8 @@ export class CdetalleComponent implements OnInit {
   rendDet?: RendicionD = new RendicionD();
   edit?: boolean = true;
 
+  existeProveedor: boolean = false;
+
   ngOnInit(): void {
     this.fechaMax = new Date();
     this.listarCombo();
@@ -155,6 +157,7 @@ export class CdetalleComponent implements OnInit {
       rucPrv: rendDet?.rucPrv,
       proveedor: rendDet?.proveedor
     })
+    this.existeProveedor = false;
   }
 
   guardar(){
@@ -190,5 +193,50 @@ export class CdetalleComponent implements OnInit {
     });
     
     this.dialogRef.close();
+  }
+
+  reiniciaProveedor(){
+    this.form.patchValue({
+      proveedor: ''
+    })
+    this.existeProveedor = false;
+  }
+
+  obtenerProveedorEnter(key: number){
+    if(key === 13){
+      this.obtenerProveedor();
+    }
+  }
+
+  obtenerProveedor(e?: Event){
+    //console.log(e);
+    e?.preventDefault(); // Evita otros eventos como blur
+
+    this.comboboxService.obtenerProveedor(this.form.value['rucPrv']).subscribe(data=>{
+      //debugger;
+      if(data!== undefined && data.valor !== null){
+        this.form.patchValue({
+          proveedor: data.descripcion
+        })
+        this.existeProveedor = true;
+      }
+    })
+  }
+
+  selectcomodato(valor: string){
+    var comodato = this.tbComodato.find(e => e.valor === valor);
+    var linea = this.tbLinea.find(e => e.valor === comodato!.aux1); //CodLin
+    if(linea !== undefined){
+      this.form.patchValue({
+        nCodLinea: linea.valor
+      })
+
+      var sede = this.tbSede.find(e => e.aux1 === comodato!.aux2); //Ruc
+      if(sede !== undefined){
+        this.form.patchValue({
+          ideSede: sede.valor
+        })
+      }
+    }
   }
 }

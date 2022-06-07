@@ -15,6 +15,8 @@ import { RendicionService } from 'src/app/_service/rendicion.service';
 import forms from 'src/assets/json/formulario.json';
 import { environment } from 'src/environments/environment';
 import { FrendicionComponent } from '../frendicion/frendicion.component';
+import jsonEstado from 'src/assets/json/rendicion/renestado.json';
+import { Combobox } from 'src/app/_model/combobox';
 
 @Component({
   selector: 'app-lrendicion',
@@ -35,6 +37,8 @@ export class LrendicionComponent implements OnInit {
 
   permiso: Permiso = {};
 
+  listaEstados: Combobox[] = [];
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -50,6 +54,7 @@ export class LrendicionComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerpermiso();
+    this.listarestados();
   
     let filtro = this.usuarioService.sessionFiltro();
     let strEstados = "";
@@ -128,6 +133,31 @@ export class LrendicionComponent implements OnInit {
       this.permiso = data;
        this.spinner.hideLoading();
     });   
+  }
+
+  listarestados(){
+    this.listaEstados = [];
+
+    for(var i in jsonEstado) {
+      let el: Combobox = {};
+
+      el.valor = jsonEstado[i].nIdEstado;
+      el.descripcion = jsonEstado[i].vDescripcion;
+      el.visual = jsonEstado[i].visual;
+      el.aux1 = jsonEstado[i].class;
+      
+      this.listaEstados.push(el);
+    }
+    debugger;
+  }
+
+  getClassEstado(idEstado: number){
+    var clase: string = '';
+    var objEstado = jsonEstado.find((e: any) => e.nIdEstado === idEstado);
+    if(objEstado !== undefined){
+      clase = objEstado.class;
+    }
+    return clase;
   }
 
   abrirBusqueda(){
