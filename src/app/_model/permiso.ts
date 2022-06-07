@@ -1,8 +1,8 @@
 export class Permiso {
-    ver?:boolean;
+    vertodos?:boolean;
     guardar?:boolean;
-    autoexclusión?:boolean;
-    reporteResultado?:boolean;
-    registrarInclusorojo?:boolean;
-    registrarInclusoCalificado?:boolean;
+    imprimir?:boolean;
+    reenviar?:boolean;
+    revisar?:boolean;
+    procesar?:boolean;
 }

@@ -148,7 +148,7 @@ export class LrendicionComponent implements OnInit {
       
       this.listaEstados.push(el);
     }
-    debugger;
+    //debugger;
   }
 
   getClassEstado(idEstado: number){
@@ -179,17 +179,7 @@ export class LrendicionComponent implements OnInit {
   }
 
   routeUrl(id: string){
-    var editar = true;
 
-    //PERMISO
-    var editar = true;
-    if(this.permiso.guardar)
-      editar = true;
-    else if(this.permiso.ver)
-      editar = false;
-    else
-      return; 
-
-    this.router.navigate(['/page/administracion/rendicion/edit/'+id+"/"+editar]);
+    this.router.navigate(['/page/administracion/rendicion/edit/'+id]);
   }
 }

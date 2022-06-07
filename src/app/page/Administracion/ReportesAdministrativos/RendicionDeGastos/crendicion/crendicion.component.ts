@@ -76,7 +76,8 @@ export class CrendicionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.obtenerpermiso();
+    
     this.listarestados();
     this.listartipos();
     this.tbConcepto = this.completarCombo(jsonConcepto);
@@ -273,9 +274,26 @@ export class CrendicionComponent implements OnInit {
   }
 
   obtenerpermiso(){
+    this.spinner.showLoading();
     this.configPermisoService.obtenerpermiso(forms.rendicionGasto.codigo).subscribe(data=>{
       this.permiso = data;
+
+      //this.permiso.revisar = false;
+      //this.permiso.procesar = false;
+
+      this.spinner.hideLoading();
     }); 
+  }
+
+  tienepermiso(sgte: number){
+
+    if(sgte === 5)
+      return this.permiso.procesar;
+    
+    if(sgte === 6)
+      return this.permiso.revisar;
+
+    return true;
   }
 
   changestepper(stepper: any){
