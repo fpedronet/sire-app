@@ -23,6 +23,7 @@
         "reenviarPdf":false,
         "eliminar":true,
         "edicion":true,
+        "rechazar":false,
         "class":"gris"
     },
     {
@@ -36,6 +37,7 @@
         "reenviarPdf":true,
         "eliminar":true,
         "edicion":false,
+        "rechazar":false,
         "class":"amarillo"
     },
     {
@@ -49,6 +51,7 @@
         "reenviarPdf":false,
         "eliminar":false,
         "edicion":false,
+        "rechazar":true,
         "class":"verde"
     },
     {
@@ -62,6 +65,7 @@
         "reenviarPdf":false,
         "eliminar":false,
         "edicion":false,
+        "rechazar":false,
         "class":"rojo"
     },
     {
@@ -75,19 +79,21 @@
         "reenviarPdf":false,
         "eliminar":false,
         "edicion":false,
+        "rechazar":false,
         "class":"azul"
     },
     {
         "nIdEstado":6,
         "vDescripcion":"REVISADO",
         "visual":true,
-        "txtCambiarEstado":{"txt1":"","txt2":"Procesar"},
-        "sgteEstado":{"num1":0,"num2":5},
-        "sgteIcono":{"icon1":"","icon2":"archive"},
+        "txtCambiarEstado":{"txt1":"Procesar","txt2":""},
+        "sgteEstado":{"num1":5,"num2":0},
+        "sgteIcono":{"icon1":"archive","icon2":""},
         "mostrarPdf":false,
         "reenviarPdf":false,
         "eliminar":false,
         "edicion":false,
+        "rechazar":false,
         "class":"celeste"
     }
 ]

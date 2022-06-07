@@ -43,6 +43,7 @@ export class CrendicionComponent implements OnInit {
   sgteIconR: string = "";
   sgteIconM: string = "";
   delete: boolean = false;
+  reject: boolean = false;
   claseEstado: string = "";
 
   CodEstado: string = "0";
@@ -66,7 +67,7 @@ export class CrendicionComponent implements OnInit {
   vBalance?: string = '0.00';
 
   dataSource: RendicionD[] = [];
-  displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'codMoneda', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'accion', 'mo'];
+  displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'accion', 'mo'];
 
   maxDate: Date = new Date();
 
@@ -230,6 +231,7 @@ export class CrendicionComponent implements OnInit {
     if(objEstado !== undefined){
       this.edit = objEstado.edicion;
       this.delete = objEstado.eliminar;
+      this.reject = objEstado.rechazar;
 
       this.txtEditarR = objEstado.txtCambiarEstado.txt1;
       this.sgteEstadoR = objEstado.sgteEstado.num1;
@@ -378,7 +380,7 @@ export class CrendicionComponent implements OnInit {
 
   abrirDetalle(rendDet?: RendicionD){
     //debugger;
-    const dialogRef =this.dialog.open(CdetalleComponent, {
+    const dialogRef = this.dialog.open(CdetalleComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
       width: '850px',
@@ -417,5 +419,9 @@ export class CrendicionComponent implements OnInit {
 
   getDescripcion(value: string, lista: Combobox[]){
     return lista?.find(e => e.valor === value)?.descripcion?.toUpperCase();
+  }
+
+  rechazar(){
+
   }
 }

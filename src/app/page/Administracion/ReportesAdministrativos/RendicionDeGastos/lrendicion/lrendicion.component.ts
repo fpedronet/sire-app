@@ -26,7 +26,7 @@ import { Combobox } from 'src/app/_model/combobox';
 export class LrendicionComponent implements OnInit {
 
   dataSource: RendicionM[] = [];
-  displayedColumns: string[] = ['codigo', 'lugar', 'motivo', 'ingresos', 'tipo','estado','correo','accion','mo'];
+  displayedColumns: string[] = ['codigo', 'tipo', 'lugar', 'motivo', 'ingresos','estado','correo','accion','mo'];
   loading = true;
   existRegistro = false;
   countRegistro = 0;

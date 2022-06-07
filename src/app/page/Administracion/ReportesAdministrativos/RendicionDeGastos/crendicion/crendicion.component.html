@@ -5,11 +5,14 @@
       </button>
     </div>
     <div class="example-button-row">
-      <button *ngIf="edit && id!==0" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Eliminar" type="button" (click)="cambiaEstado(0)">
+      <button *ngIf="delete" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Eliminar" type="button" (click)="cambiaEstado(0)">
         <mat-icon class="maticon">delete</mat-icon>
       </button>
       <button *ngIf="edit" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Guardar" type="submit" [disabled]="frmGrupo.invalid" form="ngForm">
         <mat-icon class="maticon">save</mat-icon>
+      </button>
+      <button *ngIf="tienepermiso(sgteEstadoR) && TIPO.value === 'R' && reject" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Rechazar" type="submit" (click)="rechazar()">
+        <mat-icon class="maticon">backspace</mat-icon>
       </button>
       <button *ngIf="tienepermiso(sgteEstadoR) && TIPO.value === 'R' && txtEditarR !== ''" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="{{txtEditarR}}" type="button" (click)="cambiaEstado(sgteEstadoR)">
         <mat-icon class="maticon">{{sgteIconR}}</mat-icon>
@@ -118,7 +121,7 @@
                   <mat-grid-tile [colspan]="12">
                     <mat-form-field appearance="outline">
                       <mat-label>Ingresos</mat-label>
-                      <input #INGRESOS matInput type="number" class="example-right-align-ingreso"  oninput="if(this.value.length>=7) { this.value = this.value.slice(0,7); }" onkeypress="return /[0-9|.]/i.test(event.key)" formControlName="ingresos" placeholder="0.00" [readonly]="!edit">
+                      <input #INGRESOS matInput type="number" class="example-right-align-ingreso"  oninput="if(this.value.length>=7) { this.value = this.value.slice(0,7); }" onkeypress="return /[0-9|.]/i.test(event.key)" formControlName="ingresos" placeholder="0.00" [readonly]="!edit" required>
                     </mat-form-field>
                   </mat-grid-tile>                
                 </mat-grid-list>
@@ -214,14 +217,9 @@
                 <mat-cell *matCellDef="let element" data-label="Documento"> {{element.documento}} </mat-cell>
               </ng-container>
   
-              <ng-container matColumnDef="codMoneda">
-                <mat-header-cell *matHeaderCellDef> Moneda </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Moneda"> {{getDescripcion(element.codMoneda, tbMoneda)}} </mat-cell>
-              </ng-container>
-  
               <ng-container matColumnDef="vMonto">
                 <mat-header-cell *matHeaderCellDef> Monto </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Monto"> {{element.vMonto}} </mat-cell>
+                <mat-cell *matCellDef="let element" data-label="Monto"> {{getDescripcion(element.codMoneda, tbMoneda)}} {{element.vMonto}} </mat-cell>
               </ng-container>
               
               <ng-container matColumnDef="proveedor">
