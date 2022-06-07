@@ -62,38 +62,59 @@ export class CdetalleComponent implements OnInit {
 
   fechaMax?: Date;
 
-  rendDet?: RendicionD = new RendicionD();
+  rendDet: RendicionD = new RendicionD();
   edit?: boolean = true;
 
   existeProveedor: boolean = false;
 
   ngOnInit(): void {
     this.fechaMax = new Date();
-    this.listarCombo();
     this.inicializar();
+    this.listarCombo();    
   }
 
   inicializar(){
     //debugger;
+    var rendD = new RendicionD();
     this.form = new FormGroup({
-      'ideRendicionDet': new FormControl({ value: this.rendDet?.ideRendicionDet, disabled: false}),
-      'ideRendicion': new FormControl({ value: this.rendDet?.ideRendicion, disabled: false}),
-      'fecha': new FormControl({ value: this.rendDet?.fecha, disabled: false}),
-      'comodato': new FormControl({ value: this.rendDet?.comodato, disabled: false}),
-      'ideSede': new FormControl({ value: this.rendDet?.ideSede?.toString(), disabled: false}),
-      'nCodLinea': new FormControl({ value: this.rendDet?.nCodLinea, disabled: false}),
-      'codConcepto': new FormControl({ value: this.rendDet?.codConcepto, disabled: false}),
-      'nTipDocu': new FormControl({ value: this.rendDet?.nTipDocu, disabled: false}),
-      'documento': new FormControl({ value: this.rendDet?.documento, disabled: false}),
-      'codMoneda': new FormControl({ value: this.rendDet?.codMoneda, disabled: false}),
-      'monto': new FormControl({ value: this.rendDet?.monto, disabled: false}),
-      'descripcion': new FormControl({ value: this.rendDet?.descripcion, disabled: false}),
-      'rucPrv': new FormControl({ value: this.rendDet?.rucPrv, disabled: false}),
-      'proveedor': new FormControl({ value: this.rendDet?.proveedor, disabled: false}),
+      'ideRendicionDet': new FormControl({ value: rendD.ideRendicionDet, disabled: false}),
+      'ideRendicion': new FormControl({ value: rendD.ideRendicion, disabled: false}),
+      'fecha': new FormControl({ value: rendD.fecha, disabled: false}),
+      'comodato': new FormControl({ value: rendD.comodato, disabled: false}),
+      'ideSede': new FormControl({ value: rendD.ideSede?.toString(), disabled: false}),
+      'nCodLinea': new FormControl({ value: rendD.nCodLinea, disabled: false}),
+      'codConcepto': new FormControl({ value: rendD.codConcepto, disabled: false}),
+      'nTipDocu': new FormControl({ value: rendD.nTipDocu, disabled: false}),
+      'documento': new FormControl({ value: rendD.documento, disabled: false}),
+      'codMoneda': new FormControl({ value: rendD.codMoneda, disabled: false}),
+      'monto': new FormControl({ value: '', disabled: false}),
+      'descripcion': new FormControl({ value: rendD.descripcion, disabled: false}),
+      'rucPrv': new FormControl({ value: rendD.rucPrv, disabled: false}),
+      'proveedor': new FormControl({ value: rendD.proveedor, disabled: false}),
     });
   }
 
+  obtener(rendDet: RendicionD){
+    this.form.patchValue({
+      ideRendicionDet: rendDet.ideRendicionDet,
+      ideRendicion: rendDet.ideRendicion,
+      fecha: rendDet.fecha,
+      comodato: rendDet.comodato,
+      ideSede: rendDet.ideSede?.toString(),
+      nCodLinea: rendDet.nCodLinea,
+      codConcepto: rendDet.codConcepto,
+      nTipDocu: rendDet.nTipDocu,
+      documento: rendDet.documento,
+      codMoneda: rendDet.codMoneda,
+      monto: rendDet.monto === 0?'':rendDet.monto?.toFixed(2),
+      descripcion: rendDet.descripcion,
+      rucPrv: rendDet.rucPrv,
+      proveedor: rendDet.proveedor
+    })
+  }
+
   listarCombo(){
+    this.spinner.showLoading();
     this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
       if(data === undefined){
         this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
@@ -108,6 +129,10 @@ export class CdetalleComponent implements OnInit {
         this.tbConcepto = this.completarCombo(jsonConcepto);
         this.tbMoneda = this.completarCombo(jsonMoneda);
         this.tbTipoDocu = this.completarCombo(jsonTipoDocu);
+
+        this.obtener(this.rendDet);
+
+        this.spinner.hideLoading();
       }
     });
   }
@@ -152,7 +177,7 @@ export class CdetalleComponent implements OnInit {
       nTipDocu: rendDet?.nTipDocu,
       documento: rendDet?.documento,
       codMoneda: rendDet?.codMoneda,
-      monto: rendDet?.monto,
+      monto: '',
       descripcion: rendDet?.descripcion,
       rucPrv: rendDet?.rucPrv,
       proveedor: rendDet?.proveedor
@@ -197,7 +222,8 @@ export class CdetalleComponent implements OnInit {
 
   reiniciaProveedor(){
     this.form.patchValue({
-      proveedor: ''
+      proveedor: '',
+      rucPrv: ''
     })
     this.existeProveedor = false;
   }

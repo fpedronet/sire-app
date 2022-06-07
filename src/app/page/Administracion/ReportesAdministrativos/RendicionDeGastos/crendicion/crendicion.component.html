@@ -5,17 +5,18 @@
       </button>
     </div>
     <div class="example-button-row">
+      <button *ngIf="edit && id!==0" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Eliminar" type="button" (click)="cambiaEstado(0)">
+        <mat-icon class="maticon">delete</mat-icon>
+      </button>
       <button *ngIf="edit" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Guardar" type="submit" [disabled]="frmGrupo.invalid" form="ngForm">
         <mat-icon class="maticon">save</mat-icon>
       </button>
       <button *ngIf="tienepermiso(sgteEstadoR) && TIPO.value === 'R' && txtEditarR !== ''" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="{{txtEditarR}}" type="button" (click)="cambiaEstado(sgteEstadoR)">
-        <mat-icon *ngIf="txtEditarR === 'Recuperar'" class="maticon">cancel_schedule_send</mat-icon> 
-        <mat-icon *ngIf="txtEditarR !== 'Recuperar'" class="maticon">send</mat-icon> 
+        <mat-icon class="maticon">{{sgteIconR}}</mat-icon>
         <!-- {{txtEditarR}} -->
       </button>
       <button *ngIf="tienepermiso(sgteEstadoM) && TIPO.value === 'M' && txtEditarM !== ''" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="{{txtEditarM}}" type="button" (click)="cambiaEstado(sgteEstadoM)">
-        <mat-icon *ngIf="txtEditarM === 'Recuperar'" class="maticon">cancel_schedule_send</mat-icon> 
-        <mat-icon *ngIf="txtEditarM !== 'Recuperar'" class="maticon">send</mat-icon> 
+        <mat-icon class="maticon">{{sgteIconM}}</mat-icon>
         <!-- {{txtEditarM}} -->
       </button>
 
@@ -164,6 +165,17 @@
 
       <mat-step *ngIf="existRendicion">
         <ng-template matStepLabel>Detalle</ng-template>
+        <mat-grid-list cols="12" rowHeight="45px" gutterSize="15px">
+          <mat-grid-tile class="example-right-align-ingreso" [colspan]="4">
+            Ingresos<br>{{vIngresos}}
+          </mat-grid-tile>
+          <mat-grid-tile class="example-right-align-gasto" [colspan]="4">
+            Gastos<br>{{vGastos}}
+          </mat-grid-tile>
+          <mat-grid-tile class="example-right-align-balance" [colspan]="4">
+            Balance<br>{{vBalance}}
+          </mat-grid-tile>
+        </mat-grid-list>
         <div class="content contentTable">
           <div fxLayout="row wrap" fxLayoutGap="16px grid">
             <div div fxFlex="45%" fxFlex.xs="45%" fxFlex.sm="100%">
@@ -230,10 +242,10 @@
               <ng-container matColumnDef="accion">
                 <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> </mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
-                  <a *ngIf="!edit" class="pointer edit" matTooltip="Editar" (click)="abrirDetalle(element)">
+                  <a *ngIf="!edit" class="pointer ver" matTooltip="Ver" (click)="abrirDetalle(element)">
                     <mat-icon>visibility</mat-icon>
                   </a>
-                  <a *ngIf="edit" class="pointer ver" matTooltip="Ver" (click)="abrirDetalle(element)">
+                  <a *ngIf="edit" class="pointer edit" matTooltip="Editar" (click)="abrirDetalle(element)">
                     <mat-icon>edit</mat-icon>
                   </a>
                   <a *ngIf="edit" class="pointer delete" matTooltip="Eliminar" (click)="eliminarDetalle(element)">
@@ -246,8 +258,14 @@
                 <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Mobil</mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
                   <div style="margin-left:auto;">
-                    <a class="pointer edit" matTooltip="Editar" (click)="abrirDetalle(element)">
-                      <mat-icon class="maticon">edit</mat-icon>
+                    <a *ngIf="!edit" class="pointer ver" matTooltip="Ver" (click)="abrirDetalle(element)">
+                      <mat-icon>visibility</mat-icon>
+                    </a>
+                    <a *ngIf="edit" class="pointer edit" matTooltip="Editar" (click)="abrirDetalle(element)">
+                      <mat-icon>edit</mat-icon>
+                    </a>
+                    <a *ngIf="edit" class="pointer delete" matTooltip="Eliminar" (click)="eliminarDetalle(element)">
+                      <mat-icon>delete</mat-icon>
                     </a>
                   </div>
                 </mat-cell>
