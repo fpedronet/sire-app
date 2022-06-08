@@ -36,6 +36,11 @@
               </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="tipo">
+              <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="Tipo"> {{element.tipo}} </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="lugar">
               <mat-header-cell *matHeaderCellDef> Lugar </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="Lugar"> {{element.lugar}} </mat-cell>
@@ -51,11 +56,6 @@
               <mat-cell *matCellDef="let element" data-label="Ingresos">
                 <div style="text-align:right;font-weight:500;color:#02108c;">{{element.vIngresos}}</div> 
               </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="tipo">
-              <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
-              <mat-cell *matCellDef="let element" data-label="Tipo"> {{element.tipo}} </mat-cell>
             </ng-container>
             
             <ng-container matColumnDef="estado">

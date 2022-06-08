@@ -40,7 +40,10 @@ export class CrendicionComponent implements OnInit {
   txtEditarM: string = "";
   sgteEstadoR: number = 0;
   sgteEstadoM: number = 0;
+  sgteIconR: string = "";
+  sgteIconM: string = "";
   delete: boolean = false;
+  reject: boolean = false;
   claseEstado: string = "";
 
   CodEstado: string = "0";
@@ -57,10 +60,16 @@ export class CrendicionComponent implements OnInit {
   nombreAdjunto: string = '';
 
   tbConcepto: Combobox[] = [];
-  tbMoneda: Combobox[] = [];  
+  tbMoneda: Combobox[] = [];
+  
+  vIngresos?: string = '0.00';
+  vGastos?: string = '0.00';
+  vBalance?: string = '0.00';
 
   dataSource: RendicionD[] = [];
-  displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'codMoneda', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'accion', 'mo'];
+  displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'accion', 'mo'];
+
+  maxDate: Date = new Date();
 
   constructor(
     private route: ActivatedRoute,
@@ -198,6 +207,10 @@ export class CrendicionComponent implements OnInit {
             fechaCreacion: data.fechaCreacion,
             tipo: data.tipo
           });
+
+          this.vIngresos = data.ingresos?.toFixed(2);
+          this.vGastos = data.gastos?.toFixed(2);
+          this.vBalance = (data.ingresos!-data.gastos!).toFixed(2);
           //debugger;
           this.muestraEstado(data.ideEstado);
           
@@ -218,35 +231,61 @@ export class CrendicionComponent implements OnInit {
     if(objEstado !== undefined){
       this.edit = objEstado.edicion;
       this.delete = objEstado.eliminar;
+      this.reject = objEstado.rechazar;
+
       this.txtEditarR = objEstado.txtCambiarEstado.txt1;
-      this.txtEditarM = objEstado.txtCambiarEstado.txt2;
       this.sgteEstadoR = objEstado.sgteEstado.num1;
+      this.sgteIconR = objEstado.sgteIcono.icon1;
+
+      this.txtEditarM = objEstado.txtCambiarEstado.txt2;      
       this.sgteEstadoM = objEstado.sgteEstado.num2;
+      this.sgteIconM = objEstado.sgteIcono.icon2;
+
       this.claseEstado = objEstado.class;
     }    
   }
 
   cambiaEstado(sgteEstado: number){
+    if(sgteEstado === 0){
+      this.confirmService.openConfirmDialog(false, "¿Desea eliminar esta rendición? (Esta acción es irreversible)").afterClosed().subscribe(res =>{
+        //Ok
+        if(res){
+          //console.log('Sí');
+          this.$cambiaEstado(sgteEstado);
+        }
+        else{
+          //console.log('No');
+        }
+      });
+    }
+    else
+      this.$cambiaEstado(sgteEstado);
+  }
+
+  $cambiaEstado(sgteEstado: number){
     this.spinner.showLoading();
-      //debugger;
+    //debugger;
     this.rendicionService.cambiarEstado(this.id, sgteEstado, "").subscribe(data=>{
 
       this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
-        if(data.typeResponse==environment.EXITO){
-          this.muestraEstado(sgteEstado);
-          this.spinner.hideLoading();
-          
-        }else{
-          this.spinner.hideLoading();
-        }
+      if(data.typeResponse==environment.EXITO){
+        this.muestraEstado(sgteEstado);
+        this.spinner.hideLoading();
+        
+      }else{
+        this.spinner.hideLoading();
+      }
 
+      if(sgteEstado === 0)
+        this.router.navigate(['/page/administracion/rendicion'])
+      else
         this.obtener();
-      });    
+    });  
   }
 
   eliminarDetalle(model: RendicionD){
-    this.confirmService.openConfirmDialog(false, "¿Desea eliminar esta rendición? (Esta acción es irreversible)").afterClosed().subscribe(res =>{
+    this.confirmService.openConfirmDialog(false, "¿Desea eliminar esta detalle?").afterClosed().subscribe(res =>{
       //Ok
       if(res){
         //console.log('Sí');
@@ -324,8 +363,9 @@ export class CrendicionComponent implements OnInit {
               this.existRendicion = true;
               this.currentTab = 1; //Segunda pestaña
               this.id = data.ide!;
-              this.obtener()
-            }            
+              this.router.navigate(['/page/administracion/rendicion/edit/',this.id]);
+            }
+            this.obtener();
             
             this.spinner.hideLoading();
           }else{
@@ -340,7 +380,7 @@ export class CrendicionComponent implements OnInit {
 
   abrirDetalle(rendDet?: RendicionD){
     //debugger;
-    const dialogRef =this.dialog.open(CdetalleComponent, {
+    const dialogRef = this.dialog.open(CdetalleComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
       width: '850px',
@@ -379,5 +419,9 @@ export class CrendicionComponent implements OnInit {
 
   getDescripcion(value: string, lista: Combobox[]){
     return lista?.find(e => e.valor === value)?.descripcion?.toUpperCase();
+  }
+
+  rechazar(){
+
   }
 }
