@@ -94,6 +94,7 @@ export class CdetalleComponent implements OnInit {
   }
 
   listarCombo(){
+    
     this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
       if(data === undefined){
         this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
