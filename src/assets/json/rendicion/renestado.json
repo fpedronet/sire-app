@@ -88,7 +88,7 @@
         "visual":true,
         "txtCambiarEstado":{"txt1":"Procesar","txt2":""},
         "sgteEstado":{"num1":5,"num2":0},
-        "sgteIcono":{"icon1":"archive","icon2":""},
+        "sgteIcono":{"icon1":"settings","icon2":""},
         "mostrarPdf":false,
         "reenviarPdf":false,
         "eliminar":false,

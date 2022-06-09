@@ -51,10 +51,10 @@
               <mat-cell *matCellDef="let element" data-label="Motivo"> {{element.motivo}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="ingresos">
-              <mat-header-cell *matHeaderCellDef> Ingresos </mat-header-cell>
-              <mat-cell *matCellDef="let element" data-label="Ingresos">
-                <div style="text-align:right;font-weight:500;color:#02108c;">{{element.vIngresos}}</div> 
+            <ng-container matColumnDef="balance">
+              <mat-header-cell *matHeaderCellDef> Balance </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="Balance">
+                <div style="text-align:right;font-weight:500;color:#02108c;">{{mostrarBalance(element.monedaRecibe, element.balance)}}</div> 
               </mat-cell>
             </ng-container>
             
@@ -75,7 +75,7 @@
             <ng-container matColumnDef="accion">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> </mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
-                <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion]">
+                <a class="pointer edit" matTooltip="Ver" [routerLink]="['edit', element.ideRendicion]">
                   <!-- <mat-icon>edit</mat-icon> -->
                   <div class="circulo {{getClassEstado(element.ideEstado)}}"></div>
                 </a>
@@ -87,7 +87,7 @@
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
                 <div class="responsive-estado" style="font-weight:600;color: #696868;">{{element.estado}}</div>     
                 <div style="margin-left:auto;">
-                  <a class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion]">
+                  <a class="pointer edit" matTooltip="Ver" [routerLink]="['edit', element.ideRendicion]">
                     <!-- <mat-icon>edit</mat-icon> -->
                     <div class="circulo {{getClassEstado(element.ideEstado)}}"></div>
                   </a>

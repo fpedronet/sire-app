@@ -25,6 +25,7 @@
       <label *ngIf="el.visual">
           <input type="checkbox" [value]="el.valor" (change)="onCheckboxChange($event)" [(ngModel)]="el.isChecked"/>
           {{el.descripcion}}
+          <div class="circulo {{getClassEstado(el.valor)}}"></div>
       </label>
   </div>
   

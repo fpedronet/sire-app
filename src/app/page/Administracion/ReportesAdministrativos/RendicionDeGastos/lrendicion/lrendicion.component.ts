@@ -16,6 +16,7 @@ import forms from 'src/assets/json/formulario.json';
 import { environment } from 'src/environments/environment';
 import { FrendicionComponent } from '../frendicion/frendicion.component';
 import jsonEstado from 'src/assets/json/rendicion/renestado.json';
+import jsonMoneda from 'src/assets/json/detalle/moneda.json';
 import { Combobox } from 'src/app/_model/combobox';
 
 @Component({
@@ -26,7 +27,7 @@ import { Combobox } from 'src/app/_model/combobox';
 export class LrendicionComponent implements OnInit {
 
   dataSource: RendicionM[] = [];
-  displayedColumns: string[] = ['codigo', 'tipo', 'lugar', 'motivo', 'ingresos','estado','correo','accion','mo'];
+  displayedColumns: string[] = ['codigo', 'tipo', 'lugar', 'motivo', 'balance','estado','correo','accion','mo'];
   loading = true;
   existRegistro = false;
   countRegistro = 0;
@@ -38,6 +39,7 @@ export class LrendicionComponent implements OnInit {
   permiso: Permiso = {};
 
   listaEstados: Combobox[] = [];
+  tbMoneda: Combobox[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -55,6 +57,7 @@ export class LrendicionComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerpermiso();
     this.listarestados();
+    this.tbMoneda = this.completarCombo(jsonMoneda);
   
     let filtro = this.usuarioService.sessionFiltro();
     let strEstados = "";
@@ -67,7 +70,7 @@ export class LrendicionComponent implements OnInit {
       this.request.FechaFin! = new Date(filtro[4]);
     }else{
       this.request.Codigo! = "";
-      strEstados! = "0,1,1,1,0,0,0";
+      strEstados! = "0,1,1,0,0,0,0";
       this.request.Tipo! = "";
       this.request.FechaIni! = new Date();
       this.request.FechaIni.setMonth(this.request.FechaIni!.getMonth() - 6);
@@ -75,6 +78,22 @@ export class LrendicionComponent implements OnInit {
     }
 
     localStorage.setItem(environment.CODIGO_FILTRO, ( this.request.Codigo===undefined?'': this.request.Codigo) +"|"+ strEstados+"|"+this.request.Tipo+"|"+this.request.FechaIni+"|"+this.request.FechaFin);
+  }
+
+  completarCombo(json: any){
+    var tbCombo = [];
+
+    for(var i in json) {
+      let el: Combobox = {};
+
+      el.valor = json[i].valor;
+      el.descripcion = json[i].descripcion;
+      el.visual = json[i].visual;
+      
+      tbCombo.push(el);
+    }
+
+    return tbCombo;
   }
 
   actualizar(){
@@ -176,6 +195,26 @@ export class LrendicionComponent implements OnInit {
         this.ngAfterViewInit();
         }
     })
+  }
+
+  getDescripcion(value: string, lista: Combobox[]){
+    //debugger;
+    var obj = lista?.find(e => e.valor === value);
+    var desc: string = '';
+    if(obj !== undefined)
+      desc = obj.descripcion!;
+    return desc;
+  }
+
+  mostrarBalance(codMoneda: string, balance: number){
+    var descMoneda: string = this.getDescripcion(codMoneda, this.tbMoneda);
+    var cadena: string = "";
+
+    if(balance < 0)
+      cadena = "- ";
+    cadena = cadena + descMoneda + Math.abs(balance).toFixed(2);
+
+    return cadena;
   }
 
   routeUrl(id: string){

@@ -29,7 +29,7 @@ export class FrendicionComponent implements OnInit {
   codigo? : string;
 
   listaEstados?: Combobox[] = [];
-  initEstados?: number[] = [0, 1, 1, 1, 0, 0, 0];
+  initEstados?: number[] = [0, 1, 1, 0, 0, 0, 0];
   idEstados?: number[] = this.initEstados;
 
   listaTipos?: Combobox[] = [];
@@ -140,6 +140,16 @@ export class FrendicionComponent implements OnInit {
   onDateChange(){
     this.fechaIni = this.fechaSelectIni;
     this.fechaFin=  this.fechaSelectFin;    
+  }
+
+  getClassEstado(idEstado?: string){
+    debugger;
+    var clase: string = '';
+    var objEstado = jsonEstado.find((e: any) => e.nIdEstado.toString() === idEstado?.toString());
+    if(objEstado !== undefined){
+      clase = objEstado.class;
+    }
+    return clase;
   }
 
   limpiar(){
