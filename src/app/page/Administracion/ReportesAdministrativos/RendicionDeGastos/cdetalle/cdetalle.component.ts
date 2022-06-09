@@ -114,7 +114,11 @@ export class CdetalleComponent implements OnInit {
   }
 
   listarCombo(){
+<<<<<<< HEAD
+    
+=======
     this.spinner.showLoading();
+>>>>>>> a4af4b541ccb343ce5320eae499bd8e1dcc62253
     this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
       if(data === undefined){
         this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
