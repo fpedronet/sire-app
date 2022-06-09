@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SpinnerService } from 'src/app/page/component/spinner/spinner.service';
 import { Combobox } from 'src/app/_model/combobox';
@@ -14,7 +14,7 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./frendicion.component.css']
 })
 export class FrendicionComponent implements OnInit {
-
+  
   constructor(
     private dialogRef: MatDialogRef<FrendicionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -44,6 +44,7 @@ export class FrendicionComponent implements OnInit {
   fechaMax?: Date;
 
   ngOnInit(): void {
+    debugger;
     this.fechaMax = new Date();
 
     this.fechaIni = new Date();
@@ -62,7 +63,7 @@ export class FrendicionComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    //this.obtener();
+
   }
 
   async listarestados(){

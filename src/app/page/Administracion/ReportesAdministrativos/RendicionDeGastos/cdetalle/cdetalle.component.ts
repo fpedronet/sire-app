@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotifierService } from 'src/app/page/component/notifier/notifier.service';
@@ -12,6 +12,7 @@ import jsonConcepto from 'src/assets/json/detalle/concepto.json';
 import jsonMoneda from 'src/assets/json/detalle/moneda.json';
 import jsonTipoDocu from 'src/assets/json/detalle/tipoDocu.json';
 import { environment } from 'src/environments/environment';
+import {QrScannerComponent} from 'angular2-qrscanner';
 
 @Component({
   selector: 'app-cdetalle',
@@ -19,6 +20,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./cdetalle.component.css']
 })
 export class CdetalleComponent implements OnInit {
+
+  @ViewChild(QrScannerComponent, { static : false }) qrScannerComponent!: QrScannerComponent ;
 
   constructor(
     private dialogRef: MatDialogRef<CdetalleComponent>,
@@ -54,6 +57,8 @@ export class CdetalleComponent implements OnInit {
   tbSede: Combobox[] = [];
   tbLinea: Combobox[] = [];
 
+  videoDevices: MediaDeviceInfo[] = [];
+
   fechaIni?: Date;
   fechaSelectIni?: Date;
 
@@ -64,7 +69,8 @@ export class CdetalleComponent implements OnInit {
 
   rendDet: RendicionD = new RendicionD();
   edit?: boolean = true;
-
+  qr:string = "none";
+  body:string = "block";
   existeProveedor: boolean = false;
 
   ngOnInit(): void {
@@ -264,5 +270,43 @@ export class CdetalleComponent implements OnInit {
         })
       }
     }
+  }
+
+  leerQR(){
+    debugger;
+    // if (choosenDev) {
+    //   this.qrScannerComponent.chooseCamera.next(choosenDev);
+    // } else {
+      this.body = "none"
+      this.qr = "block";
+      this.qrScannerComponent.chooseCamera.next(this.videoDevices[0]);
+
+    // }
+  }
+
+  ngAfterViewInit(){
+    this.qrScannerComponent.getMediaDevices().then(devices => {
+      for (const device of devices) {
+          if (device.kind.toString() === 'videoinput') {
+              this.videoDevices.push(device);
+          }
+      }
+      if (this.videoDevices.length > 0){
+          let choosenDev;
+          for (const dev of this.videoDevices){
+              if (dev.label.includes('front')){
+                  choosenDev = dev;
+                  break;
+              }
+          }
+          
+      }
+    });
+
+    this.qrScannerComponent.capturedQr.subscribe(result => {
+      this.qr = "none";
+      this.body = "Block"
+      console.log(result);
+    });
   }
 }

@@ -24,6 +24,7 @@
     "@angular/router": "~13.1.0",
     "@auth0/angular-jwt": "^5.0.2",
     "@types/crypto-js": "^4.1.0",
+    "angular2-qrscanner": "^1.0.7",
     "apexcharts": "^3.33.1",
     "crypto-js": "^4.1.1",
     "jsbarcode": "^3.11.5",
