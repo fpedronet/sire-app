@@ -175,7 +175,6 @@ export class CrendicionComponent implements OnInit {
       'fechaRevisado': new FormControl({ value: new Date(), disabled: true}),
       'ideUsuRevisa': new FormControl({ value: 0, disabled: true}),
       'nombreAdjunto': new FormControl({ value: '', disabled: true})
-      
     });
   }
 
@@ -406,7 +405,6 @@ export class CrendicionComponent implements OnInit {
         const imgBase64Path = e.target.result;
         this.adjunto = imgBase64Path;
         this.nombreAdjunto = fileInput.target.files[0].name;
-        console.log(this.nombreAdjunto)
       };
       reader.readAsDataURL(fileInput.target.files[0]);
     }
