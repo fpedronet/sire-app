@@ -218,12 +218,13 @@ export class CdetalleComponent implements OnInit {
 
       if(data.typeResponse==environment.EXITO){      
         this.spinner.hideLoading();
+        this.dialogRef.close();
       }else{
         this.spinner.hideLoading();
       }
     });
     
-    this.dialogRef.close();
+    
   }
 
   reiniciaProveedor(){

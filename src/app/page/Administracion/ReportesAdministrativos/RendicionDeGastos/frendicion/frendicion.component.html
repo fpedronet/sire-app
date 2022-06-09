@@ -22,14 +22,14 @@
 
   <mat-label>Estado</mat-label>
   <div *ngFor="let el of listaEstados">
-      <label *ngIf="el.visual">
+      <label *ngIf="el.visual">          
+          <div class="circulo {{getClassEstado(el.valor)}}" style="width: 20px; height: 20px; margin-bottom: -5px;"></div>
           <input type="checkbox" [value]="el.valor" (change)="onCheckboxChange($event)" [(ngModel)]="el.isChecked"/>
           {{el.descripcion}}
-          <div class="circulo {{getClassEstado(el.valor)}}"></div>
       </label>
   </div>
   
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" style="margin-top: 15px;">
     <mat-label>Fecha Inicio</mat-label>
     <input matInput [matDatepicker]="fechaInicio" placeholder="dd/mm/yyyy" [max]="fechaInicio" 
     [(ngModel)]="fechaSelectIni"  (dateChange)="onDateChange()" [max]="fechaMax">

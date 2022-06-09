@@ -144,7 +144,7 @@ export class FrendicionComponent implements OnInit {
   }
 
   getClassEstado(idEstado?: string){
-    debugger;
+    //debugger;
     var clase: string = '';
     var objEstado = jsonEstado.find((e: any) => e.nIdEstado.toString() === idEstado?.toString());
     if(objEstado !== undefined){
