@@ -12,6 +12,8 @@ export class RendicionM {
     vIngresos?: string
     gastos?: number
     vGastos?: string
+    balance?: number
+    vBalance?: string
     vFechaPresenta?: string
     vFechaApruebaRechaza?: string
     vFechaProcesa?: string
