@@ -274,7 +274,6 @@ export class CdetalleComponent implements OnInit {
   }
 
   leerQR(){
-    debugger;
     // if (choosenDev) {
     //   this.qrScannerComponent.chooseCamera.next(choosenDev);
     // } else {
@@ -307,7 +306,66 @@ export class CdetalleComponent implements OnInit {
     this.qrScannerComponent.capturedQr.subscribe(result => {
       this.qr = "none";
       this.body = "Block"
-      console.log(result);
+
+      let tt_filas= result.split('|');
+      let model = new RendicionD();
+
+      if(tt_filas.length > 0)
+      {
+        for (let i = 0; i < tt_filas.length; i++) 
+        {
+          switch(i + 1)
+          {
+            case 1:
+              model.rucPrv = tt_filas[i].trim();
+              this.comboboxService.obtenerProveedor(model.rucPrv).subscribe(data=>{
+                if(data!== undefined && data.valor !== null){
+                    model.proveedor= data.descripcion?.trim()
+                }
+                this.obtener(model);
+              })
+              break;
+            case 2:
+              if (tt_filas[i].trim() == "01" || tt_filas[i].trim() == "1" || tt_filas[i].trim() == "F")
+              {
+                  model.nTipDocu = "001";
+              }
+              else if (tt_filas[i].trim() == "02" || tt_filas[i].trim() == "2" || tt_filas[i].trim() == "R")
+              {
+                  model.nTipDocu = "002";
+              }
+              else if (tt_filas[i].trim() == "03" || tt_filas[i].trim() == "3" || tt_filas[i].trim() == "B")
+              {
+                  model.nTipDocu = "003";
+              }
+              break;
+            case 3:
+              model.documento = tt_filas[i].trim();
+                break;
+            case 4:
+              model.documento += "-" + tt_filas[i].trim();
+              break;
+            case 5:
+               break;
+            case 6:
+              try
+              {
+                model.monto = parseFloat(tt_filas[i].trim());
+              }
+              catch (Exception)
+              { }
+              break;
+            case 7:
+              model.fecha =new Date(tt_filas[i].trim());
+                break;
+
+          }          
+        }
+      }
+
+      // RUC | TIPO DE DOCUMENTO | SERIE | NUMERO | MTO TOTAL IGV | MTO
+      // TOTAL DEL COMPROBANTE | FECHA DE EMISION | TIPO DE DOCUMENTO ADQUIRENTE | 
+      // NUMERO DE DOCUMENTO ADQUIRENTE | VALOR RESUMEN | VALOR DE LA FIRMA 
     });
   }
 }
