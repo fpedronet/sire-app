@@ -212,7 +212,7 @@ export class LrendicionComponent implements OnInit {
 
     if(balance < 0)
       cadena = "- ";
-    cadena = cadena + descMoneda + Math.abs(balance).toFixed(2);
+    cadena = cadena + descMoneda + " " + Math.abs(balance).toFixed(2);
 
     return cadena;
   }

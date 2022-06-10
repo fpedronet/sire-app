@@ -1,17 +1,17 @@
 [
     {
-        "valor": "000",
-        "descripcion": "Declaracion Jurada",
-        "visual": true
-    },
-    {
         "valor": "001",
         "descripcion": "Factura",
         "visual": true
     },
     {
-        "valor": "003",
+        "valor": "002",
         "descripcion": "Boleta",
+        "visual": true
+    },
+    {
+        "valor": "003",
+        "descripcion": "Declaracion Jurada",
         "visual": true
     }
 ]

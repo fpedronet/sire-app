@@ -19,6 +19,7 @@ export const environment = {
   TOKEN_NAME: 'access_token',
   CODIGO_EMPRESA: 'access_empresa',
   CODIGO_FILTRO: 'access_filtro',
+  CODIGO_DETALLE: 'access_detalle',
 
   ERROR: 0,
   EXITO: 1,
