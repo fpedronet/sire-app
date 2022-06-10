@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotifierService } from 'src/app/page/component/notifier/notifier.service';
 import { SpinnerService } from 'src/app/page/component/spinner/spinner.service';
@@ -13,6 +12,8 @@ import jsonMoneda from 'src/assets/json/detalle/moneda.json';
 import jsonTipoDocu from 'src/assets/json/detalle/tipoDocu.json';
 import { environment } from 'src/environments/environment';
 import {QrScannerComponent} from 'angular2-qrscanner';
+import { map, Observable, startWith } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-cdetalle',
@@ -53,9 +54,24 @@ export class CdetalleComponent implements OnInit {
   tbConcepto: Combobox[] = [];
   tbTipoDocu: Combobox[] = [];
   tbMoneda: Combobox[] = [];
+
   tbComodato: Combobox[] = [];
-  tbSede: Combobox[] = [];
+  filterComodato: Combobox[] = [];
+
+  carBuscaAuto: number = 2;
+  nroMuestraAuto: number = 15;
+
+  tbSede: Combobox[] = [];  
+  sedeColor: string = 'warn';
+  filterSedes: Observable<Combobox[]> | undefined;
+  controlSedes = new FormControl();
+  ideSede: number = 0;
+
   tbLinea: Combobox[] = [];
+  lineaColor: string = 'warn';
+  filterLineas: Observable<Combobox[]> | undefined;
+  controlLineas = new FormControl();
+  codLinea: string = '';
 
   videoDevices: MediaDeviceInfo[] = [];
 
@@ -87,8 +103,6 @@ export class CdetalleComponent implements OnInit {
       'ideRendicion': new FormControl({ value: rendD.ideRendicion, disabled: false}),
       'fecha': new FormControl({ value: rendD.fecha, disabled: false}),
       'comodato': new FormControl({ value: rendD.comodato, disabled: false}),
-      'ideSede': new FormControl({ value: rendD.ideSede?.toString(), disabled: false}),
-      'nCodLinea': new FormControl({ value: rendD.nCodLinea, disabled: false}),
       'codConcepto': new FormControl({ value: rendD.codConcepto, disabled: false}),
       'nTipDocu': new FormControl({ value: rendD.nTipDocu, disabled: false}),
       'documento': new FormControl({ value: rendD.documento, disabled: false}),
@@ -106,8 +120,6 @@ export class CdetalleComponent implements OnInit {
       ideRendicion: rendDet.ideRendicion,
       fecha: rendDet.fecha,
       comodato: rendDet.comodato,
-      ideSede: rendDet.ideSede?.toString(),
-      nCodLinea: rendDet.nCodLinea,
       codConcepto: rendDet.codConcepto,
       nTipDocu: rendDet.nTipDocu,
       documento: rendDet.documento,
@@ -117,6 +129,16 @@ export class CdetalleComponent implements OnInit {
       rucPrv: rendDet.rucPrv,
       proveedor: rendDet.proveedor
     })
+    var sedeFind = this.tbSede.find(e => e.valor === rendDet.ideSede?.toString()); //Ruc
+    if(sedeFind !== undefined){
+      var sede: Combobox = sedeFind;      
+      this.setCurSede(sede);
+    }
+    var lineaFind = this.tbLinea.find(e => e.valor === rendDet.nCodLinea); //CodLin
+    if(lineaFind !== undefined){
+      var linea: Combobox = lineaFind;      
+      this.setCurLinea(linea);
+    }
   }
 
   listarCombo(){
@@ -127,11 +149,23 @@ export class CdetalleComponent implements OnInit {
       }
       else{
         var tbCombobox: Combobox[] = data.items;
-        //debugger;
         this.tbComodato = this.obtenerSubtabla(tbCombobox,'COMODATO');
+        this.filterComodato = this.tbComodato;
+
         this.tbSede = this.obtenerSubtabla(tbCombobox,'SEDE');
+        this.filterSedes = this.controlSedes.valueChanges.pipe(
+          startWith(''),
+          map(value => (typeof value === 'string'?value:value.descripcion)),
+          map(name  => (name?this.buscarSedes(name):[]))
+        )
+
         this.tbLinea = this.obtenerSubtabla(tbCombobox,'LINEA');
-        //debugger;
+        this.filterLineas = this.controlLineas.valueChanges.pipe(
+          startWith(''),
+          map(value2 => (typeof value2 === 'string'?value2:value2.descripcion)),
+          map(name2  => (name2?this.buscarLineas(name2):[]))
+        )
+        
         this.tbConcepto = this.completarCombo(jsonConcepto);
         this.tbMoneda = this.completarCombo(jsonMoneda);
         this.tbTipoDocu = this.completarCombo(jsonTipoDocu);
@@ -163,8 +197,26 @@ export class CdetalleComponent implements OnInit {
     return tb.filter(e => e.etiqueta?.toString()?.trim() === cod);
   }
 
-  onCheckboxChange(e: any) {
-    //console.log(this.listaEstados);
+  buscarSedes(name: string): Combobox[]{
+    this.setCurSede(undefined, true);
+    var results: Combobox[] = [];
+    //debugger;
+    if(name.length >= this.carBuscaAuto){
+      var filtro = name.toLowerCase();
+      results = this.tbSede.filter(e => e.descripcion?.toLowerCase().includes(filtro));
+    }    
+    return results.slice(0,this.nroMuestraAuto);
+  }
+
+  buscarLineas(name: string): Combobox[]{
+    this.setCurLinea(undefined, true);
+    var results: Combobox[] = [];
+    //debugger;
+    if(name.length >= this.carBuscaAuto){
+      var filtro = name.toLowerCase();
+      results = this.tbLinea.filter(e => e.descripcion?.toLowerCase().includes(filtro));
+    }    
+    return results.slice(0,this.nroMuestraAuto);
   }
   
   onDateChange(){
@@ -177,8 +229,8 @@ export class CdetalleComponent implements OnInit {
     this.form.patchValue({
       fecha: rendDet?.fecha,
       comodato: rendDet?.comodato,
-      ideSede: rendDet?.ideSede,
-      nCodLinea: rendDet?.nCodLinea,
+      //ideSede: rendDet?.ideSede,
+      //nCodLinea: rendDet?.nCodLinea,
       codConcepto: rendDet?.codConcepto,
       nTipDocu: rendDet?.nTipDocu,
       documento: rendDet?.documento,
@@ -189,6 +241,9 @@ export class CdetalleComponent implements OnInit {
       proveedor: rendDet?.proveedor
     })
     this.existeProveedor = false;
+    this.filterComodato = this.tbComodato;
+    this.setCurSede(undefined);
+    this.setCurLinea(undefined);
   }
 
   guardar(){
@@ -198,8 +253,11 @@ export class CdetalleComponent implements OnInit {
     model.ideRendicion = this.form.value['ideRendicion'];
     model.fecha = this.form.value['fecha'];
     model.comodato = this.form.value['comodato'];
-    model.ideSede = this.form.value['ideSede']==""?0:parseInt(this.form.value['ideSede']);
-    model.codLinea = this.form.value['nCodLinea'];
+
+    model.ideSede = this.ideSede;
+
+    model.codLinea = this.codLinea;
+
     model.codConcepto = this.form.value['codConcepto'];
     model.tipDocu = this.form.value['nTipDocu'];
     model.documento = this.form.value['documento'];
@@ -208,12 +266,10 @@ export class CdetalleComponent implements OnInit {
     model.descripcion = this.form.value['descripcion'];
     model.rucPrv = this.form.value['rucPrv'];
     model.proveedor = this.form.value['proveedor'];
-    //debugger;
 
     this.spinner.showLoading();
 
     this.rendicionService.guardarDet(model).subscribe(data=>{
-      //debugger;
       this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
       if(data.typeResponse==environment.EXITO){      
@@ -258,17 +314,15 @@ export class CdetalleComponent implements OnInit {
 
   selectcomodato(valor: string){
     var comodato = this.tbComodato.find(e => e.valor === valor);
-    var linea = this.tbLinea.find(e => e.valor === comodato!.aux1); //CodLin
-    if(linea !== undefined){
-      this.form.patchValue({
-        nCodLinea: linea.valor
-      })
+    var lineaFind = this.tbLinea.find(e => e.valor === comodato!.aux1); //CodLin
+    if(lineaFind !== undefined){
+      var linea: Combobox = lineaFind;
+      this.setCurLinea(linea);
 
-      var sede = this.tbSede.find(e => e.aux1 === comodato!.aux2); //Ruc
-      if(sede !== undefined){
-        this.form.patchValue({
-          ideSede: sede.valor
-        })
+      var sedeFind = this.tbSede.find(e => e.aux1 === comodato!.aux2); //Ruc
+      if(sedeFind !== undefined){
+        var sede: Combobox = sedeFind;
+        this.setCurSede(sede);
       }
     }
   }
@@ -309,5 +363,62 @@ export class CdetalleComponent implements OnInit {
       this.body = "Block"
       console.log(result);
     });
+  }
+
+  mostrarAutoCombo(c: Combobox): string{
+    var result = '';
+    if(c !== undefined && c !== null && c.descripcion !== '')
+      result = c.descripcion!;
+    return result;
+  }
+
+  setCurSede(sede?: Combobox, notControl: boolean = false){
+    if(sede === undefined){
+      if(!notControl)
+        this.controlSedes.setValue(new Combobox());
+      this.ideSede = 0;
+      this.sedeColor = 'warn';
+    }
+    else{
+      if(!notControl)
+        this.controlSedes.setValue(sede);
+      this.ideSede = sede.valor! === ''? 0 : parseInt(sede.valor!);
+      this.sedeColor = 'primary';
+
+      //this.filtrarComodatos(sede.aux2!) //Ruc
+    }
+  }
+
+  filtrarComodatos(ruc: string){
+    this.filterComodato = this.tbComodato.filter(e => e.aux1 === ruc);
+  }
+
+  changeSede(event: any){
+    var sede = event.option.value;
+    if(sede !== undefined){
+      this.setCurSede(sede, true)
+    }
+  }
+
+  setCurLinea(linea?: Combobox, notControl: boolean = false){
+    if(linea === undefined){
+      if(!notControl)
+        this.controlLineas.setValue(new Combobox());
+      this.codLinea = '';
+      this.lineaColor = 'warn';
+    }
+    else{
+      if(!notControl)
+        this.controlLineas.setValue(linea);
+      this.codLinea = linea.valor!;
+      this.lineaColor = 'primary';
+    }
+  }
+
+  changeLinea(event: any){
+    var linea = event.option.value;
+    if(linea !== undefined){
+      this.setCurLinea(linea, true)
+    }
   }
 }

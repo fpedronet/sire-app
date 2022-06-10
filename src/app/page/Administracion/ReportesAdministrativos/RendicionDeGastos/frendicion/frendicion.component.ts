@@ -44,7 +44,7 @@ export class FrendicionComponent implements OnInit {
   fechaMax?: Date;
 
   ngOnInit(): void {
-    debugger;
+    //debugger;
     this.fechaMax = new Date();
 
     this.fechaIni = new Date();

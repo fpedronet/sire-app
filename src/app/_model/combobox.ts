@@ -2,6 +2,7 @@ export class Combobox {
     constructor() {
         this.valor = '';
         this.descripcion = '';
+        this.etiqueta = '';
         this.isChecked = false;
         this.visual = true;
         this.aux1 = '';

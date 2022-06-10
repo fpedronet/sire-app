@@ -61,6 +61,7 @@ export class CrendicionComponent implements OnInit {
 
   tbConcepto: Combobox[] = [];
   tbMoneda: Combobox[] = [];
+  curMoneda: string = '';
   
   vIngresos?: string = '0.00';
   vGastos?: string = '0.00';
@@ -216,7 +217,11 @@ export class CrendicionComponent implements OnInit {
           this.documento= data.codigo!;
           this.dataSource = data.listaDetalle!;
           //debugger;
-          this.existDetalle = this.dataSource.length > 0;
+          if(this.dataSource.length > 0){
+            this.existDetalle = true;
+            this.curMoneda = this.dataSource[0].codMoneda!;
+          }
+          
         }
         this.spinner.hideLoading();
       });

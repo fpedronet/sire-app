@@ -171,13 +171,13 @@
         <ng-template matStepLabel>Detalle</ng-template>
         <mat-grid-list cols="12" rowHeight="45px" gutterSize="15px">
           <mat-grid-tile class="example-right-align-ingreso" [colspan]="4">
-            Ingresos<br>{{vIngresos}}
+            Ingresos<br>{{getDescripcion(curMoneda, tbMoneda)}} {{vIngresos}}
           </mat-grid-tile>
           <mat-grid-tile class="example-right-align-gasto" [colspan]="4">
-            Gastos<br>{{vGastos}}
+            Gastos<br>{{getDescripcion(curMoneda, tbMoneda)}} {{vGastos}}
           </mat-grid-tile>
           <mat-grid-tile class="example-right-align-balance" [colspan]="4">
-            Balance<br>{{vBalance}}
+            Balance<br>{{getDescripcion(curMoneda, tbMoneda)}} {{vBalance}}
           </mat-grid-tile>
         </mat-grid-list>
         <div class="content contentTable">
