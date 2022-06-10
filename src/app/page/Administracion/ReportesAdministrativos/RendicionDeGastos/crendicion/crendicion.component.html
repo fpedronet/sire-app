@@ -180,17 +180,21 @@
             Balance<br>{{getDescripcion(curMoneda, tbMoneda)}} {{vBalance}}
           </mat-grid-tile>
         </mat-grid-list>
+
         <div class="content contentTable">
           <div fxLayout="row wrap" fxLayoutGap="16px grid">
-            <div div fxFlex="35%" fxFlex.xs="35%" fxFlex.sm="100%">
+            <div div fxFlex="47%" fxFlex.xs="47%" fxFlex.sm="47%">
 
             </div>
-            <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="100%" *ngIf="edit">  
+            <div div fxFlex="20%" fxFlex.xs="20%" fxFlex.sm="20%" *ngIf="edit">  
               <div class="example-button-row">
                 <button mat-stroked-button class="btnHeader" type="button" (click)="abrirDetalle()">
                   <mat-icon class="maticon">add</mat-icon>
                 </button>  
               </div>        
+            </div>
+            <div div fxFlex="47%" fxFlex.xs="47%" fxFlex.sm="47%">
+
             </div>
           </div>
 
