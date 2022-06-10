@@ -93,12 +93,13 @@ export class CdetalleComponent implements OnInit {
   ngOnInit(): void {
     this.fechaMax = new Date();
     this.inicializar();
-    this.listarCombo();    
+    this.listarCombo();
   }
 
   inicializar(){
     //debugger;
     var rendD = new RendicionD();
+
     this.form = new FormGroup({
       'ideRendicionDet': new FormControl({ value: rendD.ideRendicionDet, disabled: false}),
       'ideRendicion': new FormControl({ value: rendD.ideRendicion, disabled: false}),
@@ -116,6 +117,18 @@ export class CdetalleComponent implements OnInit {
   }
 
   obtener(rendDet: RendicionD){
+
+    //Si es un registro nuevo, carga caché en campos
+    if(rendDet.ideRendicionDet === 0){
+      let filtro = this.usuarioService.sessionDetalle();
+      if(filtro!=null){
+        rendDet.comodato = filtro[0];
+        rendDet.ideSede = filtro[1] === '' ? 0 : parseInt(filtro[1]);
+        rendDet.nCodLinea = filtro[2];
+        rendDet.codMoneda = filtro[3];
+      }
+    }
+
     this.form.patchValue({
       ideRendicionDet: rendDet.ideRendicionDet,
       ideRendicion: rendDet.ideRendicion,
@@ -275,6 +288,15 @@ export class CdetalleComponent implements OnInit {
 
       if(data.typeResponse==environment.EXITO){      
         this.spinner.hideLoading();
+
+        //Guarda caché de valores ingresados
+        localStorage.setItem(environment.CODIGO_DETALLE, 
+          (model.comodato === undefined ? '' : model.comodato) + "|" +
+          (model.ideSede === undefined ? '' : model.ideSede?.toString()) + "|" +
+          (model.codLinea === undefined ? '' : model.codLinea) + "|" +
+          (model.codMoneda === undefined ? '' : model.codMoneda)
+        );
+        
         this.dialogRef.close();
       }else{
         this.spinner.hideLoading();
@@ -397,8 +419,8 @@ export class CdetalleComponent implements OnInit {
     this.filterComodato = this.tbComodato.filter(e => e.aux2 === ruc || e.valor === 'CMD');
     if(this.filterComodato.length === 1) //Solo Ninguno
       this.filterComodato = this.tbComodato;
-    else
-      this.comboCmd.open();
+    //else
+    //  this.comboCmd.open();
   }
 
   changeSede(event: any){

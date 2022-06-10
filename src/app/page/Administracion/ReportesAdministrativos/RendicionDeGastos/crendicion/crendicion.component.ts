@@ -53,6 +53,7 @@ export class CrendicionComponent implements OnInit {
   $disable: boolean =false;
   currentTab: number = 0;
 
+  rendicionCargada?: RendicionM;
   existRendicion: boolean = false;
   existDetalle: boolean = false;
 
@@ -86,6 +87,8 @@ export class CrendicionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.setItem(environment.CODIGO_DETALLE, "");
+    
     this.obtenerpermiso();
     
     this.listarestados();
@@ -96,7 +99,7 @@ export class CrendicionComponent implements OnInit {
     this.inicializar();
 
     this.obtenerpermiso();
-
+    
     this.existRendicion = this.id !== 0
 
     this.route.params.subscribe((data: Params)=>{
@@ -193,6 +196,7 @@ export class CrendicionComponent implements OnInit {
       this.rendicionService.obtener(this.id).subscribe(data=>{
         if(data!== undefined && data.ideRendicion !== 0){
           //debugger;
+          this.rendicionCargada = data;
           this.existRendicion = true;
           this.form.patchValue({
             ideRendicion: data.ideRendicion,
@@ -262,8 +266,23 @@ export class CrendicionComponent implements OnInit {
         }
       });
     }
-    else
-      this.$cambiaEstado(sgteEstado);
+    else{
+      if(this.rendicionCargada !== undefined){
+        if(this.camposCambiados(this.rendicionCargada)){
+          this.confirmService.openConfirmDialog(true, "Tiene cambios sin guardar");
+        }
+        else
+          this.$cambiaEstado(sgteEstado);
+      }      
+    }      
+  }
+
+  camposCambiados(rend: RendicionM){
+    var lugar: boolean = rend.lugar !== this.getControlLabel('lugar');
+    var motivo: boolean = rend.motivo !== this.getControlLabel('motivo');
+    var tipo: boolean = rend.tipo !== this.getControlLabel('tipo');
+    var ingresos: boolean = rend.ingresos?.toFixed(2) !== this.getControlLabel('ingresos');
+    return lugar || motivo || tipo || ingresos;
   }
 
   $cambiaEstado(sgteEstado: number){
