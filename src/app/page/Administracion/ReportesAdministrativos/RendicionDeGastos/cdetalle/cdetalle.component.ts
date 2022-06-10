@@ -23,6 +23,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class CdetalleComponent implements OnInit {
 
   @ViewChild(QrScannerComponent, { static : false }) qrScannerComponent!: QrScannerComponent ;
+  @ViewChild('COMODATO') comboCmd: any;
 
   constructor(
     private dialogRef: MatDialogRef<CdetalleComponent>,
@@ -353,8 +354,7 @@ export class CdetalleComponent implements OnInit {
                   choosenDev = dev;
                   break;
               }
-          }
-          
+          }          
       }
     });
 
@@ -373,11 +373,14 @@ export class CdetalleComponent implements OnInit {
   }
 
   setCurSede(sede?: Combobox, notControl: boolean = false){
+    //debugger;
     if(sede === undefined){
       if(!notControl)
         this.controlSedes.setValue(new Combobox());
       this.ideSede = 0;
       this.sedeColor = 'warn';
+
+      this.filterComodato = this.tbComodato
     }
     else{
       if(!notControl)
@@ -385,12 +388,17 @@ export class CdetalleComponent implements OnInit {
       this.ideSede = sede.valor! === ''? 0 : parseInt(sede.valor!);
       this.sedeColor = 'primary';
 
-      //this.filtrarComodatos(sede.aux2!) //Ruc
+      this.filtrarComodatos(sede.aux1!) //Ruc
     }
   }
 
   filtrarComodatos(ruc: string){
-    this.filterComodato = this.tbComodato.filter(e => e.aux1 === ruc);
+    //debugger;
+    this.filterComodato = this.tbComodato.filter(e => e.aux2 === ruc || e.valor === 'CMD');
+    if(this.filterComodato.length === 1) //Solo Ninguno
+      this.filterComodato = this.tbComodato;
+    else
+      this.comboCmd.open();
   }
 
   changeSede(event: any){
