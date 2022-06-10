@@ -1,6 +1,13 @@
-<h3 *ngIf="rendDet!.ideRendicionDet==0" mat-dialog-title>CREAR GASTO</h3>
-<h3 *ngIf="rendDet!.ideRendicionDet!==0 && edit" mat-dialog-title>EDITAR GASTO</h3>
-<h3 *ngIf="rendDet!.ideRendicionDet!==0 && !edit" mat-dialog-title>VER GASTO</h3>
+<div id="contenedor">
+  <div class="titlemodal">
+    <h3 *ngIf="rendDet!.ideRendicionDet==0" mat-dialog-title>CREAR GASTO</h3>
+    <h3 *ngIf="rendDet!.ideRendicionDet!==0 && edit" mat-dialog-title>EDITAR GASTO</h3>
+    <h3 *ngIf="rendDet!.ideRendicionDet!==0 && !edit" mat-dialog-title>VER GASTO</h3>
+  </div>
+  <div>
+    <button style="margin-right: 4px;" mat-stroked-button class="btnBlue" (click)="leerQR()"><mat-icon>qr_code2</mat-icon> QR</button> 
+  </div>
+</div>
 
 <div style="display: {{qr}}">
   <qr-scanner
@@ -181,6 +188,5 @@
 <div class="btnModal" align="end">
   <button style="margin-right: 4px;" mat-stroked-button class="btnRed" mat-dialog-close><mat-icon>close</mat-icon>Cerrar</button> 
   <button *ngIf="edit" style="margin-right: 4px;" mat-stroked-button class="btnYellow"(click)="limpiar()"><mat-icon>cleaning_services</mat-icon>Limpiar</button>
-  <button style="margin-right: 4px;" mat-stroked-button class="btnBlue" (click)="leerQR()"><mat-icon>qr_code2</mat-icon> QR</button> 
   <button *ngIf="edit" mat-stroked-button class="btnBlue" (click)="guardar()" [disabled]="frmGrupo.invalid"><mat-icon>save</mat-icon>Guardar</button>
 </div>

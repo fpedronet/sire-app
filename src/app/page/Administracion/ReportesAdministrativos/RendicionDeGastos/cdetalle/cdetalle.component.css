@@ -1,0 +1,9 @@
+#contenedor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  #contenedor > .titlemodal {
+    width: 70%;
+  }
