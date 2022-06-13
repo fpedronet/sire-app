@@ -57,9 +57,6 @@ export class CrendicionComponent implements OnInit {
   existRendicion: boolean = false;
   existDetalle: boolean = false;
 
-  adjunto: string = '';
-  nombreAdjunto: string = '';
-
   tbConcepto: Combobox[] = [];
   tbMoneda: Combobox[] = [];
   curMoneda: string = '';
@@ -69,7 +66,7 @@ export class CrendicionComponent implements OnInit {
   vBalance?: string = '0.00';
 
   dataSource: RendicionD[] = [];
-  displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'accion', 'mo'];
+  displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'adjunto', 'accion', 'mo'];
 
   maxDate: Date = new Date();
 
@@ -97,8 +94,6 @@ export class CrendicionComponent implements OnInit {
     this.tbMoneda = this.completarCombo(jsonMoneda);
     
     this.inicializar();
-
-    this.obtenerpermiso();
     
     this.existRendicion = this.id !== 0
 
@@ -177,8 +172,7 @@ export class CrendicionComponent implements OnInit {
       'obsRevisor': new FormControl({ value: '', disabled: true}),
       'tipo': new FormControl({ value: 'M', disabled: false}),
       'fechaRevisado': new FormControl({ value: new Date(), disabled: true}),
-      'ideUsuRevisa': new FormControl({ value: 0, disabled: true}),
-      'nombreAdjunto': new FormControl({ value: '', disabled: true})
+      'ideUsuRevisa': new FormControl({ value: 0, disabled: true})
     });
   }
 
@@ -217,7 +211,7 @@ export class CrendicionComponent implements OnInit {
           this.vBalance = (data.ingresos!-data.gastos!).toFixed(2);
           //debugger;
           this.muestraEstado(data.ideEstado);
-          
+          debugger;
           this.documento= data.codigo!;
           this.dataSource = data.listaDetalle!;
           //debugger;
@@ -371,8 +365,6 @@ export class CrendicionComponent implements OnInit {
       model.motivo = this.form.value['motivo'];
       model.montoRecibe = this.form.value['ingresos'];
       model.tipo = this.form.value['tipo'];
-      model.adjunto =this.adjunto;
-      model.nombreAdjunto =this.nombreAdjunto;
 
       this.spinner.showLoading();
       //debugger;
@@ -420,18 +412,6 @@ export class CrendicionComponent implements OnInit {
         this.obtener();
       }
     })
-  }
-
-  subirArchivo(fileInput: any) {
-    if (fileInput.target.files && fileInput.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const imgBase64Path = e.target.result;
-        this.adjunto = imgBase64Path;
-        this.nombreAdjunto = fileInput.target.files[0].name;
-      };
-      reader.readAsDataURL(fileInput.target.files[0]);
-    }
   }
 
   restarCampos(num1: string, num2: string){

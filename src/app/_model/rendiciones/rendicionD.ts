@@ -17,6 +17,7 @@ export class RendicionD {
         this.rucPrv = '';
         this.proveedor = '';
         this.swt = 1;
+        this.url = ''
     }
     ideRendicionDet?: number
     ideRendicion?: number
@@ -37,4 +38,8 @@ export class RendicionD {
     rucPrv?: string
     proveedor?: string
     swt?: number
+    password?: string
+    nombreAdjunto?: string
+    adjunto?: string
+    url?: string
 }

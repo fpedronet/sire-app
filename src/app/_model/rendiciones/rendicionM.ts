@@ -32,8 +32,6 @@ export class RendicionM {
     vFechaRevisado?: string
     ideUsuRevisa?: number
     correo?: string
-    nombreAdjunto?: string
-    adjunto?: string
     listaDetalle?: RendicionD[]
 }
 

@@ -96,6 +96,14 @@
                 </mat-form-field>
               </mat-grid-tile>
             </mat-grid-list>
+            <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+              <mat-grid-tile [colspan]="12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Archivo</mat-label>
+                  <input matInput readonly="true" [(ngModel)]="nombreAdjunto" formControlName="nombreAdjunto">
+              </mat-form-field>
+              </mat-grid-tile>
+            </mat-grid-list>
           </div>
   
           <div div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="100%">
@@ -175,6 +183,14 @@
                       </mat-option>
                   </mat-autocomplete>
                 </mat-form-field>
+              </mat-grid-tile>
+            </mat-grid-list>
+
+            <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+              <mat-grid-tile [colspan]="12">
+                <mat-form-field appearance="outline">
+                  <input matInput class="file-select" type="file" accept="*/*" (change)="subirArchivo($event)">
+                </mat-form-field>  
               </mat-grid-tile>
             </mat-grid-list>
 

@@ -143,19 +143,6 @@
                     </mat-form-field>
                   </mat-grid-tile>
                 </mat-grid-list>   
-                
-                <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px" *ngIf="edit">
-                  <mat-grid-tile [colspan]="12">
-                    <mat-form-field appearance="outline" fxFlex="70%" fxFlex.xs="60%" fxFlex.sm="60%">
-                        <input matInput [(ngModel)]="nombreAdjunto" formControlName="nombreAdjunto">
-                    </mat-form-field>
-                    <div style="font-size:37px;color:#ffffff;font-weight:500;"><label>-</label></div>
-                    <mat-form-field fxFlex="30%" fxFlex.xs="40%" fxFlex.sm="40%">
-                      <input matInput class="file-select" type="file" accept="*/*" (change)="subirArchivo($event)">
-                    </mat-form-field>                   
-                  </mat-grid-tile>
-
-                </mat-grid-list>   
 
             </div>            
           </div>
@@ -238,6 +225,15 @@
               <ng-container matColumnDef="comodato">
                 <mat-header-cell *matHeaderCellDef> Comodato </mat-header-cell>
                 <mat-cell *matCellDef="let element" data-label="Comodato"> {{element.comodato}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="adjunto">
+                <mat-header-cell *matHeaderCellDef> Adjunto </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Adjunto">
+                  <a *ngIf="element.url!=null && element.url!=''" class="pointer ver" matTooltip="Link" href="{{element.url}}" target="_blank">
+                    <mat-icon>attach_file</mat-icon>
+                  </a>
+                </mat-cell>
               </ng-container>
   
               <ng-container matColumnDef="accion">
