@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 import { MenuResponse } from '../_model/configuracion/menu';
 import { Permiso } from './../_model/permiso';
 import { UsuarioService } from './configuracion/usuario.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'

@@ -15,6 +15,7 @@ import { LrendicionComponent } from './Administracion/ReportesAdministrativos/Re
 import { CrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crendicion/crendicion.component';
 import { FrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/frendicion/frendicion.component';
 import { CdetalleComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/cdetalle/cdetalle.component';
+import { PerfilComponent } from './component/perfil/perfil.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { CdetalleComponent } from './Administracion/ReportesAdministrativos/Rend
     LrendicionComponent,
     CrendicionComponent,
     FrendicionComponent,
-    CdetalleComponent
+    CdetalleComponent,
+    PerfilComponent
   ],
   imports: [
     MaterialModule,
