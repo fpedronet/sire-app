@@ -6,6 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 
 import { TokenUsuario, Usuario } from '../../_model/configuracion/usuario';
+import { Response } from '../../_model/response';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +26,23 @@ export class UsuarioService {
     return this.http.post<TokenUsuario>(urls, usuario);
   }
 
+ actualizarpasswordsharePoint(usuario: Usuario){
+    let urls = `${this.url}/PostActualizarPasswordSharePoint`;
+
+    return this.http.post<Response>(urls, usuario);
+  }
+
   sessionUsuario(){
     let helper = new JwtHelperService();
     let token = localStorage.getItem(environment.TOKEN_NAME);
     let codigoempresa = localStorage.getItem(environment.CODIGO_EMPRESA);
+    let contraseniaSharepoint = localStorage.getItem(environment.PASSWORD_SHAREPOINT);
 
     if (!helper.isTokenExpired(token!)){
-      let decodedToken = helper.decodeToken(token!);       
+          let decodedToken = helper.decodeToken(token!);       
           decodedToken.codigoempresa =codigoempresa;
-      return decodedToken;
+          decodedToken.contraseniaSharepoint = contraseniaSharepoint;
+          return decodedToken;
     }else{
       return null;
     }

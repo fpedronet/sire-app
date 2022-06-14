@@ -90,6 +90,9 @@ export class CdetalleComponent implements OnInit {
   body:string = "block";
   existeProveedor: boolean = false;
 
+  adjunto: string = '';
+  nombreAdjunto: string = '';
+
   ngOnInit(): void {
     this.fechaMax = new Date();
     this.inicializar();
@@ -113,6 +116,7 @@ export class CdetalleComponent implements OnInit {
       'descripcion': new FormControl({ value: rendD.descripcion, disabled: false}),
       'rucPrv': new FormControl({ value: rendD.rucPrv, disabled: false}),
       'proveedor': new FormControl({ value: rendD.proveedor, disabled: false}),
+      'nombreAdjunto': new FormControl({ value: rendD.nombreAdjunto, disabled: false}),
     });
   }
 
@@ -143,6 +147,8 @@ export class CdetalleComponent implements OnInit {
       rucPrv: rendDet.rucPrv,
       proveedor: rendDet.proveedor
     })
+    this.nombreAdjunto = rendDet.nombreAdjunto!;
+
     var sedeFind = this.tbSede.find(e => e.valor === rendDet.ideSede?.toString()); //Ruc
     if(sedeFind !== undefined){
       var sede: Combobox = sedeFind;      
@@ -281,6 +287,10 @@ export class CdetalleComponent implements OnInit {
     model.descripcion = this.form.value['descripcion'];
     model.rucPrv = this.form.value['rucPrv'];
     model.proveedor = this.form.value['proveedor'];
+
+    model.password = this.usuarioService.sessionUsuario()?.contraseniaSharepoint;
+    model.adjunto = this.adjunto;
+    model.nombreAdjunto = this.nombreAdjunto;
 
     this.spinner.showLoading();
 
@@ -508,6 +518,18 @@ export class CdetalleComponent implements OnInit {
     var linea = event.option.value;
     if(linea !== undefined){
       this.setCurLinea(linea, true)
+    }
+  }
+
+  subirArchivo(fileInput: any) {
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const imgBase64Path = e.target.result;
+        this.adjunto = imgBase64Path;
+        this.nombreAdjunto = fileInput.target.files[0].name;
+      };
+      reader.readAsDataURL(fileInput.target.files[0]);
     }
   }
 }

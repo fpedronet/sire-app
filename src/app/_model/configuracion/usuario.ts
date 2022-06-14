@@ -4,6 +4,7 @@ export class Usuario{
     ideUsuario?: string;
     usuario? : string;
     contrasenia? : string;
+    contraseniaSharepoint? : string;
     id? : string;
     key? : string;
 }

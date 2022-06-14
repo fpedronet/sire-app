@@ -8,6 +8,9 @@ import { ConfigPermisoService } from './../../../_service/configpermiso.service'
 import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 
 import { MenuResponse } from 'src/app/_model/configuracion/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { PerfilComponent } from '../perfil/perfil.component';
+
 
 @Component({
   selector: 'app-layout',
@@ -20,6 +23,7 @@ export class LayoutComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private dialog: MatDialog,
     private spinner : SpinnerService,
     private ConfigPermisoService : ConfigPermisoService,
     private usuarioService: UsuarioService,
@@ -64,6 +68,7 @@ export class LayoutComponent implements OnInit {
         this.menus.listaMenu = data.listaMenu;
 
         localStorage.setItem(environment.CODIGO_EMPRESA, this.codigo!);
+        localStorage.setItem(environment.PASSWORD_SHAREPOINT, data.contraseniaSharepoint!);
   
         this.spinner.hideLoading();
       });
@@ -111,6 +116,16 @@ export class LayoutComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['']);
   }
+
+  abrirperfil(){
+    const dialogRef =this.dialog.open(PerfilComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      width: '850px',
+      panelClass: 'full-screen-modal'
+    });
+  }
+
 
   abrirmenu(){
 

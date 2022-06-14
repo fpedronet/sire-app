@@ -1,6 +1,7 @@
 import { EmpresaPorUsuario } from "./usuario";
 
 export class MenuResponse {
+    contraseniaSharepoint?: string;
     listaMenu?:MenuDto[];
     listaConfigMenu?:ConfiguracionMenu[];
     listaEmpresa?:EmpresaPorUsuario[];

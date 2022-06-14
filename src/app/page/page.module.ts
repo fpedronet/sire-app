@@ -16,6 +16,7 @@ import { CrendicionComponent } from './Administracion/ReportesAdministrativos/Re
 import { FrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/frendicion/frendicion.component';
 import { CdetalleComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/cdetalle/cdetalle.component';
 import { CrechazoComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crechazo/crechazo.component';
+import { PerfilComponent } from './component/perfil/perfil.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { CrechazoComponent } from './Administracion/ReportesAdministrativos/Rend
     CrendicionComponent,
     FrendicionComponent,
     CdetalleComponent,
-    CrechazoComponent
+    CrechazoComponent,
+    PerfilComponent
   ],
   imports: [
     MaterialModule,
