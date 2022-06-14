@@ -6,7 +6,7 @@
 
     <mat-form-field appearance="outline">
         <mat-label>Usuario</mat-label>
-        <input [(ngModel)]="usuario" matInput placeholder="Usuario" #input>
+        <input [(ngModel)]="usuario" disabled="true" matInput placeholder="Usuario" #input>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -18,6 +18,6 @@
 </mat-dialog-content>
 
 <div class="btnModal" align="end">
-  <button mat-stroked-button class="btnRed" mat-dialog-close><mat-icon>close</mat-icon>Cerrar</button> 
+  <button style="margin-right: 4px;" mat-stroked-button class="btnRed" mat-dialog-close><mat-icon>close</mat-icon>Cerrar</button> 
   <button mat-stroked-button class="btnBlue" (click)="guardar()"><mat-icon>save</mat-icon>Guardar</button>
 </div>
