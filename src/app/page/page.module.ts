@@ -15,6 +15,7 @@ import { LrendicionComponent } from './Administracion/ReportesAdministrativos/Re
 import { CrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crendicion/crendicion.component';
 import { FrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/frendicion/frendicion.component';
 import { CdetalleComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/cdetalle/cdetalle.component';
+import { CrechazoComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crechazo/crechazo.component';
 import { PerfilComponent } from './component/perfil/perfil.component';
 
 
@@ -29,6 +30,7 @@ import { PerfilComponent } from './component/perfil/perfil.component';
     CrendicionComponent,
     FrendicionComponent,
     CdetalleComponent,
+    CrechazoComponent,
     PerfilComponent
   ],
   imports: [
