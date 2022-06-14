@@ -119,10 +119,7 @@ export class LayoutComponent implements OnInit {
 
   abrirperfil(){
     const dialogRef =this.dialog.open(PerfilComponent, {
-      maxWidth: '100vw',
-      maxHeight: '100vh',
-      width: '850px',
-      panelClass: 'full-screen-modal'
+       width: '400px',
     });
   }
 
