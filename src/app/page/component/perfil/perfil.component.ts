@@ -42,11 +42,15 @@ export class PerfilComponent implements OnInit {
     }
     else{
       model.contraseniaSharepoint = this.password;
-
       this.spinner.showLoading();
       this.usuarioService.actualizarpasswordsharePoint(model).subscribe(data=>{
-        localStorage.setItem(environment.PASSWORD_SHAREPOINT, model.contraseniaSharepoint!);
-  
+
+        this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+
+        if(data.typeResponse = environment.EXITO){
+          localStorage.setItem(environment.PASSWORD_SHAREPOINT, model.contraseniaSharepoint!);
+        }
+
         this.spinner.hideLoading();
       });
     }  

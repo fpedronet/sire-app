@@ -1,6 +1,6 @@
 <h3 mat-dialog-title>BÚSQUEDA</h3>
 
-<mat-dialog-content class="modal">
+<div mat-dialog-actions>
 
     <h3>{{dato}}</h3>
 
@@ -14,8 +14,7 @@
         <input [(ngModel)]="password" matInput placeholder="Password" #input type="password">
     </mat-form-field>
 
-
-</mat-dialog-content>
+</div>
 
 <div class="btnModal" align="end">
   <button style="margin-right: 4px;" mat-stroked-button class="btnRed" mat-dialog-close><mat-icon>close</mat-icon>Cerrar</button> 
