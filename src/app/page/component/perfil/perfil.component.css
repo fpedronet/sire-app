@@ -1,10 +1,5 @@
 .card {
     position: relative;
-    /* width: 250px;
-    height: 350px; */
-    /* border-radius: 10px; */
-    /* box-shadow: 2px 3px 5px rgba(73, 69, 52, 0.4); */
-    /* margin: 40px; */
 }
 
 .card .content {
@@ -13,9 +8,7 @@
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    /* display: flex; */
     flex-direction: column;
-    /* overflow: hidden;   */
     text-align: center;  
     padding: 10px;
     background: #fff;
@@ -39,7 +32,7 @@
     position: absolute;
     width: 520px;
     height: 228px;
-    background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%);
+    background: linear-gradient(90deg,#be3900eb 43%, #da4f14eb 100%);
     transform: rotate(-35deg);
     top: -95px;
     left: -164px;
