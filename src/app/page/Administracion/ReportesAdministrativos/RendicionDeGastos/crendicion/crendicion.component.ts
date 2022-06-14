@@ -211,7 +211,7 @@ export class CrendicionComponent implements OnInit {
           this.vBalance = (data.ingresos!-data.gastos!).toFixed(2);
           //debugger;
           this.muestraEstado(data.ideEstado);
-          debugger;
+       
           this.documento= data.codigo!;
           this.dataSource = data.listaDetalle!;
           //debugger;
