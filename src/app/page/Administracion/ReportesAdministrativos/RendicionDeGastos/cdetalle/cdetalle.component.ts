@@ -163,6 +163,7 @@ export class CdetalleComponent implements OnInit {
       }
       else{
         var tbCombobox: Combobox[] = data.items;
+        
         this.tbComodato = this.obtenerSubtabla(tbCombobox,'COMODATO');
         this.filterComodato = this.tbComodato;
 

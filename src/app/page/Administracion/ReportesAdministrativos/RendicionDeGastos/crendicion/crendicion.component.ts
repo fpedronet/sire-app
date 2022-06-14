@@ -19,6 +19,8 @@ import { environment } from 'src/environments/environment';
 import { CdetalleComponent } from '../cdetalle/cdetalle.component';
 import jsonConcepto from 'src/assets/json/detalle/concepto.json';
 import jsonMoneda from 'src/assets/json/detalle/moneda.json';
+import { ComboboxService } from 'src/app/_service/combobox.service';
+import { CrechazoComponent } from '../crechazo/crechazo.component';
 
 @Component({
   selector: 'app-crendicion',
@@ -45,6 +47,10 @@ export class CrendicionComponent implements OnInit {
   delete: boolean = false;
   reject: boolean = false;
   claseEstado: string = "";
+
+  tablasMaestras = ['USUARIO'];
+  tbUsuario: Combobox[] = [];
+  nombresUsuario?: string = '';
 
   CodEstado: string = "0";
   Codigo?: number;
@@ -81,6 +87,7 @@ export class CrendicionComponent implements OnInit {
     private notifierService : NotifierService,
     private confirmService : ConfimService,
     private usuarioService: UsuarioService,
+    private comboboxService: ComboboxService,
     private configPermisoService : ConfigPermisoService,
     private rendicionService: RendicionService
   ) {
@@ -93,6 +100,8 @@ export class CrendicionComponent implements OnInit {
     
     this.listarestados();
     this.listartipos();
+    this.listarUsuario();
+
     this.tbConcepto = this.completarCombo(jsonConcepto);
     this.tbMoneda = this.completarCombo(jsonMoneda);
     
@@ -106,6 +115,26 @@ export class CrendicionComponent implements OnInit {
       this.id = (data["id"]==undefined)? 0:data["id"];
       this.obtener();
     });
+  }
+
+  listarUsuario(){
+    
+    this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
+      if(data === undefined){
+        this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
+      }
+      else{
+        var tbCombobox: Combobox[] = data.items;
+        
+        this.tbUsuario = this.obtenerSubtabla(tbCombobox,'USUARIO');
+        //debugger;
+        this.nombresUsuario = this.tbUsuario.find(e => e.valor === this.usuarioService.sessionUsuario().ideUsuario)?.descripcion;
+      }
+    });
+  }
+
+  obtenerSubtabla(tb: Combobox[], cod: string){
+    return tb.filter(e => e.etiqueta?.toString()?.trim() === cod);
   }
 
   completarCombo(json: any){
@@ -161,8 +190,8 @@ export class CrendicionComponent implements OnInit {
       'motivo': new FormControl({ value: '', disabled: false}),
       'ideUsuario': new FormControl({ value: 0, disabled: false}),
       'monedaRecibe': new FormControl({ value: '', disabled: true}),
-      'ingresos': new FormControl({ value: 0, disabled: false}),
-      'gastos': new FormControl({ value: 0, disabled: false}),
+      'ingresos': new FormControl({ value: '', disabled: false}),
+      'gastos': new FormControl({ value: '0.00', disabled: false}),
       'fechaPresenta': new FormControl({ value: new Date(), disabled: true}),
       'fechaApruebaRechaza': new FormControl({ value: new Date(), disabled: true}),
       'fechaProcesa': new FormControl({ value: new Date(), disabled: true}),
@@ -173,7 +202,7 @@ export class CrendicionComponent implements OnInit {
       'docuGenerado': new FormControl({ value: 0, disabled: true}),
       'fechaAceptado': new FormControl({ value: new Date(), disabled: true}),
       'ideUsuApruebaRechaza': new FormControl({ value: 0, disabled: true}),
-      'obsverder': new FormControl({ value: '', disabled: true}),
+      'obsAprobador': new FormControl({ value: '', disabled: true}),
       'obsRevisor': new FormControl({ value: '', disabled: true}),
       'tipo': new FormControl({ value: 'M', disabled: false}),
       'fechaRevisado': new FormControl({ value: new Date(), disabled: true}),
@@ -435,7 +464,7 @@ export class CrendicionComponent implements OnInit {
   }
 
   restarCampos(num1: string, num2: string){
-    let valor = parseFloat(num1) - parseFloat(num2);
+    let valor = parseFloat(num1 === '' ? '0' : num1) - parseFloat(num2 === '' ? '0' : num2);
     return valor.toFixed(2);
   }
 
@@ -444,6 +473,18 @@ export class CrendicionComponent implements OnInit {
   }
 
   rechazar(){
+    const dialogRef = this.dialog.open(CrechazoComponent, {
+      width: '250px',
+      data: {obsRevisor: this.getControlLabel('obsRevisor'), obsAprobador: this.getControlLabel('obsAprobador')},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      debugger;
+      this.form.patchValue({
+        obsRevisor: result.obsRevisor,
+        obsAprobador: result.obsAprobador
+      });
+    });
 
   }
 }

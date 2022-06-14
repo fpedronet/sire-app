@@ -46,7 +46,7 @@
         "visual":true,
         "txtCambiarEstado":{"txt1":"Revisar","txt2":"Procesar"},
         "sgteEstado":{"num1":6,"num2":5},
-        "sgteIcono":{"icon1":"beenhere","icon2":"archive"},
+        "sgteIcono":{"icon1":"check_circle","icon2":"archive"},
         "mostrarPdf":true,
         "reenviarPdf":false,
         "eliminar":false,
