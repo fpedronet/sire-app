@@ -1,23 +1,27 @@
-<h3 mat-dialog-title>BÚSQUEDA</h3>
+<div mat-dialog-actions class="card">
 
-<mat-dialog-content class="modal">
+    <div class="content">
+        <span></span>
+        <div class="img">
+            <img src="{{perfil}}" alt="profile"/>
+        </div>
+        <h4>{{dato}}</h4>
 
-    <h3>{{dato}}</h3>
+        <mat-form-field appearance="outline">
+            <mat-label>Usuario</mat-label>
+            <input [(ngModel)]="usuario" disabled="true" matInput placeholder="Usuario" #input>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input [(ngModel)]="password" matInput placeholder="Password" #input type="password">
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-        <mat-label>Usuario</mat-label>
-        <input [(ngModel)]="usuario" matInput placeholder="Usuario" #input>
-    </mat-form-field>
+    </div>
 
-    <mat-form-field appearance="outline">
-        <mat-label>Contraseña</mat-label>
-        <input [(ngModel)]="password" matInput placeholder="Password" #input type="password">
-    </mat-form-field>
+    <div class="btnModal" align="end">
+        <button style="margin-right: 4px;" mat-stroked-button class="btnRed" mat-dialog-close><mat-icon>close</mat-icon>Cerrar</button> 
+        <button mat-stroked-button class="btnBlue" (click)="guardar()"><mat-icon>save</mat-icon>Guardar</button>
+      </div>
 
-
-</mat-dialog-content>
-
-<div class="btnModal" align="end">
-  <button mat-stroked-button class="btnRed" mat-dialog-close><mat-icon>close</mat-icon>Cerrar</button> 
-  <button mat-stroked-button class="btnBlue" (click)="guardar()"><mat-icon>save</mat-icon>Guardar</button>
 </div>

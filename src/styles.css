@@ -602,6 +602,16 @@ form{
   }
 }
 
+.image-upload > input
+{
+    display: none;
+}
+.image-upload img
+{
+    width: 80px;
+    cursor: pointer;
+}
+
 .file-select {
   position: relative;
   display: inline-block;
@@ -617,7 +627,7 @@ form{
   justify-content: center;
   align-items: center;
   border-radius: 3px;
-  content: 'Subir imagen'; /* testo por defecto */
+  content: 'Subir archivo';
   position: absolute;
   left: 0;
   right: 0;
@@ -650,3 +660,7 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
     }
 input[type=number] { -moz-appearance:textfield; }
+
+.cdk-overlay-container{
+  z-index:1;
+}

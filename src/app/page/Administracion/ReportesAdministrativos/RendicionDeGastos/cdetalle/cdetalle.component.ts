@@ -90,8 +90,10 @@ export class CdetalleComponent implements OnInit {
   body:string = "block";
   existeProveedor: boolean = false;
 
+  existCambio: boolean = false;
   adjunto: string = '';
   nombreAdjunto: string = '';
+  url: string = ''
 
   ngOnInit(): void {
     this.fechaMax = new Date();
@@ -147,7 +149,10 @@ export class CdetalleComponent implements OnInit {
       rucPrv: rendDet.rucPrv,
       proveedor: rendDet.proveedor
     })
+
+    this.existCambio = false;
     this.nombreAdjunto = rendDet.nombreAdjunto!;
+    this.url = rendDet.url!;
 
     var sedeFind = this.tbSede.find(e => e.valor === rendDet.ideSede?.toString()); //Ruc
     if(sedeFind !== undefined){
@@ -290,6 +295,7 @@ export class CdetalleComponent implements OnInit {
 
     model.password = this.usuarioService.sessionUsuario()?.contraseniaSharepoint;
     model.adjunto = this.adjunto;
+    model.url = this.url;
     model.nombreAdjunto = this.nombreAdjunto;
 
     this.spinner.showLoading();
@@ -532,4 +538,12 @@ export class CdetalleComponent implements OnInit {
       reader.readAsDataURL(fileInput.target.files[0]);
     }
   }
+
+  borrarAdjunto(){
+    this.existCambio = true;
+    this.url = "";
+    this.nombreAdjunto = "";
+    this.adjunto = "";
+  }
+
 }

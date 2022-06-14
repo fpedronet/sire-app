@@ -35,11 +35,8 @@
   
   <div id="content" *ngIf="id !== 0"> 
       <div style="width: 100%; float:left;margin-bottom: -17px;">
-        <div style="text-align: center; color: black; font-weight: 500;padding-top: 9px; font-size:medium;">
-          {{nombresUsuario}}
-        </div>
         <div style="text-align: center; color: #1a0da4; font-weight: 500;padding-top: 9px;">
-          ESTADO {{estado}}
+          <span style="text-transform: uppercase;">{{nombresUsuario}}</span> - ESTADO {{estado}}
           <div class="circulotitle {{claseEstado}}"></div>
         </div> 
         <div style="text-align: center; color: #1a0da4; font-weight:600;">CODIGO: {{documento}}</div> 

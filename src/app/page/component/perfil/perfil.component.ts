@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Usuario } from 'src/app/_model/configuracion/usuario';
 import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
 import { environment } from 'src/environments/environment';
@@ -13,6 +14,7 @@ import { SpinnerService } from '../spinner/spinner.service';
 export class PerfilComponent implements OnInit {
 
   constructor(
+    private dialogRef: MatDialogRef<PerfilComponent>,
     private spinner : SpinnerService,
     private notifierService : NotifierService,
     private usuarioService: UsuarioService
@@ -21,6 +23,7 @@ export class PerfilComponent implements OnInit {
   dato: string = ""
   usuario: string = ""
   password: string = ""
+  perfil?: string =environment.UrlImage + "people.png";
 
   ngOnInit(): void {
     let session = this.usuarioService.sessionUsuario();
@@ -42,11 +45,16 @@ export class PerfilComponent implements OnInit {
     }
     else{
       model.contraseniaSharepoint = this.password;
-
       this.spinner.showLoading();
       this.usuarioService.actualizarpasswordsharePoint(model).subscribe(data=>{
-        localStorage.setItem(environment.PASSWORD_SHAREPOINT, model.contraseniaSharepoint!);
-  
+
+        this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+
+        if(data.typeResponse = environment.EXITO){
+          this.dialogRef.close();
+          localStorage.setItem(environment.PASSWORD_SHAREPOINT, model.contraseniaSharepoint!);
+        }
+
         this.spinner.hideLoading();
       });
     }  
