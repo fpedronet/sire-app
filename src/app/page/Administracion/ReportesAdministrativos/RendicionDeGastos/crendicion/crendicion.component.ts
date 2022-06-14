@@ -66,6 +66,8 @@ export class CrendicionComponent implements OnInit {
   tbConcepto: Combobox[] = [];
   tbMoneda: Combobox[] = [];
   curMoneda: string = '';
+
+  curUsuario: number = 0;
   
   vIngresos?: string = '0.00';
   vGastos?: string = '0.00';
@@ -122,8 +124,6 @@ export class CrendicionComponent implements OnInit {
         var tbCombobox: Combobox[] = data.items;
         
         this.tbUsuario = this.obtenerSubtabla(tbCombobox,'USUARIO');
-        //debugger;
-        this.nombresUsuario = this.tbUsuario.find(e => e.valor === this.usuarioService.sessionUsuario().ideUsuario)?.descripcion;
       }
     });
   }
@@ -235,12 +235,16 @@ export class CrendicionComponent implements OnInit {
             tipo: data.tipo
           });
 
+          //Muestra creador de rendición
+          this.curUsuario = data.ideUsuario!;
+          this.nombresUsuario = this.tbUsuario.find(e => e.valor === this.curUsuario.toString())?.descripcion;
+
           this.vIngresos = data.ingresos?.toFixed(2);
           this.vGastos = data.gastos?.toFixed(2);
           this.vBalance = (data.ingresos!-data.gastos!).toFixed(2);
           //debugger;
           this.muestraEstado(data.ideEstado);
-          debugger;
+          //debugger;
           this.documento= data.codigo!;
           this.dataSource = data.listaDetalle!;
           //debugger;
@@ -260,7 +264,7 @@ export class CrendicionComponent implements OnInit {
 
     var objEstado = jsonEstado.find((e: any) => e.nIdEstado === idEstado);
     if(objEstado !== undefined){
-      this.edit = objEstado.edicion;
+      this.edit = objEstado.edicion && this.curUsuario == this.usuarioService.sessionUsuario().ideUsuario;
       this.delete = objEstado.eliminar;
       this.reject = objEstado.rechazar;
 
@@ -276,13 +280,13 @@ export class CrendicionComponent implements OnInit {
     }    
   }
 
-  cambiaEstado(sgteEstado: number){
+  cambiaEstado(sgteEstado: number, obs?: string){
     if(sgteEstado === 0){
       this.confirmService.openConfirmDialog(false, "¿Desea eliminar esta rendición? (Esta acción es irreversible)").afterClosed().subscribe(res =>{
         //Ok
         if(res){
           //console.log('Sí');
-          this.$cambiaEstado(sgteEstado);
+          this.$cambiaEstado(sgteEstado, obs);
         }
         else{
           //console.log('No');
@@ -295,7 +299,7 @@ export class CrendicionComponent implements OnInit {
           this.confirmService.openConfirmDialog(true, "Tiene cambios sin guardar");
         }
         else
-          this.$cambiaEstado(sgteEstado);
+          this.$cambiaEstado(sgteEstado, obs);
       }      
     }      
   }
@@ -308,25 +312,27 @@ export class CrendicionComponent implements OnInit {
     return lugar || motivo || tipo || ingresos;
   }
 
-  $cambiaEstado(sgteEstado: number){
+  $cambiaEstado(sgteEstado: number, obs?: string){
     this.spinner.showLoading();
     //debugger;
-    this.rendicionService.cambiarEstado(this.id, sgteEstado, "").subscribe(data=>{
+    this.rendicionService.cambiarEstado(this.id, sgteEstado, obs === undefined?'':obs).subscribe(data=>{
 
       this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
       if(data.typeResponse==environment.EXITO){
         this.muestraEstado(sgteEstado);
         this.spinner.hideLoading();
+
+        if(sgteEstado === 0)
+          this.router.navigate(['/page/administracion/rendicion'])
+        else
+          this.obtener();
         
       }else{
         this.spinner.hideLoading();
       }
 
-      if(sgteEstado === 0)
-        this.router.navigate(['/page/administracion/rendicion'])
-      else
-        this.obtener();
+      
     });  
   }
 
@@ -454,16 +460,21 @@ export class CrendicionComponent implements OnInit {
 
   rechazar(){
     const dialogRef = this.dialog.open(CrechazoComponent, {
-      width: '250px',
-      data: {obsRevisor: this.getControlLabel('obsRevisor'), obsAprobador: this.getControlLabel('obsAprobador')},
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      width: '850px',
+      panelClass: 'full-screen-modal',
+      data: {
+        obsRevisor: this.getControlLabel('obsRevisor'),
+        obsAprobador: this.getControlLabel('obsAprobador')
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      debugger;
-      this.form.patchValue({
-        obsRevisor: result.obsRevisor,
-        obsAprobador: result.obsAprobador
-      });
+      if(result !== undefined && result !== ''){
+        //Cambia a estado EN CURSO
+        this.cambiaEstado(1, result);
+      }
     });
 
   }

@@ -2,10 +2,10 @@
   <p>¿Desea rechazar esta rendición?</p>
   <mat-form-field appearance="fill">
     <mat-label>Motivo de rechazo</mat-label>
-    <textarea matInput [(ngModel)]="data.obsRevisor" required></textarea>
+    <textarea matInput [(ngModel)]="data.obsRevisor" required rows="5" maxlength="1000"></textarea>
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No</button>
-  <button mat-button [mat-dialog-close]="data.obsRevisor" cdkFocusInitial [disabled]="data.obsRevisor === ''">Sí</button>
+<div class="example-button-row" style="padding-top: 0px; margin: auto;">
+  <button mat-button color="primary" (click)="onNoClick()">No</button>
+  <button mat-stroked-button color="accent" [mat-dialog-close]="data.obsRevisor" [disabled]="data.obsRevisor === ''">Sí</button>
 </div>
