@@ -75,6 +75,8 @@ export class CrendicionComponent implements OnInit {
   vGastos?: string = '0.00';
   vBalance?: string = '0.00';
 
+  idPantalla?: number = 1;
+
   dataSource: RendicionD[] = [];
   displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'adjunto', 'accion', 'mo'];
 
@@ -111,7 +113,8 @@ export class CrendicionComponent implements OnInit {
     this.existRendicion = this.id !== 0
 
     this.route.params.subscribe((data: Params)=>{
-      this.id = (data["id"]==undefined)? 0:data["id"];
+      this.idPantalla = (data["idPantalla"]==undefined)?1:parseInt(data["idPantalla"]);
+      this.id = (data["id"]==undefined)?0:parseInt(data["id"]);
       this.obtener();
     });
   }

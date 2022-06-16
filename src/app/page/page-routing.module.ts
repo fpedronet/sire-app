@@ -14,8 +14,8 @@ const routes: Routes = [
   {path: 'not-403', component: Not403Component},
 
   {path:'administracion/rendicion/:idPantalla', component: LrendicionComponent, canActivate: [GuardService]},
-  {path:'administracion/rendicion/create', component: CrendicionComponent, canActivate: [GuardService]},
-  {path:'administracion/rendicion/edit/:id', component: CrendicionComponent, canActivate: [GuardService]},
+  {path:'administracion/rendicion/:idPantalla/create', component: CrendicionComponent, canActivate: [GuardService]},
+  {path:'administracion/rendicion/:idPantalla/edit/:id', component: CrendicionComponent, canActivate: [GuardService]},
 
   /********* Como ejemplo *******/
   // {path:'donante/donacion', component: LdonacionComponent, canActivate: [GuardService]},
