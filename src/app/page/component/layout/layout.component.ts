@@ -108,6 +108,7 @@ export class LayoutComponent implements OnInit {
   }
 
   clearLocalStore(){
+    //debugger;
     this.isshow = false;
     localStorage.setItem(environment.CODIGO_FILTRO, "");    
   }
