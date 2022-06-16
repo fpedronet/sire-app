@@ -53,9 +53,12 @@ export class LrendicionComponent implements OnInit {
     private rendicionService : RendicionService,
     private usuarioService : UsuarioService,
     private configPermisoService : ConfigPermisoService,
-  ) { }
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ngOnInit(): void {
+    //debugger;
     this.obtenerpermiso();
     this.listarestados();
     this.tbMoneda = this.completarCombo(jsonMoneda);
@@ -68,7 +71,7 @@ export class LrendicionComponent implements OnInit {
     });
 
     let strEstados = "";
-    if(filtro!=null){   
+    if(filtro!=null && this.idPantalla.toString() === filtro[6]){   
       this.request.Codigo! = filtro[0];
       strEstados! = filtro![1];
       this.request.Tipo! = filtro[2];
