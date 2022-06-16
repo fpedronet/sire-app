@@ -9,6 +9,18 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
+    <mat-label>Usuario</mat-label>
+    <mat-select 
+    [(ngModel)]="idUsuario"
+    (selectionChange)="selectusuario($event.value)"
+    >
+      <mat-option *ngFor="let el of tbUsuario" [value]="el.valor">
+      {{el.descripcion}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
     <mat-label>Tipo</mat-label>
     <mat-select 
     [(ngModel)]="idTipo"

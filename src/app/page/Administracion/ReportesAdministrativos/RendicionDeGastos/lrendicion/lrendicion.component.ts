@@ -34,8 +34,6 @@ export class LrendicionComponent implements OnInit {
 
   idPantalla: number = 0;
 
-  curIdeUsuario: number = 0;
-
   request = new RendicionRequest();
 
   permiso: Permiso = {};
@@ -55,9 +53,12 @@ export class LrendicionComponent implements OnInit {
     private rendicionService : RendicionService,
     private usuarioService : UsuarioService,
     private configPermisoService : ConfigPermisoService,
-  ) { }
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ngOnInit(): void {
+    //debugger;
     this.obtenerpermiso();
     this.listarestados();
     this.tbMoneda = this.completarCombo(jsonMoneda);
@@ -69,12 +70,8 @@ export class LrendicionComponent implements OnInit {
       this.idPantalla = (data["idPantalla"]==undefined)?1:parseInt(data["idPantalla"]);
     });
 
-    //Muestra rendiciones propias en pantalla 1 (Mis Rendiciones)
-    if(this.idPantalla === 1)
-      this.curIdeUsuario = this.usuarioService.sessionUsuario().ideUsuario;
-
     let strEstados = "";
-    if(filtro!=null){   
+    if(filtro!=null && this.idPantalla.toString() === filtro[6]){   
       this.request.Codigo! = filtro[0];
       strEstados! = filtro![1];
       this.request.Tipo! = filtro[2];
@@ -82,8 +79,7 @@ export class LrendicionComponent implements OnInit {
       this.request.FechaFin! = new Date(filtro[4]);
       this.request.IdeUsuario = parseInt(filtro[5]);
     }else{
-      this.request.Codigo! = "";
-      
+      this.request.Codigo! = "";      
       if(this.idPantalla === 1)
         strEstados! = "0,1,1,0,0,0,0";
       if(this.idPantalla === 2)
@@ -91,8 +87,7 @@ export class LrendicionComponent implements OnInit {
       if(this.idPantalla === 3)
         strEstados! = "0,0,0,1,0,0,0";
       if(this.idPantalla === 4)
-        strEstados! = "0,0,1,1,0,0,0";
-      
+        strEstados! = "0,0,1,1,0,0,0";      
       this.request.Tipo! = "";
       this.request.FechaIni! = new Date();
       this.request.FechaIni.setMonth(this.request.FechaIni!.getMonth() - 6);
@@ -100,12 +95,15 @@ export class LrendicionComponent implements OnInit {
 
       //Solo me setea por defecto cuando veo mis propias rendiciones
       if(this.idPantalla === 1)
-        this.request.IdeUsuario! = this.curIdeUsuario;
+        this.request.IdeUsuario! = this.usuarioService.sessionUsuario().ideUsuario;
       else
         this.request.IdeUsuario! = 0;
     }
 
-    localStorage.setItem(environment.CODIGO_FILTRO, ( this.request.Codigo===undefined?'': this.request.Codigo) +"|"+ strEstados+"|"+this.request.Tipo+"|"+this.request.FechaIni+"|"+this.request.FechaFin+"|"+this.request.IdeUsuario?.toString());
+    this.request.IdePantalla! = this.idPantalla;
+
+    //debugger;
+    localStorage.setItem(environment.CODIGO_FILTRO, (this.request.Codigo===undefined?'': this.request.Codigo) +"|"+strEstados+"|"+this.request.Tipo+"|"+this.request.FechaIni+"|"+this.request.FechaFin+"|"+this.request.IdeUsuario?.toString()+"|"+this.request.IdePantalla?.toString());
   }
 
   completarCombo(json: any){
@@ -150,7 +148,7 @@ export class LrendicionComponent implements OnInit {
           //console.log(filtro);
           return this.rendicionService!.listar(
             filtro![0],
-            this.idPantalla,
+            parseInt(filtro![6]),
             parseInt(filtro![5]),
             this.request.LstEstados!,
             new Date(filtro![3]),
@@ -244,10 +242,5 @@ export class LrendicionComponent implements OnInit {
     cadena = cadena + descMoneda + " " + Math.abs(balance).toFixed(2);
 
     return cadena;
-  }
-
-  routeUrl(id: string){
-
-    this.router.navigate(['/page/administracion/rendicion/edit/'+id]);
   }
 }

@@ -7,6 +7,8 @@ import { RendicionService } from 'src/app/_service/rendicion.service';
 import { environment } from 'src/environments/environment';
 import jsonEstado from 'src/assets/json/rendicion/renestado.json';
 import { formatDate } from '@angular/common';
+import { ComboboxService } from 'src/app/_service/combobox.service';
+import { NotifierService } from 'src/app/page/component/notifier/notifier.service';
 
 @Component({
   selector: 'app-frendicion',
@@ -20,13 +22,17 @@ export class FrendicionComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private spinner : SpinnerService,
     private rendicionService : RendicionService,
+    private notifierService : NotifierService,
     private usuarioService: UsuarioService,
-
+    private comboboxService: ComboboxService,
   ) { }
 
   loading = true;
 
   codigo? : string;
+
+  tablasMaestras = ['USUARIO'];
+  tbUsuario: Combobox[] = [];
 
   listaEstados?: Combobox[] = [];
   initEstados?: number[] = [0, 1, 1, 0, 0, 0, 0];
@@ -41,11 +47,15 @@ export class FrendicionComponent implements OnInit {
   fechaFin?: Date;
   fechaSelectFin?: Date;
 
-  ideUsuario?: number;
+  idUsuario?: number;
+
+  idPantalla?: number;
 
   fechaMax?: Date;
 
   ngOnInit(): void {
+
+    this.listarUsuario();
     //debugger;
     this.fechaMax = new Date();
 
@@ -64,8 +74,22 @@ export class FrendicionComponent implements OnInit {
     });    
   }
 
-  ngAfterViewInit() {
+  listarUsuario(){
+    
+    this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
+      if(data === undefined){
+        this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
+      }
+      else{
+        var tbCombobox: Combobox[] = data.items;
+        
+        this.tbUsuario = this.obtenerSubtabla(tbCombobox,'USUARIO');
+      }
+    });
+  }
 
+  obtenerSubtabla(tb: Combobox[], cod: string){
+    return tb.filter(e => e.etiqueta?.toString()?.trim() === cod);
   }
 
   async listarestados(){
@@ -92,10 +116,11 @@ export class FrendicionComponent implements OnInit {
   obtener(){    
 
     this.spinner.showLoading();
+
+    this.resetEstados();
   
     let filtro = this.usuarioService.sessionFiltro();
 
-    this.resetEstados();
     if(filtro !== null){
       this.codigo = filtro![0];
       var strEstados = filtro![1].split(',');
@@ -128,8 +153,12 @@ export class FrendicionComponent implements OnInit {
       this.fechaSelectFin = new Date(filtro![4]);
       this.fechaFin = new Date(filtro![4]);
 
-      this.ideUsuario = parseInt(filtro[5]);
+      this.idUsuario = parseInt(filtro[5]);
+
+      this.idPantalla = parseInt(filtro[6]);
     }
+
+    
 
     this.spinner.hideLoading();
   }
@@ -140,6 +169,10 @@ export class FrendicionComponent implements OnInit {
 
   selecttipo(id: string){
     this.idTipo = id;
+  }
+
+  selectusuario(id: number){
+    this.idUsuario = id;
   }
   
   onDateChange(){
@@ -168,10 +201,25 @@ export class FrendicionComponent implements OnInit {
     this.fechaFin = new Date();
     this.fechaSelectFin = new Date();
 
-    localStorage.setItem(environment.CODIGO_FILTRO, this.codigo +"|"+ this.idEstados?.toString()+"||"+this.fechaIni+"|"+this.fechaFin+"|"+this.ideUsuario?.toString());
+    //Solo me setea por defecto cuando veo mis propias rendiciones
+    if(this.idPantalla === 1)
+      this.idUsuario = this.usuarioService.sessionUsuario().ideUsuario;
+    else
+      this.idUsuario = 0;
+
+    localStorage.setItem(environment.CODIGO_FILTRO, this.codigo +"|"+ this.idEstados?.toString()+"||"+this.fechaIni+"|"+this.fechaFin+"|"+this.idUsuario?.toString()+"|"+this.idPantalla?.toString());
   }
 
   resetEstados(){
+    if(this.idPantalla === 1)
+      this.initEstados = [0,1,1,0,0,0,0];
+    if(this.idPantalla === 2)
+      this.initEstados = [0,0,0,1,0,0,1];
+    if(this.idPantalla === 3)
+      this.initEstados = [0,0,0,1,0,0,0];
+    if(this.idPantalla === 4)
+      this.initEstados = [0,0,1,1,0,0,0];
+    
     this.idEstados = this.initEstados;
     let i = 0;
     this.idEstados?.forEach(e => {
@@ -192,7 +240,7 @@ export class FrendicionComponent implements OnInit {
         this.idEstados?.push(0);
     });
 
-    localStorage.setItem(environment.CODIGO_FILTRO, (this.codigo===undefined?'':this.codigo) +"|"+ this.idEstados?.toString()+"|"+this.idTipo+"|"+this.fechaIni+"|"+this.fechaFin+"|"+this.ideUsuario?.toString());
+    localStorage.setItem(environment.CODIGO_FILTRO, (this.codigo===undefined?'':this.codigo) +"|"+ this.idEstados?.toString()+"|"+this.idTipo+"|"+this.fechaIni+"|"+this.fechaFin+"|"+this.idUsuario?.toString()+"|"+this.idPantalla?.toString());
 
     this.dialogRef.close();
   }
