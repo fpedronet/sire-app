@@ -15,9 +15,7 @@
   <div class="container">  
     <mat-card class="cardborde">   
       <mat-toolbar class="cardtitle"></mat-toolbar>
-      <h2 *ngIf="idPantalla === 1" class="title-label"> MIS RENDICIONES/MOVILIDADES</h2>
-      <h2 *ngIf="idPantalla === 2" class="title-label"> SEGUIMIENTO DE RENDICIONES/MOVILIDADES</h2>
-      <h2 *ngIf="idPantalla === 3" class="title-label"> REVISIÓN DE RENDICIONES</h2>
+      <h2 class="title-label"> {{tituloPantalla[idPantalla-1]}} </h2>
       <mat-divider></mat-divider>
       <form>     
         
