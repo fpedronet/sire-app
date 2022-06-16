@@ -17,7 +17,15 @@
       <button *ngIf="tienepermiso(sgteEstadoM) && TIPO.value === 'M' && txtEditarM !== ''" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="{{txtEditarM}}" type="button" (click)="cambiaEstado(sgteEstadoM)">
         <mat-icon class="maticon">{{sgteIconM}}</mat-icon>
       </button>
+      <!--Rechaza revisión-->
       <button *ngIf="tienepermiso(sgteEstadoR) && TIPO.value === 'R' && reject" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Rechazar" type="submit" (click)="rechazar()">
+        <mat-icon class="maticon">cancel</mat-icon>
+      </button>
+      <!--Aprueba/Rechaza-->
+      <button *ngIf="apruebarechaza" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Aprobar" type="submit" (click)="cambiaEstado(3)">
+        <mat-icon class="maticon">check_circle</mat-icon>
+      </button>
+      <button *ngIf="apruebarechaza" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Rechazar" type="submit" (click)="rechazar()">
         <mat-icon class="maticon">cancel</mat-icon>
       </button>
     </div>

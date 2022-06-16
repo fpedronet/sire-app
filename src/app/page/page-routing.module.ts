@@ -13,7 +13,7 @@ const routes: Routes = [
 
   {path: 'not-403', component: Not403Component},
 
-  {path:'administracion/rendicion', component: LrendicionComponent, canActivate: [GuardService]},
+  {path:'administracion/rendicion/:idPantalla', component: LrendicionComponent, canActivate: [GuardService]},
   {path:'administracion/rendicion/create', component: CrendicionComponent, canActivate: [GuardService]},
   {path:'administracion/rendicion/edit/:id', component: CrendicionComponent, canActivate: [GuardService]},
 

@@ -46,6 +46,7 @@ export class CrendicionComponent implements OnInit {
   sgteIconM: string = "";
   delete: boolean = false;
   reject: boolean = false;
+  apruebarechaza: boolean = false;
   claseEstado: string = "";
 
   tablasMaestras = ['USUARIO'];
@@ -68,6 +69,7 @@ export class CrendicionComponent implements OnInit {
   curMoneda: string = '';
 
   curUsuario: number = 0;
+  curCodigo: string = '';
   
   vIngresos?: string = '0.00';
   vGastos?: string = '0.00';
@@ -238,6 +240,8 @@ export class CrendicionComponent implements OnInit {
           //Muestra creador de rendición
           this.curUsuario = data.ideUsuario!;
           this.nombresUsuario = this.tbUsuario.find(e => e.valor === this.curUsuario.toString())?.descripcion;
+          //Código de rendición actual
+          this.curCodigo = data.codigo!;
 
           this.vIngresos = data.ingresos?.toFixed(2);
           this.vGastos = data.gastos?.toFixed(2);
@@ -267,6 +271,7 @@ export class CrendicionComponent implements OnInit {
       this.edit = objEstado.edicion && this.curUsuario == this.usuarioService.sessionUsuario().ideUsuario;
       this.delete = objEstado.eliminar;
       this.reject = objEstado.rechazar;
+      this.apruebarechaza = objEstado.nIdEstado === 2 && this.soyAprobador(this.curCodigo)
 
       this.txtEditarR = objEstado.txtCambiarEstado.txt1;
       this.sgteEstadoR = objEstado.sgteEstado.num1;
@@ -278,6 +283,11 @@ export class CrendicionComponent implements OnInit {
 
       this.claseEstado = objEstado.class;
     }    
+  }
+
+  soyAprobador(codigo: string){
+    var valida: boolean = true;
+    return valida;
   }
 
   cambiaEstado(sgteEstado: number, obs?: string){
