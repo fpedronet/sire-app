@@ -11,7 +11,6 @@ import jsonConcepto from 'src/assets/json/detalle/concepto.json';
 import jsonMoneda from 'src/assets/json/detalle/moneda.json';
 import jsonTipoDocu from 'src/assets/json/detalle/tipoDocu.json';
 import { environment } from 'src/environments/environment';
-import {QrScannerComponent} from 'angular2-qrscanner';
 import { map, Observable, startWith } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -22,8 +21,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class CdetalleComponent implements OnInit {
 
-  @ViewChild(QrScannerComponent, { static : false }) qrScannerComponent!: QrScannerComponent ;
   @ViewChild('COMODATO') comboCmd: any;
+
+  scannerEnabled: boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<CdetalleComponent>,
@@ -86,8 +86,8 @@ export class CdetalleComponent implements OnInit {
 
   rendDet: RendicionD = new RendicionD();
   edit?: boolean = true;
-  qr:string = "none";
-  body:string = "block";
+  qr:string = "none;";
+  body:string = "block;";
   existeProveedor: boolean = false;
 
   existCambio: boolean = false;
@@ -367,101 +367,6 @@ export class CdetalleComponent implements OnInit {
     }
   }
 
-  leerQR(){
-    // if (choosenDev) {
-    //   this.qrScannerComponent.chooseCamera.next(choosenDev);
-    // } else {
-      this.body = "none"
-      this.qr = "block";
-      this.qrScannerComponent.chooseCamera.next(this.videoDevices[0]);
-
-    // }
-  }
-
-  ngAfterViewInit(){
-    this.qrScannerComponent.getMediaDevices().then(devices => {
-      for (const device of devices) {
-          if (device.kind.toString() === 'videoinput') {
-              this.videoDevices.push(device);
-          }
-      }
-      if (this.videoDevices.length > 0){
-          let choosenDev;
-          for (const dev of this.videoDevices){
-              if (dev.label.includes('front')){
-                  choosenDev = dev;
-                  break;
-              }
-          }          
-      }
-    });
-
-    this.qrScannerComponent.capturedQr.subscribe(result => {
-      this.qr = "none";
-      this.body = "Block"
-
-      let tt_filas= result.split('|');
-      let model = new RendicionD();
-
-      if(tt_filas.length > 0)
-      {
-        for (let i = 0; i < tt_filas.length; i++) 
-        {
-          switch(i + 1)
-          {
-            case 1:
-              model.rucPrv = tt_filas[i].trim();
-              this.comboboxService.obtenerProveedor(model.rucPrv).subscribe(data=>{
-                if(data!== undefined && data.valor !== null){
-                    model.proveedor= data.descripcion?.trim()
-                }
-                this.obtener(model);
-              })
-              break;
-            case 2:
-              if (tt_filas[i].trim() == "01" || tt_filas[i].trim() == "1" || tt_filas[i].trim() == "F")
-              {
-                  model.nTipDocu = "001";
-              }
-              else if (tt_filas[i].trim() == "02" || tt_filas[i].trim() == "2" || tt_filas[i].trim() == "R")
-              {
-                  model.nTipDocu = "002";
-              }
-              else if (tt_filas[i].trim() == "03" || tt_filas[i].trim() == "3" || tt_filas[i].trim() == "B")
-              {
-                  model.nTipDocu = "003";
-              }
-              break;
-            case 3:
-              model.documento = tt_filas[i].trim();
-                break;
-            case 4:
-              model.documento += "-" + tt_filas[i].trim();
-              break;
-            case 5:
-               break;
-            case 6:
-              try
-              {
-                model.monto = parseFloat(tt_filas[i].trim());
-              }
-              catch (Exception)
-              { }
-              break;
-            case 7:
-              model.fecha =new Date(tt_filas[i].trim());
-                break;
-
-          }          
-        }
-      }
-
-      // RUC | TIPO DE DOCUMENTO | SERIE | NUMERO | MTO TOTAL IGV | MTO
-      // TOTAL DEL COMPROBANTE | FECHA DE EMISION | TIPO DE DOCUMENTO ADQUIRENTE | 
-      // NUMERO DE DOCUMENTO ADQUIRENTE | VALOR RESUMEN | VALOR DE LA FIRMA 
-    });
-  }
-
   mostrarAutoCombo(c: Combobox): string{
     var result = '';
     if(c !== undefined && c !== null && c.descripcion !== '')
@@ -544,6 +449,81 @@ export class CdetalleComponent implements OnInit {
     this.url = "";
     this.nombreAdjunto = "";
     this.adjunto = "";
+  }
+
+  scanSuccessHandler($event: any) {
+    this.scannerEnabled = false;
+
+    this.qr = "none;";
+    this.body = "block;";
+
+    let tt_filas= $event.split('|');
+    let model = new RendicionD();
+
+    if(tt_filas.length > 0)
+    {
+      for (let i = 0; i < tt_filas.length; i++) 
+      {
+        switch(i + 1)
+        {
+          case 1:
+            model.rucPrv = tt_filas[i].trim();
+            this.comboboxService.obtenerProveedor(model.rucPrv!).subscribe(data=>{
+              if(data!== undefined && data.valor !== null){
+                  model.proveedor= data.descripcion?.trim()
+              }
+              this.obtener(model);
+            })
+            break;
+          case 2:
+            if (tt_filas[i].trim() == "01" || tt_filas[i].trim() == "1" || tt_filas[i].trim() == "F")
+            {
+                model.nTipDocu = "001";
+            }
+            else if (tt_filas[i].trim() == "02" || tt_filas[i].trim() == "2" || tt_filas[i].trim() == "R")
+            {
+                model.nTipDocu = "002";
+            }
+            else if (tt_filas[i].trim() == "03" || tt_filas[i].trim() == "3" || tt_filas[i].trim() == "B")
+            {
+                model.nTipDocu = "003";
+            }
+            break;
+          case 3:
+            model.documento = tt_filas[i].trim();
+              break;
+          case 4:
+            model.documento += "-" + tt_filas[i].trim();
+            break;
+          case 5:
+             break;
+          case 6:
+            try
+            {
+              model.monto = parseFloat(tt_filas[i].trim());
+            }
+            catch (Exception)
+            { }
+            break;
+          case 7:
+            model.fecha =new Date(tt_filas[i].trim());
+              break;
+
+        }          
+      }
+    }
+  }
+
+  enableScanner() {
+    this.scannerEnabled = !this.scannerEnabled;
+    this.qr = "block;";
+    this.body = "none;";
+  }
+
+  disableScanner() {
+    this.scannerEnabled = false;
+    this.qr = "none;";
+    this.body = "block;";
   }
 
 }
