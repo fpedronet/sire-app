@@ -77,7 +77,7 @@
             <ng-container matColumnDef="accion">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> </mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
-                <a class="pointer edit" matTooltip="Ver" (click)="['edit', element.ideRendicion]">
+                <a class="pointer edit" matTooltip="Ver" [routerLink]="['edit', element.ideRendicion]">
                   <!-- <mat-icon>edit</mat-icon> -->
                   <div class="circulo {{getClassEstado(element.ideEstado)}}"></div>
                 </a>
