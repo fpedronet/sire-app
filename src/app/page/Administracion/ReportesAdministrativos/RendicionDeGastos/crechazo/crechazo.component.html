@@ -1,5 +1,5 @@
 <div mat-dialog-content>
-  <p>¿Desea rechazar esta rendición?</p>
+  <p>{{rolNombre()}} ¿Desea rechazar esta rendición?</p>
   <mat-form-field appearance="fill">
     <mat-label>Motivo de rechazo</mat-label>
     <textarea matInput [(ngModel)]="data.obsRevisor" required rows="5" maxlength="1000"></textarea>

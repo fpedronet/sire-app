@@ -219,7 +219,7 @@ export class LrendicionComponent implements OnInit {
       width: '850px',
       panelClass: 'full-screen-modal',
       data: {
-        idPantalla: this.idPantalla
+        idPantalla: this.idPantalla,
       }
     });
 
