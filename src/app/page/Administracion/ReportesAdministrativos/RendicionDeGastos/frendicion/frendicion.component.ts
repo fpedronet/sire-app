@@ -25,7 +25,11 @@ export class FrendicionComponent implements OnInit {
     private notifierService : NotifierService,
     private usuarioService: UsuarioService,
     private comboboxService: ComboboxService,
-  ) { }
+  ) {
+    if(this.data.idPantalla !== undefined)
+      this.idPantalla = this.data.idPantalla;
+  }
+
 
   loading = true;
 
@@ -47,7 +51,7 @@ export class FrendicionComponent implements OnInit {
   fechaFin?: Date;
   fechaSelectFin?: Date;
 
-  idUsuario?: number;
+  idUsuario?: string;
 
   idPantalla?: number;
 
@@ -102,7 +106,8 @@ export class FrendicionComponent implements OnInit {
   
         el.valor = jsonEstado[i].nIdEstado;
         el.descripcion = jsonEstado[i].vDescripcion;
-        el.visual = jsonEstado[i].visual;
+        el.visual = jsonEstado[i].visual && jsonEstado[i].pantallas[this.idPantalla!-1] === 1;
+        el.arrayAux1 = jsonEstado[i].pantallas;
         el.isChecked = false;
         
         this.listaEstados.push(el);
@@ -153,12 +158,8 @@ export class FrendicionComponent implements OnInit {
       this.fechaSelectFin = new Date(filtro![4]);
       this.fechaFin = new Date(filtro![4]);
 
-      this.idUsuario = parseInt(filtro[5]);
-
-      this.idPantalla = parseInt(filtro[6]);
-    }
-
-    
+      this.idUsuario = filtro![5];
+    }    
 
     this.spinner.hideLoading();
   }
@@ -171,7 +172,7 @@ export class FrendicionComponent implements OnInit {
     this.idTipo = id;
   }
 
-  selectusuario(id: number){
+  selectusuario(id: string){
     this.idUsuario = id;
   }
   
@@ -205,9 +206,9 @@ export class FrendicionComponent implements OnInit {
     if(this.idPantalla === 1)
       this.idUsuario = this.usuarioService.sessionUsuario().ideUsuario;
     else
-      this.idUsuario = 0;
+      this.idUsuario = '0';
 
-    localStorage.setItem(environment.CODIGO_FILTRO, this.codigo +"|"+ this.idEstados?.toString()+"||"+this.fechaIni+"|"+this.fechaFin+"|"+this.idUsuario?.toString()+"|"+this.idPantalla?.toString());
+    localStorage.setItem(environment.CODIGO_FILTRO, this.codigo +"|"+ this.idEstados?.toString()+"||"+this.fechaIni+"|"+this.fechaFin+"|"+this.idUsuario?.toString());
   }
 
   resetEstados(){
@@ -218,7 +219,7 @@ export class FrendicionComponent implements OnInit {
     if(this.idPantalla === 3)
       this.initEstados = [0,0,0,1,0,0,0];
     if(this.idPantalla === 4)
-      this.initEstados = [0,0,1,1,0,0,0];
+      this.initEstados = [0,0,1,0,0,0,0];
     
     this.idEstados = this.initEstados;
     let i = 0;
@@ -240,7 +241,7 @@ export class FrendicionComponent implements OnInit {
         this.idEstados?.push(0);
     });
 
-    localStorage.setItem(environment.CODIGO_FILTRO, (this.codigo===undefined?'':this.codigo) +"|"+ this.idEstados?.toString()+"|"+this.idTipo+"|"+this.fechaIni+"|"+this.fechaFin+"|"+this.idUsuario?.toString()+"|"+this.idPantalla?.toString());
+    localStorage.setItem(environment.CODIGO_FILTRO, (this.codigo===undefined?'':this.codigo) +"|"+ this.idEstados?.toString()+"|"+this.idTipo+"|"+this.fechaIni+"|"+this.fechaFin+"|"+this.idUsuario?.toString());
 
     this.dialogRef.close();
   }

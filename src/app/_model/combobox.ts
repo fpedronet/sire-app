@@ -17,4 +17,5 @@ export class Combobox {
     aux1?: string;
     aux2?: string;
     aux3?: string;
+    arrayAux1?: number[];
 }

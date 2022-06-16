@@ -272,7 +272,7 @@ export class CrendicionComponent implements OnInit {
     var objEstado = jsonEstado.find((e: any) => e.nIdEstado === idEstado);
     if(objEstado !== undefined){
       this.edit = objEstado.edicion && this.curUsuario == this.usuarioService.sessionUsuario().ideUsuario;
-      this.delete = objEstado.eliminar;
+      this.delete = objEstado.eliminar && this.edit;
       this.reject = objEstado.rechazar;
       this.apruebarechaza = objEstado.nIdEstado === 2 && this.soyAprobador(this.curCodigo)
 
@@ -289,7 +289,7 @@ export class CrendicionComponent implements OnInit {
   }
 
   soyAprobador(codigo: string){
-    var valida: boolean = true;
+    var valida: boolean = false;
     return valida;
   }
 

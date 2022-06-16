@@ -10,7 +10,8 @@
         "reenviarPdf":false,
         "eliminar":false,
         "edicion":false,
-        "class":"negro"
+        "class":"negro",
+        "pantallas":[1,0,0,0]
     },
     {
         "nIdEstado":1,
@@ -24,7 +25,8 @@
         "eliminar":true,
         "edicion":true,
         "rechazar":false,
-        "class":"gris"
+        "class":"gris",
+        "pantallas":[1,0,0,0]
     },
     {
         "nIdEstado":2,
@@ -38,7 +40,8 @@
         "eliminar":true,
         "edicion":false,
         "rechazar":true,
-        "class":"amarillo"
+        "class":"amarillo",
+        "pantallas":[1,0,0,1]
     },
     {
         "nIdEstado":3,
@@ -52,7 +55,8 @@
         "eliminar":false,
         "edicion":false,
         "rechazar":true,
-        "class":"verde"
+        "class":"verde",
+        "pantallas":[1,1,1,1]
     },
     {
         "nIdEstado":4,
@@ -66,7 +70,8 @@
         "eliminar":false,
         "edicion":false,
         "rechazar":false,
-        "class":"rojo"
+        "class":"rojo",
+        "pantallas":[1,0,0,0]
     },
     {
         "nIdEstado":5,
@@ -80,7 +85,8 @@
         "eliminar":false,
         "edicion":false,
         "rechazar":false,
-        "class":"azul"
+        "class":"azul",
+        "pantallas":[1,1,0,0]
     },
     {
         "nIdEstado":6,
@@ -94,6 +100,7 @@
         "eliminar":false,
         "edicion":false,
         "rechazar":false,
-        "class":"celeste"
+        "class":"celeste",
+        "pantallas":[1,1,1,0]
     }
 ]

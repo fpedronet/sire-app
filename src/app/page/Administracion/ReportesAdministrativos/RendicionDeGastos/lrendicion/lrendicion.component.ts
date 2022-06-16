@@ -33,6 +33,7 @@ export class LrendicionComponent implements OnInit {
   countRegistro = 0;
 
   idPantalla: number = 0;
+  tituloPantalla: string[] = ['','','',''];
 
   request = new RendicionRequest();
 
@@ -70,8 +71,13 @@ export class LrendicionComponent implements OnInit {
       this.idPantalla = (data["idPantalla"]==undefined)?1:parseInt(data["idPantalla"]);
     });
 
+    this.tituloPantalla[0] = 'MIS RENDICIONES/MOVILIDADES';
+    this.tituloPantalla[1] = 'SEGUIMIENTO DE RENDICIONES/MOVILIDADES';
+    this.tituloPantalla[2] = 'REVISIÓN DE RENDICIONES';
+    this.tituloPantalla[3] = 'APROBACIÓN DE RENDICIONES/MOVILIDADES'; 
+
     let strEstados = "";
-    if(filtro!=null && this.idPantalla.toString() === filtro[6]){   
+    if(filtro!=null){   
       this.request.Codigo! = filtro[0];
       strEstados! = filtro![1];
       this.request.Tipo! = filtro[2];
@@ -87,7 +93,7 @@ export class LrendicionComponent implements OnInit {
       if(this.idPantalla === 3)
         strEstados! = "0,0,0,1,0,0,0";
       if(this.idPantalla === 4)
-        strEstados! = "0,0,1,1,0,0,0";      
+        strEstados! = "0,0,1,0,0,0,0";      
       this.request.Tipo! = "";
       this.request.FechaIni! = new Date();
       this.request.FechaIni.setMonth(this.request.FechaIni!.getMonth() - 6);
@@ -103,7 +109,7 @@ export class LrendicionComponent implements OnInit {
     this.request.IdePantalla! = this.idPantalla;
 
     //debugger;
-    localStorage.setItem(environment.CODIGO_FILTRO, (this.request.Codigo===undefined?'': this.request.Codigo) +"|"+strEstados+"|"+this.request.Tipo+"|"+this.request.FechaIni+"|"+this.request.FechaFin+"|"+this.request.IdeUsuario?.toString()+"|"+this.request.IdePantalla?.toString());
+    localStorage.setItem(environment.CODIGO_FILTRO, (this.request.Codigo===undefined?'': this.request.Codigo) +"|"+strEstados+"|"+this.request.Tipo+"|"+this.request.FechaIni+"|"+this.request.FechaFin+"|"+this.request.IdeUsuario?.toString());
   }
 
   completarCombo(json: any){
@@ -148,7 +154,7 @@ export class LrendicionComponent implements OnInit {
           //console.log(filtro);
           return this.rendicionService!.listar(
             filtro![0],
-            parseInt(filtro![6]),
+            this.idPantalla,
             parseInt(filtro![5]),
             this.request.LstEstados!,
             new Date(filtro![3]),
@@ -211,7 +217,10 @@ export class LrendicionComponent implements OnInit {
       maxWidth: '100vw',
       maxHeight: '100vh',
       width: '850px',
-      panelClass: 'full-screen-modal'
+      panelClass: 'full-screen-modal',
+      data: {
+        idPantalla: this.idPantalla
+      }
     });
 
     dialogRef.afterClosed().subscribe(res => {
