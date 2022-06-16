@@ -63,6 +63,7 @@ export class LayoutComponent implements OnInit {
           this.codigo = data.listaEmpresa![0].codigo;
           this.empresa = data.listaEmpresa![0].nombreEmpresa;
         }
+        //debugger;
        
         this.count = (data.listaEmpresa?.length!>1)? true: false;     
         this.menus.listaMenu = data.listaMenu;

@@ -17,16 +17,18 @@ export class RendicionService {
 
   private url: string = `${environment.UrlApi}/rendicion`;
 
-  listar(codigo: string, idPantalla: number, lstEstados: number[], fechaIni?: Date, fechaFin?: Date, tipo?: string, page?: number,pages?: number) {
+  listar(codigo: string, idePantalla: number, ideUsuario: number, lstEstados: number[], fechaIni?: Date, fechaFin?: Date, tipo?: string, page?: number,pages?: number) {
     let req = new RendicionRequest()
     req.Codigo = codigo;
-    req.IdPantalla = idPantalla
+    req.IdePantalla = idePantalla;
+    req.IdeUsuario = ideUsuario;
     req.LstEstados= lstEstados;
     req.FechaIni= fechaIni;
     req.FechaFin = fechaFin;
     req.Tipo = tipo;
     req.Page = page!+1;
     req.Pages = pages;
+    //debugger;
    
     let urls = `${this.url}/GetAllRendicionM`;
     return this.http.post<dataCollection>(urls,req);

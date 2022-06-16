@@ -37,7 +37,7 @@
         "reenviarPdf":true,
         "eliminar":true,
         "edicion":false,
-        "rechazar":false,
+        "rechazar":true,
         "class":"amarillo"
     },
     {

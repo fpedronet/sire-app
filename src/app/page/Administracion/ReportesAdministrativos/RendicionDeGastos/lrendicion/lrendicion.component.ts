@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { merge, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { SpinnerService } from 'src/app/page/component/spinner/spinner.service';
@@ -32,7 +32,9 @@ export class LrendicionComponent implements OnInit {
   existRegistro = false;
   countRegistro = 0;
 
-  idPantalla: number = 1;
+  idPantalla: number = 0;
+
+  curIdeUsuario: number = 0;
 
   request = new RendicionRequest();
 
@@ -46,6 +48,7 @@ export class LrendicionComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
+    private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
     private spinner: SpinnerService,    
@@ -60,24 +63,49 @@ export class LrendicionComponent implements OnInit {
     this.tbMoneda = this.completarCombo(jsonMoneda);
   
     let filtro = this.usuarioService.sessionFiltro();
-    let strEstados = "";
 
+    //Obtiene tipo de pantalla actual
+    this.route.params.subscribe((data: Params)=>{
+      this.idPantalla = (data["idPantalla"]==undefined)?1:parseInt(data["idPantalla"]);
+    });
+
+    //Muestra rendiciones propias en pantalla 1 (Mis Rendiciones)
+    if(this.idPantalla === 1)
+      this.curIdeUsuario = this.usuarioService.sessionUsuario().ideUsuario;
+
+    let strEstados = "";
     if(filtro!=null){   
       this.request.Codigo! = filtro[0];
       strEstados! = filtro![1];
       this.request.Tipo! = filtro[2];
       this.request.FechaIni! = new Date(filtro[3]);
       this.request.FechaFin! = new Date(filtro[4]);
+      this.request.IdeUsuario = parseInt(filtro[5]);
     }else{
       this.request.Codigo! = "";
-      strEstados! = "0,1,1,0,0,0,0";
+      
+      if(this.idPantalla === 1)
+        strEstados! = "0,1,1,0,0,0,0";
+      if(this.idPantalla === 2)
+        strEstados! = "0,0,0,1,0,0,1";
+      if(this.idPantalla === 3)
+        strEstados! = "0,0,0,1,0,0,0";
+      if(this.idPantalla === 4)
+        strEstados! = "0,0,1,1,0,0,0";
+      
       this.request.Tipo! = "";
       this.request.FechaIni! = new Date();
       this.request.FechaIni.setMonth(this.request.FechaIni!.getMonth() - 6);
       this.request.FechaFin! = new Date();
+
+      //Solo me setea por defecto cuando veo mis propias rendiciones
+      if(this.idPantalla === 1)
+        this.request.IdeUsuario! = this.curIdeUsuario;
+      else
+        this.request.IdeUsuario! = 0;
     }
 
-    localStorage.setItem(environment.CODIGO_FILTRO, ( this.request.Codigo===undefined?'': this.request.Codigo) +"|"+ strEstados+"|"+this.request.Tipo+"|"+this.request.FechaIni+"|"+this.request.FechaFin);
+    localStorage.setItem(environment.CODIGO_FILTRO, ( this.request.Codigo===undefined?'': this.request.Codigo) +"|"+ strEstados+"|"+this.request.Tipo+"|"+this.request.FechaIni+"|"+this.request.FechaFin+"|"+this.request.IdeUsuario?.toString());
   }
 
   completarCombo(json: any){
@@ -123,6 +151,7 @@ export class LrendicionComponent implements OnInit {
           return this.rendicionService!.listar(
             filtro![0],
             this.idPantalla,
+            parseInt(filtro![5]),
             this.request.LstEstados!,
             new Date(filtro![3]),
             new Date(filtro![4]),

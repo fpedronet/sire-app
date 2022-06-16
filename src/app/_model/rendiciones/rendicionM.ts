@@ -40,7 +40,8 @@ export class RendicionRequest {
         this.LstEstados = [0, 0, 0, 0, 0, 0, 0]
     }
     Codigo?: string
-    IdPantalla?: number
+    IdePantalla?: number
+    IdeUsuario?: number
     LstEstados?: number[]
     FechaIni?: Date
     FechaFin?: Date

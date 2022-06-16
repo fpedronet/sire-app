@@ -41,6 +41,8 @@ export class FrendicionComponent implements OnInit {
   fechaFin?: Date;
   fechaSelectFin?: Date;
 
+  ideUsuario?: number;
+
   fechaMax?: Date;
 
   ngOnInit(): void {
@@ -125,6 +127,8 @@ export class FrendicionComponent implements OnInit {
 
       this.fechaSelectFin = new Date(filtro![4]);
       this.fechaFin = new Date(filtro![4]);
+
+      this.ideUsuario = parseInt(filtro[5]);
     }
 
     this.spinner.hideLoading();
@@ -164,7 +168,7 @@ export class FrendicionComponent implements OnInit {
     this.fechaFin = new Date();
     this.fechaSelectFin = new Date();
 
-    localStorage.setItem(environment.CODIGO_FILTRO, this.codigo +"|"+ this.idEstados?.toString()+"||"+this.fechaIni+"|"+this.fechaFin);
+    localStorage.setItem(environment.CODIGO_FILTRO, this.codigo +"|"+ this.idEstados?.toString()+"||"+this.fechaIni+"|"+this.fechaFin+"|"+this.ideUsuario?.toString());
   }
 
   resetEstados(){
@@ -188,7 +192,7 @@ export class FrendicionComponent implements OnInit {
         this.idEstados?.push(0);
     });
 
-    localStorage.setItem(environment.CODIGO_FILTRO, (this.codigo===undefined?'':this.codigo) +"|"+ this.idEstados?.toString()+"|"+this.idTipo+"|"+this.fechaIni+"|"+this.fechaFin);
+    localStorage.setItem(environment.CODIGO_FILTRO, (this.codigo===undefined?'':this.codigo) +"|"+ this.idEstados?.toString()+"|"+this.idTipo+"|"+this.fechaIni+"|"+this.fechaFin+"|"+this.ideUsuario?.toString());
 
     this.dialogRef.close();
   }
