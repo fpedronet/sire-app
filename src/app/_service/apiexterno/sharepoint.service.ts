@@ -11,7 +11,7 @@ export class SharepointService {
 
   constructor(private http: HttpClient) {} 
   
-  private url: string = `http://localhost:64140/api/sharepoint/postUploadFileToSharePoint`;
+  private url: string = `http://localhost:64140/api/sharepoint/getUploadFileToSharePoint`;
 
   postUploadFileToSharePoint(model: RendicionD){
     debugger;
@@ -22,6 +22,6 @@ export class SharepointService {
     sharepoint.fileName = model.nombreAdjunto;
     sharepoint.adjunto = model.adjunto;
 
-    return this.http.post<Response>(this.url, sharepoint);
+    return this.http.get<Response>(this.url);
   }
 }
