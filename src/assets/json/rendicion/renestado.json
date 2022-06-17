@@ -39,7 +39,7 @@
         "reenviarPdf":true,
         "eliminar":true,
         "edicion":false,
-        "rechazar":true,
+        "rechazar":false,
         "class":"amarillo",
         "pantallas":[1,0,0,1]
     },

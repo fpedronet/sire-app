@@ -76,6 +76,7 @@ export class CrendicionComponent implements OnInit {
   vBalance?: string = '0.00';
 
   idPantalla?: number = 1;
+  pantallaPrev?: string = '';
 
   dataSource: RendicionD[] = [];
   displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'adjunto', 'accion', 'mo'];
@@ -219,6 +220,13 @@ export class CrendicionComponent implements OnInit {
   }
 
   obtener(){
+    if(this.idPantalla === 2)
+      this.pantallaPrev = 'SEGUIMIENTO -';
+    if(this.idPantalla === 3)
+      this.pantallaPrev = 'REVISIÓN -';
+    if(this.idPantalla === 4)
+      this.pantallaPrev = 'APROBACIÓN -';
+
     if(this.id > 0){
       this.spinner.showLoading();
       this.rendicionService.obtener(this.id).subscribe(data=>{
@@ -289,7 +297,7 @@ export class CrendicionComponent implements OnInit {
   }
 
   soyAprobador(codigo: string){
-    var valida: boolean = false;
+    var valida: boolean = true;
     return valida;
   }
 
@@ -471,13 +479,14 @@ export class CrendicionComponent implements OnInit {
     return lista?.find(e => e.valor === value)?.descripcion?.toUpperCase();
   }
 
-  rechazar(){
+  observacion(rol: string){
     const dialogRef = this.dialog.open(CrechazoComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
       width: '850px',
       panelClass: 'full-screen-modal',
       data: {
+        rol: rol,
         obsRevisor: this.getControlLabel('obsRevisor'),
         obsAprobador: this.getControlLabel('obsAprobador')
       }

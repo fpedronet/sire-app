@@ -9,6 +9,9 @@ import jsonEstado from 'src/assets/json/rendicion/renestado.json';
 import { formatDate } from '@angular/common';
 import { ComboboxService } from 'src/app/_service/combobox.service';
 import { NotifierService } from 'src/app/page/component/notifier/notifier.service';
+import { ConfigPermisoService } from 'src/app/_service/configpermiso.service';
+import { Permiso } from 'src/app/_model/permiso';
+import forms from 'src/assets/json/formulario.json';
 
 @Component({
   selector: 'app-frendicion',
@@ -25,6 +28,7 @@ export class FrendicionComponent implements OnInit {
     private notifierService : NotifierService,
     private usuarioService: UsuarioService,
     private comboboxService: ComboboxService,
+    private configPermisoService : ConfigPermisoService,
   ) {
     if(this.data.idPantalla !== undefined)
       this.idPantalla = this.data.idPantalla;
@@ -34,6 +38,7 @@ export class FrendicionComponent implements OnInit {
   loading = true;
 
   codigo? : string;
+  permiso: Permiso = {};
 
   tablasMaestras = ['USUARIO'];
   tbUsuario: Combobox[] = [];
@@ -59,6 +64,7 @@ export class FrendicionComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.obtenerpermiso();
     this.listarUsuario();
     //debugger;
     this.fechaMax = new Date();
@@ -94,6 +100,14 @@ export class FrendicionComponent implements OnInit {
 
   obtenerSubtabla(tb: Combobox[], cod: string){
     return tb.filter(e => e.etiqueta?.toString()?.trim() === cod);
+  }
+
+  obtenerpermiso(){
+    this.spinner.showLoading();
+    this.configPermisoService.obtenerpermiso(forms.rendicionGasto.codigo).subscribe(data=>{
+      this.permiso = data;
+       this.spinner.hideLoading();
+    });   
   }
 
   async listarestados(){

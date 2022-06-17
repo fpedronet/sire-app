@@ -36,7 +36,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTreeModule} from '@angular/material/tree';
 import {NgxPrintModule} from 'ngx-print' ;
-import {NgQrScannerModule } from 'angular2-qrscanner';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [],
@@ -78,7 +78,7 @@ import {NgQrScannerModule } from 'angular2-qrscanner';
     MatExpansionModule,
     MatTreeModule,
     NgxPrintModule,
-    NgQrScannerModule
+    ZXingScannerModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },

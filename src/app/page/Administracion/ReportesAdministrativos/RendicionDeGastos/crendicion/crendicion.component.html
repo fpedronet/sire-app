@@ -18,14 +18,14 @@
         <mat-icon class="maticon">{{sgteIconM}}</mat-icon>
       </button>
       <!--Rechaza revisión-->
-      <button *ngIf="tienepermiso(sgteEstadoR) && TIPO.value === 'R' && reject" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Rechazar" type="submit" (click)="rechazar()">
-        <mat-icon class="maticon">cancel</mat-icon>
+      <button *ngIf="tienepermiso(sgteEstadoR) && TIPO.value === 'R' && reject" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Rechazar" type="submit" (click)="observacion('R')">
+        <mat-icon class="maticon"></mat-icon>
       </button>
       <!--Aprueba/Rechaza-->
       <button *ngIf="apruebarechaza" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Aprobar" type="submit" (click)="cambiaEstado(3)">
         <mat-icon class="maticon">check_circle</mat-icon>
       </button>
-      <button *ngIf="apruebarechaza" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Rechazar" type="submit" (click)="rechazar()">
+      <button *ngIf="apruebarechaza" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Rechazar" type="submit" (click)="observacion('A')">
         <mat-icon class="maticon">cancel</mat-icon>
       </button>
     </div>
@@ -36,8 +36,8 @@
   <mat-toolbar class="cardtitle"></mat-toolbar>
 
   <h2 *ngIf="id==0" class="title-label">CREAR {{getDescTipo(TIPO.value)}}</h2>
-  <h2 *ngIf="id!==0 && edit" class="title-label">EDITAR {{getDescTipo(TIPO.value)}}</h2>
-  <h2 *ngIf="id!==0 && !edit" class="title-label">VER {{getDescTipo(TIPO.value)}}</h2>
+  <h2 *ngIf="id!==0 && edit" class="title-label">{{pantallaPrev}} EDITAR {{getDescTipo(TIPO.value)}}</h2>
+  <h2 *ngIf="id!==0 && !edit" class="title-label">{{pantallaPrev}} VER {{getDescTipo(TIPO.value)}}</h2>
 
   <mat-divider></mat-divider>
   
