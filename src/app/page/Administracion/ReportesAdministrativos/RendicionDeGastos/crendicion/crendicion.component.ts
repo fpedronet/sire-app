@@ -45,7 +45,7 @@ export class CrendicionComponent implements OnInit {
   sgteIconR: string = "";
   sgteIconM: string = "";
   delete: boolean = false;
-  reject: boolean = false;
+  rejectRevi: boolean = false;
   apruebarechaza: boolean = false;
   claseEstado: string = "";
 
@@ -194,7 +194,7 @@ export class CrendicionComponent implements OnInit {
       'ingresos': new FormControl({ value: '', disabled: false}),
       'gastos': new FormControl({ value: '0.00', disabled: false}),
       'fechaPresenta': new FormControl({ value: new Date(), disabled: true}),
-      'fechaApruebaRechaza': new FormControl({ value: new Date(), disabled: true}),
+      'fechaApruebaRechaza': new FormControl({ value: '', disabled: false}),
       'fechaProcesa': new FormControl({ value: new Date(), disabled: true}),
       'ideUsuProcesa': new FormControl({ value: 0, disabled: true}),
       'ideEstado': new FormControl({ value: -1, disabled: false}),
@@ -202,12 +202,12 @@ export class CrendicionComponent implements OnInit {
       'fechaCreacion': new FormControl({ value: new Date(), disabled: false}),
       'docuGenerado': new FormControl({ value: 0, disabled: true}),
       'fechaAceptado': new FormControl({ value: new Date(), disabled: true}),
-      'ideUsuApruebaRechaza': new FormControl({ value: 0, disabled: true}),
-      'obsAprobador': new FormControl({ value: '', disabled: true}),
-      'obsRevisor': new FormControl({ value: '', disabled: true}),
+      'ideUsuApruebaRechaza': new FormControl({ value: 0, disabled: false}),
+      'obsAprobador': new FormControl({ value: '', disabled: false}),
+      'obsRevisor': new FormControl({ value: '', disabled: false}),
       'tipo': new FormControl({ value: 'M', disabled: false}),
-      'fechaRevisado': new FormControl({ value: new Date(), disabled: true}),
-      'ideUsuRevisa': new FormControl({ value: 0, disabled: true})
+      'fechaRevisado': new FormControl({ value: '', disabled: false}),
+      'ideUsuRevisa': new FormControl({ value: 0, disabled: false})
     });
   }
 
@@ -245,7 +245,15 @@ export class CrendicionComponent implements OnInit {
             ideEstado: data.ideEstado,
             estado: this.listaEstados?.find(e => e.valor === data.ideEstado)?.descripcion,
             fechaCreacion: data.fechaCreacion,
-            tipo: data.tipo
+            tipo: data.tipo,
+            //Aprobador
+            fechaApruebaRechaza: data.vFechaApruebaRechaza,
+            ideUsuApruebaRechaza: data.ideUsuApruebaRechaza,
+            obsAprobador: data.obsAprobador,
+            //Revisor
+            fechaRevisado: data.vFechaRevisado,
+            ideUsuRevisa: data.ideUsuRevisa,
+            obsRevisor: data.obsRevisor
           });
 
           //Muestra creador de rendición
@@ -279,10 +287,10 @@ export class CrendicionComponent implements OnInit {
 
     var objEstado = jsonEstado.find((e: any) => e.nIdEstado === idEstado);
     if(objEstado !== undefined){
-      this.edit = objEstado.edicion && this.curUsuario == this.usuarioService.sessionUsuario().ideUsuario;
+      this.edit = objEstado.edicion && (this.curUsuario == this.usuarioService.sessionUsuario().ideUsuario);
       this.delete = objEstado.eliminar && this.edit;
-      this.reject = objEstado.rechazar;
-      this.apruebarechaza = objEstado.nIdEstado === 2 && this.soyAprobador(this.curCodigo)
+      this.rejectRevi = objEstado.rechazar;
+      this.apruebarechaza = objEstado.nIdEstado === 2 && this.soyAprobador(this.usuarioService.sessionUsuario().ideUsuario)
 
       this.txtEditarR = objEstado.txtCambiarEstado.txt1;
       this.sgteEstadoR = objEstado.sgteEstado.num1;
@@ -296,9 +304,10 @@ export class CrendicionComponent implements OnInit {
     }    
   }
 
-  soyAprobador(codigo: string){
-    var valida: boolean = true;
-    return valida;
+  soyAprobador(idUsuarioLog: number){
+    //debugger;
+    var idAprobador: number = this.getControlLabel('ideUsuApruebaRechaza');
+    return idAprobador == idUsuarioLog;
   }
 
   cambiaEstado(sgteEstado: number, obs?: string){
