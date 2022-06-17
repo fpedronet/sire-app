@@ -42,6 +42,7 @@ export class CdetalleComponent implements OnInit {
       this.rendDet!.ideRendicion = this.data.idPadre;
 
     this.edit = this.data.edit;
+    this.tipo = this.data.tipoPadre;
   }
 
   form: FormGroup = new FormGroup({});
@@ -73,6 +74,8 @@ export class CdetalleComponent implements OnInit {
   filterLineas: Observable<Combobox[]> | undefined;
   controlLineas = new FormControl();
   codLinea: string = '';
+
+  tipo: string = '';
 
   videoDevices: MediaDeviceInfo[] = [];
 

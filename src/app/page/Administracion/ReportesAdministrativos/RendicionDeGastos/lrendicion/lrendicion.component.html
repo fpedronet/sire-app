@@ -38,7 +38,9 @@
 
             <ng-container matColumnDef="tipo">
               <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
-              <mat-cell *matCellDef="let element" data-label="Tipo"> {{element.tipo}} </mat-cell>
+              <mat-cell *matCellDef="let element" data-label="Tipo">
+                <div style="font-weight: 500;">{{element.tipo}}</div>
+              </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="lugar">

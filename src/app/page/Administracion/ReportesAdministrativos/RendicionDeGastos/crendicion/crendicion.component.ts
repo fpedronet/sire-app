@@ -468,7 +468,8 @@ export class CrendicionComponent implements OnInit {
       data: {
         detalle: rendDet,
         idPadre: this.id,
-        edit: this.edit
+        edit: this.edit,
+        tipoPadre: this.getControlLabel('tipo')
       }
     });
 
