@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 import { map, Observable, startWith } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import {Html5Qrcode} from "html5-qrcode";
+import { SharepointService } from 'src/app/_service/apiexterno/sharepoint.service';
 
 @Component({
   selector: 'app-cdetalle',
@@ -41,7 +42,8 @@ export class CdetalleComponent implements OnInit {
     private rendicionService : RendicionService,
     private usuarioService: UsuarioService,
     private comboboxService: ComboboxService,
-    private notifierService : NotifierService
+    private notifierService : NotifierService,
+    private sharepointService : SharepointService
   )
   {
     //debugger;
@@ -305,6 +307,7 @@ export class CdetalleComponent implements OnInit {
     model.rucPrv = this.form.value['rucPrv'];
     model.proveedor = this.form.value['proveedor'];
 
+    model.emailEmp = this.usuarioService.sessionUsuario()?.emailEmp;
     model.password = this.usuarioService.sessionUsuario()?.contraseniaSharepoint;
     model.adjunto = this.adjunto;
     model.url = this.url;
@@ -312,26 +315,29 @@ export class CdetalleComponent implements OnInit {
 
     this.spinner.showLoading();
 
-    this.rendicionService.guardarDet(model).subscribe(data=>{
-      this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
-
-      if(data.typeResponse==environment.EXITO){      
-        this.spinner.hideLoading();
-
-        //Guarda caché de valores ingresados
-        localStorage.setItem(environment.CODIGO_DETALLE, 
-          (model.comodato === undefined ? '' : model.comodato) + "|" +
-          (model.ideSede === undefined ? '' : model.ideSede?.toString()) + "|" +
-          (model.codLinea === undefined ? '' : model.codLinea) + "|" +
-          (model.codMoneda === undefined ? '' : model.codMoneda)
-        );
-        
-        this.dialogRef.close();
-      }else{
-        this.spinner.hideLoading();
-      }
+    this.sharepointService.postUploadFileToSharePoint(model).subscribe(data=>{
+      console.log(data)
     });
-    
+
+    // this.rendicionService.guardarDet(model).subscribe(data=>{
+    //   this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+
+    //   if(data.typeResponse==environment.EXITO){      
+    //     this.spinner.hideLoading();
+
+    //     //Guarda caché de valores ingresados
+    //     localStorage.setItem(environment.CODIGO_DETALLE, 
+    //       (model.comodato === undefined ? '' : model.comodato) + "|" +
+    //       (model.ideSede === undefined ? '' : model.ideSede?.toString()) + "|" +
+    //       (model.codLinea === undefined ? '' : model.codLinea) + "|" +
+    //       (model.codMoneda === undefined ? '' : model.codMoneda)
+    //     );
+        
+    //     this.dialogRef.close();
+    //   }else{
+    //     this.spinner.hideLoading();
+    //   }
+    // });    
     
   }
 
