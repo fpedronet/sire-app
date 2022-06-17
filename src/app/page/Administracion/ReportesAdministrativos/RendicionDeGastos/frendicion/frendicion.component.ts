@@ -104,7 +104,7 @@ export class FrendicionComponent implements OnInit {
 
   obtenerpermiso(){
     this.spinner.showLoading();
-    this.configPermisoService.obtenerpermiso(forms.rendicionGasto.codigo).subscribe(data=>{
+    this.configPermisoService.obtenerpermiso(forms.reporteAdmin.codigo).subscribe(data=>{
       this.permiso = data;
        this.spinner.hideLoading();
     });   

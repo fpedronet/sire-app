@@ -19,7 +19,7 @@
       </button>
       <!--Rechaza revisión-->
       <button *ngIf="tienepermiso(sgteEstadoR) && TIPO.value === 'R' && rejectRevi" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Rechazar" type="submit" (click)="observacion('R')">
-        <mat-icon class="maticon"></mat-icon>
+        <mat-icon class="maticon">cancel</mat-icon>
       </button>
       <!--Aprueba/Rechaza-->
       <button *ngIf="apruebarechaza" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Aprobar" type="submit" (click)="cambiaEstado(3)">

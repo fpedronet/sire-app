@@ -275,6 +275,9 @@ export class CrendicionComponent implements OnInit {
             this.existDetalle = true;
             this.curMoneda = this.dataSource[0].codMoneda!;
           }
+          else{
+            this.currentTab = 1; //Segunda pestaña
+          }
           
         }
         this.spinner.hideLoading();
@@ -291,7 +294,8 @@ export class CrendicionComponent implements OnInit {
       this.delete = objEstado.eliminar && this.edit;
       this.rejectRevi = objEstado.rechazar;
       this.apruebarechaza = objEstado.nIdEstado === 2 && this.soyAprobador(this.usuarioService.sessionUsuario().ideUsuario)
-
+      
+      //debugger;
       this.txtEditarR = objEstado.txtCambiarEstado.txt1;
       this.sgteEstadoR = objEstado.sgteEstado.num1;
       this.sgteIconR = objEstado.sgteIcono.icon1;
@@ -353,8 +357,8 @@ export class CrendicionComponent implements OnInit {
         this.muestraEstado(sgteEstado);
         this.spinner.hideLoading();
 
-        if(sgteEstado === 0)
-          this.router.navigate(['/page/administracion/rendicion'])
+        if(sgteEstado === 0 || (this.curUsuario > 0 && this.curUsuario != this.usuarioService.sessionUsuario().ideUsuario))
+          this.router.navigate(['/page/administracion/rendicion',this.idPantalla]);
         else
           this.obtener();
         
@@ -396,8 +400,9 @@ export class CrendicionComponent implements OnInit {
 
   obtenerpermiso(){
     this.spinner.showLoading();
-    this.configPermisoService.obtenerpermiso(forms.rendicionGasto.codigo).subscribe(data=>{
+    this.configPermisoService.obtenerpermiso(forms.reporteAdmin.codigo).subscribe(data=>{
       this.permiso = data;
+      //debugger;
 
       //this.permiso.revisar = false;
       //this.permiso.procesar = false;
@@ -406,10 +411,12 @@ export class CrendicionComponent implements OnInit {
     }); 
   }
 
-  tienepermiso(sgte: number){
+  tienepermiso(sgte: number){    
 
-    if(sgte === 5)
+    if(sgte === 5){
+      //debugger;
       return this.permiso.procesar;
+    }      
     
     if(sgte === 6)
       return this.permiso.revisar;
@@ -443,7 +450,8 @@ export class CrendicionComponent implements OnInit {
               this.existRendicion = true;
               this.currentTab = 1; //Segunda pestaña
               this.id = data.ide!;
-              this.router.navigate(['/page/administracion/rendicion/edit/',this.id]);
+              debugger;
+              this.router.navigate(['/page/administracion/rendicion/'+this.idPantalla+'/edit/',this.id]);
             }
             this.obtener();
             
