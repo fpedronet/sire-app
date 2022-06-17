@@ -38,6 +38,7 @@ export class RendicionD {
     rucPrv?: string
     proveedor?: string
     swt?: number
+    emailEmp?: string
     password?: string
     nombreAdjunto?: string
     adjunto?: string

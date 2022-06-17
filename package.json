@@ -27,6 +27,7 @@
     "@zxing/ngx-scanner": "^3.5.0",
     "apexcharts": "^3.33.1",
     "crypto-js": "^4.1.1",
+    "html5-qrcode": "^2.2.1",
     "jsbarcode": "^3.11.5",
     "ng-apexcharts": "^1.7.0",
     "ngx-print": "^1.2.1",

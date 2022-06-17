@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotifierService } from 'src/app/page/component/notifier/notifier.service';
 import { SpinnerService } from 'src/app/page/component/spinner/spinner.service';
@@ -13,6 +13,8 @@ import jsonTipoDocu from 'src/assets/json/detalle/tipoDocu.json';
 import { environment } from 'src/environments/environment';
 import { map, Observable, startWith } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
+import {Html5Qrcode} from "html5-qrcode";
+import { SharepointService } from 'src/app/_service/apiexterno/sharepoint.service';
 
 @Component({
   selector: 'app-cdetalle',
@@ -24,6 +26,14 @@ export class CdetalleComponent implements OnInit {
   @ViewChild('COMODATO') comboCmd: any;
 
   scannerEnabled: boolean = false;
+  public qrcode:string = '';    
+  public windowsWidth:string = `${window.innerWidth > 500 ? 500 : window.innerWidth}px`;
+
+  html5QrCodes! : any;
+  private cameraId! : any;
+
+  @ViewChild('video', {}) videoElement!: ElementRef;
+  @ViewChild('canvas', {}) canvas!: ElementRef;
 
   constructor(
     private dialogRef: MatDialogRef<CdetalleComponent>,
@@ -33,6 +43,7 @@ export class CdetalleComponent implements OnInit {
     private usuarioService: UsuarioService,
     private comboboxService: ComboboxService,
     private notifierService : NotifierService,
+    private sharepointService : SharepointService
   )
   {
     //debugger;
@@ -296,6 +307,7 @@ export class CdetalleComponent implements OnInit {
     model.rucPrv = this.form.value['rucPrv'];
     model.proveedor = this.form.value['proveedor'];
 
+    model.emailEmp = this.usuarioService.sessionUsuario()?.emailEmp;
     model.password = this.usuarioService.sessionUsuario()?.contraseniaSharepoint;
     model.adjunto = this.adjunto;
     model.url = this.url;
@@ -303,26 +315,29 @@ export class CdetalleComponent implements OnInit {
 
     this.spinner.showLoading();
 
-    this.rendicionService.guardarDet(model).subscribe(data=>{
-      this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
-
-      if(data.typeResponse==environment.EXITO){      
-        this.spinner.hideLoading();
-
-        //Guarda caché de valores ingresados
-        localStorage.setItem(environment.CODIGO_DETALLE, 
-          (model.comodato === undefined ? '' : model.comodato) + "|" +
-          (model.ideSede === undefined ? '' : model.ideSede?.toString()) + "|" +
-          (model.codLinea === undefined ? '' : model.codLinea) + "|" +
-          (model.codMoneda === undefined ? '' : model.codMoneda)
-        );
-        
-        this.dialogRef.close();
-      }else{
-        this.spinner.hideLoading();
-      }
+    this.sharepointService.postUploadFileToSharePoint(model).subscribe(data=>{
+      console.log(data)
     });
-    
+
+    // this.rendicionService.guardarDet(model).subscribe(data=>{
+    //   this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+
+    //   if(data.typeResponse==environment.EXITO){      
+    //     this.spinner.hideLoading();
+
+    //     //Guarda caché de valores ingresados
+    //     localStorage.setItem(environment.CODIGO_DETALLE, 
+    //       (model.comodato === undefined ? '' : model.comodato) + "|" +
+    //       (model.ideSede === undefined ? '' : model.ideSede?.toString()) + "|" +
+    //       (model.codLinea === undefined ? '' : model.codLinea) + "|" +
+    //       (model.codMoneda === undefined ? '' : model.codMoneda)
+    //     );
+        
+    //     this.dialogRef.close();
+    //   }else{
+    //     this.spinner.hideLoading();
+    //   }
+    // });    
     
   }
 
@@ -454,10 +469,59 @@ export class CdetalleComponent implements OnInit {
     this.adjunto = "";
   }
 
-  scanSuccessHandler($event: any) {
-    this.scannerEnabled = false;
+  getCameras() {
+    Html5Qrcode.getCameras().then((devices:any[]) => {      
+      if (devices && devices.length) {
+       
+        if(devices.length>=3){
+          this.cameraId = devices[2].id;
+        }
+        else if(devices.length==2){
+          this.cameraId = devices[1].id;
+        }
+        else if(devices.length==1){
+          this.cameraId = devices[0].id;
+        }
+        this.enableScanner();
+      }
+    })
+  }
 
-    this.qr = "none;";
+  enableScanner() {   
+    const html5QrCode = new Html5Qrcode("reader", true);
+
+    this.html5QrCodes = html5QrCode;
+    this.scannerEnabled = true;
+    this.body = "none;";
+
+    html5QrCode.start(
+      this.cameraId, 
+      { 
+        fps: 10, 
+        qrbox: { width: 250, height: 250 } 
+      },   
+      (decodedText, decodedResult) => {
+        this.setearValores(decodedText);
+        this.disableScanner()
+      },
+      (errorMessage) => {
+      })
+    .catch((err) => {
+    });
+  }
+
+  disableScanner() {
+    this.scannerEnabled = false;
+    this.body = "block;";
+
+    if(this.html5QrCodes!=undefined){
+      this.html5QrCodes.stop().then(() => {
+      }).catch(() => {
+      });
+    }
+  }
+
+  setearValores($event : string){
     this.body = "block;";
 
     let tt_filas= $event.split('|');
@@ -517,16 +581,8 @@ export class CdetalleComponent implements OnInit {
     }
   }
 
-  enableScanner() {
-    this.scannerEnabled = !this.scannerEnabled;
-    this.qr = "block;";
-    this.body = "none;";
+  closeModal(){
+    this.dialogRef.close();
+    this.disableScanner();
   }
-
-  disableScanner() {
-    this.scannerEnabled = false;
-    this.qr = "none;";
-    this.body = "block;";
-  }
-
 }
