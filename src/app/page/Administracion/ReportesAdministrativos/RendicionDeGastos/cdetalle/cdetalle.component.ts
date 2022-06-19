@@ -54,6 +54,7 @@ export class CdetalleComponent implements OnInit {
 
     this.edit = this.data.edit;
     this.tipo = this.data.tipoPadre;
+    this.codigo = this.data.codigo;
   }
 
   form: FormGroup = new FormGroup({});
@@ -307,6 +308,7 @@ export class CdetalleComponent implements OnInit {
     model.rucPrv = this.form.value['rucPrv'];
     model.proveedor = this.form.value['proveedor'];
 
+    model.codigo = this.codigo;
     model.emailEmp = this.usuarioService.sessionUsuario()?.emailEmp;
     model.password = this.usuarioService.sessionUsuario()?.contraseniaSharepoint;
     model.adjunto = this.adjunto;

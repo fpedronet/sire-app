@@ -33,6 +33,7 @@ export class RendicionM {
     ideUsuRevisa?: number
     correo?: string
     listaDetalle?: RendicionD[]
+    url_M?: string
 }
 
 export class RendicionRequest {

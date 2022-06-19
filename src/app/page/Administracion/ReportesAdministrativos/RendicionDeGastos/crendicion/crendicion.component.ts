@@ -82,6 +82,7 @@ export class CrendicionComponent implements OnInit {
   displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'adjunto', 'accion', 'mo'];
 
   maxDate: Date = new Date();
+  url_m: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -256,6 +257,8 @@ export class CrendicionComponent implements OnInit {
             obsRevisor: data.obsRevisor
           });
 
+  
+          this.url_m = data.url_M!;
           //Muestra creador de rendición
           this.curUsuario = data.ideUsuario!;
           this.nombresUsuario = this.tbUsuario.find(e => e.valor === this.curUsuario.toString())?.descripcion;
@@ -477,7 +480,8 @@ export class CrendicionComponent implements OnInit {
         detalle: rendDet,
         idPadre: this.id,
         edit: this.edit,
-        tipoPadre: this.getControlLabel('tipo')
+        tipoPadre: this.getControlLabel('tipo'),
+        codigo: this.curCodigo
       }
     });
 
@@ -487,6 +491,7 @@ export class CrendicionComponent implements OnInit {
       }
     })
   }
+
 
   restarCampos(num1: string, num2: string){
     let valor = parseFloat(num1 === '' ? '0' : num1) - parseFloat(num2 === '' ? '0' : num2);
