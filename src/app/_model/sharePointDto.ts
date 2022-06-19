@@ -6,7 +6,6 @@ export class SharePointDto {
     customerFolder?: string;
     fileName?: string;
     adjunto?: string;
-    fileContent?: Byte
     userName?: string;
     password?:string;
 }
