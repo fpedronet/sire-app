@@ -107,8 +107,7 @@ export class CrendicionComponent implements OnInit {
     this.obtenerpermiso();
     
     this.listarestados();
-    this.listartipos();
-    this.listarUsuario();
+    this.listartipos();    
 
     this.tbConcepto = this.completarCombo(jsonConcepto);
     this.tbMoneda = this.completarCombo(jsonMoneda);
@@ -120,22 +119,28 @@ export class CrendicionComponent implements OnInit {
     this.route.params.subscribe((data: Params)=>{
       this.idPantalla = (data["idPantalla"]==undefined)?1:parseInt(data["idPantalla"]);
       this.id = (data["id"]==undefined)?0:parseInt(data["id"]);
-      this.obtener(true);
+      this.listarUsuario().then(res => {
+        this.obtener(true);
+      });      
     });
   }
 
-  listarUsuario(){
+  async listarUsuario(){
+    return new Promise(async (resolve) => {
     
-    this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
-      if(data === undefined){
-        this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
-      }
-      else{
-        var tbCombobox: Combobox[] = data.items;
-        
-        this.tbUsuario = this.obtenerSubtabla(tbCombobox,'USUARIO');
-      }
-    });
+      this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
+        if(data === undefined){
+          this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
+        }
+        else{
+          var tbCombobox: Combobox[] = data.items;
+          
+          this.tbUsuario = this.obtenerSubtabla(tbCombobox,'USUARIO');
+        }
+
+        resolve('ok')
+      });
+    })
   }
 
   obtenerSubtabla(tb: Combobox[], cod: string){
@@ -274,7 +279,7 @@ export class CrendicionComponent implements OnInit {
           this.muestraEstado(data.ideEstado);
 
           //Muestra observaciones
-          this.existenObs = data.ideEstado === 1 && (data.obsAprobador !== undefined && data.obsAprobador !== '' && data.obsRevisor !== undefined && data.obsRevisor !== '');
+          this.existenObs = data.ideEstado === 1 && ((data.obsAprobador !== undefined && data.obsAprobador !== '') || (data.obsRevisor !== undefined && data.obsRevisor !== ''));
           if(this.existenObs && primeraObs)
             this.observacion();
 
@@ -375,7 +380,12 @@ export class CrendicionComponent implements OnInit {
         this.muestraEstado(sgteEstado);
         this.spinner.hideLoading();
 
-        if(sgteEstado === 0 || (this.curUsuario > 0 && this.curUsuario != this.usuarioService.sessionUsuario().ideUsuario))
+        /*if(sgteEstado === 0 || (this.curUsuario > 0 && this.curUsuario != this.usuarioService.sessionUsuario().ideUsuario))
+          this.router.navigate(['/page/administracion/rendicion',this.idPantalla]);
+        else
+          this.obtener();*/
+
+        if(sgteEstado === 0 || sgteEstado > 2)
           this.router.navigate(['/page/administracion/rendicion',this.idPantalla]);
         else
           this.obtener();

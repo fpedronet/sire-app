@@ -182,9 +182,9 @@
             <div div fxFlex="45%" fxFlex.xs="30%" fxFlex.sm="30%">
 
             </div>
-            <div div fxFlex="45%" fxFlex.xs="70%" fxFlex.sm="70%" *ngIf="edit">  
+            <div div fxFlex="45%" fxFlex.xs="70%" fxFlex.sm="70%">  
               <div class="example-button-row">
-                <button mat-stroked-button class="btnHeader" type="button" (click)="abrirDetalle()">
+                <button  *ngIf="edit" mat-stroked-button class="btnHeader" type="button" (click)="abrirDetalle()">
                   <mat-icon class="maticon">add</mat-icon>
                 </button>  
                 <a *ngIf="url_m!=null && url_m!=''" mat-stroked-button class="btnHeader" type="button" matTooltip="SharePoint" href="{{url_m}}" target="_blank">
