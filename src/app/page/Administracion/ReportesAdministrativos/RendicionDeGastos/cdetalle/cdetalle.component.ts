@@ -317,25 +317,25 @@ export class CdetalleComponent implements OnInit {
 
     this.spinner.showLoading();
 
-    // this.rendicionService.guardarDet(model).subscribe(data=>{
-    //   this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
+    this.rendicionService.guardarDet(model).subscribe(data=>{
+      this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
-    //   if(data.typeResponse==environment.EXITO){      
-    //     this.spinner.hideLoading();
+      if(data.typeResponse==environment.EXITO){      
+        this.spinner.hideLoading();
 
-    //     //Guarda caché de valores ingresados
-    //     localStorage.setItem(environment.CODIGO_DETALLE, 
-    //       (model.comodato === undefined ? '' : model.comodato) + "|" +
-    //       (model.ideSede === undefined ? '' : model.ideSede?.toString()) + "|" +
-    //       (model.codLinea === undefined ? '' : model.codLinea) + "|" +
-    //       (model.codMoneda === undefined ? '' : model.codMoneda)
-    //     );
+        //Guarda caché de valores ingresados
+        localStorage.setItem(environment.CODIGO_DETALLE, 
+          (model.comodato === undefined ? '' : model.comodato) + "|" +
+          (model.ideSede === undefined ? '' : model.ideSede?.toString()) + "|" +
+          (model.codLinea === undefined ? '' : model.codLinea) + "|" +
+          (model.codMoneda === undefined ? '' : model.codMoneda)
+        );
         
-    //     this.dialogRef.close();
-    //   }else{
-    //     this.spinner.hideLoading();
-    //   }
-    // });    
+        this.dialogRef.close();
+      }else{
+        this.spinner.hideLoading();
+      }
+    });    
     
   }
 
