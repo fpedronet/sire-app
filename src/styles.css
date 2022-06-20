@@ -304,6 +304,9 @@ form{
   display: none;
 }
 
+#abrirmenu{
+  padding-top: 11px;margin: 0 28px -22px 0;text-align: center;
+}
 
 @media (max-width:1200px){
   .example-button{
@@ -405,7 +408,7 @@ form{
   .mat-table .mat-row:nth-child(odd) {background: #FFF} */
  
   .mat-table .mat-cell {
-    /* border-bottom: 1px solid #ddd; */
+    border-bottom: 1px solid #ddddddb0;
     display: block;
     /* font-size: 1em; */
     text-align: right;
@@ -444,12 +447,17 @@ form{
   .example-button-row{
     margin-left:auto;
   }
+  #abrirmenu{
+    padding-top: 11px;
+    margin: 0 0 -22px 0;
+    text-align: center;
+  }
   #closemenu{
     display: none;
   }
   .circulo {
     margin: auto;
-    margin-right: 1px;
+    margin-right: -4px;
   }
   .container2 {
     background: url('../src/assets/login2.jpg') no-repeat center center/cover;
@@ -487,9 +495,14 @@ form{
   #closemenu{
     display: none;
   }
+  #abrirmenu{
+    padding-top: 11px;
+    margin: 0 0 -22px 0;
+    text-align: center;
+  }
   .circulo {
     margin: auto;
-    margin-right: 1px;
+    margin-right: -4px;
   }
   .container2 {
     background: url('../src/assets/login2.jpg') no-repeat center center/cover;
@@ -530,9 +543,14 @@ form{
   #closemenu{
     display: none;
   }
+  #abrirmenu{
+    padding-top: 11px;
+    margin: 0 0 -22px 0;
+    text-align: center;
+  }
   .circulo {
     margin: auto;
-    margin-right: 1px;
+    margin-right: -4px;
     cursor: pointer;
   }
   .container2 {
@@ -574,9 +592,14 @@ form{
   #closemenu{
     display: none;
   }
+  #abrirmenu{
+    padding-top: 11px;
+    margin: 0 0 -22px 0;
+    text-align: center;
+  }
   .circulo {
     margin: auto;
-    margin-right: 1px;
+    margin-right: -4px;
   }
   .container2 {
     background: url('../src/assets/login2.jpg') no-repeat center center/cover;

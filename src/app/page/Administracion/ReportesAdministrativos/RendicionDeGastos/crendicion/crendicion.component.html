@@ -44,8 +44,9 @@
   <div id="content" *ngIf="id !== 0"> 
       <div style="width: 100%; float:left;margin-bottom: -17px;">
         <div style="text-align: center; color: #1a0da4; font-weight: 500;padding-top: 9px;">
-          <span style="text-transform: uppercase;">{{nombresUsuario}}</span> - ESTADO {{estado}}
-          <div class="circulotitle {{claseEstado}}"></div>
+          <span *ngIf="nombresUsuario !='' && nombresUsuario != null && nombresUsuario != undefined" style="text-transform: uppercase;">{{nombresUsuario}}</span> - ESTADO {{estado}}
+          <span *ngIf="nombresUsuario =='' || nombresUsuario == null || nombresUsuario == undefined"><span style="text-transform: uppercase;"></span> ESTADO {{estado}}</span>
+          <!-- <div class="circulotitle {{claseEstado}}"></div> -->
         </div> 
         <div style="text-align: center; color: #1a0da4; font-weight:600;">CODIGO: {{documento}}</div> 
       </div> 
@@ -173,22 +174,22 @@
 
         <div class="content contentTable">
           <div fxLayout="row wrap" fxLayoutGap="16px grid">
-            <div div fxFlex="44%" fxFlex.xs="44%" fxFlex.sm="44%">
+            <div div fxFlex="45%" fxFlex.xs="30%" fxFlex.sm="30%">
 
             </div>
-            <div div fxFlex="20%" fxFlex.xs="20%" fxFlex.sm="20%" *ngIf="edit">  
+            <div div fxFlex="45%" fxFlex.xs="70%" fxFlex.sm="70%" *ngIf="edit">  
               <div class="example-button-row">
                 <button mat-stroked-button class="btnHeader" type="button" (click)="abrirDetalle()">
                   <mat-icon class="maticon">add</mat-icon>
                 </button>  
-                <a *ngIf="url_m!=null && url_m!=''" mat-stroked-button class="btnHeader" type="button" matTooltip="Link" href="{{url_m}}" target="_blank">
-                  <mat-icon class="maticon">attach_file</mat-icon>
+                <a *ngIf="url_m!=null && url_m!=''" mat-stroked-button class="btnHeader" type="button" matTooltip="SharePoint" href="{{url_m}}" target="_blank">
+                  <mat-icon class="maticon">share</mat-icon>
                 </a> 
               </div>        
             </div>
-            <div div fxFlex="47%" fxFlex.xs="47%" fxFlex.sm="47%">
+            <!-- <div div fxFlex="44%" fxFlex.xs="44%" fxFlex.sm="44%">
 
-            </div>
+            </div> -->
           </div>
 
           <div *ngIf="!existDetalle">
