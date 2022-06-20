@@ -270,6 +270,16 @@ export class CdetalleComponent implements OnInit {
 
   limpiar(){
     let rendDet: RendicionD = new RendicionD();
+    rendDet.ideRendicion = this.data.idPadre;
+
+    let filtro = this.usuarioService.sessionDetalle();
+    if(filtro!=null){
+      rendDet.comodato = filtro[0];
+      rendDet.ideSede = filtro[1] === '' ? 0 : parseInt(filtro[1]);
+      rendDet.nCodLinea = filtro[2];
+      rendDet.codMoneda = filtro[3];
+    }
+
     this.form.patchValue({
       fecha: rendDet?.fecha,
       comodato: rendDet?.comodato,

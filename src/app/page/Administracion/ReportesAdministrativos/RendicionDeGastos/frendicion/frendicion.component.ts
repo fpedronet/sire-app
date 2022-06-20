@@ -81,7 +81,7 @@ export class FrendicionComponent implements OnInit {
     
     this.listarestados().then(res => {
       this.obtener();
-    });    
+    });
   }
 
   listarUsuario(){
