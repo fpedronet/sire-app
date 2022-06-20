@@ -39,9 +39,12 @@ export class LayoutComponent implements OnInit {
   username: string = "";
   userdni: string = "99999999";
   isshow: boolean = false;
+  timeLeft: number = 3600;
+  interval:any;
 
   ngOnInit(): void {
     this.listar();   
+    this.startTimer();
   }
 
   listar(){
@@ -133,5 +136,20 @@ export class LayoutComponent implements OnInit {
     }else{
       this.isshow = true;  
     }
+  }
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      }else {
+        let session = this.usuarioService.sessionUsuario();
+        if(session==null){
+          this.timeLeft = 3600;
+          clearInterval(this.interval);
+          this.usuarioService.closeLogin();
+        }
+      }
+    },1000)
   }
 }
