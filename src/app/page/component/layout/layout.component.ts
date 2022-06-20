@@ -145,7 +145,6 @@ export class LayoutComponent implements OnInit {
       }else {
         let session = this.usuarioService.sessionUsuario();
         if(session==null){
-          this.timeLeft = 3602;
           clearInterval(this.interval);
           this.usuarioService.closeLogin();
         }
