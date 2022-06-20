@@ -109,6 +109,7 @@ export class CdetalleComponent implements OnInit {
   adjunto: string = '';
   nombreAdjunto: string = '';
   url: string = ''
+  url_M: string = ''
 
   ngOnInit(): void {
     this.fechaMax = new Date();
@@ -164,10 +165,11 @@ export class CdetalleComponent implements OnInit {
       rucPrv: rendDet.rucPrv,
       proveedor: rendDet.proveedor
     })
-
+  
     this.existCambio = false;
     this.nombreAdjunto = rendDet.nombreAdjunto!;
     this.url = rendDet.url!;
+    this.url_M = rendDet.url_M!;
 
     var sedeFind = this.tbSede.find(e => e.valor === rendDet.ideSede?.toString()); //Ruc
     if(sedeFind !== undefined){
@@ -313,13 +315,10 @@ export class CdetalleComponent implements OnInit {
     model.password = this.usuarioService.sessionUsuario()?.contraseniaSharepoint;
     model.adjunto = this.adjunto;
     model.url = this.url;
+    model.url_M = this.url_M;
     model.nombreAdjunto = this.nombreAdjunto;
 
     this.spinner.showLoading();
-
-    // this.sharepointService.postUploadFileToSharePoint(model).subscribe(data=>{
-    //   console.log(data)
-    // });
 
     this.rendicionService.guardarDet(model).subscribe(data=>{
       this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
@@ -467,6 +466,7 @@ export class CdetalleComponent implements OnInit {
   borrarAdjunto(){
     this.existCambio = true;
     this.url = "";
+    this.url_M = "";
     this.nombreAdjunto = "";
     this.adjunto = "";
   }

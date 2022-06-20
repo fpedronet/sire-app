@@ -43,5 +43,6 @@ export class RendicionD {
     nombreAdjunto?: string
     adjunto?: string
     url?: string
+    url_M?: string
     codigo?: string
 }

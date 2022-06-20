@@ -85,6 +85,7 @@ export class CrendicionComponent implements OnInit {
 
   maxDate: Date = new Date();
   url_m: string = '';
+  iconSharePont: string =environment.UrlImage + "sharePoint.png";
 
   constructor(
     private route: ActivatedRoute,
@@ -259,7 +260,6 @@ export class CrendicionComponent implements OnInit {
             obsRevisor: data.obsRevisor
           });
 
-  //debugger;
           this.url_m = data.url_M!;
           //Muestra creador de rendición
           this.curUsuario = data.ideUsuario!;
