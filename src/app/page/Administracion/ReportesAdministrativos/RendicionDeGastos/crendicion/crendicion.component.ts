@@ -120,7 +120,7 @@ export class CrendicionComponent implements OnInit {
     this.route.params.subscribe((data: Params)=>{
       this.idPantalla = (data["idPantalla"]==undefined)?1:parseInt(data["idPantalla"]);
       this.id = (data["id"]==undefined)?0:parseInt(data["id"]);
-      this.obtener();
+      this.obtener(true);
     });
   }
 
@@ -223,7 +223,7 @@ export class CrendicionComponent implements OnInit {
     return this.listaTipos?.find(e => e.valor === value)?.descripcion?.toUpperCase();
   }
 
-  obtener(){
+  obtener(primeraObs: boolean = false){
     if(this.idPantalla === 2)
       this.pantallaPrev = 'SEGUIMIENTO -';
     if(this.idPantalla === 3)
@@ -274,8 +274,8 @@ export class CrendicionComponent implements OnInit {
           this.muestraEstado(data.ideEstado);
 
           //Muestra observaciones
-          this.existenObs = data.ideEstado === 1 && (data.obsAprobador !== undefined || data.obsAprobador !== '' || data.obsRevisor !== undefined || data.obsRevisor !== '');
-          if(this.existenObs)
+          this.existenObs = data.ideEstado === 1 && (data.obsAprobador !== undefined && data.obsAprobador !== '' && data.obsRevisor !== undefined && data.obsRevisor !== '');
+          if(this.existenObs && primeraObs)
             this.observacion();
 
           this.documento= data.codigo!;
