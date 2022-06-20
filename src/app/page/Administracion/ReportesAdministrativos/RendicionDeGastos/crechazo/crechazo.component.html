@@ -25,5 +25,5 @@
 <div class="example-button-row" style="padding-top: 0px; margin: auto;">
   <button *ngIf="rol === ''" mat-button color="primary" (click)="onNoClick()">Ok</button>
   <button *ngIf="rol !== ''" mat-button color="primary" (click)="onNoClick()">No</button>
-  <button *ngIf="rol !== ''" mat-stroked-button color="accent" [mat-dialog-close]="observacion" [disabled]="data.obsRevisor === ''">Sí</button>
+  <button *ngIf="rol !== ''" mat-stroked-button color="accent" [mat-dialog-close]="observacion" [disabled]="observacion === ''">Sí</button>
 </div>

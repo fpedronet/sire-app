@@ -184,6 +184,7 @@ export class CdetalleComponent implements OnInit {
   }
 
   listarCombo(){
+    this.spinner.showLoading();
     
     this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
       if(data === undefined){
@@ -527,7 +528,6 @@ export class CdetalleComponent implements OnInit {
     this.body = "block;";
 
     let tt_filas= $event.split('|');
-    let model = new RendicionD();
 
     if(tt_filas.length > 0)
     {
@@ -536,46 +536,46 @@ export class CdetalleComponent implements OnInit {
         switch(i + 1)
         {
           case 1:
-            model.rucPrv = tt_filas[i].trim();
-            this.comboboxService.obtenerProveedor(model.rucPrv!).subscribe(data=>{
+            this.rendDet.rucPrv = tt_filas[i].trim();
+            this.comboboxService.obtenerProveedor(this.rendDet.rucPrv!).subscribe(data=>{
               if(data!== undefined && data.valor !== null){
-                  model.proveedor= data.descripcion?.trim()
+                this.rendDet.proveedor= data.descripcion?.trim()
               }
-              this.obtener(model);
+              this.obtener(this.rendDet);
             })
             break;
           case 2:
             if (tt_filas[i].trim() == "01" || tt_filas[i].trim() == "1" || tt_filas[i].trim() == "F")
             {
-                model.nTipDocu = "001";
+              this.rendDet.nTipDocu = "001";
             }
             else if (tt_filas[i].trim() == "02" || tt_filas[i].trim() == "2" || tt_filas[i].trim() == "R")
             {
-                model.nTipDocu = "002";
+              this.rendDet.nTipDocu = "002";
             }
             else if (tt_filas[i].trim() == "03" || tt_filas[i].trim() == "3" || tt_filas[i].trim() == "B")
             {
-                model.nTipDocu = "003";
+              this.rendDet.nTipDocu = "003";
             }
             break;
           case 3:
-            model.documento = tt_filas[i].trim();
+            this.rendDet.documento = tt_filas[i].trim();
               break;
           case 4:
-            model.documento += "-" + tt_filas[i].trim();
+            this.rendDet.documento += "-" + tt_filas[i].trim();
             break;
           case 5:
              break;
           case 6:
             try
             {
-              model.monto = parseFloat(tt_filas[i].trim());
+              this.rendDet.monto = parseFloat(tt_filas[i].trim());
             }
             catch (Exception)
             { }
             break;
           case 7:
-            model.fecha =new Date(tt_filas[i].trim());
+            this.rendDet.fecha =new Date(tt_filas[i].trim());
               break;
 
         }          
