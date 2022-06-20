@@ -63,8 +63,6 @@ export class LrendicionComponent implements OnInit {
     this.obtenerpermiso();
     this.listarestados();
     this.tbMoneda = this.completarCombo(jsonMoneda);
-  
-    let filtro = this.usuarioService.sessionFiltro();
 
     //Obtiene tipo de pantalla actual
     this.route.params.subscribe((data: Params)=>{
@@ -74,7 +72,28 @@ export class LrendicionComponent implements OnInit {
     this.tituloPantalla[0] = 'MIS RENDICIONES/MOVILIDADES';
     this.tituloPantalla[1] = 'SEGUIMIENTO DE RENDICIONES/MOVILIDADES';
     this.tituloPantalla[2] = 'REVISIÓN DE RENDICIONES';
-    this.tituloPantalla[3] = 'APROBACIÓN DE RENDICIONES/MOVILIDADES'; 
+    this.tituloPantalla[3] = 'APROBACIÓN DE RENDICIONES/MOVILIDADES';
+    
+  }
+
+  completarCombo(json: any){
+    var tbCombo = [];
+
+    for(var i in json) {
+      let el: Combobox = {};
+
+      el.valor = json[i].valor;
+      el.descripcion = json[i].descripcion;
+      el.visual = json[i].visual;
+      
+      tbCombo.push(el);
+    }
+
+    return tbCombo;
+  }
+
+  cargarFiltros(){
+    let filtro = this.usuarioService.sessionFiltro();
 
     let strEstados = "";
     if(filtro!=null){   
@@ -112,27 +131,14 @@ export class LrendicionComponent implements OnInit {
     localStorage.setItem(environment.CODIGO_FILTRO, (this.request.Codigo===undefined?'': this.request.Codigo) +"|"+strEstados+"|"+this.request.Tipo+"|"+this.request.FechaIni+"|"+this.request.FechaFin+"|"+this.request.IdeUsuario?.toString());
   }
 
-  completarCombo(json: any){
-    var tbCombo = [];
-
-    for(var i in json) {
-      let el: Combobox = {};
-
-      el.valor = json[i].valor;
-      el.descripcion = json[i].descripcion;
-      el.visual = json[i].visual;
-      
-      tbCombo.push(el);
-    }
-
-    return tbCombo;
-  }
-
   actualizar(){
+    //this.cargarFiltros();
     this.ngAfterViewInit();
   }
 
   ngAfterViewInit() {
+    this.cargarFiltros();
+    
     this.rendicionService = new RendicionService(this.http);
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 

@@ -36,7 +36,9 @@ export class CrendicionComponent implements OnInit {
   listaTipos?: Combobox[] = [];
   
   estado: string = "";
-  documento: string ="";
+  documento: string = "";
+
+  existenObs: boolean = false;
 
   txtEditarR: string = "";
   txtEditarM: string = "";
@@ -257,11 +259,11 @@ export class CrendicionComponent implements OnInit {
             obsRevisor: data.obsRevisor
           });
 
-  debugger;
+  //debugger;
           this.url_m = data.url_M!;
           //Muestra creador de rendición
           this.curUsuario = data.ideUsuario!;
-          this.nombresUsuario = this.tbUsuario.find(e => e.valor === this.curUsuario.toString())?.descripcion;
+          this.nombresUsuario = this.buscaUsuario(this.curUsuario);
           //Código de rendición actual
           this.curCodigo = data.codigo!;
 
@@ -270,7 +272,12 @@ export class CrendicionComponent implements OnInit {
           this.vBalance = (data.ingresos!-data.gastos!).toFixed(2);
           //debugger;
           this.muestraEstado(data.ideEstado);
-       
+
+          //Muestra observaciones
+          this.existenObs = data.ideEstado === 1 && (data.obsAprobador !== undefined || data.obsAprobador !== '' || data.obsRevisor !== undefined || data.obsRevisor !== '');
+          if(this.existenObs)
+            this.observacion();
+
           this.documento= data.codigo!;
           this.dataSource = data.listaDetalle!;
           //debugger;
@@ -286,6 +293,14 @@ export class CrendicionComponent implements OnInit {
         this.spinner.hideLoading();
       });
     }
+  }
+
+  buscaUsuario(idUsuario: number){
+    var nombre: string = '';
+    var usuObj = this.tbUsuario.find(e => e.valor === idUsuario.toString());
+    if(usuObj !== undefined)
+      nombre = usuObj.descripcion === undefined?'':usuObj.descripcion;
+    return nombre;
   }
 
   muestraEstado(idEstado?: number){
@@ -502,7 +517,7 @@ export class CrendicionComponent implements OnInit {
     return lista?.find(e => e.valor === value)?.descripcion?.toUpperCase();
   }
 
-  observacion(rol: string){
+  observacion(rol: string = ''){
     const dialogRef = this.dialog.open(CrechazoComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
@@ -510,17 +525,24 @@ export class CrendicionComponent implements OnInit {
       panelClass: 'full-screen-modal',
       data: {
         rol: rol,
+
+        nomRevisor: this.buscaUsuario(this.getControlLabel('ideUsuRevisa')),
+        fecRevisor: this.getControlLabel('fechaRevisado'),
         obsRevisor: this.getControlLabel('obsRevisor'),
+
+        nomAprobador: this.buscaUsuario(this.getControlLabel('ideUsuApruebaRechaza')),
+        fecAprobador: this.getControlLabel('fechaApruebaRechaza'),
         obsAprobador: this.getControlLabel('obsAprobador')
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result !== undefined && result !== ''){
-        //Cambia a estado EN CURSO
-        this.cambiaEstado(1, result);
-      }
-    });
-
+    if(rol !== ''){
+      dialogRef.afterClosed().subscribe(result => {
+        if(result !== undefined && result !== ''){
+          //Cambia a estado EN CURSO
+          this.cambiaEstado(1, result);
+        }
+      });  
+    }    
   }
 }

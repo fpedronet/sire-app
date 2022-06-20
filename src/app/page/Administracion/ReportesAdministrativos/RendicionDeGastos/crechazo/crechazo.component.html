@@ -1,11 +1,29 @@
-<div mat-dialog-content>
+<div *ngIf="rol !== ''" mat-dialog-content>
   <p>{{rolNombre()}} ¿Desea rechazar esta rendición?</p>
   <mat-form-field appearance="fill">
     <mat-label>Motivo de rechazo</mat-label>
-    <textarea matInput [(ngModel)]="data.obsRevisor" required rows="5" maxlength="1000"></textarea>
+    <textarea matInput [(ngModel)]="observacion" required rows="5" maxlength="1000"></textarea>
   </mat-form-field>
 </div>
+
+<div *ngIf="rol === ''" mat-dialog-content>
+  <div *ngIf="data.obsAprobador !== undefined && data.obsAprobador !== ''">
+    <p>Aprobador: {{data.nomAprobador}}<br>({{data.fecAprobador}})</p>
+    <mat-form-field appearance="fill">
+      <textarea matInput [(ngModel)]="data.obsAprobador" required rows="5" maxlength="1000" readonly></textarea>
+    </mat-form-field>
+  </div>
+  
+  <div *ngIf="data.obsRevisor !== undefined && data.obsRevisor !== ''">
+    <p>Revisor: {{data.nomRevisor}}<br>({{data.fecRevisor}})</p>
+    <mat-form-field appearance="fill">
+      <textarea matInput [(ngModel)]="data.obsRevisor" required rows="5" maxlength="1000" readonly></textarea>
+    </mat-form-field>
+  </div>  
+</div>
+
 <div class="example-button-row" style="padding-top: 0px; margin: auto;">
-  <button mat-button color="primary" (click)="onNoClick()">No</button>
-  <button mat-stroked-button color="accent" [mat-dialog-close]="data.obsRevisor" [disabled]="data.obsRevisor === ''">Sí</button>
+  <button *ngIf="rol === ''" mat-button color="primary" (click)="onNoClick()">Ok</button>
+  <button *ngIf="rol !== ''" mat-button color="primary" (click)="onNoClick()">No</button>
+  <button *ngIf="rol !== ''" mat-stroked-button color="accent" [mat-dialog-close]="observacion" [disabled]="data.obsRevisor === ''">Sí</button>
 </div>

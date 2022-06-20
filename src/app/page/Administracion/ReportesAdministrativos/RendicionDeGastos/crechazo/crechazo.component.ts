@@ -7,8 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./crechazo.component.css']
 })
 export class CrechazoComponent implements OnInit {
-  ObsRevisor: string = '';
-  obsAprobador: string = '';
+  observacion: string = '';
   rol: string = '';
 
   constructor(
@@ -17,12 +16,6 @@ export class CrechazoComponent implements OnInit {
   ) {
     if(this.data.rol !== undefined)
       this.rol = this.data.rol;
-    
-    if(this.data.ObsRevisor !== undefined)
-      this.ObsRevisor = this.data.ObsRevisor;
-
-    if(this.data.obsAprobador !== undefined)
-      this.obsAprobador = this.data.obsAprobador;
   }
 
   ngOnInit(): void {

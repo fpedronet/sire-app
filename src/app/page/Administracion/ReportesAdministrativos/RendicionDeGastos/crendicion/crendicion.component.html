@@ -8,6 +8,9 @@
       <button *ngIf="delete" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Eliminar" type="button" (click)="cambiaEstado(0)">
         <mat-icon class="maticon">delete</mat-icon>
       </button>
+      <button *ngIf="existenObs" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Observaciones" type="button" (click)="observacion()">
+        <mat-icon class="maticon">comment</mat-icon>
+      </button>
       <button *ngIf="edit" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Guardar" type="submit" [disabled]="frmGrupo.invalid" form="ngForm">
         <mat-icon class="maticon">save</mat-icon>
       </button>
@@ -46,9 +49,11 @@
         <div style="text-align: center; color: #1a0da4; font-weight: 500;padding-top: 9px;">
           <span *ngIf="nombresUsuario !='' && nombresUsuario != null && nombresUsuario != undefined" style="text-transform: uppercase;">{{nombresUsuario}}</span> - ESTADO {{estado}}
           <span *ngIf="nombresUsuario =='' || nombresUsuario == null || nombresUsuario == undefined"><span style="text-transform: uppercase;"></span> ESTADO {{estado}}</span>
-          <!-- <div class="circulotitle {{claseEstado}}"></div> -->
         </div> 
-        <div style="text-align: center; color: #1a0da4; font-weight:600;">CODIGO: {{documento}}</div> 
+        <div style="text-align: center; color: #1a0da4; font-weight:600;">
+          <span>CODIGO: {{documento}}</span>
+          <div class="circulotitle {{claseEstado}}"></div>
+        </div> 
       </div> 
   </div>
 
