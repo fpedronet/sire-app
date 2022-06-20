@@ -55,6 +55,9 @@ export class HomeComponent implements OnInit {
     private graficoService : GraficoService,
     private notifier: NotifierService,
   ) { }
+  
+  usuario?: string = ''
+  imgeinicio: string =environment.UrlImage + "home-bg-img.png";
 
   cantGraficos: number = 6;
 
@@ -102,7 +105,6 @@ export class HomeComponent implements OnInit {
   registro5_2?: boolean = false;
   registro5_3?: boolean = false;
   registro6?: boolean = false;
-  usuario?: string;
 
   $fechaInicio?: Date;
   $fechaFin?: Date;
@@ -117,20 +119,22 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.chart1();
-    this.chart2();
-    this.chart3();
-    this.chart4();
+    this.usuario = this.usuarioService.sessionUsuario()?.nombreConocido;
 
-    this.msgVacio = '';
+    // this.chart1();
+    // this.chart2();
+    // this.chart3();
+    // this.chart4();
 
-    let $fecha = new Date();
+    // this.msgVacio = '';
 
-    this.$fechaInicio = new Date($fecha.getFullYear(),$fecha.getMonth(), 1 );
-    //this.$fechaInicio = new Date($fecha.getFullYear()-2,$fecha.getMonth(), 1 );
-    this.$fechaFin = new Date();
+    // let $fecha = new Date();
 
-    this.$fechaMax = $fecha;
+    // this.$fechaInicio = new Date($fecha.getFullYear(),$fecha.getMonth(), 1 );
+    // //this.$fechaInicio = new Date($fecha.getFullYear()-2,$fecha.getMonth(), 1 );
+    // this.$fechaFin = new Date();
+
+    // this.$fechaMax = $fecha;
 
     //Añade tipos de gráficos
     /*this.cboTipoStock?.push(new TipoStock(5,'Stock Disponible',''));

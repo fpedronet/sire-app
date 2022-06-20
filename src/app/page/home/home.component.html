@@ -1,48 +1,14 @@
-<div style="padding-top:69px;margin-left:12px;margin-right:12px;">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<section class="home" id="home">
 
-    <h1 class="m-section__title">Bienvenido a Sire <span class="m-section__title2">{{usuario}}</span></h1>
-
-    <div style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
-
-        <div *ngFor="let et of arrayLabel6; let i = index" fxFlex="{{valorMaximo(100/arrayLabel6.length,100/5)}}%" fxFlex.xs="100%" fxFlex.sm="{{valorMaximo(100/arrayLabel6.length,100/3)}}%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
-            <mat-card [class]="arrayCardClasses[i % arrayCardClasses.length]">
-                <mat-icon>{{arrayIcons6[i]}}</mat-icon>
-                <h2>{{arraySeries6![i]}}</h2>
-                <p>{{et}}</p>
-            </mat-card>
-        </div>
-
+    <div class="content">
+        <h1 class="m-section__title">Bienvenido <span class="usuario" style="color: #ee4b06;">{{usuario}}</span></h1>
+        <h1 class="m-section__title">Al Sistemas de SIRE</h1>
+        <p class="m-section__parrafo">Somos una empresa referencial con 27 años de experiencia brindando soluciones de diagnóstica en el sector salud. Contamos con un equipo especializado de 33 Tecnólogos Médicos entrenados a nivel mundial en las diversas casas matriz.</p>
+        <a target="_blank" href="https://www.sistemasanaliticos.com/" class="btnInicio">Sistemas Analiticos</a>
     </div>
 
-    <!-- <mat-divider></mat-divider> -->
-
-    <div style="flex-flow: row wrap; box-sizing: border-box; display: flex;">
-        <!-- <div fxFlex="45%" fxFlex.xs="100%" fxFlex.sm="45%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
-            <mat-form-field appearance="outline">
-                <mat-label>Fecha Inicio</mat-label>
-                <input matInput [matDatepicker]="fechaInicio" [max]="$fechaMax" placeholder="dd/mm/yyyy" 
-                [(ngModel)]="$fechaInicio" (dateChange)="onDateChange()" onkeydown="return false">
-                <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
-                <mat-datepicker #fechaInicio></mat-datepicker>
-                </mat-form-field>
-        </div> -->
-
-        <!-- <div fxFlex="45%" fxFlex.xs="80%" fxFlex.sm="45%" class="p-2" style="flex: 1 1 100%; box-sizing: border-box; max-width: 100%;">
-            <mat-form-field appearance="outline">
-                <mat-label>Fecha Fin</mat-label>
-                <input matInput [matDatepicker]="fechaFin" [max]="$fechaMax" placeholder="dd/mm/yyyy" 
-                [(ngModel)]="$fechaFin" (dateChange)="onDateChange()" onkeydown="return false">
-                <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
-                <mat-datepicker #fechaFin></mat-datepicker>
-                </mat-form-field>
-        </div> -->
-
-        <!-- <div fxFlex="10%" fxFlex.xs="20%" fxFlex.sm="10%" class="btnHeader">
-            <button mat-stroked-button type="button" style="margin-top: 15px; height: 45%;" (click)="reiniciaFechas()">
-                <mat-icon class="maticon">cleaning_services</mat-icon>
-            </button>
-        </div> -->
-
-        
+    <div class="image">
+        <img src="{{imgeinicio}}" alt="">
     </div>
-</div>
+</section>
