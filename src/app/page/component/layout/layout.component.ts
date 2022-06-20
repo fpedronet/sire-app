@@ -39,7 +39,7 @@ export class LayoutComponent implements OnInit {
   username: string = "";
   userdni: string = "99999999";
   isshow: boolean = false;
-  timeLeft: number = 3600;
+  timeLeft: number = 3602;
   interval:any;
 
   ngOnInit(): void {
