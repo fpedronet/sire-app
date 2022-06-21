@@ -138,7 +138,7 @@ export class LrendicionComponent implements OnInit {
 
   ngAfterViewInit() {
     this.cargarFiltros();
-    
+
     this.rendicionService = new RendicionService(this.http);
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
@@ -225,6 +225,7 @@ export class LrendicionComponent implements OnInit {
       width: '850px',
       panelClass: 'full-screen-modal',
       data: {
+        titulos: this.tituloPantalla,
         idPantalla: this.idPantalla,
       }
     });

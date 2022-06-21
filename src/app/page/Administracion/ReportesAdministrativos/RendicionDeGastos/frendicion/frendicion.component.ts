@@ -32,6 +32,8 @@ export class FrendicionComponent implements OnInit {
   ) {
     if(this.data.idPantalla !== undefined)
       this.idPantalla = this.data.idPantalla;
+    if(this.data.titulos !== undefined)
+      this.titulos = this.data.titulos;
   }
 
 
@@ -59,6 +61,7 @@ export class FrendicionComponent implements OnInit {
   idUsuario?: string;
 
   idPantalla?: number;
+  titulos?: string[] = [];
 
   fechaMax?: Date;
 
