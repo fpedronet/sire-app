@@ -12,6 +12,7 @@
 
 <div id="reader" [style.width]="windowsWidth"></div>
 
+
 <mat-dialog-content class="modal" style="display: {{body}}">
   <form onkeydown="return event.key != 'Enter';" class="forms" id="ngForm" [formGroup]="form" #frmGrupo="ngForm" >
       <div class="content">
@@ -198,7 +199,7 @@
                   <img style="width:26px;" src="https://icons.iconarchive.com/icons/dryicons/aesthetica-2/128/folder-up-icon.png"/>
                 </label>     
 
-                <input id="file-input" type="file" accept=".jpeg, .jpg, .pdf" (change)="subirArchivo($event)"/>
+                <input id="file-input" type="file" accept="image/*" (change)="subirArchivo($event)"/>
               </div>
             
             </mat-grid-tile>

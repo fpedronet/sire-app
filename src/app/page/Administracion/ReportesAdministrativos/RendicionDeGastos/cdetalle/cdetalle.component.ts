@@ -31,6 +31,7 @@ export class CdetalleComponent implements OnInit {
 
   html5QrCodes! : any;
   private cameraId! : any;
+  public output!: string;
 
   @ViewChild('video', {}) videoElement!: ElementRef;
   @ViewChild('canvas', {}) canvas!: ElementRef;
@@ -462,13 +463,19 @@ export class CdetalleComponent implements OnInit {
     }
   }
 
+
   subirArchivo(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        const imgBase64Path = e.target.result;
-        this.adjunto = imgBase64Path;
-        this.nombreAdjunto = fileInput.target.files[0].name;
+        const image = new Image();
+        image.src = e.target.result;
+        image.onload = rs => {
+          const imgBase64Path = e.target.result;
+          this.adjunto = imgBase64Path;
+          this.nombreAdjunto = fileInput.target.files[0].name;
+        };
+        image.src = e.target.result;
       };
       reader.readAsDataURL(fileInput.target.files[0]);
     }
@@ -483,7 +490,10 @@ export class CdetalleComponent implements OnInit {
   }
 
   getCameras() {
-    Html5Qrcode.getCameras().then((devices:any[]) => {      
+    // alert("paso alert 1");
+    Html5Qrcode.getCameras().then((devices:any[]) => {    
+      
+      // alert(devices.length);
       if (devices && devices.length) {
        
         if(devices.length>=3){

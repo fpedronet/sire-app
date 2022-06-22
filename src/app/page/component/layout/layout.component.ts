@@ -39,7 +39,6 @@ export class LayoutComponent implements OnInit {
   username: string = "";
   userdni: string = "99999999";
   isshow: boolean = false;
-  timeLeft: number = 3602;
   interval:any;
 
   ngOnInit(): void {
@@ -140,15 +139,13 @@ export class LayoutComponent implements OnInit {
 
   startTimer() {
     this.interval = setInterval(() => {
-      if(this.timeLeft > 0) {
-        this.timeLeft--;
-      }else {
         let session = this.usuarioService.sessionUsuario();
         if(session==null){
           clearInterval(this.interval);
           this.usuarioService.closeLogin();
+          window.location.reload();
         }
-      }
-    },1000)
+
+    },30000)
   }
 }

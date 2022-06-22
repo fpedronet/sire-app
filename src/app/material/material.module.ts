@@ -35,8 +35,6 @@ import {MatListModule} from '@angular/material/list';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTreeModule} from '@angular/material/tree';
-import {NgxPrintModule} from 'ngx-print' ;
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [],
@@ -76,10 +74,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     MatListModule,
     MatTabsModule,
     MatExpansionModule,
-    MatTreeModule,
-    NgxPrintModule,
-    ZXingScannerModule
-  ],
+    MatTreeModule
+    ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
     { provide: DateAdapter, useClass: CustomDateAdapter }
