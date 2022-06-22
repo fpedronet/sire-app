@@ -31,7 +31,7 @@ export class CdetalleComponent implements OnInit {
 
   html5QrCodes! : any;
   private cameraId! : any;
-
+  public output!: string;
 
   @ViewChild('video', {}) videoElement!: ElementRef;
   @ViewChild('canvas', {}) canvas!: ElementRef;

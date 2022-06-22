@@ -26,10 +26,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
-export function tokenGetter() {
-  return localStorage.getItem(environment.TOKEN_NAME);
-}
-
 @NgModule({
   declarations: [
     AppComponent,
