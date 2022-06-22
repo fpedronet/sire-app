@@ -143,6 +143,7 @@ export class LayoutComponent implements OnInit {
         if(session==null){
           clearInterval(this.interval);
           this.usuarioService.closeLogin();
+          window.location.reload();
         }
 
     },30000)

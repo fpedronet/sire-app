@@ -490,7 +490,10 @@ export class CdetalleComponent implements OnInit {
   }
 
   getCameras() {
-    Html5Qrcode.getCameras().then((devices:any[]) => {      
+    // alert("paso alert 1");
+    Html5Qrcode.getCameras().then((devices:any[]) => {    
+      
+      // alert(devices.length);
       if (devices && devices.length) {
        
         if(devices.length>=3){
