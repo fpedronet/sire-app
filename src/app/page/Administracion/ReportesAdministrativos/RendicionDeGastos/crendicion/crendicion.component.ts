@@ -21,6 +21,7 @@ import jsonConcepto from 'src/assets/json/detalle/concepto.json';
 import jsonMoneda from 'src/assets/json/detalle/moneda.json';
 import { ComboboxService } from 'src/app/_service/combobox.service';
 import { CrechazoComponent } from '../crechazo/crechazo.component';
+import { ReporteService } from 'src/app/_service/reporte/reporte.service';
 
 @Component({
   selector: 'app-crendicion',
@@ -97,7 +98,8 @@ export class CrendicionComponent implements OnInit {
     private usuarioService: UsuarioService,
     private comboboxService: ComboboxService,
     private configPermisoService : ConfigPermisoService,
-    private rendicionService: RendicionService
+    private rendicionService: RendicionService,
+    private reporteService: ReporteService
   ) {
   }
 
@@ -554,5 +556,30 @@ export class CrendicionComponent implements OnInit {
         }
       });  
     }    
+  }
+
+  mostrarPDF(iderendicion: number){
+    if(iderendicion == 0){
+      this.notifierService.showNotification(2,'Mensaje',"No se encontro la donación");
+    }
+    else{
+    this.spinner.showLoading();
+    this.reporteService
+      .rptResumen(iderendicion)
+      .subscribe(
+        data => {
+          this.spinner.hideLoading();
+          let byteChar = atob(data);
+          let byteArray = new Array(byteChar.length);
+          for(let i = 0; i < byteChar.length; i++){
+            byteArray[i] = byteChar.charCodeAt(i);
+          }
+          let uIntArray = new Uint8Array(byteArray);
+          let blob = new Blob([uIntArray], {type : 'application/pdf'});
+          const fileURL = URL.createObjectURL(blob);
+          window.open(fileURL, `${"ficha"}.pdf`);
+        }
+      );
+    }
   }
 }
