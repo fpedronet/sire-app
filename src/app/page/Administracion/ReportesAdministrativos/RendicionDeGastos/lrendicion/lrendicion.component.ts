@@ -360,8 +360,7 @@ export class LrendicionComponent implements OnInit {
   cambiaEstadoLista(lista: RendicionM[], sgteEstado: number, obs?: string){
     lista.forEach(item => {
       this.cambiaEstado(item.ideRendicion!, sgteEstado, obs===undefined?'':obs);
-    });
-    this.actualizar();
+    });    
   }
 
   cambiaEstado(ideRendicion: number, sgteEstado: number, obs?: string){
@@ -369,7 +368,8 @@ export class LrendicionComponent implements OnInit {
     //debugger;
     this.rendicionService.cambiarEstado(ideRendicion, sgteEstado, obs === undefined?'':obs).subscribe(data=>{
       if(data.typeResponse==environment.EXITO){
-        this.spinner.hideLoading();        
+        this.spinner.hideLoading();
+        this.actualizar();
       }else{
         this.spinner.hideLoading();
       }
