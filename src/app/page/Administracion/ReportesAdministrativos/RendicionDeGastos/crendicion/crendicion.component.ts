@@ -560,7 +560,7 @@ export class CrendicionComponent implements OnInit {
 
   mostrarPDF(iderendicion: number){
     if(iderendicion == 0){
-      this.notifierService.showNotification(2,'Mensaje',"No se encontro la donación");
+      this.notifierService.showNotification(2,'Mensaje',"No se encontro la rendición");
     }
     else{
     this.spinner.showLoading();
