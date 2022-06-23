@@ -9,10 +9,10 @@
       <button *ngIf="idPantalla === 1" mat-stroked-button class="btnHeader" routerLink="/page/administracion/rendicion/{{idPantalla}}/create">
         <mat-icon class="maticon">add</mat-icon>
       </button>
-      <button *ngIf="idPantalla !== 1 && sgteEstado1 !== 0" mat-stroked-button class="btnHeader" (click)="cambiaEstadoSeleccion(sgteEstado1, sgteAccion1)">
+      <button *ngIf="idPantalla !== 1 && sgteEstado1 !== 0" mat-stroked-button class="btnHeader" (click)="cambiaEstadoSeleccion(sgteEstado1, sgteAccion1)" [disabled]="selection.selected.length === 0">
         <mat-icon class="maticon">{{sgteIcono1}}</mat-icon>
       </button>
-      <button *ngIf="idPantalla !== 1 && sgteEstado2 !== 0" mat-stroked-button class="btnHeader" (click)="cambiaEstadoSeleccion(sgteEstado2, sgteAccion2, true)">
+      <button *ngIf="idPantalla !== 1 && sgteEstado2 !== 0" mat-stroked-button class="btnHeader" (click)="cambiaEstadoSeleccion(sgteEstado2, sgteAccion2, true)" [disabled]="selection.selected.length === 0">
         <mat-icon class="maticon">{{sgteIcono2}}</mat-icon>
       </button>
     </div>

@@ -382,15 +382,15 @@ export class CrendicionComponent implements OnInit {
         this.muestraEstado(sgteEstado);
         this.spinner.hideLoading();
 
-        /*if(sgteEstado === 0 || (this.curUsuario > 0 && this.curUsuario != this.usuarioService.sessionUsuario().ideUsuario))
-          this.router.navigate(['/page/administracion/rendicion',this.idPantalla]);
-        else
-          this.obtener();*/
-
-        if(sgteEstado === 0 || sgteEstado > 2)
+        if(sgteEstado === 0 || (this.curUsuario > 0 && this.curUsuario != this.usuarioService.sessionUsuario().ideUsuario))
           this.router.navigate(['/page/administracion/rendicion',this.idPantalla]);
         else
           this.obtener();
+
+        /*if(sgteEstado === 0 || sgteEstado > 2)
+          this.router.navigate(['/page/administracion/rendicion',this.idPantalla]);
+        else
+          this.obtener();*/
         
       }else{
         this.spinner.hideLoading();
