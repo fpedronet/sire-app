@@ -18,6 +18,9 @@ import { FrendicionComponent } from '../frendicion/frendicion.component';
 import jsonEstado from 'src/assets/json/rendicion/renestado.json';
 import jsonMoneda from 'src/assets/json/detalle/moneda.json';
 import { Combobox } from 'src/app/_model/combobox';
+import { SelectionModel } from '@angular/cdk/collections';
+import { ConfimService } from 'src/app/page/component/confirm/confim.service';
+import { CrechazoComponent } from '../crechazo/crechazo.component';
 
 @Component({
   selector: 'app-lrendicion',
@@ -27,7 +30,7 @@ import { Combobox } from 'src/app/_model/combobox';
 export class LrendicionComponent implements OnInit {
 
   dataSource: RendicionM[] = [];
-  displayedColumns: string[] = ['codigo', 'tipo', 'lugar', 'motivo', 'balance','estado','correo','accion','mo'];
+  displayedColumns: string[] = ['select', 'codigo', 'tipo', 'lugar', 'motivo', 'balance','estado','correo','accion','mo'];
   loading = true;
   existRegistro = false;
   countRegistro = 0;
@@ -42,6 +45,15 @@ export class LrendicionComponent implements OnInit {
   listaEstados: Combobox[] = [];
   tbMoneda: Combobox[] = [];
 
+  selection = new SelectionModel<RendicionM>(true, []);
+
+  sgteEstado1: number = 0;
+  sgteIcono1: string = '';
+  sgteAccion1: string = '';
+  sgteEstado2: number = 0;
+  sgteIcono2: string = '';
+  sgteAccion2: string = '';
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -54,6 +66,7 @@ export class LrendicionComponent implements OnInit {
     private rendicionService : RendicionService,
     private usuarioService : UsuarioService,
     private configPermisoService : ConfigPermisoService,
+    private confirmService : ConfimService,
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
@@ -74,6 +87,10 @@ export class LrendicionComponent implements OnInit {
     this.tituloPantalla[2] = 'REVISIÓN DE RENDICIONES';
     this.tituloPantalla[3] = 'APROBACIÓN DE RENDICIONES/MOVILIDADES';
     
+    if(this.idPantalla === 1)
+      this.displayedColumns = this.displayedColumns.filter(e => e !== 'select');
+    else
+      this.configuraSgteEstado();
   }
 
   completarCombo(json: any){
@@ -90,6 +107,33 @@ export class LrendicionComponent implements OnInit {
     }
 
     return tbCombo;
+  }
+
+  configuraSgteEstado(){
+    if(this.idPantalla === 2){ //Procesador
+      this.sgteEstado1 = 5;
+      this.sgteIcono1 = 'settings';
+      this.sgteAccion1 = 'procesar';
+      this.sgteEstado2 = 0;
+      this.sgteIcono2 = '';
+      this.sgteAccion2 = '';
+    }
+    if(this.idPantalla === 3){ //Revisor
+      this.sgteEstado1 = 6;
+      this.sgteIcono1 = 'check_circle';
+      this.sgteAccion1 = 'aprobar revisión en';
+      this.sgteEstado2 = 1;
+      this.sgteIcono2 = 'cancel';
+      this.sgteAccion2 = 'rechazar revisión en';
+    }
+    if(this.idPantalla === 4){ //Aprobador
+      this.sgteEstado1 = 3;
+      this.sgteIcono1 = 'check_circle';
+      this.sgteAccion1 = 'aprobar';
+      this.sgteEstado2 = 1;
+      this.sgteIcono2 = 'cancel';
+      this.sgteAccion2 = 'rechazar';
+    }
   }
 
   cargarFiltros(){
@@ -175,6 +219,8 @@ export class LrendicionComponent implements OnInit {
           this.loading = false;
           this.existRegistro = res === null;
 
+          this.selection = new SelectionModel<RendicionM>(true, []);
+
           if (res === null) {
             return [];
           }
@@ -258,5 +304,93 @@ export class LrendicionComponent implements OnInit {
     cadena = cadena + descMoneda + " " + Math.abs(balance).toFixed(2);
 
     return cadena;
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.filter(e => this.puedeAccionEstado(e.ideEstado!)).length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+    this.selection.clear() :
+    this.dataSource.forEach(row => {if(this.puedeAccionEstado(row.ideEstado!))this.selection.select(row)});
+  }
+
+  puedeAccionEstado(ideEstado: number){
+    if(this.idPantalla === 2 && (ideEstado === 3 || ideEstado === 6))
+      return true;
+    if(this.idPantalla === 3 && (ideEstado === 3))
+      return true;
+    if(this.idPantalla === 4 && (ideEstado === 2))
+      return true;
+    return false;
+  }
+
+  cambiaEstadoSeleccion(idEstado: number, accion: string, rechaza: boolean = false){
+    const nroMarcados = this.selection.selected.length;
+    var fraseRegistros: string = "el registro seleccionado";
+    if(nroMarcados > 0){
+      if(nroMarcados > 1)
+        fraseRegistros = "los " + nroMarcados + " registros seleccionados";
+      this.confirmService.openConfirmDialog(false, "¿Desea " + accion + " " + fraseRegistros + "?").afterClosed().subscribe(res =>{
+        //Ok
+        if(res){
+          //console.log('Sí');
+          if(rechaza){
+            if(this.idPantalla === 3){
+              this.observacion(this.selection.selected, idEstado, 'R');
+            }
+            if(this.idPantalla === 4){
+              this.observacion(this.selection.selected, idEstado, 'A');
+            }
+          }
+          else{
+            this.cambiaEstadoLista(this.selection.selected, idEstado);
+          }
+        }
+        else{
+          //console.log('No');
+        }
+      });
+    }    
+  }
+
+  cambiaEstadoLista(lista: RendicionM[], sgteEstado: number, obs?: string){
+    lista.forEach(item => {
+      this.cambiaEstado(item.ideRendicion!, sgteEstado, obs===undefined?'':obs);
+    });
+    this.actualizar();
+  }
+
+  cambiaEstado(ideRendicion: number, sgteEstado: number, obs?: string){
+    this.spinner.showLoading();
+    //debugger;
+    this.rendicionService.cambiarEstado(ideRendicion, sgteEstado, obs === undefined?'':obs).subscribe(data=>{
+      if(data.typeResponse==environment.EXITO){
+        this.spinner.hideLoading();        
+      }else{
+        this.spinner.hideLoading();
+      }
+    });  
+  }
+
+  observacion(lista: RendicionM[], sgteEstado: number, rol: string = ''){
+    const dialogRef = this.dialog.open(CrechazoComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      width: '850px',
+      panelClass: 'full-screen-modal',
+      data: {
+        rol: rol
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result !== undefined && result !== ''){
+        this.cambiaEstadoLista(lista, sgteEstado, result);
+      }
+    });
   }
 }
