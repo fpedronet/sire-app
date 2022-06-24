@@ -129,22 +129,10 @@
 
           <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
             <mat-grid-tile [colspan]="12">
-              <mat-form-field>
-                <mat-select #COMODATO placeholder="Comodato" formControlName="comodato" [disabled]="!edit" (selectionChange)="selectcomodato($event.value)">
-                    <mat-option *ngFor="let el of filterComodato" [value]="el.valor">
-                    {{el.descripcion}}
-                    </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </mat-grid-tile>
-          </mat-grid-list>
-
-          <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
-            <mat-grid-tile [colspan]="12">
               <mat-form-field [color]="sedeColor" minlength="1" maxlength="100" appearance="outline">
                 <mat-label>Sede</mat-label>
-                <input #SEDE type="text" matInput [formControl]="controlSedes" [matAutocomplete]="autoSede" [readonly]="!edit || COMODATO.value !== 'CMD'" required>
-                <button *ngIf="SEDE.value && edit && COMODATO.value === 'CMD'" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="SEDE.value=''; setCurSede(undefined, true)">
+                <input #SEDE type="text" matInput [formControl]="controlSedes" [matAutocomplete]="autoSede" [readonly]="!edit" required>
+                <button *ngIf="SEDE.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="SEDE.value=''; setCurSede(undefined, true)">
                     <mat-icon>close</mat-icon>
                 </button>
                 <mat-autocomplete #autoSede="matAutocomplete" [displayWith]="mostrarAutoCombo" (optionSelected)="changeSede($event)">
@@ -154,14 +142,26 @@
                 </mat-autocomplete>
               </mat-form-field>
             </mat-grid-tile>
-          </mat-grid-list>            
+          </mat-grid-list>  
+
+          <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+            <mat-grid-tile [colspan]="12">
+              <mat-form-field>
+                <mat-select #COMODATO placeholder="Comodato" formControlName="comodato" [disabled]="!edit" (selectionChange)="selectcomodato($event.value)">
+                    <mat-option *ngFor="let el of filterComodato" [value]="el.valor">
+                    {{el.descripcion}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-grid-tile>
+          </mat-grid-list>          
 
           <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
             <mat-grid-tile [colspan]="12">
               <mat-form-field [color]="lineaColor" minlength="1" maxlength="100" appearance="outline">
                 <mat-label>Linea</mat-label>
-                <input #LINEA type="text" matInput [formControl]="controlLineas" [matAutocomplete]="autoLinea" [readonly]="!edit || COMODATO.value !== 'CMD'" required>
-                <button *ngIf="LINEA.value && edit && COMODATO.value === 'CMD'" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="LINEA.value=''; setCurLinea(undefined, true)">
+                <input #LINEA type="text" matInput [formControl]="controlLineas" [matAutocomplete]="autoLinea" [readonly]="!edit" required>
+                <button *ngIf="LINEA.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="LINEA.value=''; setCurLinea(undefined, true)">
                     <mat-icon>close</mat-icon>
                 </button>
                 <mat-autocomplete #autoLinea="matAutocomplete" [displayWith]="mostrarAutoCombo" (optionSelected)="changeLinea($event)">

@@ -225,7 +225,7 @@ export class LrendicionComponent implements OnInit {
           if (res === null) {
             return [];
           }
-
+          //debugger;
           this.countRegistro = res.pagination.total;
           return res.items;
         }),
@@ -396,5 +396,10 @@ export class LrendicionComponent implements OnInit {
         this.cambiaEstadoLista(lista, sgteEstado, result);
       }
     });
+  }
+
+  puedeEditar(usu: number, est: number){
+    //debugger;
+    return est <= 1 && usu == this.usuarioService.sessionUsuario().ideUsuario;
   }
 }

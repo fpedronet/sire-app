@@ -202,7 +202,7 @@ export class CrendicionComponent implements OnInit {
       'motivo': new FormControl({ value: '', disabled: false}),
       'ideUsuario': new FormControl({ value: 0, disabled: false}),
       'monedaRecibe': new FormControl({ value: '', disabled: true}),
-      'ingresos': new FormControl({ value: '', disabled: false}),
+      'ingresos': new FormControl({ value: '0.00', disabled: false}),
       'gastos': new FormControl({ value: '0.00', disabled: false}),
       'fechaPresenta': new FormControl({ value: new Date(), disabled: true}),
       'fechaApruebaRechaza': new FormControl({ value: '', disabled: false}),
@@ -255,7 +255,7 @@ export class CrendicionComponent implements OnInit {
             gastos: data.gastos?.toFixed(2),
             ideEstado: data.ideEstado,
             estado: this.listaEstados?.find(e => e.valor === data.ideEstado)?.descripcion,
-            fechaCreacion: data.fechaCreacion,
+            fechaCreacion: data.vFechaCreacion,
             tipo: data.tipo,
             //Aprobador
             fechaApruebaRechaza: data.vFechaApruebaRechaza,
@@ -583,6 +583,14 @@ export class CrendicionComponent implements OnInit {
           window.open(fileURL, `${"ficha"}.pdf`);
         }
       );
+    }
+  }
+
+  selectTipo(valor: string){
+    if(valor === 'M'){ //Si es movilidad no hay ingresos
+      this.form.patchValue({
+        ingresos: '0.00'
+      })
     }
   }
 }

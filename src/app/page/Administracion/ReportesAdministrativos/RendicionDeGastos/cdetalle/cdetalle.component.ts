@@ -445,8 +445,13 @@ export class CdetalleComponent implements OnInit {
     if(linea === undefined){
       if(!notControl)
         this.controlLineas.setValue(new Combobox());
+      /*else
+        this.form.patchValue({
+          comodato: 'CMD'
+        })*/
       this.codLinea = '';
       this.lineaColor = 'warn';
+      
     }
     else{
       if(!notControl)
