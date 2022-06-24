@@ -30,7 +30,7 @@ import { CrechazoComponent } from '../crechazo/crechazo.component';
 export class LrendicionComponent implements OnInit {
 
   dataSource: RendicionM[] = [];
-  displayedColumns: string[] = ['select', 'codigo', 'tipo', 'lugar', 'motivo', 'balance','estado','correo','accion','mo'];
+  displayedColumns: string[] = ['select','codigo1', 'codigo', 'tipo', 'lugar', 'motivo', 'balance','estado','correo','accion','mo'];
   loading = true;
   existRegistro = false;
   countRegistro = 0;

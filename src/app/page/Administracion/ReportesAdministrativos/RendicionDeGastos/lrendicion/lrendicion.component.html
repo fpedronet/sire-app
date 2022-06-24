@@ -36,14 +36,14 @@
           <mat-table [dataSource]="dataSource" matSort>
 
             <!-- Checkbox Column -->
-            <ng-container matColumnDef="select">
-              <th mat-header-cell *matHeaderCellDef style="width: 10px">
+            <ng-container matColumnDef="select" >
+              <th mat-header-cell *matHeaderCellDef style="width: 10px" [ngClass]="'widthTable web'">
                 <mat-checkbox (change)="$event ? masterToggle() : null"
                               [checked]="selection.hasValue() && isAllSelected()"
                               [indeterminate]="selection.hasValue() && !isAllSelected()">
                 </mat-checkbox>
               </th>
-              <td mat-cell *matCellDef="let row" style="width: 10px">
+              <td mat-cell *matCellDef="let row" style="width: 10px" [ngClass]="'widthTable web'">
                 <mat-checkbox *ngIf="puedeAccionEstado(row.ideEstado)" (click)="$event.stopPropagation()"
                               (change)="$event ? selection.toggle(row) : null"
                               [checked]="selection.isSelected(row)">
@@ -51,10 +51,26 @@
               </td>
             </ng-container>
            
+            <ng-container matColumnDef="codigo1">
+              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'">Código</mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Código"> 
+                <div style="font-weight:600;color: #c13c04;font-size: 16px;"> 
+                  {{element.codigo}}
+                </div>     
+              </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="codigo">
-              <mat-header-cell *matHeaderCellDef>Código</mat-header-cell>
-              <mat-cell *matCellDef="let element" data-label="Código"> 
-                <div style="font-weight:600;color: #c13c04;font-size: 16px;">{{element.codigo}}</div>     
+              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Mobil</mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
+                <div class="responsive-estado">Código</div>     
+                <div style="margin-left:auto; font-weight:600; color: #c13c04;font-size: 16px;">
+                  <mat-checkbox *ngIf="puedeAccionEstado(element.ideEstado)" (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(element) : null"
+                    [checked]="selection.isSelected(element)">
+                  </mat-checkbox> 
+                  {{element.codigo}}
+                </div>
               </mat-cell>
             </ng-container>
 
