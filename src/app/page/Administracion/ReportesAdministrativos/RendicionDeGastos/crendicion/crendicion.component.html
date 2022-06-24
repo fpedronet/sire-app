@@ -59,6 +59,7 @@
   <br style="clear:both;"/>
   <form onkeydown="return event.key != 'Enter';" class="forms" id="ngForm" [formGroup]="form" #frmGrupo="ngForm" (ngSubmit)="guardar()">
 
+    
     <mat-stepper #stepper id="stepper" [selectedIndex]="currentTab" (click)="changestepper(stepper)">
       <mat-step>
         <ng-template matStepLabel>Principal</ng-template>        
@@ -106,7 +107,6 @@
                       formControlName="tipo"
                       [disabled]="!edit" 
                       required
-                      (selectionChange)="selectTipo($event.value)"
                     >
                       <mat-option *ngFor="let el of listaTipos" [value]="el.valor">
                         {{el.descripcion}}
@@ -116,11 +116,13 @@
                 </mat-grid-tile>
               </mat-grid-list>
 
-              <mat-grid-list *ngIf="id!==0" cols="12" cols="12" rowHeight="75px" gutterSize="15px">
+              <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">              
                 <mat-grid-tile [colspan]="12">
                   <mat-form-field appearance="outline">
-                    <mat-label>Fecha de registro</mat-label>
-                    <input matInput formControlName="fechaCreacion">
+                    <mat-label>Fecha</mat-label>
+                    <input matInput [matDatepicker]="dFechaCreacion" placeholder="dd/mm/yyyy" formControlName="fechaCreacion" [disabled]="true">
+                    <mat-datepicker-toggle matSuffix [for]="dFechaCreacion"></mat-datepicker-toggle>
+                    <mat-datepicker #dFechaCreacion></mat-datepicker>
                   </mat-form-field>
                 </mat-grid-tile>
               </mat-grid-list>
@@ -131,7 +133,7 @@
                   <mat-grid-tile [colspan]="12">
                     <mat-form-field appearance="outline">
                       <mat-label>Ingresos</mat-label>
-                      <input #INGRESOS matInput type="number" class="example-right-align-ingreso"  oninput="if(this.value.length>=7) { this.value = this.value.slice(0,7); }" onkeypress="return /[0-9|.]/i.test(event.key)" formControlName="ingresos" placeholder="0.00" [readonly]="!edit || TIPO.value === 'M'" required>
+                      <input #INGRESOS matInput type="number" class="example-right-align-ingreso"  oninput="if(this.value.length>=7) { this.value = this.value.slice(0,7); }" onkeypress="return /[0-9|.]/i.test(event.key)" formControlName="ingresos" placeholder="0.00" [readonly]="!edit" required>
                     </mat-form-field>
                   </mat-grid-tile>                
                 </mat-grid-list>
@@ -145,7 +147,7 @@
                   </mat-grid-tile>
                 </mat-grid-list>
 
-                <mat-grid-list *ngIf="existDetalle" cols="12" rowHeight="75px" gutterSize="15px">
+                <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
                   <mat-grid-tile [colspan]="12">
                     <mat-form-field appearance="outline">
                       <mat-label>Balance</mat-label>
