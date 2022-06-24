@@ -310,6 +310,11 @@ form{
   padding-top: 11px;margin: 0 28px -22px 0;text-align: center;
 }
 
+.mat-stepper-horizontal-line{
+  border-color:#394ec7;
+  border-top-width:2px;
+}
+
 @media (max-width:1200px){
   .example-button{
     display:flex;

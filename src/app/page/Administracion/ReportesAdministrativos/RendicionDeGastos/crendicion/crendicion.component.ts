@@ -28,6 +28,7 @@ import { ReporteService } from 'src/app/_service/reporte/reporte.service';
   templateUrl: './crendicion.component.html',
   styleUrls: ['./crendicion.component.css']
 })
+
 export class CrendicionComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
@@ -88,6 +89,8 @@ export class CrendicionComponent implements OnInit {
   url_m: string = '';
   iconSharePont: string =environment.UrlImage + "sharePoint.png";
 
+  isLinear = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -102,6 +105,7 @@ export class CrendicionComponent implements OnInit {
     private reporteService: ReporteService
   ) {
   }
+
 
   ngOnInit(): void {
     localStorage.setItem(environment.CODIGO_DETALLE, "");
@@ -458,7 +462,7 @@ export class CrendicionComponent implements OnInit {
   }
 
   changestepper(stepper: any){
-    this.currentTab = stepper._selectedIndex;
+    // this.currentTab = stepper._selectedIndex;
   }
 
   guardar(){
