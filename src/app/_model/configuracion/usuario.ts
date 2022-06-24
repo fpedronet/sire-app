@@ -12,10 +12,12 @@ export class Usuario{
 export class TokenUsuario{
     ideUsuario? : number;
     nombreConocido? : string;
+    dniEmp? : string;
     idePuesto? : string;
     emailEmp? : string;
     telefonoTrabajo? : string;
     codigoEmpresa?: string;
+    strFoto?: string;
     access_token? : string;
     typeResponse? : number;
     mensaje? : string;

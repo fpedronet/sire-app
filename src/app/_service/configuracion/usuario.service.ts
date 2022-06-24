@@ -38,6 +38,8 @@ export class UsuarioService {
     let codigoempresa = localStorage.getItem(environment.CODIGO_EMPRESA);
     let contraseniaSharepoint = localStorage.getItem(environment.PASSWORD_SHAREPOINT);
 
+    //debugger;
+
     if (!helper.isTokenExpired(token!)){
           let decodedToken = helper.decodeToken(token!);       
           decodedToken.codigoempresa =codigoempresa;

@@ -468,14 +468,17 @@ export class CdetalleComponent implements OnInit {
     if (fileInput.target.files && fileInput.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        const image = new Image();
+        /*const image = new Image();
         image.src = e.target.result;
         image.onload = rs => {
           const imgBase64Path = e.target.result;
           this.adjunto = imgBase64Path;
           this.nombreAdjunto = fileInput.target.files[0].name;
-        };
-        image.src = e.target.result;
+        };*/
+        const imgBase64Path = e.target.result;
+        this.adjunto = imgBase64Path;
+        this.nombreAdjunto = fileInput.target.files[0].name;
+        //image.src = e.target.result;
       };
       reader.readAsDataURL(fileInput.target.files[0]);
     }

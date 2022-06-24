@@ -12,6 +12,8 @@ import { NotifierService } from 'src/app/page/component/notifier/notifier.servic
 import { ConfigPermisoService } from 'src/app/_service/configpermiso.service';
 import { Permiso } from 'src/app/_model/permiso';
 import forms from 'src/assets/json/formulario.json';
+import { map, Observable, startWith } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-frendicion',
@@ -44,6 +46,10 @@ export class FrendicionComponent implements OnInit {
 
   tablasMaestras = ['USUARIO'];
   tbUsuario: Combobox[] = [];
+  usuarioColor: string = 'warn';
+  filterUsuarios: Observable<Combobox[]> | undefined;
+  controlUsuarios = new FormControl();
+  idUsuario: string = '';
 
   listaEstados?: Combobox[] = [];
   initEstados?: number[] = [0, 1, 1, 0, 0, 0, 0];
@@ -58,17 +64,17 @@ export class FrendicionComponent implements OnInit {
   fechaFin?: Date;
   fechaSelectFin?: Date;
 
-  idUsuario?: string;
-
   idPantalla?: number;
   titulos?: string[] = [];
 
   fechaMax?: Date;
 
+  carBuscaAuto: number = 0;
+  nroMuestraAuto: number = 0;
+
   ngOnInit(): void {
 
     this.obtenerpermiso();
-    this.listarUsuario();
     //debugger;
     this.fechaMax = new Date();
 
@@ -82,23 +88,32 @@ export class FrendicionComponent implements OnInit {
 
     //debugger;
     
-    this.listarestados().then(res => {
+    this.listarEstadosUsuarios().then(res => {
       this.obtener();
     });
   }
 
-  listarUsuario(){
+  async listarUsuario(){
+    return new Promise(async (resolve) => {
+      this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
+        if(data === undefined){
+          this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
+        }
+        else{
+          var tbCombobox: Combobox[] = data.items;
+          //debugger;
+          
+          this.tbUsuario = this.obtenerSubtabla(tbCombobox,'USUARIO');
+          this.filterUsuarios = this.controlUsuarios.valueChanges.pipe(
+            startWith(''),
+            map(value => (typeof value === 'string'?value:value.descripcion)),
+            map(name  => (name?this.buscarUsuarios(name):[]))
+          )
+        }
+        resolve('ok');
+      });
+    });   
     
-    this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
-      if(data === undefined){
-        this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
-      }
-      else{
-        var tbCombobox: Combobox[] = data.items;
-        
-        this.tbUsuario = this.obtenerSubtabla(tbCombobox,'USUARIO');
-      }
-    });
   }
 
   obtenerSubtabla(tb: Combobox[], cod: string){
@@ -113,7 +128,7 @@ export class FrendicionComponent implements OnInit {
     });   
   }
 
-  async listarestados(){
+  async listarEstadosUsuarios(){
     return new Promise(async (resolve) => {
 
       this.listaEstados = [];
@@ -130,7 +145,11 @@ export class FrendicionComponent implements OnInit {
         this.listaEstados.push(el);
       }
 
-      resolve('ok')
+      this.listarUsuario().then(res => {
+        resolve('ok');
+      });
+
+      
     });
     
   }
@@ -176,6 +195,12 @@ export class FrendicionComponent implements OnInit {
       this.fechaFin = new Date(filtro![4]);
 
       this.idUsuario = filtro![5];
+      //debugger;
+      var usuarioFind = this.tbUsuario.find(e => e.valor === this.idUsuario); //Usuario
+      if(usuarioFind !== undefined){
+        var usuario: Combobox = usuarioFind;      
+        this.setCurUsuario(usuario);
+      }
     }    
 
     this.spinner.hideLoading();
@@ -225,6 +250,12 @@ export class FrendicionComponent implements OnInit {
     else
       this.idUsuario = '0';
 
+    var usuarioFind = this.tbUsuario.find(e => e.valor === this.idUsuario); //Usuario
+    if(usuarioFind !== undefined){
+      var usuario: Combobox = usuarioFind;      
+      this.setCurUsuario(usuario);
+    }
+
     localStorage.setItem(environment.CODIGO_FILTRO, this.codigo +"|"+ this.idEstados?.toString()+"||"+this.fechaIni+"|"+this.fechaFin+"|"+this.idUsuario?.toString());
   }
 
@@ -258,9 +289,57 @@ export class FrendicionComponent implements OnInit {
         this.idEstados?.push(0);
     });
 
+    if(this.idUsuario === ''){
+      if(this.idPantalla === 1)
+        this.idUsuario = this.usuarioService.sessionUsuario().ideUsuario;
+      else
+        this.idUsuario = '0';
+    }
+
     localStorage.setItem(environment.CODIGO_FILTRO, (this.codigo===undefined?'':this.codigo) +"|"+ this.idEstados?.toString()+"|"+this.idTipo+"|"+this.fechaIni+"|"+this.fechaFin+"|"+this.idUsuario?.toString());
 
     this.dialogRef.close();
+  }
+
+  changeUsuario(event: any){
+    var usuario = event.option.value;
+    if(usuario !== undefined){
+      this.setCurUsuario(usuario, true)
+    }
+  }
+
+  setCurUsuario(usuario?: Combobox, notControl: boolean = false){
+    if(usuario === undefined){
+      if(!notControl)
+        this.controlUsuarios.setValue(new Combobox());
+      this.idUsuario = '';
+      this.usuarioColor = 'warn';
+    }
+    else{
+      if(!notControl)
+        this.controlUsuarios.setValue(usuario);
+      this.idUsuario = usuario.valor!;
+      this.usuarioColor = 'primary';
+    }
+  }
+
+  mostrarAutoCombo(c: Combobox): string{
+    var result = '';
+    if(c !== undefined && c !== null && c.descripcion !== '')
+      result = c.descripcion!;
+    return result;
+  }
+
+  buscarUsuarios(name: string): Combobox[]{
+    this.setCurUsuario(undefined, true);
+    var results: Combobox[] = [];
+    //debugger;
+    if(name.length >= this.carBuscaAuto){
+      var filtro = name.toLowerCase();
+      //debugger;
+      results = this.tbUsuario.filter(e => e.descripcion?.toLowerCase().includes(filtro));
+    }    
+    return results.slice(0,this.nroMuestraAuto===0?results.length:this.nroMuestraAuto);
   }
 
 }

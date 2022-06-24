@@ -37,7 +37,7 @@ export class LayoutComponent implements OnInit {
   logo?: string =environment.UrlImage + "logoMenu.png";
   user?: string =environment.UrlImage + "userMenu.png";
   username: string = "";
-  userdni: string = "99999999";
+  userdni: string = "";
   isshow: boolean = false;
   interval:any;
 
@@ -51,7 +51,10 @@ export class LayoutComponent implements OnInit {
     let session = this.usuarioService.sessionUsuario();
 
     if(session!=null){
+      //debugger;
       this.username= session.nombreConocido.toUpperCase();
+      this.userdni =  session.dniEmp;
+      this.user = session.strFoto !== ''?session.strFoto:this.user;
       let empresaselect = session.codigoempresa;
 
       this.spinner.showLoading();

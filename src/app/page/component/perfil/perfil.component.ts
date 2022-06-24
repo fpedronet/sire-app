@@ -30,6 +30,7 @@ export class PerfilComponent implements OnInit {
 
     if(session!=null){
       this.dato = session.nombreConocido;
+      this.perfil = session.strFoto !== ''?session.strFoto:this.perfil;
       this.usuario = session.emailEmp;
       this.password = session.contraseniaSharepoint;
     }

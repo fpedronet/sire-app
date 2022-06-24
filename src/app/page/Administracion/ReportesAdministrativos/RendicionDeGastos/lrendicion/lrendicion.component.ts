@@ -176,6 +176,7 @@ export class LrendicionComponent implements OnInit {
   }
 
   actualizar(){
+    //debugger;
     //this.cargarFiltros();
     this.ngAfterViewInit();
   }
@@ -358,18 +359,21 @@ export class LrendicionComponent implements OnInit {
   }
 
   cambiaEstadoLista(lista: RendicionM[], sgteEstado: number, obs?: string){
+    var i: number = 0;
     lista.forEach(item => {
-      this.cambiaEstado(item.ideRendicion!, sgteEstado, obs===undefined?'':obs);
+      this.cambiaEstado(item.ideRendicion!, sgteEstado, obs===undefined?'':obs,i===lista.length-1);
+      i++;
     });    
   }
 
-  cambiaEstado(ideRendicion: number, sgteEstado: number, obs?: string){
+  cambiaEstado(ideRendicion: number, sgteEstado: number, obs?: string, ultimo: boolean = false){
     this.spinner.showLoading();
     //debugger;
     this.rendicionService.cambiarEstado(ideRendicion, sgteEstado, obs === undefined?'':obs).subscribe(data=>{
       if(data.typeResponse==environment.EXITO){
         this.spinner.hideLoading();
-        this.actualizar();
+        if(ultimo)
+          this.actualizar();
       }else{
         this.spinner.hideLoading();
       }

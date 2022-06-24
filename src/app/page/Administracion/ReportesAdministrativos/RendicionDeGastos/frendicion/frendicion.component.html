@@ -4,8 +4,11 @@
 
   <mat-form-field appearance="outline">
       <mat-label>Código</mat-label>
-      <input [(ngModel)]="codigo" matInput placeholder="Búsqueda" #input (keyup.enter)="buscar()">
-      <mat-icon matSuffix>search</mat-icon>
+      <input #CODIGO [(ngModel)]="codigo" matInput placeholder="Búsqueda" #input (keyup.enter)="buscar()">
+      <button *ngIf="CODIGO.value" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="CODIGO.value='';">
+        <mat-icon>close</mat-icon>
+      </button>
+      <!--mat-icon matSuffix>search</mat-icon-->
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -20,16 +23,17 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field *ngIf="permiso.vertodos || idPantalla !== 1" appearance="outline">
+  <mat-form-field [color]="usuarioColor" minlength="1" maxlength="100" *ngIf="permiso.vertodos || idPantalla !== 1" appearance="outline">
     <mat-label>Usuario</mat-label>
-    <mat-select 
-    [(ngModel)]="idUsuario"
-    (selectionChange)="selectusuario($event.value)"
-    >
-      <mat-option *ngFor="let el of tbUsuario" [value]="el.valor">
+    <input #USUARIO type="text" matInput [formControl]="controlUsuarios" [matAutocomplete]="autoLinea" required>
+    <button *ngIf="USUARIO.value" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="USUARIO.value=''; setCurUsuario(undefined, true)">
+        <mat-icon>close</mat-icon>
+    </button>
+    <mat-autocomplete #autoLinea="matAutocomplete" [displayWith]="mostrarAutoCombo" (optionSelected)="changeUsuario($event)">
+        <mat-option *ngFor="let el of filterUsuarios | async" [value]="el">
         {{el.descripcion}}
-      </mat-option>
-    </mat-select>
+        </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
 
   <mat-label>Estado</mat-label>
@@ -62,5 +66,5 @@
 <div class="btnModal" align="end">
   <button mat-stroked-button class="btnRed" mat-dialog-close><mat-icon>close</mat-icon>Cerrar</button> 
   <button mat-stroked-button class="btnYellow"(click)="limpiar()"><mat-icon>cleaning_services</mat-icon>Limpiar</button>
-  <button mat-stroked-button class="btnBlue" (click)="buscar()"><mat-icon>search</mat-icon>Buscar</button>
+  <button mat-stroked-button class="btnBlue" (click)="buscar()" [disabled]="idUsuario === ''"><mat-icon>search</mat-icon>Buscar</button>
 </div>
