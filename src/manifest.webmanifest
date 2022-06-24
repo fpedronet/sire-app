@@ -4,8 +4,8 @@
   "theme_color": "#cc3d00",
   "background_color": "#FFFFFF",
   "display": "standalone",
-  "scope": "https://service.poclab.pe/sire/",
-  "start_url": "https://service.poclab.pe/sire/",
+  "scope": "./",
+  "start_url": "./",
   "icons": [
     {
       "src": "assets/icons/icon-144x144.png",

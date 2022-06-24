@@ -210,7 +210,6 @@ export class CdetalleComponent implements OnInit {
           map(value2 => (typeof value2 === 'string'?value2:value2.descripcion)),
           map(name2  => (name2?this.buscarLineas(name2):[]))
         )
-        
         this.tbConcepto = this.completarCombo(jsonConcepto);
         this.tbMoneda = this.completarCombo(jsonMoneda);
         this.tbTipoDocu = this.completarCombo(jsonTipoDocu);
@@ -553,6 +552,7 @@ export class CdetalleComponent implements OnInit {
   }
 
   setearValores($event : string){
+
     this.body = "block;";
 
     let tt_filas= $event.split('|');
@@ -579,11 +579,11 @@ export class CdetalleComponent implements OnInit {
             }
             else if (tt_filas[i].trim() == "02" || tt_filas[i].trim() == "2" || tt_filas[i].trim() == "R")
             {
-              this.rendDet.nTipDocu = "002";
+              this.rendDet.nTipDocu = "003";
             }
             else if (tt_filas[i].trim() == "03" || tt_filas[i].trim() == "3" || tt_filas[i].trim() == "B")
             {
-              this.rendDet.nTipDocu = "003";
+              this.rendDet.nTipDocu = "002";
             }
             break;
           case 3:
