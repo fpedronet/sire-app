@@ -81,6 +81,7 @@ export class LayoutComponent implements OnInit {
   }
 
   selectempresa(idbanco: number){
+    debugger;
     this.spinner.showLoading();
     let split = this.router.url.split('/');
     localStorage.setItem(environment.CODIGO_EMPRESA, idbanco.toString()!);
@@ -90,18 +91,19 @@ export class LayoutComponent implements OnInit {
       window.location.reload();
 
     }else if(split.length >= 5){
+      this.router.navigate(["page/home"]);
+      // window.location.reload();
+      // let $modulo = split[2];
+      // let modulo = forms.aspirante.modulo;
+      // let $nombre = split[3];
 
-      let $modulo = split[2];
-      let modulo = forms.aspirante.modulo;
-      let $nombre = split[3];
+      // if($modulo==modulo){
 
-      if($modulo==modulo){
+      //   let $url = ($nombre ==forms.aspirantesligth.nombre)? forms.aspirantesligth.nombre : forms.aspirante.nombre;
+      //   let url = "/page/" + split[2] + "/" + $url;
+      //   this.router.navigate([url]);
 
-        let $url = ($nombre ==forms.aspirantesligth.nombre)? forms.aspirantesligth.nombre : forms.aspirante.nombre;
-        let url = "/page/" + split[2] + "/" + $url;
-        this.router.navigate([url]);
-
-      }
+      // }
     }
     else{
       window.location.reload();
