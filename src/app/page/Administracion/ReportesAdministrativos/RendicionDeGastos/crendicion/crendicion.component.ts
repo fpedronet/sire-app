@@ -441,14 +441,17 @@ export class CrendicionComponent implements OnInit {
     }); 
   }
 
-  tienepermiso(sgte: number){    
+  tienepermiso(sgte: number){
+    if(sgte === 1){ //Recuperar
+      return this.curUsuario == this.usuarioService.sessionUsuario().ideUsuario;
+    }
 
-    if(sgte === 5){
+    if(sgte === 5){ //Procesar
       //debugger;
       return this.permiso.procesar;
     }      
     
-    if(sgte === 6)
+    if(sgte === 6) //Revisar
       return this.permiso.revisar;
 
     return true;

@@ -4,7 +4,7 @@
     <h3 *ngIf="rendDet!.ideRendicionDet!==0 && edit" mat-dialog-title>EDITAR GASTO - {{codigo}}</h3>
     <h3 *ngIf="rendDet!.ideRendicionDet!==0 && !edit" mat-dialog-title>VER GASTO - {{codigo}}</h3>
   </div>
-  <div>
+  <div *ngIf="edit">
     <button style="margin-right: 4px;" *ngIf="!scannerEnabled" mat-stroked-button class="btnBlue" (click)="getCameras()"><mat-icon>qr_code2</mat-icon> QR</button> 
     <button style="margin-right: 4px;" *ngIf="scannerEnabled" mat-stroked-button class="btnRed" (click)="disableScanner()"><mat-icon>do_disturb_off</mat-icon> QR</button> 
   </div>
