@@ -73,7 +73,7 @@ export class CdetalleComponent implements OnInit {
   tbComodato: Combobox[] = [];
   filterComodato: Combobox[] = [];
 
-  carBuscaAuto: number = 0;
+  carBuscaAuto: number = 1;
   nroMuestraAuto: number = 0;
 
   tbSede: Combobox[] = [];  
@@ -409,7 +409,7 @@ export class CdetalleComponent implements OnInit {
     return result;
   }
 
-  setCurSede(sede?: Combobox, notControl: boolean = false){
+  setCurSede(sede?: Combobox, notControl: boolean = false, reiniciaCmd: boolean = false){
     //debugger;
     if(sede === undefined){
       if(!notControl)
@@ -417,7 +417,13 @@ export class CdetalleComponent implements OnInit {
       this.ideSede = 0;
       this.sedeColor = 'warn';
 
-      this.filterComodato = this.tbComodato
+      this.filterComodato = this.tbComodato;
+      if(reiniciaCmd){
+        this.form.patchValue({
+          comodato: 'CMD'
+        });
+        this.setCurLinea(undefined, true);
+      }        
     }
     else{
       if(!notControl)
@@ -445,13 +451,19 @@ export class CdetalleComponent implements OnInit {
     }
   }
 
-  setCurLinea(linea?: Combobox, notControl: boolean = false){
+  setCurLinea(linea?: Combobox, notControl: boolean = false, reiniciaCmd: boolean = false){
     if(linea === undefined){
       if(!notControl)
         this.controlLineas.setValue(new Combobox());
       this.codLinea = '';
       this.lineaColor = 'warn';
       
+      if(reiniciaCmd){
+        this.form.patchValue({
+          comodato: 'CMD'
+        });
+        this.setCurSede(undefined, true);
+      }        
     }
     else{
       if(!notControl)
