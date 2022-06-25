@@ -73,8 +73,8 @@ export class CdetalleComponent implements OnInit {
   tbComodato: Combobox[] = [];
   filterComodato: Combobox[] = [];
 
-  carBuscaAuto: number = 2;
-  nroMuestraAuto: number = 15;
+  carBuscaAuto: number = 0;
+  nroMuestraAuto: number = 0;
 
   tbSede: Combobox[] = [];  
   sedeColor: string = 'warn';
@@ -249,7 +249,7 @@ export class CdetalleComponent implements OnInit {
       var filtro = name.toLowerCase();
       results = this.tbSede.filter(e => e.descripcion?.toLowerCase().includes(filtro));
     }    
-    return results.slice(0,this.nroMuestraAuto);
+    return results.slice(0,this.nroMuestraAuto===0?results.length:this.nroMuestraAuto);
   }
 
   buscarLineas(name: string): Combobox[]{
@@ -260,7 +260,7 @@ export class CdetalleComponent implements OnInit {
       var filtro = name.toLowerCase();
       results = this.tbLinea.filter(e => e.descripcion?.toLowerCase().includes(filtro));
     }    
-    return results.slice(0,this.nroMuestraAuto);
+    return results.slice(0,this.nroMuestraAuto===0?results.length:this.nroMuestraAuto);
   }
   
   onDateChange(){
@@ -367,7 +367,7 @@ export class CdetalleComponent implements OnInit {
     }
   }
 
-  obtenerProveedor(e?: Event){
+  obtenerProveedor(e?: Event, botonBusqueda: boolean = false){
     //console.log(e);
     e?.preventDefault(); // Evita otros eventos como blur
 
@@ -378,6 +378,11 @@ export class CdetalleComponent implements OnInit {
           proveedor: data.descripcion
         })
         this.existeProveedor = true;
+        this.notifierService.showNotification(1,'Mensaje','El proveedor fue encontrado');
+      }
+      else{
+        if(botonBusqueda)
+          this.notifierService.showNotification(0,'Mensaje','No existe el proveedor');
       }
     })
   }
@@ -444,10 +449,6 @@ export class CdetalleComponent implements OnInit {
     if(linea === undefined){
       if(!notControl)
         this.controlLineas.setValue(new Combobox());
-      /*else
-        this.form.patchValue({
-          comodato: 'CMD'
-        })*/
       this.codLinea = '';
       this.lineaColor = 'warn';
       
