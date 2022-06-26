@@ -107,11 +107,11 @@
             <mat-grid-tile [colspan]="12">
               <mat-form-field appearance="outline">
                 <mat-label>Ruc</mat-label>
-                <input #RUC matInput formControlName="rucPrv" [readonly]="!edit || existeProveedor" (blur)="obtenerProveedor($event)" (keydown)="obtenerProveedorEnter($event.keyCode)">
+                <input #RUC matInput formControlName="rucPrv" [readonly]="!edit || existeProveedor" [required]="TIPDOCU.value !== '003'" (blur)="obtenerProveedor($event)" (keydown)="obtenerProveedorEnter($event.keyCode)" oninput="if(this.value.length>=11) { this.value = this.value.slice(0,11); }" onkeypress="return /[0-9]/i.test(event.key)">
                 <button *ngIf="RUC.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (mouseup)="RUC.value='';reiniciaProveedor()">
                     <mat-icon>close</mat-icon>
                   </button>
-                  <button *ngIf="RUC.value && edit" type="button" matSuffix mat-icon-button aria-label="Buscar" (mouseup)="obtenerProveedor($event)">
+                  <button *ngIf="RUC.value && edit" type="button" matSuffix mat-icon-button aria-label="Buscar" (mouseup)="obtenerProveedor($event, true)">
                     <mat-icon>search</mat-icon>
                   </button>
               </mat-form-field> 
@@ -131,8 +131,8 @@
             <mat-grid-tile [colspan]="12">
               <mat-form-field [color]="sedeColor" minlength="1" maxlength="100" appearance="outline">
                 <mat-label>Sede</mat-label>
-                <input #SEDE type="text" matInput [formControl]="controlSedes" [matAutocomplete]="autoSede" [readonly]="!edit" required>
-                <button *ngIf="SEDE.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="SEDE.value=''; setCurSede(undefined, true)">
+                <input #SEDE type="text" matInput [formControl]="controlSedes" [matAutocomplete]="autoSede" [readonly]="!edit || (edit && COMODATO.value!=='CMD')" required>
+                <button *ngIf="SEDE.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="SEDE.value=''; LINEA.value=''; setCurSede(undefined, true, true);">
                     <mat-icon>close</mat-icon>
                 </button>
                 <mat-autocomplete #autoSede="matAutocomplete" [displayWith]="mostrarAutoCombo" (optionSelected)="changeSede($event)">
@@ -160,8 +160,8 @@
             <mat-grid-tile [colspan]="12">
               <mat-form-field [color]="lineaColor" minlength="1" maxlength="100" appearance="outline">
                 <mat-label>Linea</mat-label>
-                <input #LINEA type="text" matInput [formControl]="controlLineas" [matAutocomplete]="autoLinea" [readonly]="!edit" required>
-                <button *ngIf="LINEA.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="LINEA.value=''; setCurLinea(undefined, true)">
+                <input #LINEA type="text" matInput [formControl]="controlLineas" [matAutocomplete]="autoLinea" [readonly]="!edit || (edit && COMODATO.value!=='CMD')" required>
+                <button *ngIf="LINEA.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="LINEA.value=''; SEDE.value=''; setCurLinea(undefined, true, true);">
                     <mat-icon>close</mat-icon>
                 </button>
                 <mat-autocomplete #autoLinea="matAutocomplete" [displayWith]="mostrarAutoCombo" (optionSelected)="changeLinea($event)">

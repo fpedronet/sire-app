@@ -589,16 +589,4 @@ export class CrendicionComponent implements OnInit {
       );
     }
   }
-<<<<<<< HEAD
-=======
-
-  selectTipo(valor: string){
-    //debugger;
-    if(valor === 'M'){ //Si es movilidad no hay ingresos
-      this.form.patchValue({
-        ingresos: '0.00'
-      })
-    }
-  }
->>>>>>> fe070e6213f38e881208b88976f2276278975bc2
 }
