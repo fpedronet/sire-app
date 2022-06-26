@@ -189,7 +189,9 @@ form{
   -webkit-font-smoothing: antialiased;
   background-repeat:round;
 }
-
+.videoBG{
+  display: none;
+}
 .toast-top-center {  
   padding-top: 200px; 
 }  
@@ -326,6 +328,9 @@ form{
   .mat-toolbar.mat-primary{
     background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
   }
+  .videoBG{
+    display: none;
+  }
 }
 
 @media (max-width:990px){
@@ -343,6 +348,9 @@ form{
   }
   .mat-toolbar.mat-primary{
     background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
+  }
+  .videoBG{
+    display: none;
   }
 }
 
@@ -362,6 +370,9 @@ form{
   .mat-toolbar.mat-primary{
     background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
   }
+  .videoBG{
+    display: none;
+  }
 }
 
 @media (max-width:970px){
@@ -379,6 +390,9 @@ form{
   }
   .mat-toolbar.mat-primary{
     background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
+  }
+  .videoBG{
+    display: none;
   }
 }
 
@@ -475,6 +489,9 @@ form{
     -webkit-font-smoothing: antialiased;
     background-repeat:initial;
   }
+  .videoBG{
+    display: none;
+  }
   .mat-toolbar.mat-primary{
     background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
   }
@@ -520,6 +537,11 @@ form{
     -webkit-font-smoothing: antialiased;
     background-repeat:initial;
   }
+
+  .videoBG{
+    display: none;
+  }
+  
   .mat-toolbar.mat-primary{
     background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
   }
@@ -560,8 +582,8 @@ form{
     margin-right: -4px;
     cursor: pointer;
   }
+
   .container2 {
-    background: url('../src/assets/login.jpg') no-repeat center center/cover;
     position: relative;
     width: 100%;
     height: 100%;        
@@ -569,6 +591,16 @@ form{
     -webkit-font-smoothing: antialiased;
     background-repeat:initial;
   }
+
+  .videoBG{
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
+
   .mat-toolbar.mat-primary{
     background: #cc3d00;
   }
@@ -608,14 +640,23 @@ form{
     margin: auto;
     margin-right: -4px;
   }
+
   .container2 {
-    background: url('../src/assets/login2.jpg') no-repeat center center/cover;
     position: relative;
     width: 100%;
     height: 100%;        
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     background-repeat:initial;
+  }
+
+  .videoBG{
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
   }
 
   .mat-toolbar.mat-primary{
