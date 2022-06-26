@@ -91,6 +91,8 @@ export class CrendicionComponent implements OnInit {
 
   isLinear = false;
   
+  nombreAprobador: string = '';
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
