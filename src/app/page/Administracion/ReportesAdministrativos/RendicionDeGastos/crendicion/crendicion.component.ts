@@ -83,7 +83,8 @@ export class CrendicionComponent implements OnInit {
   pantallaPrev?: string = '';
 
   dataSource: RendicionD[] = [];
-  displayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'adjunto', 'accion', 'mo'];
+  initDisplayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'adjunto', 'accion', 'mo'];
+  displayedColumns: string[] = [];
 
   maxDate: Date = new Date();
   url_m: string = '';
@@ -208,15 +209,15 @@ export class CrendicionComponent implements OnInit {
       'motivo': new FormControl({ value: '', disabled: false}),
       'ideUsuario': new FormControl({ value: 0, disabled: false}),
       'monedaRecibe': new FormControl({ value: '', disabled: true}),
-      'ingresos': new FormControl({ value: '', disabled: false}),
-      'gastos': new FormControl({ value: '0.00', disabled: false}),
+      'ingresos': new FormControl({ value: '0.00', disabled: false}),
+      'gastos': new FormControl({ value: '0.00', disabled: true}),
       'fechaPresenta': new FormControl({ value: new Date(), disabled: true}),
       'fechaApruebaRechaza': new FormControl({ value: '', disabled: false}),
       'fechaProcesa': new FormControl({ value: new Date(), disabled: true}),
       'ideUsuProcesa': new FormControl({ value: 0, disabled: true}),
       'ideEstado': new FormControl({ value: -1, disabled: false}),
       'estado': new FormControl({ value: 'NUEVO', disabled: false}),
-      'fechaCreacion': new FormControl({ value: new Date(), disabled: false}),
+      'fechaCreacion': new FormControl({ value: new Date(), disabled: true}),
       'docuGenerado': new FormControl({ value: 0, disabled: true}),
       'fechaAceptado': new FormControl({ value: new Date(), disabled: true}),
       'ideUsuApruebaRechaza': new FormControl({ value: 0, disabled: false}),
@@ -243,6 +244,8 @@ export class CrendicionComponent implements OnInit {
       this.pantallaPrev = 'REVISIÓN -';
     if(this.idPantalla === 4)
       this.pantallaPrev = 'APROBACIÓN -';
+
+    this.nombreAprobador = '';
 
     if(this.id > 0){
       this.spinner.showLoading();
@@ -272,6 +275,14 @@ export class CrendicionComponent implements OnInit {
             ideUsuRevisa: data.ideUsuRevisa,
             obsRevisor: data.obsRevisor
           });
+
+          if(data.tipo === 'M')
+            this.displayedColumns = this.initDisplayedColumns.filter(e => e !== 'adjunto');
+          else
+            this.displayedColumns = this.initDisplayedColumns;
+
+          if(data.ideEstado === 2 && data.ideUsuApruebaRechaza !== undefined && data.ideUsuApruebaRechaza !== 0)
+            this.nombreAprobador = this.buscaUsuario(data.ideUsuApruebaRechaza);
 
           this.url_m = data.url_M!;
           //Muestra creador de rendición
@@ -309,6 +320,7 @@ export class CrendicionComponent implements OnInit {
   }
 
   buscaUsuario(idUsuario: number){
+    //debugger;
     var nombre: string = '';
     var usuObj = this.tbUsuario.find(e => e.valor === idUsuario.toString());
     if(usuObj !== undefined)
@@ -589,6 +601,24 @@ export class CrendicionComponent implements OnInit {
           window.open(fileURL, `${"ficha"}.pdf`);
         }
       );
+    }
+  }
+
+  selectTipo(valor: string, elemento: any){
+    //debugger;
+    if(valor === 'M'){ //Si es movilidad no hay ingresos
+      this.displayedColumns = this.initDisplayedColumns.filter(e => e !== 'adjunto');
+      this.form.patchValue({
+        ingresos: '0.00'
+      })
+    }
+    else{
+      //debugger;
+      this.displayedColumns = this.initDisplayedColumns;
+      setTimeout(function() {        
+        elemento.focus();
+        elemento.select();    
+      }, 250);      
     }
   }
 }

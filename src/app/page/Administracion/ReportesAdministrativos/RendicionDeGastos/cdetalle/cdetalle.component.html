@@ -190,7 +190,7 @@
                 No se ha adjuntado ningún archivo
               </mat-label>
 
-              <a *ngIf="edit" class="pointer delete" matTooltip="Borrar" (click)="borrarAdjunto()">
+              <a *ngIf="edit && nombreAdjunto!=='' && nombreAdjunto!==undefined" class="pointer delete" matTooltip="Borrar" (click)="borrarAdjunto()">
                 <mat-icon>delete</mat-icon>
               </a>
 
