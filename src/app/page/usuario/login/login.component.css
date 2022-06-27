@@ -13,7 +13,7 @@ form {
     display: block;
     width: 84%;
     max-width: 430px;
-    background-color: #38373799;
+    background-color: #38373766;
     margin: 0;
     padding: 2.25em;
     box-sizing: border-box;
@@ -147,7 +147,7 @@ form .inputGroup1.focusWithText .helper {
   opacity: 1;
 }
 
-@media (max-width:599px){
+/* @media (max-width:599px){
   form {
       background-color: #cfcece3d;
   }
@@ -157,4 +157,4 @@ form .inputGroup1.focusWithText .helper {
   form {
       background-color: #cfcece3d;
   }
-}
+} */

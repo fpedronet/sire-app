@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   mensaje?: string;
   error?: string;
   logologin?: string =environment.UrlImage + "logo.png";
-  loginvideo?: string =environment.UrlImage + "loginVideo.mp4";
+  loginvideo?: string =environment.UrlImage + "login.mp4";
   input: any;
 
   ngOnInit(): void {
