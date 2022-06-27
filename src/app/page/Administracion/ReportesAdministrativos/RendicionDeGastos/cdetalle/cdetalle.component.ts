@@ -15,6 +15,7 @@ import { map, Observable, startWith } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import {Html5Qrcode} from "html5-qrcode";
 import { SharepointService } from 'src/app/_service/apiexterno/sharepoint.service';
+import { ConfimService } from 'src/app/page/component/confirm/confim.service';
 
 @Component({
   selector: 'app-cdetalle',
@@ -44,7 +45,8 @@ export class CdetalleComponent implements OnInit {
     private usuarioService: UsuarioService,
     private comboboxService: ComboboxService,
     private notifierService : NotifierService,
-    private sharepointService : SharepointService
+    private sharepointService : SharepointService,
+    private confirmService : ConfimService,
   )
   {
     //debugger;
@@ -131,7 +133,7 @@ export class CdetalleComponent implements OnInit {
       'nTipDocu': new FormControl({ value: rendD.nTipDocu, disabled: false}),
       'documento': new FormControl({ value: rendD.documento, disabled: false}),
       'codMoneda': new FormControl({ value: rendD.codMoneda, disabled: false}),
-      'monto': new FormControl({ value: '', disabled: false}),
+      'monto': new FormControl({ value: '0.00', disabled: false}),
       'descripcion': new FormControl({ value: rendD.descripcion, disabled: false}),
       'rucPrv': new FormControl({ value: rendD.rucPrv, disabled: false}),
       'proveedor': new FormControl({ value: rendD.proveedor, disabled: false}),
@@ -161,7 +163,7 @@ export class CdetalleComponent implements OnInit {
       nTipDocu: rendDet.nTipDocu,
       documento: rendDet.documento,
       codMoneda: rendDet.codMoneda,
-      monto: rendDet.monto === 0?'':rendDet.monto?.toFixed(2),
+      monto: rendDet.monto === 0?'0.00':rendDet.monto?.toFixed(2),
       descripcion: rendDet.descripcion,
       rucPrv: rendDet.rucPrv,
       proveedor: rendDet.proveedor
@@ -289,7 +291,7 @@ export class CdetalleComponent implements OnInit {
       nTipDocu: rendDet?.nTipDocu,
       documento: rendDet?.documento,
       codMoneda: rendDet?.codMoneda,
-      monto: '',
+      monto: '0.00',
       descripcion: rendDet?.descripcion,
       rucPrv: rendDet?.rucPrv,
       proveedor: rendDet?.proveedor
@@ -625,7 +627,48 @@ export class CdetalleComponent implements OnInit {
   }
 
   closeModal(){
+    if(this.camposCambiados(this.rendDet)){
+      this.confirmService.openConfirmDialog(false, "Tiene cambios sin guardar, ¿Desea salir?").afterClosed().subscribe(res =>{
+        //Ok
+        if(res){
+          //console.log('Sí');
+          this.$closeModal();
+        }
+      });
+    }
+    else{
+      this.$closeModal();
+    }    
+  }
+
+  $closeModal(){
     this.dialogRef.close();
     this.disableScanner();
+  }
+
+  getControlLabel(type: string){
+    return this.form.controls[type].value;
+  }
+
+  camposCambiados(rendDet: RendicionD){
+    //debugger;
+
+    var fecha: boolean = rendDet.fecha !== this.getControlLabel('fecha');
+    var concepto: boolean = rendDet.codConcepto !== this.getControlLabel('codConcepto');
+    var tipDocu: boolean = rendDet.nTipDocu !== this.getControlLabel('nTipDocu');
+    var documento: boolean = rendDet.documento !== this.getControlLabel('documento');
+    var codMoneda: boolean = rendDet.codMoneda !== this.getControlLabel('codMoneda');
+    var monto: boolean = rendDet.monto?.toFixed(2) !== this.getControlLabel('monto');
+    var descripcion: boolean = rendDet.descripcion !== this.getControlLabel('descripcion');
+    var rucPrv: boolean = rendDet.rucPrv !== this.getControlLabel('rucPrv');
+    var proveedor: boolean = rendDet.proveedor !== this.getControlLabel('proveedor');
+    var sede: boolean = rendDet.ideSede !== this.ideSede;
+    var comodato: boolean = rendDet.comodato !== this.getControlLabel('comodato');
+    var linea: boolean = (rendDet.codLinea === undefined ? '' : rendDet.codLinea) !== this.codLinea;
+
+    var adjObj = rendDet.nombreAdjunto;
+    var adjFrm = this.getControlLabel('nombreAdjunto');    
+    var nombreAdjunto: boolean = ((adjObj === null || adjObj === undefined)? '' : adjObj) !== ((adjFrm === null || adjFrm === undefined) ? '' : adjFrm);
+    return fecha || concepto || tipDocu || documento || codMoneda || monto || descripcion || rucPrv || proveedor || sede || comodato || linea || nombreAdjunto;
   }
 }

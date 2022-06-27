@@ -16,14 +16,14 @@
     
         <mat-form-field appearance="outline">
             <mat-label>Contraseña</mat-label>
-            <input [(ngModel)]="password" matInput placeholder="Password" #input type="password">
+            <input #PASS [(ngModel)]="password" matInput placeholder="Password" #input type="password">
         </mat-form-field>
 
     </div>
 
     <div class="btnModal" align="end">
         <button style="margin-right: 4px;" mat-stroked-button class="btnRed" mat-dialog-close><mat-icon>close</mat-icon>Cerrar</button> 
-        <button mat-stroked-button class="btnBlue" (click)="guardar()"><mat-icon>save</mat-icon>Guardar</button>
+        <button mat-stroked-button class="btnBlue" (click)="guardar()" [disabled]="PASS.value.length<=7"><mat-icon>save</mat-icon>Guardar</button>
       </div>
 
 </div>
