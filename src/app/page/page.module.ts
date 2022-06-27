@@ -11,12 +11,15 @@ import { InterceptorService } from '../_interceptors/interceptor.service';
 import { Not404Component } from './configuracion/not404/not404.component';
 import { Not403Component } from './configuracion/not403/not403.component';
 
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { LrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/lrendicion/lrendicion.component';
 import { CrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crendicion/crendicion.component';
 import { FrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/frendicion/frendicion.component';
 import { CdetalleComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/cdetalle/cdetalle.component';
 import { CrechazoComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crechazo/crechazo.component';
 import { PerfilComponent } from './component/perfil/perfil.component';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -39,7 +42,11 @@ import { PerfilComponent } from './component/perfil/perfil.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    PageRoutingModule
+    PageRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     {
