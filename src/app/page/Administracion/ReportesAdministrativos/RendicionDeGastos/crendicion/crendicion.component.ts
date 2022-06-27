@@ -524,6 +524,7 @@ export class CrendicionComponent implements OnInit {
       maxHeight: '100vh',
       width: '850px',
       panelClass: 'full-screen-modal',
+      disableClose: true,
       data: {
         detalle: rendDet,
         idPadre: this.id,
@@ -532,6 +533,8 @@ export class CrendicionComponent implements OnInit {
         codigo: this.curCodigo
       }
     });
+
+    //dialogRef.beforeClosed().subscribe(res)
 
     dialogRef.afterClosed().subscribe(res => {
       if(res!=""){
