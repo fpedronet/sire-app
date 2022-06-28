@@ -88,7 +88,7 @@ export class CrendicionComponent implements OnInit {
 
   maxDate: Date = new Date();
   url_m: string = '';
-  iconSharePont: string =environment.UrlImage + "sharePoint.png";
+  iconSharePoint: string =environment.UrlImage + "sharePoint.png";
 
   isLinear = false;
   
