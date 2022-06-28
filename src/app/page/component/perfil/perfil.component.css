@@ -44,3 +44,21 @@
     margin-bottom: 5px;
     font-weight:600;
 }
+
+.btnInicio{
+    display: inline-block;
+    /* margin-top: 1rem; */
+    padding:.4rem 1.5rem;
+    border-radius: 5rem;
+    background:#ee4b06 no-repeat 0 0;
+    font-size: 1rem;
+    color:#fff;
+    cursor: pointer;
+    box-shadow: 0 .2rem 1rem rgba(0,0,0,.1);
+    transition: all .2s linear;
+    text-decoration: solid;
+}
+
+.btnInicio:hover{
+    transform: scale(1.05);
+}
