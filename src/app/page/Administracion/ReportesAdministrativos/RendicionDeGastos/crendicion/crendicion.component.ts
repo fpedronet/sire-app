@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -22,6 +22,7 @@ import jsonMoneda from 'src/assets/json/detalle/moneda.json';
 import { ComboboxService } from 'src/app/_service/combobox.service';
 import { CrechazoComponent } from '../crechazo/crechazo.component';
 import { ReporteService } from 'src/app/_service/reporte/reporte.service';
+import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-crendicion',
@@ -30,6 +31,9 @@ import { ReporteService } from 'src/app/_service/reporte/reporte.service';
 })
 
 export class CrendicionComponent implements OnInit {
+
+  @ViewChild(MatStepper)
+  stepper!: MatStepper;
 
   form: FormGroup = new FormGroup({});
   permiso: Permiso = {};
@@ -132,6 +136,10 @@ export class CrendicionComponent implements OnInit {
         this.obtener(true);
       });      
     });
+  }
+
+  ngAfterViewInit() {
+    this.stepper._getIndicatorType = () => 'number';
   }
 
   async listarUsuario(){
@@ -501,7 +509,7 @@ export class CrendicionComponent implements OnInit {
               this.existRendicion = true;
               this.currentTab = 1; //Segunda pestaña
               this.id = data.ide!;
-              debugger;
+              //debugger;
               this.router.navigate(['/page/administracion/rendicion/'+this.idPantalla+'/edit/',this.id]);
             }
             this.obtener();
