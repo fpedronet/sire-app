@@ -131,6 +131,9 @@ export class CdetalleComponent implements OnInit {
     //debugger;
     var rendD = new RendicionD();
 
+    if(this.tipo === 'M')
+      rendD.codConcepto = '002' //Movilidad
+
     this.form = new FormGroup({
       'ideRendicionDet': new FormControl({ value: rendD.ideRendicionDet, disabled: false}),
       'ideRendicion': new FormControl({ value: rendD.ideRendicion, disabled: false}),
@@ -152,6 +155,10 @@ export class CdetalleComponent implements OnInit {
 
     //Si es un registro nuevo, carga caché en campos
     if(rendDet.ideRendicionDet === 0){
+      
+      if(this.tipo === 'M')
+        rendDet.codConcepto = '002' //Movilidad
+      
       let filtro = this.usuarioService.sessionDetalle();
       if(filtro!=null){
         rendDet.comodato = filtro[0];
@@ -307,6 +314,9 @@ export class CdetalleComponent implements OnInit {
   limpiar(){
     let rendDet: RendicionD = new RendicionD();
     rendDet.ideRendicion = this.data.idPadre;
+
+    if(this.tipo === 'M')
+      rendDet.codConcepto = '002' //Movilidad
 
     let filtro = this.usuarioService.sessionDetalle();
     if(filtro!=null){
