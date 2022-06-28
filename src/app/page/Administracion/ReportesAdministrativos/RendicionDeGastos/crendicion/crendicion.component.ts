@@ -88,7 +88,7 @@ export class CrendicionComponent implements OnInit {
 
   maxDate: Date = new Date();
   url_m: string = '';
-  iconSharePont: string =environment.UrlImage + "sharePoint.png";
+  iconSharePoint: string =environment.UrlImage + "sharePoint.png";
 
   isLinear = false;
   
@@ -519,6 +519,8 @@ export class CrendicionComponent implements OnInit {
 
   abrirDetalle(rendDet?: RendicionD){
     //debugger;
+    var enRevision = this.tienepermiso(this.sgteEstadoR) && this.sgteEstadoR === 6;
+
     const dialogRef = this.dialog.open(CdetalleComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
@@ -529,6 +531,7 @@ export class CrendicionComponent implements OnInit {
         detalle: rendDet,
         idPadre: this.id,
         edit: this.edit,
+        enRevision: enRevision, //Editable cuando está en revisión
         tipoPadre: this.getControlLabel('tipo'),
         codigo: this.curCodigo
       }

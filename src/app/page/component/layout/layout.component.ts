@@ -36,6 +36,7 @@ export class LayoutComponent implements OnInit {
   empresa?: string = "";
   logo?: string =environment.UrlImage + "logoMenu.png";
   user?: string =environment.UrlImage + "userMenu.png";
+  iconSharePoint?: string =environment.UrlImage + "sharePoint-2.png";
   username: string = "";
   userdni: string = "";
   isshow: boolean = false;

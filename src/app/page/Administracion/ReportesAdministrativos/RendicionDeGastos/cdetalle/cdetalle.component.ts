@@ -55,7 +55,8 @@ export class CdetalleComponent implements OnInit {
     else
       this.rendDet!.ideRendicion = this.data.idPadre;
 
-    this.edit = this.data.edit;
+    this.edit = this.data.edit || this.data.enRevision;
+    this.enRevision = this.data.enRevision;
     this.tipo = this.data.tipoPadre;
     this.codigo = this.data.codigo;
   }
@@ -67,10 +68,11 @@ export class CdetalleComponent implements OnInit {
 
   tipDocuNoDeclaracion: boolean = true;
 
-  tablasMaestras = ['COMODATO', 'SEDE', 'LINEA'];
+  tablasMaestras = ['COMODATO', 'SEDE', 'LINEA', 'MAXMONTO'];
   tbConcepto: Combobox[] = [];
   tbTipoDocu: Combobox[] = [];
   tbMoneda: Combobox[] = [];
+  tbMaxMonto: Combobox[] = [];
 
   tbComodato: Combobox[] = [];
   filterComodato: Combobox[] = [];
@@ -114,6 +116,11 @@ export class CdetalleComponent implements OnInit {
   url: string = ''
   url_M: string = ''
 
+  enRevision: boolean = false;
+  maxSoles: number = 370;
+  maxDolares: number = 100;
+  excedeMonto: boolean = false;
+
   ngOnInit(): void {
     this.fechaMax = new Date();
     this.inicializar();
@@ -123,6 +130,9 @@ export class CdetalleComponent implements OnInit {
   inicializar(){
     //debugger;
     var rendD = new RendicionD();
+
+    if(this.tipo === 'M')
+      rendD.codConcepto = '002' //Movilidad
 
     this.form = new FormGroup({
       'ideRendicionDet': new FormControl({ value: rendD.ideRendicionDet, disabled: false}),
@@ -145,6 +155,10 @@ export class CdetalleComponent implements OnInit {
 
     //Si es un registro nuevo, carga caché en campos
     if(rendDet.ideRendicionDet === 0){
+      
+      if(this.tipo === 'M')
+        rendDet.codConcepto = '002' //Movilidad
+      
       let filtro = this.usuarioService.sessionDetalle();
       if(filtro!=null){
         rendDet.comodato = filtro[0];
@@ -167,7 +181,15 @@ export class CdetalleComponent implements OnInit {
       descripcion: rendDet.descripcion,
       rucPrv: rendDet.rucPrv,
       proveedor: rendDet.proveedor
-    })
+    });
+
+    this.excedeMonto = false;
+    if(this.enRevision){
+      var excedeSoles = rendDet.codMoneda == '001' && rendDet.monto! > this.maxSoles;
+      var excedeDolares = rendDet.codMoneda == '002' && rendDet.monto! > this.maxDolares;
+      if(excedeSoles || excedeDolares)
+        this.excedeMonto = true;
+    }    
   
     this.existCambio = false;
     this.nombreAdjunto = rendDet.nombreAdjunto!;
@@ -195,7 +217,10 @@ export class CdetalleComponent implements OnInit {
       }
       else{
         var tbCombobox: Combobox[] = data.items;
-        
+
+        this.tbMaxMonto = this.obtenerSubtabla(tbCombobox,'MAXMONTO');
+        this.configuraMontosMaximos(this.tbMaxMonto);
+
         this.tbComodato = this.obtenerSubtabla(tbCombobox,'COMODATO');
         this.filterComodato = this.tbComodato;
 
@@ -221,6 +246,22 @@ export class CdetalleComponent implements OnInit {
         this.spinner.hideLoading();
       }
     });
+  }
+
+  configuraMontosMaximos(tb: Combobox[]){
+    var objSoles = tb.find(e => e.valor === '001');
+    if(objSoles !== undefined){
+      var monSoles = Number(objSoles.aux1);
+      if(!isNaN(monSoles))
+        this.maxSoles = monSoles;
+    }
+
+    var objDolares = tb.find(e => e.valor === '002');
+    if(objDolares !== undefined){
+      var monDolares = Number(objDolares.aux1);
+      if(!isNaN(monDolares))
+        this.maxDolares = monDolares;
+    }
   }
 
   completarCombo(json: any){
@@ -273,6 +314,9 @@ export class CdetalleComponent implements OnInit {
   limpiar(){
     let rendDet: RendicionD = new RendicionD();
     rendDet.ideRendicion = this.data.idPadre;
+
+    if(this.tipo === 'M')
+      rendDet.codConcepto = '002' //Movilidad
 
     let filtro = this.usuarioService.sessionDetalle();
     if(filtro!=null){
