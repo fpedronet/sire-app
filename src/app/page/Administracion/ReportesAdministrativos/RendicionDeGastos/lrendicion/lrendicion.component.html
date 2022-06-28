@@ -129,7 +129,7 @@
             <ng-container matColumnDef="mo">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Móbil</mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
-                <a class="pointer edit" [routerLink]="['edit', element.ideRendicion]">
+                <a class="pointer edit">
                   <div class="circulo {{getClassEstado(element.ideEstado)}}" style="margin-left: 0px;"></div>
                 </a>
                 <div class="responsive-estado" style="font-weight:600;color: midnightblue; padding-left: 5px">{{element.estado}}</div>     

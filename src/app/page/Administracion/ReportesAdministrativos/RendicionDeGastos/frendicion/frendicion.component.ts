@@ -342,4 +342,14 @@ export class FrendicionComponent implements OnInit {
     return results.slice(0,this.nroMuestraAuto===0?results.length:this.nroMuestraAuto);
   }
 
+  regresaUsuario(){
+    if(this.idUsuario === ''){
+      var usuarioFind = this.tbUsuario.find(e => e.valor === '0'); //Usuario
+      if(usuarioFind !== undefined){
+        var usuario: Combobox = usuarioFind;      
+        this.setCurUsuario(usuario);
+      }
+    }      
+  }
+
 }
