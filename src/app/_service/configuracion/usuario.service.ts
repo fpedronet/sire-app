@@ -26,6 +26,19 @@ export class UsuarioService {
     return this.http.post<TokenUsuario>(urls, usuario);
   }
 
+  refreshtoken(){
+    let urls = `${this.url}/PostRefreshToken`;
+    let model = new TokenUsuario();
+
+    model.access_token = localStorage.getItem(environment.TOKEN_NAME)!;
+
+    return this.http.post<TokenUsuario>(urls, model);
+  }
+
+  savetoken(token: TokenUsuario){
+    localStorage.setItem(environment.TOKEN_NAME, token.access_token!);
+  }
+
  actualizarpasswordsharePoint(usuario: Usuario){
     let urls = `${this.url}/PostActualizarPasswordSharePoint`;
 
@@ -37,8 +50,6 @@ export class UsuarioService {
     let token = localStorage.getItem(environment.TOKEN_NAME);
     let codigoempresa = localStorage.getItem(environment.CODIGO_EMPRESA);
     let contraseniaSharepoint = localStorage.getItem(environment.PASSWORD_SHAREPOINT);
-
-    //debugger;
 
     if (!helper.isTokenExpired(token!)){
           let decodedToken = helper.decodeToken(token!);       

@@ -51,7 +51,6 @@ export class LayoutComponent implements OnInit {
     let session = this.usuarioService.sessionUsuario();
 
     if(session!=null){
-      //debugger;
       this.username= session.nombreConocido.toUpperCase();
       this.userdni =  session.dniEmp;
       this.user = session.strFoto !== ''?session.strFoto:this.user;
@@ -68,8 +67,7 @@ export class LayoutComponent implements OnInit {
           this.codigo = data.listaEmpresa![0].codigo;
           this.empresa = data.listaEmpresa![0].nombreEmpresa;
         }
-        //debugger;
-       
+
         this.count = (data.listaEmpresa?.length!>1)? true: false;     
         this.menus.listaMenu = data.listaMenu;
 
@@ -84,7 +82,6 @@ export class LayoutComponent implements OnInit {
   }
 
   selectempresa(idbanco: number){
-    debugger;
     this.spinner.showLoading();
     let split = this.router.url.split('/');
     localStorage.setItem(environment.CODIGO_EMPRESA, idbanco.toString()!);
@@ -95,18 +92,6 @@ export class LayoutComponent implements OnInit {
 
     }else if(split.length >= 5){
       this.router.navigate(["page/home"]);
-      // window.location.reload();
-      // let $modulo = split[2];
-      // let modulo = forms.aspirante.modulo;
-      // let $nombre = split[3];
-
-      // if($modulo==modulo){
-
-      //   let $url = ($nombre ==forms.aspirantesligth.nombre)? forms.aspirantesligth.nombre : forms.aspirante.nombre;
-      //   let url = "/page/" + split[2] + "/" + $url;
-      //   this.router.navigate([url]);
-
-      // }
     }
     else{
       window.location.reload();
@@ -115,7 +100,6 @@ export class LayoutComponent implements OnInit {
   }
 
   clearLocalStore(){
-    //debugger;
     this.isshow = false;
     localStorage.setItem(environment.CODIGO_FILTRO, "");    
   }
