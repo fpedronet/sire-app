@@ -18,11 +18,12 @@ export class InterceptorService implements HttpInterceptor {
     private usuarioService : UsuarioService,
   ) { }
 
-intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  let token =localStorage.getItem(environment.TOKEN_NAME);
+intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  let session =this.usuarioService.sessionUsuario();
   let request = req;
 
-    if (token) {
+    if (session!=null) {
+      let token =localStorage.getItem(environment.TOKEN_NAME);
       request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
     }
     if (!request.headers.has('Content-Type')) {
@@ -32,14 +33,15 @@ intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
      request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 
      return next.handle(request).pipe(
-      map((event: HttpEvent<any>) => {
-          if (event instanceof HttpResponse) {
-              // console.log('event--->>>', event);
-              this.spinner.hideLoading();
-          }
-          return event;
-      }),
-      catchError(error => {
+      // map((event: HttpEvent<any>) => {
+      //     if (event instanceof HttpResponse) {
+      //         // console.log('event--->>>', event);
+      //         this.spinner.hideLoading();
+      //     }
+      //     return event;
+      // }),
+      catchError((error: HttpErrorResponse) => {
+       
           let errorMsg = '';
           if(error.status === 401){           
            return this.handleRefreshToken(req,next);
