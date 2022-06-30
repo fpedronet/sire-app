@@ -108,7 +108,8 @@ export class LayoutComponent implements OnInit {
   closeLogin(){
     this.isshow = false;
     localStorage.clear();
-    this.router.navigate(['']);
+    // this.router.navigate(['']);
+    window.location.reload();
   }
 
   abrirperfil(){

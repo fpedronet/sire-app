@@ -366,14 +366,25 @@ export class CdetalleComponent implements OnInit {
     model.descripcion = this.form.value['descripcion'];
     model.rucPrv = this.form.value['rucPrv'];
     model.proveedor = this.form.value['proveedor'];
-
     model.codigo = this.codigo;
     model.emailEmp = this.usuarioService.sessionUsuario()?.emailEmp;
     model.password = this.usuarioService.sessionUsuario()?.contraseniaSharepoint;
     model.adjunto = this.adjunto;
     model.url = this.url;
     model.url_M = this.url_M;
-    model.nombreAdjunto = this.nombreAdjunto;
+    debugger;
+    if(this.adjunto!=null && this.adjunto!="" && this.adjunto!=undefined){
+      var split = this.nombreAdjunto.split('.');
+      if(split.length > 0){
+        let count = split.length - 1;
+        model.nombreAdjunto = (model.rucPrv != null && model.rucPrv!="" && model.rucPrv!=undefined)? model.rucPrv + '-'  : "";
+        model.nombreAdjunto += (model.tipDocu != null && model.tipDocu!="" && model.tipDocu!=undefined)? model.tipDocu + '-'  : "";
+        model.nombreAdjunto += (model.documento != null && model.documento!="" && model.documento!=undefined)? model.documento  : "";
+        model.nombreAdjunto += '.' + split[count];
+      }
+    }else{
+      model.nombreAdjunto = this.nombreAdjunto;
+    }
 
     this.spinner.showLoading();
 
