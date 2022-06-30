@@ -55,7 +55,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     HttpClientModule,
     MatInputModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
+      enabled: environment.production,      
       registrationStrategy: 'registerWhenStable:30000'
     })
    ],

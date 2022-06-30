@@ -26,6 +26,19 @@ export class UsuarioService {
     return this.http.post<TokenUsuario>(urls, usuario);
   }
 
+  refreshtoken(){
+    let urls = `${this.url}/PostRefreshToken`;
+    let model = new TokenUsuario();
+
+    model.access_token = localStorage.getItem(environment.TOKEN_NAME)!;
+
+    return this.http.post<TokenUsuario>(urls, model);
+  }
+
+  savetoken(token: TokenUsuario){
+    localStorage.setItem(environment.TOKEN_NAME, token.access_token!);
+  }
+
  actualizarpasswordsharePoint(usuario: Usuario){
     let urls = `${this.url}/PostActualizarPasswordSharePoint`;
 
@@ -38,16 +51,18 @@ export class UsuarioService {
     let codigoempresa = localStorage.getItem(environment.CODIGO_EMPRESA);
     let contraseniaSharepoint = localStorage.getItem(environment.PASSWORD_SHAREPOINT);
 
-    //debugger;
-
-    if (!helper.isTokenExpired(token!)){
-          let decodedToken = helper.decodeToken(token!);       
-          decodedToken.codigoempresa =codigoempresa;
-          decodedToken.contraseniaSharepoint = contraseniaSharepoint;
-          return decodedToken;
-    }else{
-      return null;
-    }
+    // if (!helper.isTokenExpired(token!)){
+      if(token!=null){
+        let decodedToken = helper.decodeToken(token!);       
+        decodedToken.codigoempresa =codigoempresa;
+        decodedToken.contraseniaSharepoint = contraseniaSharepoint;
+        return decodedToken;
+      }else{
+        return null
+      }
+    // }else{
+    //   return null;
+    // }
   }
 
   sessionFiltro(){

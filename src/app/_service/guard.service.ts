@@ -63,7 +63,8 @@ export class GuardService implements CanActivate {
         }
 
       }))     
-    } else {
+    } 
+    else {
       this.usuarioService.closeLogin();
       return false;
     }

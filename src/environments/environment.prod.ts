@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
 
-  //UrlApi:'https://service.poclab.pe/sire/api',  
-  //UrlImage:'assets/',
+  // UrlApi:'https://service.poclab.pe/sire/api',  
+  // UrlImage:'assets/',
 
   // UrlApi:'https://sitedev.poclab.pe/siredev/api',  
   // UrlImage:'assets/',
