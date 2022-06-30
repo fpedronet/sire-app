@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { NotifierService } from '../page/component/notifier/notifier.service';
 import { SpinnerService } from '../page/component/spinner/spinner.service';
 import { UsuarioService } from '../_service/configuracion/usuario.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,11 @@ export class InterceptorService implements HttpInterceptor {
   ) { }
 
 intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-  let session =this.usuarioService.sessionUsuario();
-  let request = req;
+    let helper = new JwtHelperService();
+    let token =localStorage.getItem(environment.TOKEN_NAME);
+    let request = req;
 
-    if (session!=null) {
-      let token =localStorage.getItem(environment.TOKEN_NAME);
+    if (!helper.isTokenExpired(token!)){
       request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
     }
     if (!request.headers.has('Content-Type')) {
@@ -33,13 +34,6 @@ intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<un
      request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 
      return next.handle(request).pipe(
-      // map((event: HttpEvent<any>) => {
-      //     if (event instanceof HttpResponse) {
-      //         // console.log('event--->>>', event);
-      //         this.spinner.hideLoading();
-      //     }
-      //     return event;
-      // }),
       catchError((error: HttpErrorResponse) => {
        
           let errorMsg = '';
@@ -74,7 +68,7 @@ intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<un
    );
   }
 
-  AddTokenheader(req: HttpRequest<any>, token:any){
-    return req.clone({headers: req.headers.set('Authorization', 'Bearer'+ token)});
+  AddTokenheader(req: HttpRequest<unknown>, token:unknown){
+    return req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
   }
 }

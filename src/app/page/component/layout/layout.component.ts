@@ -44,7 +44,7 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.listar();   
-    this.startTimer();
+    // this.startTimer();
   }
 
   listar(){

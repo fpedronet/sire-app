@@ -51,14 +51,18 @@ export class UsuarioService {
     let codigoempresa = localStorage.getItem(environment.CODIGO_EMPRESA);
     let contraseniaSharepoint = localStorage.getItem(environment.PASSWORD_SHAREPOINT);
 
-    if (!helper.isTokenExpired(token!)){
-          let decodedToken = helper.decodeToken(token!);       
-          decodedToken.codigoempresa =codigoempresa;
-          decodedToken.contraseniaSharepoint = contraseniaSharepoint;
-          return decodedToken;
-    }else{
-      return null;
-    }
+    // if (!helper.isTokenExpired(token!)){
+      if(token!=null){
+        let decodedToken = helper.decodeToken(token!);       
+        decodedToken.codigoempresa =codigoempresa;
+        decodedToken.contraseniaSharepoint = contraseniaSharepoint;
+        return decodedToken;
+      }else{
+        return null
+      }
+    // }else{
+    //   return null;
+    // }
   }
 
   sessionFiltro(){
