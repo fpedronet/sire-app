@@ -78,7 +78,8 @@ export class LayoutComponent implements OnInit {
         this.spinner.hideLoading();
       });
     }else{
-      this.usuarioService.closeLogin();
+      localStorage.clear();
+      this.router.navigate(['']);
     }  
   }
 
@@ -128,15 +129,15 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-  startTimer() {
-    this.interval = setInterval(() => {
-        let session = this.usuarioService.sessionUsuario();
-        if(session==null){
-          clearInterval(this.interval);
-          this.usuarioService.closeLogin();
-          window.location.reload();
-        }
+  // startTimer() {
+  //   this.interval = setInterval(() => {
+  //       let session = this.usuarioService.sessionUsuario();
+  //       if(session==null){
+  //         clearInterval(this.interval);
+  //         this.usuarioService.closeLogin();
+  //         window.location.reload();
+  //       }
 
-    },30000)
-  }
+  //   },30000)
+  // }
 }

@@ -87,8 +87,9 @@ export class UsuarioService {
 
   closeLogin(){
     localStorage.clear();
-    // this.router.navigate(['']);
+    //this.router.navigate(['']);
     window.location.reload();
+    // return false;
   }
 
 }

@@ -65,7 +65,9 @@ export class GuardService implements CanActivate {
       }))     
     } 
     else {
-      this.usuarioService.closeLogin();
+      localStorage.clear();
+      // this.router.navigate(['']);
+      window.location.reload();
       return false;
     }
   } 
