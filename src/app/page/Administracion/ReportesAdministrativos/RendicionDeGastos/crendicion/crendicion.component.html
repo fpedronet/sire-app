@@ -59,15 +59,21 @@
   <br style="clear:both;"/>
   <form onkeydown="return event.key != 'Enter';" class="forms" id="ngForm" [formGroup]="form" #frmGrupo="ngForm" (ngSubmit)="guardar()">
 
-    
-    <mat-stepper #stepper id="stepper" [selectedIndex]="currentTab" (click)="changestepper(stepper)">
-      <mat-step>
+    <mat-stepper #stepper id="stepper" [selectedIndex]="currentTab" (click)="changestepper(stepper)" [linear]="true">
+      <mat-step [completed]="(id === 0) || (rendicionCargada !== undefined && id !== 0 && !camposCambiados(rendicionCargada!))">
         <ng-template matStepperIcon="edit">
         </ng-template>
         <ng-template matStepLabel>
           Principal
         </ng-template>        
         <div class="content">
+
+          <div style="padding-bottom: 10px; color: red;">
+            <mat-label *ngIf="rendicionCargada !== undefined && id !== 0 && camposCambiados(rendicionCargada!)">
+              *Tiene cambios sin guardar
+            </mat-label>
+          </div>         
+
           <div fxLayout="row wrap" fxLayoutGap="16px grid">
             <div [hidden]="true">
               <mat-form-field appearance="outline">
@@ -80,8 +86,8 @@
               <mat-label>{{getControlLabel('estado')}}</mat-label>
               <div>
                   <mat-label>{{getControlLabel('codigo')}}</mat-label>
-              </div>  
-            </div>
+              </div>
+            </div> 
 
             <div div fxFlex="75%" fxFlex.xs="100%" fxFlex.sm="100%">
               <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">

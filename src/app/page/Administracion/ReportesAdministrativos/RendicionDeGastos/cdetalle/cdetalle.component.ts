@@ -367,7 +367,10 @@ export class CdetalleComponent implements OnInit {
     model.tipDocu = this.form.value['nTipDocu'];
     model.documento = this.form.value['documento'];
     model.codMoneda = this.form.value['codMoneda'];
-    model.monto = this.form.value['monto'] === ''?0:this.form.value['monto'];
+
+    var nMonto = Number(this.form.value['monto']);
+    model.monto = isNaN(nMonto)?0:nMonto;
+
     model.descripcion = this.form.value['descripcion'];
     model.rucPrv = this.form.value['rucPrv'];
     model.proveedor = this.form.value['proveedor'];
@@ -707,7 +710,7 @@ export class CdetalleComponent implements OnInit {
     var tipDocu: boolean = rendDet.nTipDocu !== this.getControlLabel('nTipDocu');
     var documento: boolean = rendDet.documento !== this.getControlLabel('documento');
     var codMoneda: boolean = rendDet.codMoneda !== this.getControlLabel('codMoneda');
-    var monto: boolean = rendDet.monto?.toFixed(2) !== this.getControlLabel('monto');
+    var monto: boolean = rendDet.monto !== Number(this.getControlLabel('monto'));
     var descripcion: boolean = rendDet.descripcion !== this.getControlLabel('descripcion');
     var rucPrv: boolean = rendDet.rucPrv !== this.getControlLabel('rucPrv');
     var proveedor: boolean = rendDet.proveedor !== this.getControlLabel('proveedor');
