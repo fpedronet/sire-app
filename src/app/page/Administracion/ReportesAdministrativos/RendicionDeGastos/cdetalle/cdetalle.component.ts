@@ -237,7 +237,11 @@ export class CdetalleComponent implements OnInit {
           map(value2 => (typeof value2 === 'string'?value2:value2.descripcion)),
           map(name2  => (name2?this.buscarLineas(name2):[]))
         )
+
         this.tbConcepto = this.completarCombo(jsonConcepto);
+        if(this.tipo === 'M')
+          this.tbConcepto = this.tbConcepto.filter(e => e.aux1 === 'M');
+
         this.tbMoneda = this.completarCombo(jsonMoneda);
         this.tbTipoDocu = this.completarCombo(jsonTipoDocu);
 
@@ -272,6 +276,7 @@ export class CdetalleComponent implements OnInit {
 
       el.valor = json[i].valor;
       el.descripcion = json[i].descripcion;
+      el.aux1 = json[i].aux1;
       el.visual = json[i].visual;
       
       tbCombo.push(el);

@@ -2,21 +2,25 @@
     {
         "valor": "001",
         "descripcion": "ALIMENTACIÓN",
+        "aux1": "",
         "visual": true
     },
     {
         "valor": "002",
         "descripcion": "MOVILIDAD",
+        "aux1": "M",
         "visual": true
     },
     {
         "valor": "003",
         "descripcion": "HOSPEDAJE",
+        "aux1": "",
         "visual": true
     },
     {
         "valor": "004",
         "descripcion": "OTROS",
+        "aux1": "M",
         "visual": true
     }
 ]
