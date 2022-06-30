@@ -318,7 +318,9 @@ export class CrendicionComponent implements OnInit {
             this.curMoneda = this.dataSource[0].codMoneda!;
           }
           else{
-            this.currentTab = 1; //Segunda pestaña
+            //debugger;
+            this.existRendicion = true;
+            setTimeout(this.changestepper, 250, undefined, 1);
           }
           
         }
@@ -393,7 +395,8 @@ export class CrendicionComponent implements OnInit {
     var lugar: boolean = rend.lugar !== this.getControlLabel('lugar');
     var motivo: boolean = rend.motivo !== this.getControlLabel('motivo');
     var tipo: boolean = rend.tipo !== this.getControlLabel('tipo');
-    var ingresos: boolean = rend.ingresos?.toFixed(2) !== this.getControlLabel('ingresos');
+    var ingresos: boolean = rend.ingresos !== Number(this.getControlLabel('ingresos'));
+    //debugger;
     return lugar || motivo || tipo || ingresos;
   }
 
@@ -483,8 +486,12 @@ export class CrendicionComponent implements OnInit {
     return true;
   }
 
-  changestepper(stepper: any){
-    this.currentTab = stepper._selectedIndex;
+  changestepper(stepper: any, numTab: number = -1){
+    //debugger;
+    if(numTab === -1)
+      this.currentTab = stepper._selectedIndex;
+    else
+      this.currentTab = numTab;
   }
 
   guardar(){

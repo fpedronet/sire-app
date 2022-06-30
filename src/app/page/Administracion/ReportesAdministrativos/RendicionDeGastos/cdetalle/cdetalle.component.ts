@@ -237,7 +237,11 @@ export class CdetalleComponent implements OnInit {
           map(value2 => (typeof value2 === 'string'?value2:value2.descripcion)),
           map(name2  => (name2?this.buscarLineas(name2):[]))
         )
+
         this.tbConcepto = this.completarCombo(jsonConcepto);
+        if(this.tipo === 'M')
+          this.tbConcepto = this.tbConcepto.filter(e => e.aux1 === 'M');
+
         this.tbMoneda = this.completarCombo(jsonMoneda);
         this.tbTipoDocu = this.completarCombo(jsonTipoDocu);
 
@@ -272,6 +276,7 @@ export class CdetalleComponent implements OnInit {
 
       el.valor = json[i].valor;
       el.descripcion = json[i].descripcion;
+      el.aux1 = json[i].aux1;
       el.visual = json[i].visual;
       
       tbCombo.push(el);
@@ -362,7 +367,10 @@ export class CdetalleComponent implements OnInit {
     model.tipDocu = this.form.value['nTipDocu'];
     model.documento = this.form.value['documento'];
     model.codMoneda = this.form.value['codMoneda'];
-    model.monto = this.form.value['monto'] === ''?0:this.form.value['monto'];
+
+    var nMonto = Number(this.form.value['monto']);
+    model.monto = isNaN(nMonto)?0:nMonto;
+
     model.descripcion = this.form.value['descripcion'];
     model.rucPrv = this.form.value['rucPrv'];
     model.proveedor = this.form.value['proveedor'];
@@ -713,7 +721,7 @@ export class CdetalleComponent implements OnInit {
     var tipDocu: boolean = rendDet.nTipDocu !== this.getControlLabel('nTipDocu');
     var documento: boolean = rendDet.documento !== this.getControlLabel('documento');
     var codMoneda: boolean = rendDet.codMoneda !== this.getControlLabel('codMoneda');
-    var monto: boolean = rendDet.monto?.toFixed(2) !== this.getControlLabel('monto');
+    var monto: boolean = rendDet.monto !== Number(this.getControlLabel('monto'));
     var descripcion: boolean = rendDet.descripcion !== this.getControlLabel('descripcion');
     var rucPrv: boolean = rendDet.rucPrv !== this.getControlLabel('rucPrv');
     var proveedor: boolean = rendDet.proveedor !== this.getControlLabel('proveedor');
