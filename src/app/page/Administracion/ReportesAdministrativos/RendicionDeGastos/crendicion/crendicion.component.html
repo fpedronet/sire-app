@@ -258,9 +258,9 @@
               </ng-container>
 
               <ng-container matColumnDef="adjunto">
-                <mat-header-cell *matHeaderCellDef> Adjunto </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Adjunto">
-                  <a *ngIf="element.url!=null && element.url!=''" class="pointer ver" matTooltip="Link" href="{{element.url}}" target="_blank">
+                <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Adjunto </mat-header-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Adjunto">
+                  <a *ngIf="element.url!=null && element.url!=''" class="pointer ver" matTooltip="Adjunto" href="{{element.url}}" target="_blank">
                     <mat-icon>attach_file</mat-icon>
                   </a>
                 </mat-cell>
@@ -268,7 +268,7 @@
   
               <ng-container matColumnDef="accion">
                 <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> </mat-header-cell>
-                <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
+                <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">
                   <a *ngIf="!edit" class="pointer ver" matTooltip="Ver" (click)="abrirDetalle(element)">
                     <mat-icon>visibility</mat-icon>
                   </a>
@@ -285,6 +285,9 @@
                 <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Mobil</mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
                   <div style="margin-left:auto;">
+                    <a *ngIf="element.url!=null && element.url!=''" class="pointer ver" matTooltip="Adjunto" href="{{element.url}}" target="_blank">
+                      <mat-icon>attach_file</mat-icon>
+                    </a>
                     <a *ngIf="!edit" class="pointer ver" matTooltip="Ver" (click)="abrirDetalle(element)">
                       <mat-icon>visibility</mat-icon>
                     </a>

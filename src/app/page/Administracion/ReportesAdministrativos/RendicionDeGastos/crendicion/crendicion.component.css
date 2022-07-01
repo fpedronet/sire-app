@@ -15,3 +15,147 @@
     color:#807e7e;
     font-weight:500
   }
+
+  .mat-column-concepto {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 13% ;
+    width: 13% ;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-fecha {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 10% ;
+    width: 10% ;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-documento {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 10% ;
+    width: 10% ;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-monto {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 10% ;
+    width: 10% ;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-proveedor {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 15% ;
+    width: 15% ;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-descripcion {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 17% ;
+    width: 17% ;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-comodato {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 12% ;
+    width: 12% ;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-adjunto {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 5% ;
+    width: 5% ;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-accion {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 8% ;
+    width: 8% ;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }

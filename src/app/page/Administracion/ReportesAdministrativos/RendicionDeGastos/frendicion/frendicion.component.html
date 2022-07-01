@@ -26,7 +26,7 @@
   <mat-form-field [color]="usuarioColor" minlength="1" maxlength="100" *ngIf="permiso.vertodos || idPantalla !== 1" appearance="outline">
     <mat-label>Usuario</mat-label>
     <input #USUARIO type="text" matInput [formControl]="controlUsuarios" [matAutocomplete]="autoLinea" required>
-    <button *ngIf="USUARIO.value" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="USUARIO.value=''; setCurUsuario(undefined, true)">
+    <button *ngIf="USUARIO.value" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="USUARIO.value=''; setCurUsuario(undefined, true); initFilterUsuarios();">
         <mat-icon>close</mat-icon>
     </button>
     <mat-autocomplete #autoLinea="matAutocomplete" [displayWith]="mostrarAutoCombo" (optionSelected)="changeUsuario($event)">
@@ -38,28 +38,39 @@
 
   <mat-label>Estado</mat-label>
   <div *ngFor="let el of listaEstados">
-      <label *ngIf="el.visual">          
-          <div class="circulo {{getClassEstado(el.valor)}}" style="width: 20px; height: 20px; margin-bottom: -4px; margin-right: 5px;"></div>
+      <label *ngIf="el.visual">
           <input type="checkbox" [value]="el.valor" (change)="onCheckboxChange($event)" [(ngModel)]="el.isChecked"/>
+          <div class="circulo {{getClassEstado(el.valor)}}" style="width: 20px; height: 20px; margin-bottom: -4px; margin-right: 2px;"></div>
           {{el.descripcion}}
       </label>
   </div>
-  
-  <mat-form-field appearance="outline" style="margin-top: 15px;">
-    <mat-label>Fecha Inicio</mat-label>
-    <input matInput [matDatepicker]="fechaInicio" placeholder="dd/mm/yyyy" [max]="fechaInicio" 
-    [(ngModel)]="fechaSelectIni"  (dateChange)="onDateChange()" [max]="fechaMax">
-    <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
-    <mat-datepicker #fechaInicio></mat-datepicker>
-  </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Fecha Fin</mat-label>
-    <input matInput [matDatepicker]="fechaFin" placeholder="dd/mm/yyyy" [max]="fechaFin" 
-    [(ngModel)]="fechaSelectFin" (dateChange)="onDateChange()" [max]="fechaMax">
-    <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
-    <mat-datepicker #fechaFin></mat-datepicker>
-  </mat-form-field>
+  <div class="content contentTable">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+        <mat-form-field appearance="outline" style="margin-top: 15px;">
+          <mat-label>Fecha Inicio</mat-label>
+          <input matInput [matDatepicker]="fechaInicio" placeholder="dd/mm/yyyy" [max]="fechaInicio" 
+          [(ngModel)]="fechaSelectIni"  (dateChange)="onDateChange()" [max]="fechaMax">
+          <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+          <mat-datepicker #fechaInicio></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+        <mat-form-field appearance="outline" style="margin-top: 15px;">
+          <mat-label>Fecha Fin</mat-label>
+          <input matInput [matDatepicker]="fechaFin" placeholder="dd/mm/yyyy" [max]="fechaFin" 
+          [(ngModel)]="fechaSelectFin" (dateChange)="onDateChange()" [max]="fechaMax">
+          <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
+          <mat-datepicker #fechaFin></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  
+
+
 
 </mat-dialog-content>
 

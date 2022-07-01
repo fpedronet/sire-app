@@ -503,6 +503,56 @@ form{
     color: #ffffff;
     text-align: center;
   }
+
+  .mat-column-codigo {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+  .mat-column-tipo {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+  .mat-column-lugar {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+  .mat-column-motivo {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+  .mat-column-balance {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+
+  .mat-column-concepto {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+  .mat-column-fecha {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+  .mat-column-documento {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+  .mat-column-monto {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+  .mat-column-proveedor {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+  .mat-column-descripcion {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+  .mat-column-comodato {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
 }
 
 @media (max-width:768px){

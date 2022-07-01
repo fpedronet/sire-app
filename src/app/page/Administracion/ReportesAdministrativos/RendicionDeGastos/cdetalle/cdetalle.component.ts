@@ -225,18 +225,10 @@ export class CdetalleComponent implements OnInit {
         this.filterComodato = this.tbComodato;
 
         this.tbSede = this.obtenerSubtabla(tbCombobox,'SEDE');
-        this.filterSedes = this.controlSedes.valueChanges.pipe(
-          startWith(''),
-          map(value => (typeof value === 'string'?value:value.descripcion)),
-          map(name  => (name?this.buscarSedes(name):[]))
-        )
+        this.initFilterSedes();
 
         this.tbLinea = this.obtenerSubtabla(tbCombobox,'LINEA');
-        this.filterLineas = this.controlLineas.valueChanges.pipe(
-          startWith(''),
-          map(value2 => (typeof value2 === 'string'?value2:value2.descripcion)),
-          map(name2  => (name2?this.buscarLineas(name2):[]))
-        )
+        this.initFilterLineas();
 
         this.tbConcepto = this.completarCombo(jsonConcepto);
         if(this.tipo === 'M')
@@ -250,6 +242,26 @@ export class CdetalleComponent implements OnInit {
         this.spinner.hideLoading();
       }
     });
+  }
+
+  initFilterSedes(reiniciaCmd: boolean = false){
+    this.filterSedes = this.controlSedes.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string'?value:value.descripcion)),
+      map(name  => (name?this.buscarSedes(name):[]))
+    );
+    if(reiniciaCmd)
+      this.initFilterLineas();
+  }
+
+  initFilterLineas(reiniciaCmd: boolean = false){
+    this.filterLineas = this.controlLineas.valueChanges.pipe(
+      startWith(''),
+      map(value2 => (typeof value2 === 'string'?value2:value2.descripcion)),
+      map(name2  => (name2?this.buscarLineas(name2):[]))
+    );
+    if(reiniciaCmd)
+      this.initFilterSedes();
   }
 
   configuraMontosMaximos(tb: Combobox[]){

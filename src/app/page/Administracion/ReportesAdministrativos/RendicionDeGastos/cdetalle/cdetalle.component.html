@@ -134,7 +134,7 @@
               <mat-form-field [color]="sedeColor" minlength="1" maxlength="100" appearance="outline">
                 <mat-label>Sede</mat-label>
                 <input #SEDE type="text" matInput [formControl]="controlSedes" [matAutocomplete]="autoSede" [readonly]="!edit || (edit && COMODATO.value!=='CMD')" required>
-                <button *ngIf="SEDE.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="SEDE.value=''; LINEA.value=''; setCurSede(undefined, true, true);">
+                <button *ngIf="SEDE.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="SEDE.value=''; LINEA.value=''; setCurSede(undefined, true, true); initFilterSedes();">
                     <mat-icon>close</mat-icon>
                 </button>
                 <mat-autocomplete #autoSede="matAutocomplete" [displayWith]="mostrarAutoCombo" (optionSelected)="changeSede($event)">
@@ -163,7 +163,7 @@
               <mat-form-field [color]="lineaColor" minlength="1" maxlength="100" appearance="outline">
                 <mat-label>Linea</mat-label>
                 <input #LINEA type="text" matInput [formControl]="controlLineas" [matAutocomplete]="autoLinea" [readonly]="!edit || (edit && COMODATO.value!=='CMD')" required>
-                <button *ngIf="LINEA.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="LINEA.value=''; SEDE.value=''; setCurLinea(undefined, true, true);">
+                <button *ngIf="LINEA.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="LINEA.value=''; SEDE.value=''; setCurLinea(undefined, true, true); initFilterLineas(true);">
                     <mat-icon>close</mat-icon>
                 </button>
                 <mat-autocomplete #autoLinea="matAutocomplete" [displayWith]="mostrarAutoCombo" (optionSelected)="changeLinea($event)">

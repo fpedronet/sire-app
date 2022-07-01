@@ -12,8 +12,9 @@ import { NotifierService } from 'src/app/page/component/notifier/notifier.servic
 import { ConfigPermisoService } from 'src/app/_service/configpermiso.service';
 import { Permiso } from 'src/app/_model/permiso';
 import forms from 'src/assets/json/formulario.json';
-import { map, Observable, startWith } from 'rxjs';
+import { map, Observable, of, startWith } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-frendicion',
@@ -38,7 +39,8 @@ export class FrendicionComponent implements OnInit {
       this.titulos = this.data.titulos;
   }
 
-
+  @ViewChild(MatAutocompleteTrigger)
+  autocompleteTrigger!: MatAutocompleteTrigger;
   loading = true;
 
   codigo? : string;
@@ -104,16 +106,20 @@ export class FrendicionComponent implements OnInit {
           //debugger;
           
           this.tbUsuario = this.obtenerSubtabla(tbCombobox,'USUARIO');
-          this.filterUsuarios = this.controlUsuarios.valueChanges.pipe(
-            startWith(''),
-            map(value => (typeof value === 'string'?value:value.descripcion)),
-            map(name  => (name?this.buscarUsuarios(name):[]))
-          )
+          this.initFilterUsuarios();
         }
         resolve('ok');
       });
     });   
     
+  }
+
+  initFilterUsuarios(){
+    this.filterUsuarios = this.controlUsuarios.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string'?value:value.descripcion)),
+      map(name  => (name?this.buscarUsuarios(name):[]))
+    )
   }
 
   obtenerSubtabla(tb: Combobox[], cod: string){
@@ -322,7 +328,7 @@ export class FrendicionComponent implements OnInit {
       this.usuarioColor = 'primary';
     }
   }
-
+  
   mostrarAutoCombo(c: Combobox): string{
     var result = '';
     if(c !== undefined && c !== null && c.descripcion !== '')
