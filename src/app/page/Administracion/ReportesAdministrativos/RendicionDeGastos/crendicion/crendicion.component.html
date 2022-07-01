@@ -94,7 +94,7 @@
                 <mat-grid-tile [colspan]="12">
                   <mat-form-field appearance="outline">
                     <mat-label>Lugar</mat-label>
-                    <input matInput formControlName="lugar" [readonly]="!edit" required>
+                    <input matInput formControlName="lugar" [readonly]="!edit" maxlength="100" required>
                   </mat-form-field>
                 </mat-grid-tile>
               </mat-grid-list>
@@ -103,7 +103,7 @@
                 <mat-grid-tile [colspan]="12">
                   <mat-form-field appearance="outline">
                     <mat-label>Motivo</mat-label>
-                    <input matInput formControlName="motivo" [readonly]="!edit" required>
+                    <input matInput formControlName="motivo" [readonly]="!edit" maxlength="100" required>
                   </mat-form-field>
                 </mat-grid-tile>
               </mat-grid-list>
@@ -214,7 +214,7 @@
           </div>
 
           <div *ngIf="!existDetalle">
-            No se encontraron detalles.
+            No se encontraron detalles. Seleccione "+" para ingresar el detalle de sus gastos.
           </div>
     
           <div *ngIf="existDetalle" class="example-container mat-elevation-z0">
