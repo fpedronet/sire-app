@@ -117,8 +117,8 @@ export class CdetalleComponent implements OnInit {
   url_M: string = ''
 
   enRevision: boolean = false;
-  maxSoles: number = 370;
-  maxDolares: number = 100;
+  maxSoles: number = 99999999;
+  maxDolares: number = 99999999;
   excedeMonto: boolean = false;
 
   ngOnInit(): void {
@@ -457,7 +457,7 @@ export class CdetalleComponent implements OnInit {
     }
   }
 
-  obtenerProveedor(e?: Event, botonBusqueda: boolean = false){
+  obtenerProveedor(e?: Event, botonBusqueda: boolean = false, blurBusqueda: boolean = false){
     //console.log(e);
     e?.preventDefault(); // Evita otros eventos como blur
 
@@ -468,7 +468,8 @@ export class CdetalleComponent implements OnInit {
           proveedor: data.descripcion
         })
         this.existeProveedor = true;
-        this.notifierService.showNotification(1,'Mensaje','El proveedor fue encontrado');
+        if(!blurBusqueda)
+          this.notifierService.showNotification(1,'Mensaje','El proveedor fue encontrado');
       }
       else{
         if(botonBusqueda)
