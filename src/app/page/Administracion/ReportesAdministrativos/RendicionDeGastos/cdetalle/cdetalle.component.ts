@@ -353,6 +353,7 @@ export class CdetalleComponent implements OnInit {
 
   guardar(){
     let model = new RendicionD();
+    let tipoDocumento = ""; 
     
     model.ideRendicionDet = this.form.value['ideRendicionDet'];
     model.ideRendicion = this.form.value['ideRendicion'];
@@ -380,13 +381,25 @@ export class CdetalleComponent implements OnInit {
     model.adjunto = this.adjunto;
     model.url = this.url;
     model.url_M = this.url_M;
-    debugger;
+
+    if(model.tipDocu != null && model.tipDocu!="" && model.tipDocu!=undefined){
+      if(model.tipDocu=="001"){
+        tipoDocumento = "F";
+      }
+      if(model.tipDocu=="002"){
+        tipoDocumento = "B";
+      }
+      if(model.tipDocu=="003"){
+        tipoDocumento = "R";
+      }
+    }
+
     if(this.adjunto!=null && this.adjunto!="" && this.adjunto!=undefined){
       var split = this.nombreAdjunto.split('.');
       if(split.length > 0){
         let count = split.length - 1;
         model.nombreAdjunto = (model.rucPrv != null && model.rucPrv!="" && model.rucPrv!=undefined)? model.rucPrv + '-'  : "";
-        model.nombreAdjunto += (model.tipDocu != null && model.tipDocu!="" && model.tipDocu!=undefined)? model.tipDocu + '-'  : "";
+        model.nombreAdjunto += (tipoDocumento!="")? model.tipDocu + '-'  : "";
         model.nombreAdjunto += (model.documento != null && model.documento!="" && model.documento!=undefined)? model.documento  : "";
         model.nombreAdjunto += '.' + split[count];
       }
