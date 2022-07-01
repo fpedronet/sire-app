@@ -399,7 +399,7 @@ export class CdetalleComponent implements OnInit {
       if(split.length > 0){
         let count = split.length - 1;
         model.nombreAdjunto = (model.rucPrv != null && model.rucPrv!="" && model.rucPrv!=undefined)? model.rucPrv + '-'  : "";
-        model.nombreAdjunto += (tipoDocumento!="")? model.tipDocu + '-'  : "";
+        model.nombreAdjunto += (tipoDocumento!="")? tipoDocumento + '-'  : "";
         model.nombreAdjunto += (model.documento != null && model.documento!="" && model.documento!=undefined)? model.documento  : "";
         model.nombreAdjunto += '.' + split[count];
       }
