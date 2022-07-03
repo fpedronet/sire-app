@@ -54,10 +54,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     SpinnerModule,
     HttpClientModule,
     MatInputModule,
-    // ServiceWorkerModule.register('ngsw-worker.js', {
-    //   enabled: environment.production,      
-    //   registrationStrategy: 'registerWhenStable:30000'
-    // })
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production      
+      // registrationStrategy: 'registerWhenStable:30000'
+    })
    ],
   providers: [
     {
