@@ -25,7 +25,7 @@ import { SpinnerModule } from './page/component/spinner/spinner.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { ServiceWorkerModule } from '@angular/service-worker';
+// import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -54,10 +54,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     SpinnerModule,
     HttpClientModule,
     MatInputModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production      
-      // registrationStrategy: 'registerWhenStable:30000'
-    })
+    // ServiceWorkerModule.register('ngsw-worker.js', {
+    //   enabled: environment.production      
+    //   registrationStrategy: 'registerWhenStable:30000'
+    // })
    ],
   providers: [
     {

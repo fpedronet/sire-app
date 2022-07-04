@@ -4,15 +4,15 @@
   "theme_color": "#cc3d00",
   "background_color": "#FFFFFF",
   "display": "standalone",
-  "id": "sire",
-  "start_url": "../sire/#/page/home",
-  "scope": "../sire/#/page/home",
+  "id": "/sire/?utm_source=homescreen",
+  "start_url": "/sire/?utm_source=homescreen",
+  "scope": "/sire/?utm_source=homescreen",
   "icons": [
     {
       "src": "assets/icons/icon-216x216.png",
       "sizes": "216x216",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }
