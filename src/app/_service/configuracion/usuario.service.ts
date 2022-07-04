@@ -56,6 +56,7 @@ export class UsuarioService {
         let decodedToken = helper.decodeToken(token!);       
         decodedToken.codigoempresa =codigoempresa;
         decodedToken.contraseniaSharepoint = contraseniaSharepoint;
+        decodedToken.strFoto = localStorage.getItem(environment.FOTO);
         return decodedToken;
       }else{
         return null

@@ -13,6 +13,7 @@ export const environment = {
   TOKEN_AUTH_USERNAME: 'mitomediapp',
   TOKEN_AUTH_PASSWORD: 'mito89codex',
   TOKEN_NAME: 'access_token',
+  FOTO: 'access_foto',
   CODIGO_EMPRESA: 'access_empresa',
   CODIGO_FILTRO: 'access_filtro',
   CODIGO_DETALLE: 'access_detalle',

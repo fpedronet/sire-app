@@ -48,13 +48,13 @@ export class LayoutComponent implements OnInit {
   }
 
   listar(){
-
+ 
     let session = this.usuarioService.sessionUsuario();
 
     if(session!=null){
       this.username= session.nombreConocido.toUpperCase();
       this.userdni =  session.dniEmp;
-      this.user = session.strFoto !== ''?session.strFoto:this.user;
+      this.user = session.strFoto !== ''?session.strFoto : this.user;
       let empresaselect = session.codigoempresa;
 
       this.spinner.showLoading();

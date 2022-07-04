@@ -62,8 +62,10 @@ export class LoginComponent implements OnInit {
 
       this.spinner.showLoading();
       this.usuarioService.login(model).subscribe(data=>{
+
         if(data.typeResponse==environment.EXITO){
           localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
+          localStorage.setItem(environment.FOTO, data.strFoto!);
           localStorage.setItem(environment.CODIGO_EMPRESA, data.codigoEmpresa!);
 
           this.router.navigate(['/page/home']);
