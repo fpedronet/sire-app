@@ -22,13 +22,11 @@
 .menu-header-bg{
   height: 180px;
   width: 320px;
-  background: linear-gradient(90deg,#be3900 43%, #da4f14eb 100%);
-  box-shadow: 4px 0px 10px #ca0404;
-  transform: rotate(-15deg);
-  border-radius: 10px 10px 10px 50px;
   margin-left: -18px;
   margin-top: -61px;
   margin-bottom: 41px;
+  background: -o-linear-gradient(90deg,#be3900 43%, #da4f14eb 100%);
+  background: linear-gradient(90deg,#be3900 43%, #da4f14eb 100%);
 }
 
 .header-content{
@@ -61,12 +59,71 @@
   letter-spacing: 0.4px;
 }
 
+.waves {
+  margin-top: -42px;
+  background: -o-linear-gradient(90deg,#be3900 43%, #da4f14eb 100%);
+  background: linear-gradient(90deg,#be3900 43%, #da4f14eb 100%);
+}
+
+.parallax > use {
+  -webkit-animation: moveForever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+          animation: moveForever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+}
+
+.parallax > use:nth-child(1) {
+  -webkit-animation-delay: -2s;
+          animation-delay: -2s;
+  -webkit-animation-duration: 7s;
+          animation-duration: 7s;
+}
+
+.parallax > use:nth-child(2) {
+  -webkit-animation-delay: -3s;
+          animation-delay: -3s;
+  -webkit-animation-duration: 10s;
+          animation-duration: 10s;
+}
+
+.parallax > use:nth-child(3) {
+  -webkit-animation-delay: -4s;
+          animation-delay: -4s;
+  -webkit-animation-duration: 13s;
+          animation-duration: 13s;
+}
+
+.parallax > use:nth-child(4) {
+  -webkit-animation-delay: -5s;
+          animation-delay: -5s;
+  -webkit-animation-duration: 20s;
+          animation-duration: 20s;
+}
+
+@-webkit-keyframes moveForever {
+  0% {
+      -webkit-transform: translate3d(-90px, 0, 0);
+              transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+      -webkit-transform: translate3d(85px, 0, 0);
+              transform: translate3d(85px, 0, 0);
+  }
+}
+@keyframes moveForever {
+  0% {
+      -webkit-transform: translate3d(-90px, 0, 0);
+              transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+      -webkit-transform: translate3d(85px, 0, 0);
+              transform: translate3d(85px, 0, 0);
+  }
+}
+
 .mat-form-field + .mat-form-field {
   margin-left: 8px;
 }
 
 .submenu{
-  /* padding:0 23px 0px; */
   padding:0 11px 0px;
 }
 
