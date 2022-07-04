@@ -53,7 +53,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatProgressSpinnerModule,
     SpinnerModule,
     HttpClientModule,
-    MatInputModule,
+    MatInputModule
     // ServiceWorkerModule.register('ngsw-worker.js', {
     //   enabled: environment.production      
     //   registrationStrategy: 'registerWhenStable:30000'
