@@ -9,6 +9,7 @@ import { NotifierService } from '../../component/notifier/notifier.service';
 import { SpinnerService } from '../../component/spinner/spinner.service';
 
 import { Usuario } from './../../../_model/configuracion/usuario';
+import * as MobileDetect from 'mobile-detect';
 
 @Component({
   selector: 'app-login',
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit {
 
     model.usuario = this.form.value['usuario'];
     model.contrasenia= this.form.value['clave'];
+    model.mobile = true;
 
     if(model.usuario==null || model.contrasenia==""){
       if(model.usuario==null || model.usuario==""){
@@ -60,10 +62,20 @@ export class LoginComponent implements OnInit {
 
     }else{
 
+      let detector = new MobileDetect(window.navigator.userAgent);
+
+      if(detector.os() ==  null || detector.os() == undefined || detector.os() == ""){
+        model.mobile = false;
+      }
+
+      alert(detector.os());
+
       this.spinner.showLoading();
       this.usuarioService.login(model).subscribe(data=>{
+
         if(data.typeResponse==environment.EXITO){
           localStorage.setItem(environment.TOKEN_NAME, data.access_token!);
+          localStorage.setItem(environment.FOTO, data.strFoto!);
           localStorage.setItem(environment.CODIGO_EMPRESA, data.codigoEmpresa!);
 
           this.router.navigate(['/page/home']);

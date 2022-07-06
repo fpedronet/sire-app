@@ -26,6 +26,7 @@
     "@auth0/angular-jwt": "^5.0.2",
     "@fortawesome/fontawesome-free": "6.1.0",
     "html5-qrcode": "^2.2.1",
+    "mobile-detect": "^1.4.5",
     "ng-apexcharts": "^1.7.0",
     "ngx-toastr": "^14.2.1",
     "rxjs": "7.5.5",

@@ -7,6 +7,7 @@ export class Usuario{
     contraseniaSharepoint? : string;
     id? : string;
     key? : string;
+    mobile? : boolean
 }
 
 export class TokenUsuario{
@@ -21,6 +22,7 @@ export class TokenUsuario{
     access_token? : string;
     typeResponse? : number;
     mensaje? : string;
+    mobile? : boolean;
 }
 
 export class EmpresaPorUsuario{
