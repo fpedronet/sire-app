@@ -79,6 +79,7 @@ export class CrendicionComponent implements OnInit {
   curUsuario: number = 0;
   curCodigo: string = '';
   
+  muestraIngresos: boolean = false;
   vIngresos?: string = '0.00';
   vGastos?: string = '0.00';
   vBalance?: string = '0.00';
@@ -225,7 +226,7 @@ export class CrendicionComponent implements OnInit {
       'ideUsuProcesa': new FormControl({ value: 0, disabled: true}),
       'ideEstado': new FormControl({ value: -1, disabled: false}),
       'estado': new FormControl({ value: 'NUEVO', disabled: false}),
-      'fechaCreacion': new FormControl({ value: new Date(), disabled: true}),
+      'fechaCreacion': new FormControl({ value: '', disabled: true}),
       'docuGenerado': new FormControl({ value: 0, disabled: true}),
       'fechaAceptado': new FormControl({ value: new Date(), disabled: true}),
       'ideUsuApruebaRechaza': new FormControl({ value: 0, disabled: false}),
@@ -272,7 +273,7 @@ export class CrendicionComponent implements OnInit {
             gastos: data.gastos?.toFixed(2),
             ideEstado: data.ideEstado,
             estado: this.listaEstados?.find(e => e.valor === data.ideEstado)?.descripcion,
-            fechaCreacion: data.fechaCreacion,
+            fechaCreacion: data.vFechaCreacion,
             tipo: data.tipo,
             //Aprobador
             fechaApruebaRechaza: data.vFechaApruebaRechaza,
@@ -284,10 +285,15 @@ export class CrendicionComponent implements OnInit {
             obsRevisor: data.obsRevisor
           });
 
-          if(data.tipo === 'M')
+          if(data.tipo === 'M'){
+            this.muestraIngresos = false;
             this.displayedColumns = this.initDisplayedColumns.filter(e => e !== 'adjunto');
-          else
+          }            
+          else{
+            this.muestraIngresos = true;
             this.displayedColumns = this.initDisplayedColumns;
+          }
+            
 
           if(data.ideEstado === 2 && data.ideUsuApruebaRechaza !== undefined && data.ideUsuApruebaRechaza !== 0)
             this.nombreAprobador = this.buscaUsuario(data.ideUsuApruebaRechaza);
@@ -503,6 +509,7 @@ export class CrendicionComponent implements OnInit {
       model.motivo = this.form.value['motivo'];
       model.montoRecibe = this.form.value['ingresos'];
       model.tipo = this.form.value['tipo'];
+      model.fechaCreacion = new Date();
 
       this.spinner.showLoading();
       //debugger;
@@ -625,9 +632,10 @@ export class CrendicionComponent implements OnInit {
     }
   }
 
-  selectTipo(valor: string, elemento: any){
+  selectTipo(valor: string){
     //debugger;
     if(valor === 'M'){ //Si es movilidad no hay ingresos
+      this.muestraIngresos = false;
       this.displayedColumns = this.initDisplayedColumns.filter(e => e !== 'adjunto');
       this.form.patchValue({
         ingresos: '0.00'
@@ -635,10 +643,14 @@ export class CrendicionComponent implements OnInit {
     }
     else{
       //debugger;
+      this.muestraIngresos = true;
       this.displayedColumns = this.initDisplayedColumns;
       setTimeout(function() {        
-        elemento.focus();
-        elemento.select();    
+        const elemento: any = document.getElementById("INGRESOS");
+        if(elemento !== null){
+          elemento.focus();
+          elemento.select(); 
+        }           
       }, 250);      
     }
   }

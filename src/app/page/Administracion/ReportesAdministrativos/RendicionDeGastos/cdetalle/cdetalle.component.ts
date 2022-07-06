@@ -485,7 +485,7 @@ export class CdetalleComponent implements OnInit {
       var linea: Combobox = lineaFind;
       this.setCurLinea(linea);
 
-      var sedeFind = this.tbSede.find(e => e.aux1 === comodato!.aux2); //Ruc
+      var sedeFind = this.tbSede.find(e => e.valor === comodato!.aux2); //IdSede
       if(sedeFind !== undefined){
         var sede: Combobox = sedeFind;
         this.setCurSede(sede);
@@ -522,13 +522,13 @@ export class CdetalleComponent implements OnInit {
       this.ideSede = sede.valor! === ''? 0 : parseInt(sede.valor!);
       this.sedeColor = 'primary';
 
-      this.filtrarComodatos(sede.aux1!) //Ruc
+      this.filtrarComodatos(sede.valor!) //Ruc
     }
   }
 
-  filtrarComodatos(ruc: string){
+  filtrarComodatos(idSede: string){
     //debugger;
-    this.filterComodato = this.tbComodato.filter(e => e.aux2 === ruc || e.valor === 'CMD');
+    this.filterComodato = this.tbComodato.filter(e => e.aux2 === idSede || e.valor === 'CMD');
     if(this.filterComodato.length === 1) //Solo Ninguno
       this.filterComodato = this.tbComodato;
     //else
