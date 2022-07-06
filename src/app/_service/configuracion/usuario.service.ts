@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 
 import { TokenUsuario, Usuario } from '../../_model/configuracion/usuario';
 import { Response } from '../../_model/response';
+import * as MobileDetect from 'mobile-detect';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,14 @@ export class UsuarioService {
   refreshtoken(){
     let urls = `${this.url}/PostRefreshToken`;
     let model = new TokenUsuario();
+    let detector = new MobileDetect(window.navigator.userAgent);
 
     model.access_token = localStorage.getItem(environment.TOKEN_NAME)!;
+    model.mobile = true;
+
+    if(detector.os() ==  null || detector.os() == undefined || detector.os() == ""){
+      model.mobile = false;
+    }
 
     return this.http.post<TokenUsuario>(urls, model);
   }
