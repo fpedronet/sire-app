@@ -68,8 +68,6 @@ export class LoginComponent implements OnInit {
         model.mobile = false;
       }
 
-      alert(detector.os());
-
       this.spinner.showLoading();
       this.usuarioService.login(model).subscribe(data=>{
 

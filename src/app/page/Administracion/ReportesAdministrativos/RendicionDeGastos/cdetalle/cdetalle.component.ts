@@ -206,6 +206,7 @@ export class CdetalleComponent implements OnInit {
       var linea: Combobox = lineaFind;      
       this.setCurLinea(linea);
     }
+    this.spinner.hideLoading();
   }
 
   listarCombo(){
@@ -238,8 +239,6 @@ export class CdetalleComponent implements OnInit {
         this.tbTipoDocu = this.completarCombo(jsonTipoDocu);
 
         this.obtener(this.rendDet);
-
-        this.spinner.hideLoading();
       }
     });
   }
