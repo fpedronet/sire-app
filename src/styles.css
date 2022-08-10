@@ -198,6 +198,8 @@ form{
 
 .mat-h2, .mat-title, .mat-typography h2{
   font-weight: 700;
+  font-size: 17px;
+  margin: 0 0 5px 0;
 }
 
 .mat-divider{
@@ -315,6 +317,20 @@ form{
 .mat-stepper-horizontal-line{
   border-color:#394ec7;
   border-top-width:2px;
+}
+
+.card-title-label1{
+  text-align: center; 
+  color: #1a0da4; 
+  font-weight: 500;
+  padding-top: 5px; 
+  font-size: 12px;
+}
+.card-title-label2{
+  text-align: center; 
+  color: #1a0da4; 
+  font-weight:600; 
+  font-size: 12px;
 }
 
 @media (max-width:1200px){

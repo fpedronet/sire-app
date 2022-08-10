@@ -46,10 +46,10 @@
   
   <div id="content" *ngIf="id !== 0"> 
       <div style="width: 100%; float:left;margin-bottom: -17px;">
-        <div style="text-align: center; color: #1a0da4; font-weight: 500;padding-top: 9px;">
+        <div class="card-title-label1">
           <span style="text-transform: uppercase;">{{nombresUsuario}}</span> - ESTADO {{estado}}
         </div> 
-        <div style="text-align: center; color: #1a0da4; font-weight:600;">
+        <div class="card-title-label2">
           <span>CODIGO: {{documento}}</span>
           <div class="circulotitle {{claseEstado}}"></div>
         </div> 
@@ -189,25 +189,18 @@
           </mat-grid-tile>
         </mat-grid-list>
 
-        <div class="content contentTable">
-          <div fxLayout="row wrap" fxLayoutGap="16px grid">
-            <div div fxFlex="45%" fxFlex.xs="30%" fxFlex.sm="30%">
-
-            </div>
-            <div div fxFlex="45%" fxFlex.xs="70%" fxFlex.sm="70%">  
-              <div class="example-button-row">
-                <button *ngIf="edit" mat-stroked-button class="btnHeader" type="button" (click)="abrirDetalle()">
-                  <mat-icon class="maticon">add</mat-icon>
-                </button>  
-                <a *ngIf="url_m!=null && url_m!=''" mat-stroked-button class="btnHeader" type="button" matTooltip="SharePoint" href="{{url_m}}" target="_blank">
-                  <img style="width: 28px;" src="{{iconSharePoint}}" alt=""/>
-                </a>
-                <button *ngIf="existDetalle" mat-stroked-button class="btnHeader" type="button" (click)="mostrarPDF(id)">
-                  <mat-icon class="maticon">picture_as_pdf</mat-icon>
-                </button>  
-              </div>        
-            </div>
-
+        <div class="content contentTable">           
+            
+          <div class="example-button-row padre">
+            <button *ngIf="edit" mat-stroked-button class="btnHeader hijo" type="button" (click)="abrirDetalle()">
+              <mat-icon class="maticon">add</mat-icon>
+            </button>  
+            <a *ngIf="url_m!=null && url_m!=''" mat-stroked-button class="btnHeader hijo" type="button" matTooltip="SharePoint" href="{{url_m}}" target="_blank">
+              <img style="width: 28px;" src="{{iconSharePoint}}" alt=""/>
+            </a>
+            <button *ngIf="existDetalle" mat-stroked-button class="btnHeader hijo" type="button" (click)="mostrarPDF(id)">
+              <mat-icon class="maticon">picture_as_pdf</mat-icon>
+            </button>         
           </div>
 
           <div *ngIf="!existDetalle">
@@ -217,41 +210,41 @@
           <div *ngIf="existDetalle" class="example-container mat-elevation-z0">
             <mat-table [dataSource]="dataSource" matSort>
               
-              <ng-container matColumnDef="concepto">
-                <mat-header-cell *matHeaderCellDef> Concepto </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Concepto"> 
-                  <div style="font-weight:500;color: #696868;font-size: 16px;">{{getDescripcion(element.codConcepto, tbConcepto)}}</div>     
+              <ng-container matColumnDef="concepto" style="font-size: 11px;min-height:21px;">
+                <mat-header-cell *matHeaderCellDef style="font-size: 11px;min-height:21px;"> Concepto </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Concepto" style="font-size: 11px;min-height:21px;"> 
+                  <div style="font-weight:500;color: #696868;font-size: 11px;min-height:21px;">{{getDescripcion(element.codConcepto, tbConcepto)}}</div>     
                 </mat-cell>
               </ng-container>
   
               <ng-container matColumnDef="vFecha">
-                <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Fecha"> {{element.vFecha}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef style="font-size: 11px;min-height:21px;"> Fecha </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Fecha" style="font-size: 11px;min-height:21px;"> {{element.vFecha}} </mat-cell>
               </ng-container>
             
               <ng-container matColumnDef="documento">
-                <mat-header-cell *matHeaderCellDef> Documento </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Documento"> {{element.documento}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef style="font-size: 11px;min-height:21px;"> Documento </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Documento" style="font-size: 11px;min-height:21px;"> {{element.documento}} </mat-cell>
               </ng-container>
   
               <ng-container matColumnDef="vMonto">
-                <mat-header-cell *matHeaderCellDef> Monto </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Monto"> {{getDescripcion(element.codMoneda, tbMoneda)}} {{element.vMonto}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef style="font-size: 11px;min-height:21px;"> Monto </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Monto" style="font-size: 11px;min-height:21px;"> {{getDescripcion(element.codMoneda, tbMoneda)}} {{element.vMonto}} </mat-cell>
               </ng-container>
               
               <ng-container matColumnDef="proveedor">
-                <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Proveedor </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Proveedor"> {{element.proveedor}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'" style="font-size: 11px;min-height:21px;"> Proveedor </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Proveedor" style="font-size: 11px;min-height:21px;"> {{element.proveedor}} </mat-cell>
               </ng-container>
               
               <ng-container matColumnDef="descripcion">
-                <mat-header-cell *matHeaderCellDef> Descripcion </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Descripcion"> {{element.descripcion}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef style="font-size: 11px;min-height:21px;"> Descripcion </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Descripcion" style="font-size: 11px;min-height:21px;"> {{element.descripcion}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="comodato">
-                <mat-header-cell *matHeaderCellDef> Comodato </mat-header-cell>
-                <mat-cell *matCellDef="let element" data-label="Comodato"> {{element.comodato}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef style="font-size: 11px;min-height:21px;"> Comodato </mat-header-cell>
+                <mat-cell *matCellDef="let element" data-label="Comodato" style="font-size: 11px;min-height:21px;"> {{element.comodato}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="adjunto">

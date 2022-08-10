@@ -159,3 +159,11 @@
     -webkit-hyphens: auto;
     hyphens: auto;
   }
+
+  .padre {
+    text-align: center;
+  }
+  
+  .hijo {
+    display: inline-block;
+  }
