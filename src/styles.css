@@ -8,7 +8,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .forms{
   padding-top: 0px;
-  margin:10px;
+  margin:10px 0;
 }
 
 .btnModal{
@@ -332,6 +332,10 @@ form{
   font-weight:600; 
   font-size: 12px;
 }
+
+/* .mat-horizontal-content-container{
+  padding: 7px 7px 24px 07px !important;
+} */
 
 @media (max-width:1200px){
   .example-button{

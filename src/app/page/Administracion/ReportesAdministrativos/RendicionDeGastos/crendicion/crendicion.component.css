@@ -171,3 +171,44 @@
   .mat-row, mat-footer-row{
     min-height:32px;
   }
+
+ 
+
+
+
+  .table1 {
+    width: 100%;
+    background: white;
+    margin-bottom: 1.25em;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  .table2 {
+    width: 100%;
+    background: white;
+    margin-bottom: 1.25em;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: -8px -8px 3px -8px;
+  }
+  
+  table tr th,
+  table tr td {
+    padding: 0.2625em 0.625em;
+    font-size: 0.875em;
+    color: #c13c04;
+  }
+
+  .table2 tr th,
+  .table2 tr td {
+    font-size: 0.875em;
+    color: #043995;
+    border: 0.05px solid #dddddd;
+  }
+  
+  table tr.even,
+  table tr.alt,
+  table tr:nth-of-type(even) {
+    background: #f9f9f9;
+  }
