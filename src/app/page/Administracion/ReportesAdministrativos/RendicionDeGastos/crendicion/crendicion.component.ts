@@ -559,6 +559,7 @@ export class CrendicionComponent implements OnInit {
       }
     });
 
+    
     //dialogRef.beforeClosed().subscribe(res)
 
     dialogRef.afterClosed().subscribe(res => {
