@@ -115,6 +115,7 @@ export class LayoutComponent implements OnInit {
 
   abrirperfil(){
     const dialogRef =this.dialog.open(PerfilComponent, {
+        disableClose: true,
        width: '400px',
     });
   }
