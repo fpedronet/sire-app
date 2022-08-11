@@ -134,10 +134,13 @@ export class CdetalleComponent implements OnInit {
     if(this.tipo === 'M')
       rendD.codConcepto = '002' //Movilidad
 
+    //debugger;
+
     this.form = new FormGroup({
       'ideRendicionDet': new FormControl({ value: rendD.ideRendicionDet, disabled: false}),
       'ideRendicion': new FormControl({ value: rendD.ideRendicion, disabled: false}),
       'fecha': new FormControl({ value: rendD.fecha, disabled: false}),
+      'hora': new FormControl({ value: this.horaFormateada(rendD.dFecha), disabled: false}),
       'comodato': new FormControl({ value: rendD.comodato, disabled: false}),
       'codConcepto': new FormControl({ value: rendD.codConcepto, disabled: false}),
       'nTipDocu': new FormControl({ value: rendD.nTipDocu, disabled: false}),
@@ -149,6 +152,13 @@ export class CdetalleComponent implements OnInit {
       'proveedor': new FormControl({ value: rendD.proveedor, disabled: false}),
       'nombreAdjunto': new FormControl({ value: rendD.nombreAdjunto, disabled: false}),
     });
+  }
+
+  horaFormateada(dHora?: Date){
+    var vHora: string = '';
+    if(dHora !== undefined && dHora !== null)
+      vHora = (`${(dHora.getHours()<10?'0':'') + dHora.getHours()}:${(dHora.getMinutes()<10?'0':'') + dHora.getMinutes()}`);
+    return vHora;
   }
 
   obtener(rendDet: RendicionD){
@@ -172,6 +182,7 @@ export class CdetalleComponent implements OnInit {
       ideRendicionDet: rendDet.ideRendicionDet,
       ideRendicion: rendDet.ideRendicion,
       fecha: rendDet.fecha,
+      hora: rendDet.fecha === undefined ? '' : this.horaFormateada(new Date(rendDet.fecha)),
       comodato: rendDet.comodato,
       codConcepto: rendDet.codConcepto,
       nTipDocu: rendDet.nTipDocu,
@@ -368,7 +379,12 @@ export class CdetalleComponent implements OnInit {
     
     model.ideRendicionDet = this.form.value['ideRendicionDet'];
     model.ideRendicion = this.form.value['ideRendicion'];
-    model.fecha = this.form.value['fecha'];
+    
+    var sFecha = new Date(this.form.value['fecha']).toISOString().substring(0,11);
+    var sHora = this.form.value['hora'];
+    var sFH = sFecha + (sHora === '' ? '00:00' : sHora);
+    model.fecha = sFH;
+
     model.comodato = this.form.value['comodato'];
 
     model.ideSede = this.ideSede;
@@ -706,7 +722,7 @@ export class CdetalleComponent implements OnInit {
             { }
             break;
           case 7:
-            this.rendDet.fecha =new Date(tt_filas[i].trim());
+            this.rendDet.fecha =new Date(tt_filas[i].trim()).toISOString();
               break;
 
         }          

@@ -2,8 +2,9 @@ export class RendicionD {
     constructor() {
         this.ideRendicionDet = 0;
         this.ideRendicion = 0;
-        this.fecha = new Date();
-        this.vFecha = '';
+        this.dFecha = new Date();
+        this.fecha = '';
+        this.vHora = '';
         this.comodato = 'CMD';
         this.ideSede = 0;
         this.nCodLinea = '';
@@ -21,8 +22,9 @@ export class RendicionD {
     }
     ideRendicionDet?: number
     ideRendicion?: number
-    fecha?: Date
-    vFecha?: string
+    fecha?: string
+    dFecha?: Date
+    vHora?: string
     comodato?: string
     ideSede?: number
     codLinea?: string

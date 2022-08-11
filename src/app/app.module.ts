@@ -25,6 +25,7 @@ import { SpinnerModule } from './page/component/spinner/spinner.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+//import { MatTimepickerModule } from 'mat-timepicker';
 // import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
