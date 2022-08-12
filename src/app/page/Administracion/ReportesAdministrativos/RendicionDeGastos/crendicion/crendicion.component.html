@@ -214,7 +214,7 @@
                   <tr>
                     <th style="display: flex; justify-content: space-between;">
                       <span>{{grupo.fecha}}</span>
-                      <span style="margin-right:26px;">{{getDescripcion(grupo.detalle![0].codMoneda, tbMoneda)}} {{grupo.montoTot!.toFixed(2)}}</span>                      
+                      <span style="margin-right:75px;">{{getDescripcion(grupo.detalle![0].codMoneda, tbMoneda)}} {{grupo.montoTot!.toFixed(2)}}</span>                      
                     </th>               
                   </tr>
                 </thead>
@@ -225,20 +225,24 @@
                         <thead>
                           <tr>
                             <th>Concepto</th>
-                            <th>Comodato</th>
-                            <th>Documento</th>
+                            <th class="onlyWeb">Comodato</th>
+                            <th>Descripción</th>
+                            <th *ngIf="grupo.tieneDocu">Documento</th>
+                            <th *ngIf="grupo.tieneProv" class="onlyWeb">Proveedor</th>
                             <th>Monto</th>
                             <th>Acción</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let element of grupo.detalle">
-                            <td>{{getDescripcion(element.codConcepto, tbConcepto)}}</td>
-                            <td>{{element.comodato}}</td>
-                            <td>{{element.documento}}</td>
-                            <td>{{getDescripcion(element.codMoneda, tbMoneda)}} {{element.vMonto}}</td>
-                            <td>
-                              <div style="margin-left:auto; width: 105px;height: 25px;">
+                            <td class="width-min">{{getDescripcion(element.codConcepto, tbConcepto)!.slice(0,3)}}</td>
+                            <td class="onlyWeb width-med">{{element.comodato}}</td>
+                            <td style="overflow-wrap: break-word; max-width: 100px;">{{element.descripcion}}</td>
+                            <td *ngIf="grupo.tieneDocu" class="width-med">{{element.documento}}</td>
+                            <td *ngIf="grupo.tieneProv" style="overflow-wrap: break-word; max-width: 100px;" class="onlyWeb width-max">{{element.proveedor}}</td>
+                            <td class="width-med" style="text-align: end;">{{getDescripcion(element.codMoneda, tbMoneda)}} {{element.vMonto}}</td>
+                            <td class="width-min" style="text-align: end;">
+                              <div style="margin-left:auto;height: 25px;">
                                 <a *ngIf="element.url!=null && element.url!=''" class="pointer ver" matTooltip="Adjunto" href="{{element.url}}" target="_blank">
                                   <mat-icon>attach_file</mat-icon>
                                 </a>

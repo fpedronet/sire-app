@@ -256,6 +256,8 @@ export class FrendicionComponent implements OnInit {
     else
       this.idUsuario = '0';
 
+    this.idTipo = '';
+
     var usuarioFind = this.tbUsuario.find(e => e.valor === this.idUsuario); //Usuario
     if(usuarioFind !== undefined){
       var usuario: Combobox = usuarioFind;      

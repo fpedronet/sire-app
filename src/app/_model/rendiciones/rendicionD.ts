@@ -56,8 +56,12 @@ export class GrupoRendicionD {
         this.detalle = [];
         this.montoTot = 0;
         this.fecha = '';
+        this.tieneDocu = false;
+        this.tieneProv = false;
     }
     fecha?: string
     montoTot?: number
     detalle?: RendicionD[]
+    tieneDocu?: boolean
+    tieneProv?: boolean
 }

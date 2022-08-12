@@ -303,6 +303,7 @@ export class CrendicionComponent implements OnInit {
           //Muestra creador de rendición
           this.curUsuario = data.ideUsuario!;
           this.nombresUsuario = this.buscaUsuario(this.curUsuario);
+          
           //Código de rendición actual
           this.curCodigo = data.codigo!;
 
@@ -357,10 +358,16 @@ export class CrendicionComponent implements OnInit {
           grupo.fecha = fecha;
           grupo.detalle?.push(detalles[i]);
           grupo.montoTot! += detalles[i].monto!;
+
+          grupo.tieneDocu = detalles[i].documento !== '';
+          grupo.tieneProv = detalles[i].proveedor !== '';
         }
         else{
           grupo.detalle?.push(detalles[i]);
           grupo.montoTot! += detalles[i].monto!;
+
+          grupo.tieneDocu = grupo.tieneDocu ? true : detalles[i].documento !== '';
+          grupo.tieneProv = grupo.tieneProv ? true : detalles[i].proveedor !== '';
         }
       }
       //Añade último grupo

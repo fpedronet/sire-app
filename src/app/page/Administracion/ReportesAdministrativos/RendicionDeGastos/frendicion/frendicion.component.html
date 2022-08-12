@@ -5,7 +5,7 @@
   <mat-form-field appearance="outline">
       <mat-label>Código</mat-label>
       <input #CODIGO [(ngModel)]="codigo" matInput placeholder="Búsqueda" #input (keyup.enter)="buscar()">
-      <button *ngIf="CODIGO.value" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="CODIGO.value='';">
+      <button *ngIf="CODIGO.value" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="CODIGO.value=''; codigo = ''">
         <mat-icon>close</mat-icon>
       </button>
       <!--mat-icon matSuffix>search</mat-icon-->

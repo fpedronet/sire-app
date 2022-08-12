@@ -212,3 +212,26 @@
   table tr:nth-of-type(even) {
     background: #f9f9f9;
   }
+
+  .width-min{
+    width: 1%; white-space: nowrap;
+  }
+
+  .width-med{
+    width: 10%; white-space: nowrap;
+  }
+
+  .width-max{
+    width: 20%;
+  }
+
+  .onlyWeb {
+    display:none;
+  }
+
+  /* Responsive design for the desktop devices  */
+  @media (min-width: 769px) {
+    .onlyWeb {
+        display: revert;
+    }
+  }
