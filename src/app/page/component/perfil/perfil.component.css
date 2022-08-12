@@ -32,15 +32,14 @@
     position: absolute;
     width: 465px;
     height: 195px;
-    background: linear-gradient(90deg,#be3900eb 43%, #da4f14eb 100%);
-    /* transform: rotate(-35deg); */
+    background: var(--btn-bg-color1);
     top: -94px;
     left: -89px;
 }
 
 .card .content h4 {
     font-size: 18px;
-    color: #be3900eb;
+    color: var(--btn-bg-color1);
     margin-bottom: 5px;
     font-weight:600;
 }
@@ -50,13 +49,17 @@
     /* margin-top: 1rem; */
     padding:.4rem 1.5rem;
     border-radius: 5rem;
-    background:#ee4b06 no-repeat 0 0;
+    background: var(--btn-bg-color3);
     font-size: 1rem;
     color:#fff;
     cursor: pointer;
     box-shadow: 0 .2rem 1rem rgba(0,0,0,.1);
     transition: all .2s linear;
     text-decoration: solid;
+}
+
+.textsharepoint{
+    color: var(--text-bg-color3);
 }
 
 .btnInicio:hover{

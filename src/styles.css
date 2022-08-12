@@ -3,18 +3,32 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
 :root {
   --btn-bg-color1: #000077;
   --btn-bg-color2: #FC7000;
+  --btn-bg-color3: #000077 no-repeat 0 0;
+  --btn-bg-color4: #CE1515;
+  --btn-bg-color5: #06CCCC;
+  --btn-bg-color6: #4D4D51;
+  --btn-bg-color7: #1367FF;
+  --btn-bg-color8: #202121;
 
   --text-bg-color1: #000077;
   --text-bg-color2: #FC7000;
   --text-bg-color3: #4D4D51;
 
+  --bor-bg-color1: #002c8b7a;
+
   --header-bg-color1: #000077;
+  --header-bg-color2: #1c0a75;
+
   --footer-bg-color1: #000077;
+
+
+
+/* REVISADO: #1367FF  */
 }
-/* botones grilla */
 
 .forms{
   padding-top: 0px;
@@ -37,25 +51,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding:5px;
 }
 .delete{
-  color: #cf3411;
+  color: var(--btn-bg-color4);
   padding:5px;
 }
 
 .btnRed{
-  color: #c50a0a;
+  color: var(--btn-bg-color4);
 }
 
 .btnYellow{
-  color: #adb90e;
+  color: var(--btn-bg-color5);
 }
 
 .btnBlue{
-  color: #170ad0;
+  color: var(--btn-bg-color2);
 }
 
 .btnHeader{
-  /* background-color: #002b8bc9; */
-  color: #4c60d0;
+  color: var(--btn-bg-color1);
 }
 
 .btnnext{
@@ -102,12 +115,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .title-label{
   text-align: center;
-  color: #c13c04;
+  color: var(--text-bg-color1);
   padding-top: 4px;  
 }
 
 .sub-title-label{
-  color: #c13c04;
+  color: var(--text-bg-color1);
   padding-top: 4px;
   font-weight: 500
 }
@@ -151,23 +164,21 @@ form{
 
 /* botones en la cabezera formulario */
 .example-button-row .mat-button-base {
-  /* margin: 15px 34px -2px -24px; */
   min-width: 60px;
   line-height: 33px;
   border-radius:11px;
   box-shadow: 0 0.125rem 0.625rem rgb(61 56 138 / 9%), 0 0.0625rem 0.125rem rgb(56 72 138 / 33%);
-  border-color: #002c8b9f;
+  border-color: var(--bor-bg-color1);
   margin-left: 7px;
   margin-top:18px;
 }
 
 .example-button-rowR .mat-button-base {
-  /* margin: 15px 34px -2px -24px; */
   min-width: 60px;
   line-height: 33px;
   border-radius:11px;
   box-shadow: 0 0.125rem 0.625rem rgb(61 56 138 / 9%), 0 0.0625rem 0.125rem rgb(56 72 138 / 33%);
-  border-color: #002c8b9f;
+  border-color: var(--bor-bg-color1);
   margin-top:18px;
 }
 
@@ -228,8 +239,8 @@ form{
   border-radius: 50%;
 }
 .circulotitle {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -238,7 +249,7 @@ form{
 .gris{
   font-size:12px; 
   line-height: 27px; 
-  background: rgb(143, 148, 148); 
+  background: var(--btn-bg-color6); 
   display: inline-block;
   margin:-7px;
   margin-left:7px
@@ -247,7 +258,7 @@ form{
 .azul{
   font-size:12px; 
   line-height: 27px; 
-  background: rgb(0 0 255); 
+  background: var(--btn-bg-color1); 
   display: inline-block;
   margin:-7px;
   margin-left:7px
@@ -256,7 +267,7 @@ form{
 .verde{
   font-size:12px; 
   line-height: 27px; 
-  background: rgb(0, 219, 39); 
+  background: var(--btn-bg-color5); 
   display: inline-block;
   margin:-7px;
   margin-left:7px
@@ -265,7 +276,7 @@ form{
 .rojo{
   font-size:12px; 
   line-height: 27px; 
-  background: rgb(255, 0, 0); 
+  background: var(--btn-bg-color4); 
   display: inline-block;
   margin:-7px;
   margin-left:7px
@@ -274,7 +285,7 @@ form{
 .negro{
   font-size:12px; 
   line-height: 27px; 
-  background: rgb(0, 0, 0); 
+  background: var(--btn-bg-color8); 
   display: inline-block;
   margin:-7px;
   margin-left:7px
@@ -283,7 +294,7 @@ form{
 .celeste{
   font-size:12px; 
   line-height: 27px; 
-  background: rgb(0, 224, 224);
+  background: var(--btn-bg-color7);
   display: inline-block;
   margin:-7px;
   margin-left:7px
@@ -292,7 +303,7 @@ form{
 .amarillo{
   font-size:12px; 
   line-height: 27px; 
-  background: rgb(255, 255, 0); 
+  background: var(--btn-bg-color2);
   display: inline-block;
   margin:-7px;
   margin-left:7px
@@ -343,6 +354,11 @@ form{
   font-size: 12px;
 }
 
+.tbcodigo{
+  font-weight:600;
+  color: var(--text-bg-color1);
+  font-size: 16px;
+}
 /* .mat-horizontal-content-container{
   padding: 7px 7px 24px 07px !important;
 } */

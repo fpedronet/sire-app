@@ -25,8 +25,9 @@
   margin-left: -18px;
   margin-top: -61px;
   margin-bottom: 41px;
-  background: -o-linear-gradient(90deg,#be3900 43%, #da4f14eb 100%);
-  background: linear-gradient(90deg,#be3900 43%, #da4f14eb 100%);
+  /* background: -o-linear-gradient(90deg,#be3900 43%, #da4f14eb 100%);
+  background: linear-gradient(90deg,#be3900 43%, #da4f14eb 100%); */
+  background: var(--header-bg-color1);
 }
 
 .header-content{
@@ -61,8 +62,9 @@
 
 .waves {
   margin-top: -42px;
-  background: -o-linear-gradient(90deg,#be3900 43%, #da4f14eb 100%);
-  background: linear-gradient(90deg,#be3900 43%, #da4f14eb 100%);
+  /* background: -o-linear-gradient(90deg,#be3900 43%, #da4f14eb 100%);
+  background: linear-gradient(90deg,#be3900 43%, #da4f14eb 100%); */
+  background: var(--header-bg-color1);
 }
 
 .parallax > use {
@@ -158,7 +160,7 @@ div {
   }
   .opcion:hover{
     transform: scale(1.1);
-    background: #da4f14;
+    background: var(--header-bg-color2);
     font-size: 60%;
     cursor: pointer;
     box-shadow: 0px 0px 10px 0px rgb(0, 0, 0, 0.5);
@@ -170,7 +172,7 @@ div {
   }
   .menu .nav1 ul li ul{
     position: absolute;
-    background: #cf4205;
+    background: var(--header-bg-color1);
   }
   .menu .nav1 ul li ul li{
     width: 195px;
@@ -193,7 +195,7 @@ div {
   .menuvertical{
     font-size: 13px;
     font-weight: 400;
-    color: #464242;
+    color: var(--text-bg-color1);
   }
 
 button{
@@ -210,7 +212,6 @@ button{
   }
 
   .mat-drawer{
-    /* top:43px; */
     z-index:400;
   }
 
@@ -223,17 +224,8 @@ button{
     z-index: 10;
   }
 
-  .close{
-    background-color:#c50202;
-    color:white;
-  }
-
   .example-button {
     margin-top: 16px;
-  }
-  
-  .example-tooltip-red {
-    background: #b71c1c;
   }
 
   .mat-divider {
