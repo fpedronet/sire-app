@@ -97,8 +97,8 @@
             <ng-container matColumnDef="balance">
               <mat-header-cell *matHeaderCellDef> Balance </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="Balance">
-                <div *ngIf="element.balance < 0" style="text-align:right;font-weight:500;color:#cf1313;">{{mostrarBalance(element.monedaRecibe, element.balance)}}</div>
-                <div *ngIf="element.balance >= 0" style="text-align:right;font-weight:500;color:#02108c;">{{mostrarBalance(element.monedaRecibe, element.balance)}}</div> 
+                <div *ngIf="element.balance < 0" class="balancenegativo">{{mostrarBalance(element.monedaRecibe, element.balance)}}</div>
+                <div *ngIf="element.balance >= 0" class="balancenonegativo">{{mostrarBalance(element.monedaRecibe, element.balance)}}</div> 
               </mat-cell>
             </ng-container>
             
