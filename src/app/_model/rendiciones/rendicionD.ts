@@ -4,6 +4,7 @@ export class RendicionD {
         this.ideRendicion = 0;
         this.dFecha = new Date();
         this.fecha = '';
+        this.vFecha = '';
         this.vHora = '';
         this.comodato = 'CMD';
         this.ideSede = 0;
@@ -23,6 +24,7 @@ export class RendicionD {
     ideRendicionDet?: number
     ideRendicion?: number
     fecha?: string
+    vFecha?: string
     dFecha?: Date
     vHora?: string
     comodato?: string
@@ -47,4 +49,15 @@ export class RendicionD {
     url?: string
     url_M?: string
     codigo?: string
+}
+
+export class GrupoRendicionD {
+    constructor() {
+        this.detalle = [];
+        this.montoTot = 0;
+        this.fecha = '';
+    }
+    fecha?: string
+    montoTot?: number
+    detalle?: RendicionD[]
 }

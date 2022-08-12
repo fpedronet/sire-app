@@ -209,12 +209,12 @@
     
           <div *ngIf="existDetalle" class="example-container mat-elevation-z0" style="margin-left:-22px">
    
-              <table class="table1">
+              <table class="table1" *ngFor="let grupo of dataSource">
                 <thead>
                   <tr>
                     <th style="display: flex; justify-content: space-between;">
-                      <span>11-08-2022</span>
-                      <span style="margin-right:12px;">340.00</span>                      
+                      <span>{{grupo.fecha}}</span>
+                      <span style="margin-right:12px;">{{getDescripcion(grupo.detalle![0].codMoneda, tbMoneda)}} {{grupo.montoTot!.toFixed(2)}}</span>                      
                     </th>               
                   </tr>
                 </thead>
@@ -228,76 +228,32 @@
                             <th>Comodato</th>
                             <th>Documento</th>
                             <th>Monto</th>
-                            <th>Accion</th>
+                            <th>Acción</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>Movilidad</td>
-                            <td>CC_TI</td>
-                            <td>B001-0001</td>
-                            <td>120.00</td>
+                          <tr *ngFor="let element of grupo.detalle">
+                            <td>{{getDescripcion(element.codConcepto, tbConcepto)}}</td>
+                            <td>{{element.comodato}}</td>
+                            <td>{{element.documento}}</td>
+                            <td>{{getDescripcion(element.codMoneda, tbMoneda)}} {{element.vMonto}}</td>
                             <td>
                               <div style="margin-left:auto; width: 105px;">
-                                <a class="pointer ver" matTooltip="Adjunto" href="" target="_blank">
+                                <a *ngIf="element.url!=null && element.url!=''" class="pointer ver" matTooltip="Adjunto" href="{{element.url}}" target="_blank">
                                   <mat-icon>attach_file</mat-icon>
                                 </a>
-                                <a *ngIf="!edit" class="pointer ver" matTooltip="Ver">
+                                <a *ngIf="!edit" class="pointer ver" matTooltip="Ver" (click)="abrirDetalle(element)">
                                   <mat-icon>visibility</mat-icon>
                                 </a>
-                                <a *ngIf="edit" class="pointer edit" matTooltip="Editar">
+                                <a *ngIf="edit" class="pointer edit" matTooltip="Editar" (click)="abrirDetalle(element)">
                                   <mat-icon>edit</mat-icon>
                                 </a>
-                                <a *ngIf="edit" class="pointer delete" matTooltip="Eliminar">
+                                <a *ngIf="edit" class="pointer delete" matTooltip="Eliminar" (click)="eliminarDetalle(element)">
                                   <mat-icon>delete</mat-icon>
                                 </a>
                               </div>
                             </td>
-                          </tr>
-                          <tr>
-                            <td>Movilidad</td>
-                            <td>CC_TI</td>
-                            <td>B001-0001</td>
-                            <td>120.00</td>
-                            <td>
-                              <div style="margin-left:auto; width: 105px;">
-                                <a class="pointer ver" matTooltip="Adjunto" href="" target="_blank">
-                                  <mat-icon>attach_file</mat-icon>
-                                </a>
-                                <a *ngIf="!edit" class="pointer ver" matTooltip="Ver">
-                                  <mat-icon>visibility</mat-icon>
-                                </a>
-                                <a *ngIf="edit" class="pointer edit" matTooltip="Editar">
-                                  <mat-icon>edit</mat-icon>
-                                </a>
-                                <a *ngIf="edit" class="pointer delete" matTooltip="Eliminar">
-                                  <mat-icon>delete</mat-icon>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Movilidad</td>
-                            <td>CC_TI</td>
-                            <td>B001-0001</td>
-                            <td>120.00</td>
-                            <td>
-                              <div style="margin-left:auto; width: 105px;">
-                                <a class="pointer ver" matTooltip="Adjunto" href="" target="_blank">
-                                  <mat-icon>attach_file</mat-icon>
-                                </a>
-                                <a *ngIf="!edit" class="pointer ver" matTooltip="Ver">
-                                  <mat-icon>visibility</mat-icon>
-                                </a>
-                                <a *ngIf="edit" class="pointer edit" matTooltip="Editar">
-                                  <mat-icon>edit</mat-icon>
-                                </a>
-                                <a *ngIf="edit" class="pointer delete" matTooltip="Eliminar">
-                                  <mat-icon>delete</mat-icon>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
+                          </tr>                          
                         </tbody>
                       </table>
                     </td>
@@ -306,7 +262,7 @@
               </table>
 
 
-            <!-- <mat-table [dataSource]="dataSource" matSort>
+            <!--mat-table [dataSource]="detallesRend" matSort>
               
               <ng-container matColumnDef="concepto" style="font-size: 11px;min-height:21px;">
                 <mat-header-cell *matHeaderCellDef style="font-size: 11px;min-height:21px;"> Concepto </mat-header-cell>
@@ -392,7 +348,7 @@
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
             
-            </mat-table> -->
+            </mat-table-->
 
           </div>
         </div>
