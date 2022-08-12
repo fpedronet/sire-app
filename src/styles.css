@@ -2,7 +2,7 @@
 @import '~ngx-toastr/toastr';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif; }
 
 :root {
   --btn-bg-color1: #000077;
@@ -13,10 +13,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --btn-bg-color6: #4D4D51;
   --btn-bg-color7: #1367FF;
   --btn-bg-color8: #202121;
+  --btn-bg-color9: #038387;
 
   --text-bg-color1: #000077;
   --text-bg-color2: #FC7000;
   --text-bg-color3: #4D4D51;
+  --text-bg-color4: #1367FF;
 
   --bor-bg-color1: #002c8b7a;
 
@@ -24,8 +26,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --header-bg-color2: #1c0a75;
 
   --footer-bg-color1: #000077;
-
-
 
 /* REVISADO: #1367FF  */
 }
@@ -47,7 +47,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   /* padding:5px; */
 }
 .edit{
-  color: #1b70c7;
+  color: var(--btn-bg-color1);
   padding:3px;
 }
 .delete{
@@ -71,15 +71,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: var(--btn-bg-color1);
 }
 
+.btnSharepoint{
+  color: var(--btn-bg-color9);
+}
+
+.btnPdf{
+  color: var(--btn-bg-color4);
+}
+
 .btnnext{
   float: right;
-  background:#3f51b5; 
+  background:var(--btn-bg-color1);
   color: #fff;
 }
 
 .btnprevio{
   float: left;
-  background:#3f51b5; 
+  background:var(--btn-bg-color1);
   color: #fff;
 }
 
@@ -228,7 +236,7 @@ form{
 }
 
 .mat-dialog-title{
-  color: #4457bf;
+  color: var(--text-bg-color1);
 }
 
 .circulo {
@@ -359,9 +367,20 @@ form{
   color: var(--text-bg-color1);
   font-size: 16px;
 }
-/* .mat-horizontal-content-container{
-  padding: 7px 7px 24px 07px !important;
-} */
+
+.balancenegativo{
+  text-align:right;
+  font-weight:500;
+  color:var(--text-bg-color2);;
+}
+
+.balancenonegativo{
+  text-align:right;
+  font-weight:500;
+  color:var(--text-bg-color4);;
+}
+
+
 
 @media (max-width:1200px){
   .example-button{

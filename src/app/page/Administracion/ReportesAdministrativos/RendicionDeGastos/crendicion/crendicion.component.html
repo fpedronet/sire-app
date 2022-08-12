@@ -195,10 +195,10 @@
             <button *ngIf="edit" mat-stroked-button class="btnHeader hijo" type="button" (click)="abrirDetalle()">
               <mat-icon class="maticon">add</mat-icon>
             </button>  
-            <a *ngIf="url_m!=null && url_m!=''" mat-stroked-button class="btnHeader hijo" type="button" matTooltip="SharePoint" href="{{url_m}}" target="_blank">
+            <a *ngIf="url_m!=null && url_m!=''" mat-stroked-button class="btnSharepoint hijo" type="button" matTooltip="SharePoint" href="{{url_m}}" target="_blank">
               <img style="width: 28px;" src="{{iconSharePoint}}" alt=""/>
             </a>
-            <button *ngIf="existDetalle" mat-stroked-button class="btnHeader hijo" type="button" (click)="mostrarPDF(id)">
+            <button *ngIf="existDetalle" mat-stroked-button class="btnPdf hijo" type="button" (click)="mostrarPDF(id)">
               <mat-icon class="maticon">picture_as_pdf</mat-icon>
             </button>         
           </div>
