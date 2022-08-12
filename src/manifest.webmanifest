@@ -1,7 +1,7 @@
 {
   "name": "sire app",
   "short_name": "sire app",
-  "theme_color": "#cc3d00",
+  "theme_color": "#000077",
   "background_color": "#FFFFFF",
   "display": "standalone",
   "id": "/sire/?utm_source=homescreen",

@@ -207,14 +207,14 @@
             No se encontraron detalles. Seleccione "+" para ingresar el detalle de sus gastos.
           </div>
     
-          <div *ngIf="existDetalle" class="example-container mat-elevation-z0" style="margin-left:-22px">
+          <div *ngIf="existDetalle" class="example-container mat-elevation-z0" style="margin-left:-17px">
    
               <table class="table1" *ngFor="let grupo of dataSource">
                 <thead>
                   <tr>
                     <th style="display: flex; justify-content: space-between;">
                       <span>{{grupo.fecha}}</span>
-                      <span style="margin-right:12px;">{{getDescripcion(grupo.detalle![0].codMoneda, tbMoneda)}} {{grupo.montoTot!.toFixed(2)}}</span>                      
+                      <span style="margin-right:26px;">{{getDescripcion(grupo.detalle![0].codMoneda, tbMoneda)}} {{grupo.montoTot!.toFixed(2)}}</span>                      
                     </th>               
                   </tr>
                 </thead>
@@ -238,7 +238,7 @@
                             <td>{{element.documento}}</td>
                             <td>{{getDescripcion(element.codMoneda, tbMoneda)}} {{element.vMonto}}</td>
                             <td>
-                              <div style="margin-left:auto; width: 105px;">
+                              <div style="margin-left:auto; width: 105px;height: 25px;">
                                 <a *ngIf="element.url!=null && element.url!=''" class="pointer ver" matTooltip="Adjunto" href="{{element.url}}" target="_blank">
                                   <mat-icon>attach_file</mat-icon>
                                 </a>

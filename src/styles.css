@@ -44,15 +44,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .ver{
   color: #0d9aec;
-  padding:5px;
+  /* padding:5px; */
 }
 .edit{
   color: #1b70c7;
-  padding:5px;
+  padding:3px;
 }
 .delete{
   color: var(--btn-bg-color4);
-  padding:5px;
+  padding:3px;
 }
 
 .btnRed{
