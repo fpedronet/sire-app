@@ -1,8 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ngx-toastr/toastr';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif; }
+body, span, a, h1, h2, h3, h4, h5, h6 { margin: 0; font-family: "Open Sans", "Cambria", "Helvetica Neue", sans-serif !important; }
+.mat-form-field, .mat-card, .mat-table, .mat-stepper-horizontal{
+  font-family: "Open Sans", "Cambria", "Helvetica Neue", sans-serif !important;
+}
 
 :root {
   --btn-bg-color1: #000077;
@@ -33,6 +37,8 @@ body { margin: 0; font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif
 .forms{
   padding-top: 0px;
   margin:10px 0;
+  /*font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;*/
+  font-family: "Open Sans", "Cambria", "Helvetica Neue", sans-serif !important
 }
 
 .btnModal{
@@ -848,6 +854,12 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
     }
 input[type=number] { -moz-appearance:textfield; }
+
+p {
+
+  font-family: "Open Sans", "Cambria", "Helvetica Neue", sans-serif !important
+  
+}
 
 /* .cdk-overlay-container{
   z-index:1;
