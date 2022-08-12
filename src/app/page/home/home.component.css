@@ -9,7 +9,6 @@ section{
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background:url(../../../assets/home-bg-img.png) no-repeat; */
     background-size: cover;
     background-position: center;
 }
@@ -30,7 +29,7 @@ section{
 
 .m-section__title{
     margin: 0 0 15px;
-    color: #003f94;
+    color: var(--text-bg-color1);
     font-weight: 700;
     font-size: 3.0rem;
     line-height: 1.15;
@@ -38,7 +37,7 @@ section{
 
 .m-section__stitle{
     margin: 0 0 15px;
-    color: #d8690a;
+    color: var(--text-bg-color2);
     font-weight: 700;
     font-size: 3.0rem;
     line-height: 1.15;
@@ -46,16 +45,15 @@ section{
 
 .m-section__parrafo{
     font-size: 0.9rems;
-    color:#003f94;
+    color: var(--text-bg-color3);
     padding:1rem 0;
 } 
 
 .btnInicio{
     display: inline-block;
-    /* margin-top: 1rem; */
     padding:.8rem 3rem;
     border-radius: 5rem;
-    background:#ee4b06 no-repeat 0 0;
+    background: #FC7000 no-repeat 0 0;
     font-size: 1.3rem;
     color:#fff;
     cursor: pointer;
