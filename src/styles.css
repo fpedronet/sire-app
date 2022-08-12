@@ -43,7 +43,7 @@ body { margin: 0; font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif
   cursor: pointer;
 }
 .ver{
-  color: #0d9aec;
+  color: var(--btn-bg-color1);
   /* padding:5px; */
 }
 .edit{
