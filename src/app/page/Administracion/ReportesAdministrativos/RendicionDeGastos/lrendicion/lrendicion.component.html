@@ -65,7 +65,7 @@
             <ng-container matColumnDef="codigo">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Mobil</mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
-                <div class="responsive-estado">CÓDIGO</div>     
+                <div style="color: #403f3f; font-size: 12px;">CÓDIGO</div>     
                 <div style="margin-left:auto;" class="tbcodigo">
                   <mat-checkbox *ngIf="puedeAccionEstado(element.ideEstado)" (click)="$event.stopPropagation()"
                     color="primary"
