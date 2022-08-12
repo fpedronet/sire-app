@@ -40,7 +40,7 @@
   <div *ngFor="let el of listaEstados" style="margin: 0 0 3px 0;">
       <label *ngIf="el.visual">
           <input type="checkbox" [value]="el.valor" (change)="onCheckboxChange($event)" [(ngModel)]="el.isChecked"/>
-          <div class="circulo {{getClassEstado(el.valor)}}" style="width: 20px; height: 20px; margin-bottom: -4px; margin-right: 2px;"></div>
+          <div class="circulo {{getClassEstado(el.valor)}}" style="width: 20px; height: 20px; margin-bottom: -4px; margin-right: 2px; margin-left: 5px;"></div>
           {{el.descripcion}}
       </label>
   </div>

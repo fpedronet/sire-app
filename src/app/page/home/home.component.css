@@ -15,7 +15,7 @@ section{
 
 .home .image img{
     width:35vw;
-    animation: float 3s linear infinite;
+    animation: float 5s linear infinite;
 }
 
 @keyframes float{
@@ -23,7 +23,7 @@ section{
         transform: translateY(0rem);
     }
     50%{
-        transform: translateY(-3.5rem);
+        transform: translateY(-2.5rem);
     }
 }
 

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { merge, of as observableOf } from 'rxjs';
@@ -67,11 +67,14 @@ export class LrendicionComponent implements OnInit {
     private usuarioService : UsuarioService,
     private configPermisoService : ConfigPermisoService,
     private confirmService : ConfimService,
+    public customPaginator: MatPaginatorIntl
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit(): void {
+    this.configurarPaginador();
+    
     //debugger;
     this.obtenerpermiso();
     this.listarestados();
@@ -91,6 +94,24 @@ export class LrendicionComponent implements OnInit {
       this.displayedColumns = this.displayedColumns.filter(e => e !== 'select');
     else
       this.configuraSgteEstado();
+  }
+
+  configurarPaginador(){
+    this.customPaginator.itemsPerPageLabel = 'Ítems por página';
+    this.customPaginator.firstPageLabel = 'Primera página';    
+    this.customPaginator.previousPageLabel = 'Página anterior'; 
+    this.customPaginator.nextPageLabel  = 'Página siguiente';
+    this.customPaginator.lastPageLabel = 'Última página';
+    this.customPaginator.getRangeLabel = (page: number, pageSize: number, length: number) => {
+      if (length === 0 || pageSize === 0) {
+        return `0 à ${length }`;
+      }
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+      // If the start index exceeds the list length, do not try and fix the end index to the end.
+      const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+      return `${startIndex + 1} - ${endIndex} de ${length}`;
+    };
   }
 
   completarCombo(json: any){
