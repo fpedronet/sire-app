@@ -7,7 +7,7 @@ import { NotifierService } from 'src/app/page/component/notifier/notifier.servic
 import { SpinnerService } from 'src/app/page/component/spinner/spinner.service';
 import { Combobox } from 'src/app/_model/combobox';
 import { Permiso } from 'src/app/_model/permiso';
-import { RendicionD } from 'src/app/_model/rendiciones/rendicionD';
+import { GrupoRendicionD, RendicionD } from 'src/app/_model/rendiciones/rendicionD';
 import { RendicionM } from 'src/app/_model/rendiciones/rendicionM';
 import { ConfigPermisoService } from 'src/app/_service/configpermiso.service';
 import { UsuarioService } from 'src/app/_service/configuracion/usuario.service';
@@ -87,7 +87,8 @@ export class CrendicionComponent implements OnInit {
   idPantalla?: number = 1;
   pantallaPrev?: string = '';
 
-  dataSource: RendicionD[] = [];
+  detallesRend: RendicionD[] = [];
+  dataSource: GrupoRendicionD[] = [];
   initDisplayedColumns: string[] = ['concepto', 'vFecha', 'documento', 'vMonto', 'proveedor', 'descripcion', 'comodato', 'adjunto', 'accion', 'mo'];
   displayedColumns: string[] = [];
 
@@ -317,14 +318,14 @@ export class CrendicionComponent implements OnInit {
             this.observacion();
 
           this.documento= data.codigo!;
-          this.dataSource = data.listaDetalle!;
-          //debugger;
-          if(this.dataSource.length > 0){
+          this.detallesRend = data.listaDetalle!;
+          this.dataSource = this.separarSubgrupos(this.detallesRend);
+
+          if(this.detallesRend.length > 0){
             this.existDetalle = true;
-            this.curMoneda = this.dataSource[0].codMoneda!;
+            this.curMoneda = this.detallesRend[0].codMoneda!;
           }
           else{
-            //debugger;
             this.existRendicion = true;
             setTimeout(this.changestepper, 250, undefined, 1);
           }
@@ -333,6 +334,40 @@ export class CrendicionComponent implements OnInit {
         this.spinner.hideLoading();
       });
     }
+  }
+
+  separarSubgrupos(detalles: RendicionD[]){
+    let subGrupos: GrupoRendicionD[] = [];
+    if(detalles.length > 0){
+      //Ordena ascendentemente por fecha
+      detalles.sort((a, b) => a.fecha!.localeCompare(b.fecha!));
+      //Inicializa fecha a comparar y nuevo grupo
+      var fecha: string = '';
+      var grupo: GrupoRendicionD = new GrupoRendicionD();
+      //Recorre para separar en grupos
+      for (let i = 0; i < detalles.length; i += 1){
+        //Detecta aparición de nuevo grupo según fecha
+        if(fecha !== detalles[i].vFecha!){
+          fecha = detalles[i].vFecha!;
+          //Evita añadir grupo vacío en la primera iteración
+          if(i > 0){
+            subGrupos.push(grupo);
+          }
+          grupo = new GrupoRendicionD();
+          grupo.fecha = fecha;
+          grupo.detalle?.push(detalles[i]);
+          grupo.montoTot! += detalles[i].monto!;
+        }
+        else{
+          grupo.detalle?.push(detalles[i]);
+          grupo.montoTot! += detalles[i].monto!;
+        }
+      }
+      //Añade último grupo
+      subGrupos.push(grupo);
+    }
+
+    return subGrupos;
   }
 
   buscaUsuario(idUsuario: number){
@@ -575,7 +610,7 @@ export class CrendicionComponent implements OnInit {
     return valor.toFixed(2);
   }
 
-  getDescripcion(value: string, lista: Combobox[]){
+  getDescripcion(value?: string, lista?: Combobox[]){
     return lista?.find(e => e.valor === value)?.descripcion?.toUpperCase();
   }
 
