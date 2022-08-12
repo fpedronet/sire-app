@@ -185,12 +185,13 @@
   }
 
   .table2 {
-    width: 100%;
+    /* width: 100%; */
     background: white;
     margin-bottom: 1.25em;
     border-collapse: collapse;
     border-spacing: 0;
-    margin: -8px -8px 3px -8px;
+    /* margin: -8px -8px 3px -8px; */
+    margin: -8px -21px 0 -9px;
   }
   
   table tr th,
