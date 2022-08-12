@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-/* colors */
+
 html {
   width: 100%;
   height: 100%;
@@ -82,7 +81,7 @@ form input[type='email'], form input[type="text"], form input[type='password'] {
   width: 100%;
   height: 48px;
   font-size: 1.55em;
-  color: #126284;
+  color: var(--text-bg-color1);
   font-weight: 600;
   font-family: inherit;
   -webkit-transition: border-color .25s ease-out, -webkit-box-shadow .2s linear;
@@ -103,8 +102,7 @@ form button {
   display: block;
     margin: 0;
     padding: 0.65em 1em 1em;
-    /* background: linear-gradient(90deg, #9b1417 0%, #681575 100%);; */
-    background: #da4f14;
+    background: var(--btn-bg-color1);
     border: none;
     border-radius: 20px;
     box-sizing: border-box;

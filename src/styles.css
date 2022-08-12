@@ -3,7 +3,16 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  --btn-bg-color1: #000077;
+  --btn-bg-color2: #FC7000;
 
+  --text-bg-color1: #000077;
+  --text-bg-color2: #FC7000;
+
+  --header-bg-color1: #000077;
+  --footer-bg-color1: #000077;
+}
 /* botones grilla */
 
 .forms{
@@ -181,7 +190,7 @@ form{
 
 
 .container2 {
-  background-image: url("../src/assets/login.jpg");
+  background-image: url("../src/assets/login.png");
   position: relative;
   width: 100%;
   height: 100%;        
@@ -297,7 +306,7 @@ form{
 }
 
 .mat-toolbar.mat-primary{
-  background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%);
+  background: var(--header-bg-color1);
   z-index:200;
   position:fixed;
 }
@@ -346,7 +355,7 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
+    background: var(--header-bg-color1);
   }
   .videoBG{
     display: none;
@@ -361,13 +370,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
+    background: var(--header-bg-color1);
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
+    background: var(--header-bg-color1);
   }
   .videoBG{
     display: none;
@@ -382,13 +391,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
+    background: var(--header-bg-color1);
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
+    background: var(--header-bg-color1);
   }
   .videoBG{
     display: none;
@@ -403,13 +412,13 @@ form{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
+    background: var(--header-bg-color1);
   }
   .example-button-row{
     margin-left:auto;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
+    background: var(--header-bg-color1);
   }
   .videoBG{
     display: none;
@@ -501,7 +510,7 @@ form{
     margin-right: -4px;
   }
   .container2 {
-    background: url('../src/assets/login.jpg') no-repeat center center/cover;
+    background: url('../src/assets/login.png') no-repeat center center/cover;
     position: relative;
     width: 100%;
     height: 100%;        
@@ -513,7 +522,7 @@ form{
     display: none;
   }
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
+    background: var(--header-bg-color1);
   }
   .mat-table .mat-cell.web{
     display: none;
@@ -599,7 +608,7 @@ form{
     margin-right: -4px;
   }
   .container2 {
-    background: url('../src/assets/login.jpg') no-repeat center center/cover;
+    background: url('../src/assets/login.png') no-repeat center center/cover;
     position: relative;
     width: 100%;
     height: 100%;        
@@ -613,7 +622,7 @@ form{
   }
   
   .mat-toolbar.mat-primary{
-    background: linear-gradient(90deg, #da4f14eb 0%, #cc3d00 100%)
+    background: var(--header-bg-color1);
   }
   .mat-table .mat-cell.web{
     display: none;
@@ -654,7 +663,7 @@ form{
   }
 
   .container2 {
-    background-image: url("../src/assets/login2.jpg");
+    background-image: url("../src/assets/login2.png");
     position: relative;
     width: 100%;
     height: 100%;        
@@ -673,7 +682,7 @@ form{
   }
 
   .mat-toolbar.mat-primary{
-    background: #cc3d00;
+    background: var(--header-bg-color1);
   }
   .mat-table .mat-cell.web{
     display: none;
@@ -713,7 +722,7 @@ form{
   }
 
   .container2 {
-    background-image: url("../src/assets/login2.jpg");
+    background-image: url("../src/assets/login2.png");
     position: relative;
     width: 100%;
     height: 100%;        
@@ -732,7 +741,7 @@ form{
   }
 
   .mat-toolbar.mat-primary{
-    background: #cc3d00;
+    background: var(--header-bg-color1);
   }
 
   .mat-table .mat-cell.web{
