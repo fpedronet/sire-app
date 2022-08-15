@@ -38,7 +38,7 @@
             <!-- Checkbox Column -->
             <ng-container matColumnDef="select" >
               <th mat-header-cell *matHeaderCellDef style="border: none;" [ngClass]="'widthTable web'">
-                <mat-checkbox color="primary"
+                <mat-checkbox
                               (change)="$event ? masterToggle() : null"
                               [checked]="selection.hasValue() && isAllSelected()"
                               [indeterminate]="selection.hasValue() && !isAllSelected()">
@@ -46,7 +46,6 @@
               </th>
               <td mat-cell *matCellDef="let row" style="border: none;" [ngClass]="'widthTable web'">
                 <mat-checkbox *ngIf="puedeAccionEstado(row.ideEstado)" (click)="$event.stopPropagation()"
-                              color="primary"
                               (change)="$event ? selection.toggle(row) : null"
                               [checked]="selection.isSelected(row)">
                 </mat-checkbox>
@@ -65,10 +64,9 @@
             <ng-container matColumnDef="codigo">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Mobil</mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
-                <div style="color: #403f3f; font-size: 12px;">CÓDIGO</div>     
+                <div class="responsive-estado" style="font-weight: bold;">{{element.tipo}}</div>
                 <div style="margin-left:auto;" class="tbcodigo">
                   <mat-checkbox *ngIf="puedeAccionEstado(element.ideEstado)" (click)="$event.stopPropagation()"
-                    color="primary"
                     (change)="$event ? selection.toggle(element) : null"
                     [checked]="selection.isSelected(element)">
                   </mat-checkbox> 
@@ -78,8 +76,8 @@
             </ng-container>
 
             <ng-container matColumnDef="tipo">
-              <mat-header-cell *matHeaderCellDef> Tipo </mat-header-cell>
-              <mat-cell *matCellDef="let element" data-label="Tipo">
+              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Tipo </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="Tipo" [ngClass]="'widthTable web'">
                 <div>{{element.tipo}}</div>
               </mat-cell>
             </ng-container>
@@ -156,7 +154,7 @@
             [length]="countRegistro" 
             [pageSizeOptions]="[5, 10, 20]" 
             showFirstLastButtons 
-            aria-label="Select page of users">
+            aria-label="Seleccione página de rendiciones">
           </mat-paginator>
         </div>
   

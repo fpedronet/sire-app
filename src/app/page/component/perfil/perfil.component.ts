@@ -24,6 +24,7 @@ export class PerfilComponent implements OnInit {
   usuario: string = ""
   password: string = ""
   perfil?: string =environment.UrlImage + "people.png";
+  tipoContra?: string = 'password';
 
   ngOnInit(): void {
     let session = this.usuarioService.sessionUsuario();

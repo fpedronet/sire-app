@@ -16,7 +16,13 @@
     
         <mat-form-field appearance="outline">
             <mat-label>Contraseña</mat-label>
-            <input #PASS [(ngModel)]="password" matInput placeholder="Password" #input type="password">
+            <input #PASS [(ngModel)]="password" matInput placeholder="Password" #input [type]="tipoContra!">
+            <button *ngIf="tipoContra === 'password'" type="button" matSuffix mat-icon-button aria-label="Mostrar" (click)="tipoContra = 'text'">
+                <mat-icon>visibility</mat-icon>
+            </button>
+            <button *ngIf="tipoContra === 'text'" type="button" matSuffix mat-icon-button aria-label="Ocultar" (click)="tipoContra = 'password'">
+                <mat-icon>visibility_off</mat-icon>
+            </button>
         </mat-form-field>
 
         <!--h5 style="color: rgb(132, 131, 131); text-align: initial;">Asegúrate de tener acceso a las siguientes rutas para poder interactuar con Sharepoint:</h5>
