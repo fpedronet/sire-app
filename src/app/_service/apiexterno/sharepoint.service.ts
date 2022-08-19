@@ -14,7 +14,6 @@ export class SharepointService {
   private url: string = `http://localhost:62404/api/sharepoint/postuploadsharepoint`;
 
   postUploadFileToSharePoint(model: RendicionD){
-    debugger;
     let sharepoint = new SharePointDto;
     sharepoint.userName = model.emailEmp;
     sharepoint.password = model.password;
