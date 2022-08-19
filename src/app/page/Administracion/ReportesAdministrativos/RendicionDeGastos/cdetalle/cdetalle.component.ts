@@ -355,6 +355,7 @@ export class CdetalleComponent implements OnInit {
 
     this.form.patchValue({
       fecha: rendDet?.fecha,
+      hora: '',
       comodato: rendDet?.comodato,
       //ideSede: rendDet?.ideSede,
       //nCodLinea: rendDet?.nCodLinea,
@@ -382,7 +383,10 @@ export class CdetalleComponent implements OnInit {
     
     var sFecha = new Date(this.form.value['fecha']).toISOString().substring(0,11);
     var sHora = this.form.value['hora'];
-    var sFH = sFecha + (sHora === '' ? '00:00' : sHora);
+    
+    var horaValida = /^[[0-9]{2}:[0-9]{2}/.test(sHora);
+
+    var sFH = sFecha + (!horaValida ? '00:00' : sHora);
     model.fecha = sFH;
 
     model.comodato = this.form.value['comodato'];
@@ -532,22 +536,39 @@ export class CdetalleComponent implements OnInit {
       }        
     }
     else{
+      //debugger;
       if(!notControl)
         this.controlSedes.setValue(sede);
       this.ideSede = sede.valor! === ''? 0 : parseInt(sede.valor!);
       this.sedeColor = 'primary';
 
-      this.filtrarComodatos(sede.valor!) //Ruc
+      this.filtrarComodatos(sede.valor!, sede.aux1) //Ruc
     }
   }
 
-  filtrarComodatos(idSede: string){
-    //debugger;
-    this.filterComodato = this.tbComodato.filter(e => e.aux2 === idSede || e.valor === 'CMD');
-    if(this.filterComodato.length === 1) //Solo Ninguno
+  filtrarComodatos(idSede: string, rucsede?: string){
+    var filterSegunId = this.tbComodato.filter(
+      e => (e.aux2 === idSede ||
+      e.valor === 'CMD')
+    );
+
+    var filterSegunRuc = this.tbComodato.filter(
+      e => rucsede === undefined ? false : e.aux3 === rucsede ||
+      e.valor === 'CMD'
+    );
+
+    if(filterSegunId.length > 1){
+      //Encontro resultados por Id
+      this.filterComodato = filterSegunId 
+    }
+    else if(filterSegunRuc.length > 1){
+      //No encontró por Id, pero sí por sede
+      this.filterComodato = filterSegunRuc 
+    }
+    else{
+      //Solo coincidió Ninguno
       this.filterComodato = this.tbComodato;
-    //else
-    //  this.comboCmd.open();
+    }      
   }
 
   changeSede(event: any){

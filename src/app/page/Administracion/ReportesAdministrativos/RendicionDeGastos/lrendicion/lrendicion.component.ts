@@ -21,6 +21,8 @@ import { Combobox } from 'src/app/_model/combobox';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConfimService } from 'src/app/page/component/confirm/confim.service';
 import { CrechazoComponent } from '../crechazo/crechazo.component';
+import { ComboboxService } from 'src/app/_service/combobox.service';
+import { NotifierService } from 'src/app/page/component/notifier/notifier.service';
 
 @Component({
   selector: 'app-lrendicion',
@@ -30,7 +32,7 @@ import { CrechazoComponent } from '../crechazo/crechazo.component';
 export class LrendicionComponent implements OnInit {
 
   dataSource: RendicionM[] = [];
-  displayedColumns: string[] = ['select','codigo1', 'codigo', 'tipo', 'lugar', 'motivo', 'balance','estado','correo','accion','mo'];
+  displayedColumns: string[] = ['select', 'codigo1', 'codigo', 'tipo', 'usuario', 'lugar', 'motivo', 'balance','estado','correo','accion','mo'];
   loading = true;
   existRegistro = false;
   countRegistro = 0;
@@ -42,6 +44,8 @@ export class LrendicionComponent implements OnInit {
 
   permiso: Permiso = {};
 
+  tablasMaestras = ['USUARIO'];
+  tbUsuario: Combobox[] = [];
   listaEstados: Combobox[] = [];
   tbMoneda: Combobox[] = [];
 
@@ -67,7 +71,9 @@ export class LrendicionComponent implements OnInit {
     private usuarioService : UsuarioService,
     private configPermisoService : ConfigPermisoService,
     private confirmService : ConfimService,
-    public customPaginator: MatPaginatorIntl
+    public customPaginator: MatPaginatorIntl,
+    private comboboxService: ComboboxService,
+    private notifierService : NotifierService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
@@ -91,9 +97,29 @@ export class LrendicionComponent implements OnInit {
     this.tituloPantalla[3] = 'APROBACIÓN DE RENDICIONES/MOVILIDADES';
     
     if(this.idPantalla === 1)
-      this.displayedColumns = this.displayedColumns.filter(e => e !== 'select');
+      this.displayedColumns = this.displayedColumns.filter(e => e !== 'select' && e !== 'usuario');
     else
       this.configuraSgteEstado();
+
+    this.listarUsuario();
+  }
+
+  listarUsuario(){    
+    this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
+      if(data === undefined){
+        this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
+      }
+      else{
+        var tbCombobox: Combobox[] = data.items;
+        
+        this.tbUsuario = this.obtenerSubtabla(tbCombobox,'USUARIO');
+      }
+
+    });
+  }
+
+  obtenerSubtabla(tb: Combobox[], cod: string){
+    return tb.filter(e => e.etiqueta?.toString()?.trim() === cod);
   }
 
   configurarPaginador(){
@@ -246,7 +272,6 @@ export class LrendicionComponent implements OnInit {
           if (res === null) {
             return [];
           }
-          //debugger;
           this.countRegistro = res.pagination.total;
           return res.items;
         }),
@@ -256,10 +281,21 @@ export class LrendicionComponent implements OnInit {
   obtenerpermiso(){
     this.spinner.showLoading();
     this.configPermisoService.obtenerpermiso(forms.reporteAdmin.codigo).subscribe(data=>{
+      debugger;
       this.permiso = data;
        this.spinner.hideLoading();
     });   
   }
+
+  buscaUsuario(idUsuario: number){
+    //debugger;
+    var nombre: string = '';
+    var usuObj = this.tbUsuario.find(e => e.valor === idUsuario.toString());
+    if(usuObj !== undefined)
+      nombre = usuObj.descripcion === undefined?'':usuObj.descripcion;
+    return nombre;
+  }
+
 
   listarestados(){
     this.listaEstados = [];
@@ -420,7 +456,6 @@ export class LrendicionComponent implements OnInit {
   }
 
   puedeEditar(usu: number, est: number){
-    //debugger;
-    return est <= 1 && usu == this.usuarioService.sessionUsuario().ideUsuario;
+    return est <= 1 && (this.permiso.editartodos ||  usu == this.usuarioService.sessionUsuario().ideUsuario);
   }
 }

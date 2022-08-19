@@ -4,6 +4,7 @@ export class RendicionM {
     ideRendicion?: number
     codigo?: string
     ideUsuario?: number
+    vUsuario?: string
     lugar?: string
     motivo?: string
     monedaRecibe?: string
