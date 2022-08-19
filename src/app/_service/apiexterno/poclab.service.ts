@@ -9,8 +9,8 @@ export class PoclabService {
 
   constructor(private http: HttpClient) {} 
   
-  // private url: string = `https://service.poclab.pe/poclab/`;
-  private url: string = `http://localhost:64389/`;
+  private url: string = `https://service.poclab.pe/poclab/`;
+  //private url: string = `http://localhost:64389/`;
 
   obtenerPersona(tipoDocu: string, numDocu: string){
     let api = `${this.url}/Persona/BuscarPersona/`;

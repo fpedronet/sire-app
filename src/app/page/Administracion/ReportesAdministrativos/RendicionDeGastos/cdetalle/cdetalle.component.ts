@@ -487,7 +487,7 @@ export class CdetalleComponent implements OnInit {
     e?.preventDefault(); // Evita otros eventos como blur
 
     this.comboboxService.obtenerProveedor(this.form.value['rucPrv']).subscribe(data=>{
-      //debugger;
+      debugger;
       if(data!== undefined && data.valor !== null){
         this.form.patchValue({
           proveedor: data.descripcion
