@@ -5,19 +5,14 @@
 export const environment = {
   production: true,
 
-   //UrlApi:'https://service.poclab.pe/sire/api',  
-   //UrlImage:'assets/',
+   UrlApi:'https://service.poclab.pe/sire/api',  
+   UrlImage:'assets/',
 
   //UrlApi:'https://sitedev.poclab.pe/siredev/api',  
   //UrlImage:'assets/',
 
-<<<<<<< HEAD
   // UrlApi:'http://localhost:48394/api',
   // UrlImage:'../../../../assets/',
-=======
-  UrlApi:'http://localhost:48394/api',
-  UrlImage:'../../../../assets/',
->>>>>>> 27fd65f03e34dbaddd498b832a22d4e768ee4561
 
   TOKEN_AUTH_USERNAME: 'mitomediapp',
   TOKEN_AUTH_PASSWORD: 'mito89codex',
