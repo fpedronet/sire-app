@@ -119,8 +119,15 @@
             
             <ng-container matColumnDef="correo">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"></mat-header-cell>
-              <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Correo"> 
-                <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Correo">
+                <a *ngIf="!permiso.reenviar">
+                  <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
+                  <mat-icon *ngIf="element.correo=='No'" style="color: #1b70c7;">mail_outline_icon</mat-icon>
+                </a>
+                <a *ngIf="permiso.reenviar" matTooltip="Reenviar" style="cursor: pointer !important" (click)='reenviarPdf(element.ideRendicion)'>
+                  <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
+                  <mat-icon *ngIf="element.correo=='No'" style="color: #1b70c7;">mail_outline_icon</mat-icon>
+                </a>                  
               </mat-cell>
             </ng-container>
 
@@ -144,7 +151,14 @@
                 </a>
                 <div class="responsive-estado" style="font-weight:600;color: midnightblue; padding-left: 5px">{{element.estado}}</div>     
                 <div style="margin-left:auto;">
-                  <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
+                  <a *ngIf="!permiso.reenviar">
+                    <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
+                    <mat-icon *ngIf="element.correo=='No'" style="color: #1b70c7;">mail_outline_icon</mat-icon>
+                  </a>
+                  <a *ngIf="permiso.reenviar" matTooltip="Reenviar" style="cursor: pointer !important" (click)='reenviarPdf(element.ideRendicion)'>
+                    <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
+                    <mat-icon *ngIf="element.correo=='No'" style="color: #1b70c7;">mail_outline_icon</mat-icon>
+                  </a>                           
                   <a *ngIf="puedeEditar(element.ideUsuario, element.ideEstado)" class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion]">
                     <mat-icon>edit</mat-icon>
                   </a>

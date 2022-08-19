@@ -97,7 +97,7 @@ export class LrendicionComponent implements OnInit {
     this.tituloPantalla[3] = 'APROBACIÓN DE RENDICIONES/MOVILIDADES';
     
     if(this.idPantalla === 1)
-      this.displayedColumns = this.displayedColumns.filter(e => e !== 'select' && e !== 'usuario');
+      this.displayedColumns = this.displayedColumns.filter(e => e !== 'select');
     else
       this.configuraSgteEstado();
 
@@ -281,7 +281,7 @@ export class LrendicionComponent implements OnInit {
   obtenerpermiso(){
     this.spinner.showLoading();
     this.configPermisoService.obtenerpermiso(forms.reporteAdmin.codigo).subscribe(data=>{
-      debugger;
+      //debugger;
       this.permiso = data;
        this.spinner.hideLoading();
     });   
@@ -457,5 +457,27 @@ export class LrendicionComponent implements OnInit {
 
   puedeEditar(usu: number, est: number){
     return est <= 1 && (this.permiso.editartodos ||  usu == this.usuarioService.sessionUsuario().ideUsuario);
+  }
+
+  reenviarPdf(ideRendicion: number){
+    this.confirmService.openConfirmDialog(false, "¿Desea reenviar el PDF de la rendición seleccionada?").afterClosed().subscribe(res =>{
+      //Ok
+      if(res){
+        //console.log('Sí');
+        this.spinner.showLoading();
+        //debugger;
+        this.rendicionService.reenviarPdf(ideRendicion).subscribe(data=>{
+          if(data.typeResponse==environment.EXITO){
+            this.spinner.hideLoading();
+            this.actualizar();
+          }else{
+            this.spinner.hideLoading();
+          }
+        });  
+      }
+      else{
+        //console.log('No');
+      }
+    });
   }
 }

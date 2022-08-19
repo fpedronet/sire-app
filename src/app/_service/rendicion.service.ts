@@ -59,4 +59,11 @@ export class RendicionService {
     let urls = `${this.url}/PostCambiarEstado`;
     return this.http.post<Response>(urls, req);
   }
+
+  reenviarPdf(id: number){
+    
+    let urls = `${this.url}/GetReenviarPdf?id=${id}`;
+
+    return this.http.get<Response>(urls);
+  }
 }
