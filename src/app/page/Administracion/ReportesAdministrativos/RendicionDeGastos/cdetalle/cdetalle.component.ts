@@ -16,6 +16,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import {Html5Qrcode} from "html5-qrcode";
 import { SharepointService } from 'src/app/_service/apiexterno/sharepoint.service';
 import { ConfimService } from 'src/app/page/component/confirm/confim.service';
+import { PoclabService } from 'src/app/_service/apiexterno/poclab.service';
 
 @Component({
   selector: 'app-cdetalle',
@@ -51,6 +52,7 @@ export class CdetalleComponent implements OnInit {
     private notifierService : NotifierService,
     private sharepointService : SharepointService,
     private confirmService : ConfimService,
+    private poclabService : PoclabService,
   )
   {
     //debugger;
@@ -485,7 +487,6 @@ export class CdetalleComponent implements OnInit {
     e?.preventDefault(); // Evita otros eventos como blur
 
     this.comboboxService.obtenerProveedor(this.form.value['rucPrv']).subscribe(data=>{
-      //debugger;
       if(data!== undefined && data.valor !== null){
         this.form.patchValue({
           proveedor: data.descripcion
@@ -495,8 +496,19 @@ export class CdetalleComponent implements OnInit {
           this.notifierService.showNotification(1,'Mensaje','El proveedor fue encontrado');
       }
       else{
-        if(botonBusqueda)
-          this.notifierService.showNotification(0,'Mensaje','No existe el proveedor');
+        this.poclabService.obtenerRuc(this.form.value['rucPrv']).subscribe(data=>{
+          if(data.vDocumento!="" && data.vDocumento!=null && data.vDocumento!=undefined){
+            this.form.patchValue({
+              proveedor: data.vNombres
+            })
+            this.existeProveedor = true;
+            if(!blurBusqueda)
+              this.notifierService.showNotification(1,'Mensaje','El proveedor fue encontrado');
+          }else{
+            if(botonBusqueda)
+            this.notifierService.showNotification(0,'Mensaje','No existe el proveedor');
+          }
+        });
       }
     })
   }
