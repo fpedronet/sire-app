@@ -391,7 +391,7 @@ export class CrendicionComponent implements OnInit {
 
     var objEstado = jsonEstado.find((e: any) => e.nIdEstado === idEstado);
     if(objEstado !== undefined){
-      this.edit = objEstado.edicion && (this.curUsuario == this.usuarioService.sessionUsuario().ideUsuario);
+      this.edit = objEstado.edicion && (this.curUsuario == this.usuarioService.sessionUsuario().ideUsuario || this.permiso.editartodos);
       this.delete = objEstado.eliminar && this.edit;
       this.rejectRevi = objEstado.rechazar;
       this.apruebarechaza = objEstado.nIdEstado === 2 && this.soyAprobador(this.usuarioService.sessionUsuario().ideUsuario)
@@ -510,9 +510,6 @@ export class CrendicionComponent implements OnInit {
     this.configPermisoService.obtenerpermiso(forms.reporteAdmin.codigo).subscribe(data=>{
       this.permiso = data;
       //debugger;
-
-      //this.permiso.revisar = false;
-      //this.permiso.procesar = false;
 
       this.spinner.hideLoading();
     }); 

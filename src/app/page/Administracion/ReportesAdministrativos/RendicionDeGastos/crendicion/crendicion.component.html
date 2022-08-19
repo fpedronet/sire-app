@@ -42,6 +42,8 @@
   <h2 *ngIf="id!==0 && edit" class="title-label">{{pantallaPrev}} EDITAR {{getDescTipo(TIPO.value)}}</h2>
   <h2 *ngIf="id!==0 && !edit" class="title-label">{{pantallaPrev}} VER {{getDescTipo(TIPO.value)}}</h2>
 
+  <h5 *ngIf="id==0" class="title-label">Una vez creada se poderá ingresar el detalle de gastos</h5>
+
   <mat-divider></mat-divider>
   
   <div id="content" *ngIf="id !== 0"> 
