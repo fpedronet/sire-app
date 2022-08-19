@@ -10,7 +10,10 @@
   </div>
 </div>
 
-<div id="reader" [style.width]="windowsWidth"></div>
+<div *ngIf="barra" class="identifier"></div>
+
+<div id="reader" [style.width]="windowsWidth">
+</div>
 
 
 <mat-dialog-content class="modal" style="display: {{body}}">

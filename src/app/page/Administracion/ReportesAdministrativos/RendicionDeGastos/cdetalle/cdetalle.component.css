@@ -13,3 +13,29 @@
     max-height: 50vh;    
     object-fit: contain;
 }
+
+.identifier{
+  width: 215px;
+  height: 2px;
+  background-color: green;
+  position: relative;
+  z-index: 2;
+  animation: identifier 4000ms ease infinite;
+  top: 180px;
+  margin: 0 0 0 85px;
+}
+
+@keyframes identifier {
+ 0%{
+  transform:translateY(0);
+ }
+
+ 50%{
+  transform: translateY(25vw);
+  }
+
+  100%{
+    transform: translateY(0);
+  }
+}
+

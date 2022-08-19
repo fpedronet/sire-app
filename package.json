@@ -29,6 +29,7 @@
     "mobile-detect": "^1.4.5",
     "ng-apexcharts": "^1.7.0",
     "ngx-toastr": "^14.2.1",
+    "qr-scanner": "^1.4.1",
     "rxjs": "7.5.5",
     "tslib": "2.3.1",
     "zone.js": "0.11.5"

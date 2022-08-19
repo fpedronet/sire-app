@@ -27,12 +27,16 @@ export class CdetalleComponent implements OnInit {
   @ViewChild('COMODATO') comboCmd: any;
 
   scannerEnabled: boolean = false;
+  barra: boolean = false;
+  stop: boolean = false;
+
   public qrcode:string = '';    
   public windowsWidth:string = `${window.innerWidth > 500 ? 500 : window.innerWidth}px`;
 
   html5QrCodes! : any;
   private cameraId! : any;
   public output!: string;
+  interval:any;
 
   @ViewChild('video', {}) videoElement!: ElementRef;
   @ViewChild('canvas', {}) canvas!: ElementRef;
@@ -637,27 +641,29 @@ export class CdetalleComponent implements OnInit {
   }
 
   getCameras() {
-    // alert("paso alert 1");
-    Html5Qrcode.getCameras().then((devices:any[]) => {    
+    if(this.stop==false){
+      this.stop=true;
+      Html5Qrcode.getCameras().then((devices:any[]) => {    
       
-      // alert(devices.length);
-      if (devices && devices.length) {
-       
-        if(devices.length>=3){
-          this.cameraId = devices[2].id;
+        // alert(devices.length);
+        if (devices && devices.length) {
+         
+          if(devices.length>=3){
+            this.cameraId = devices[2].id;
+          }
+          else if(devices.length==2){
+            this.cameraId = devices[1].id;
+          }
+          else if(devices.length==1){
+            this.cameraId = devices[0].id;
+          }
+          this.enableScanner();
         }
-        else if(devices.length==2){
-          this.cameraId = devices[1].id;
-        }
-        else if(devices.length==1){
-          this.cameraId = devices[0].id;
-        }
-        this.enableScanner();
-      }
-    })
+      })
+    }
   }
 
-  enableScanner() {   
+  enableScanner() {  
     const html5QrCode = new Html5Qrcode("reader", true);
 
     this.html5QrCodes = html5QrCode;
@@ -672,23 +678,17 @@ export class CdetalleComponent implements OnInit {
       },   
       (decodedText, decodedResult) => {
         this.setearValores(decodedText);
-        this.disableScanner()
       },
       (errorMessage) => {
       })
     .catch((err) => {
     });
-  }
 
-  disableScanner() {
-    this.scannerEnabled = false;
-    this.body = "block;";
-
-    if(this.html5QrCodes!=undefined){
-      this.html5QrCodes.stop().then(() => {
-      }).catch(() => {
-      });
-    }
+    this.interval = setInterval(() => {
+      this.barra = true;
+    },2000)
+    
+    
   }
 
   setearValores($event : string){
@@ -699,6 +699,8 @@ export class CdetalleComponent implements OnInit {
 
     if(tt_filas.length > 0)
     {
+      this.rendDet.fecha = "";
+
       for (let i = 0; i < tt_filas.length; i++) 
       {
         switch(i + 1)
@@ -743,11 +745,36 @@ export class CdetalleComponent implements OnInit {
             { }
             break;
           case 7:
-            this.rendDet.fecha =new Date(tt_filas[i].trim()).toISOString();
-              break;
+            if(tt_filas[i].trim()!="" && tt_filas[i].trim()!=null){
+              this.rendDet.fecha = new Date(tt_filas[i].trim()).toISOString();
+            }            
+            break;
+          case 8:
+            if(this.rendDet.fecha=="" || this.rendDet.fecha==null){
+              if(tt_filas[i].trim()!="" && tt_filas[i].trim()!=null){
+                this.rendDet.fecha = new Date(tt_filas[i].trim()).toISOString();
+              }  
+            }          
+            break;
 
         }          
       }
+    }
+
+    this.disableScanner()
+  }
+
+  disableScanner() {
+    this.scannerEnabled = false;
+    this.barra = false;
+    this.stop = false;
+    this.body = "block;";
+    clearInterval(this.interval);
+    
+    if(this.html5QrCodes!=undefined){
+      this.html5QrCodes.stop().then(() => {
+      }).catch(() => {
+      });
     }
   }
 
