@@ -456,7 +456,7 @@ export class LrendicionComponent implements OnInit {
   }
 
   puedeEditar(usu: number, est: number){
-    return est <= 1 && (this.permiso.editartodos ||  usu == this.usuarioService.sessionUsuario().ideUsuario);
+    return est <= 1 && (this.permiso.editartodos || this.mismoUsuario(usu));
   }
 
   reenviarPdf(ideRendicion: number){
@@ -479,5 +479,9 @@ export class LrendicionComponent implements OnInit {
         //console.log('No');
       }
     });
+  }
+
+  mismoUsuario(usu: number){
+    return usu == this.usuarioService.sessionUsuario().ideUsuario;
   }
 }

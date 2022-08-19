@@ -91,6 +91,15 @@
               </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="usuario">
+              <mat-header-cell style="display: none" *matHeaderCellDef [ngClass]="'widthTable mobil'"> Usuario </mat-header-cell>
+              <mat-cell style="display: none" *matCellDef="let element" [ngClass]="'widthTable mobil'">
+                <div class="responsive-estado"><mat-icon>person icon</mat-icon></div>
+                <div class="responsive-estado">{{buscaUsuario(element.ideUsuario)}}</div>
+                <div style="margin-left:auto; color: black">{{element.vFechaCreacion}}</div>
+              </mat-cell>
+            </ng-container>
+
             <ng-container matColumnDef="lugar">
               <mat-header-cell *matHeaderCellDef> Lugar </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="Lugar"> {{element.lugar}} </mat-cell>
