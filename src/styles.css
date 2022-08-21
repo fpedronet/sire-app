@@ -139,7 +139,7 @@ div, body, span, a, h1, h2, h3, h4, h5, h6, input, textarea { margin: 0; font-fa
 .title-label{
   text-align: center;
   color: var(--text-bg-color1);
-  padding-top: 4px;  
+  padding: 0;
 }
 
 .sub-title-label{
@@ -151,7 +151,7 @@ div, body, span, a, h1, h2, h3, h4, h5, h6, input, textarea { margin: 0; font-fa
 .container{
   margin-right: 2em;
   margin-left: 2em;
-  margin-top: 120px;
+  margin-top: 95px;
 }
 
 .overlay{
@@ -695,9 +695,6 @@ form{
   .example-button-row{
     margin-left:auto;
   }
-  .mat-header-row{
-    min-height:22px;
-  }
   #closemenu{
     display: none;
   }
@@ -744,6 +741,10 @@ form{
   }
 }
 
+mat-header-row {
+  min-height: 5px !important;
+}
+
 @media (max-width:450px){
   .container {
     margin-right: 0.5em;
@@ -754,9 +755,6 @@ form{
   }
   .example-button-row{
     margin-left:auto;
-  }
-  .mat-header-row{
-    min-height:22px;
   }
   #closemenu{
     display: none;
@@ -869,6 +867,15 @@ input[type=number] { -moz-appearance:textfield; }
   background-color: var(--footer-bg-color1) !important;
 }
 
+.mat-horizontal-stepper-header-container {
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.mat-step-header {
+  height: 80% !important;
+}
 
 /* .cdk-overlay-container{
   z-index:1;

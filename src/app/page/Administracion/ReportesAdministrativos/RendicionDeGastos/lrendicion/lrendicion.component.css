@@ -138,3 +138,13 @@
   -webkit-hyphens: auto;
   hyphens: auto;
 }
+
+@media screen and (max-width: 960px){
+  .fila-usuario-mobil{
+    display: flex !important;
+    border-bottom: inset;
+    border-width: thin;
+    border-color:
+    #E3E3E3;
+  }
+}

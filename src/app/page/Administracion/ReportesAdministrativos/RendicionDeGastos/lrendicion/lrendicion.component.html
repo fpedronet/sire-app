@@ -82,21 +82,19 @@
               </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="usuario">
+            <ng-container matColumnDef="usuario" style="display: contents">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'"> Usuario </mat-header-cell>
-              <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
-                <div class="responsive-estado"><mat-icon>person icon</mat-icon></div>
-                <div class="responsive-estado">{{buscaUsuario(element.ideUsuario)}}</div>
-                <div style="margin-left:auto; color: black">{{element.vFechaCreacion}}</div>
-              </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="usuario">
-              <mat-header-cell style="display: none" *matHeaderCellDef [ngClass]="'widthTable mobil'"> Usuario </mat-header-cell>
-              <mat-cell style="display: none" *matCellDef="let element" [ngClass]="'widthTable mobil'">
-                <div class="responsive-estado"><mat-icon>person icon</mat-icon></div>
-                <div class="responsive-estado">{{buscaUsuario(element.ideUsuario)}}</div>
-                <div style="margin-left:auto; color: black">{{element.vFechaCreacion}}</div>
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'" style="display: contents">
+                <div class="fila-usuario-mobil" style="display: none;" *ngIf="!(mismoUsuario(element.ideUsuario) && idPantalla === 1)">
+                  <div class="responsive-estado"><mat-icon>person icon</mat-icon></div>
+                  <div class="responsive-estado">{{buscaUsuario(element.ideUsuario)}}</div>
+                  <div style="margin-left:auto; color: black">{{element.vFechaCreacion}}</div>
+                </div>
+                <div style="display: none;" *ngIf="mismoUsuario(element.ideUsuario) && idPantalla === 1">
+                  <div class="responsive-estado"><mat-icon>person icon</mat-icon></div>
+                  <div class="responsive-estado">{{buscaUsuario(element.ideUsuario)}}</div>
+                  <div style="margin-left:auto; color: black">{{element.vFechaCreacion}}</div>
+                </div>
               </mat-cell>
             </ng-container>
 

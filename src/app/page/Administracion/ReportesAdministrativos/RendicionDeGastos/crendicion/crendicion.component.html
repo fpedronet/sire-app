@@ -38,9 +38,9 @@
 <mat-card class="cardborde">   
   <mat-toolbar class="cardtitle"></mat-toolbar>
 
-  <h2 *ngIf="id==0" class="title-label">CREAR {{getDescTipo(TIPO.value)}}</h2>
-  <h2 *ngIf="id!==0 && edit" class="title-label">{{pantallaPrev}} EDITAR {{getDescTipo(TIPO.value)}}</h2>
-  <h2 *ngIf="id!==0 && !edit" class="title-label">{{pantallaPrev}} VER {{getDescTipo(TIPO.value)}}</h2>
+  <h2 *ngIf="id==0" class="title-label" style="margin: 0;">CREAR {{getDescTipo(TIPO.value)}}</h2>
+  <h2 *ngIf="id!==0 && edit" class="title-label" style="margin: 0;">{{pantallaPrev}} EDITAR {{getDescTipo(TIPO.value)}}</h2>
+  <h2 *ngIf="id!==0 && !edit" class="title-label" style="margin: 0;">{{pantallaPrev}} VER {{getDescTipo(TIPO.value)}}</h2>
 
   <h5 *ngIf="id==0" class="title-label">Una vez creada se poderá ingresar el detalle de gastos</h5>
 
