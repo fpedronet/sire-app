@@ -1,19 +1,24 @@
 <mat-toolbar color="primary" class="example-toolbar submenu example-button">
     <div class="example-button-row">
       <button mat-stroked-button class="btnHeader" (click)="actualizar()">
-        <mat-icon class="maticon">syncalt</mat-icon>
+        <mat-icon class="maticonmenu">syncalt</mat-icon>
+        <span class="maticontitle">Actualizar</span>
       </button>
       <button mat-stroked-button class="btnHeader" (click)="abrirBusqueda()">
-        <mat-icon class="maticon">filter_alt</mat-icon>
+        <mat-icon class="maticonmenu">filter_alt</mat-icon>
+        <span class="maticontitle">Filtrar</span>
       </button>
       <button *ngIf="idPantalla === 1" mat-stroked-button class="btnHeader" routerLink="/page/administracion/rendicion/{{idPantalla}}/create">
-        <mat-icon class="maticon">add</mat-icon>
+        <mat-icon class="maticonmenu">add</mat-icon>
+        <span class="maticontitle">Nuevo</span>
       </button>
       <button *ngIf="idPantalla !== 1 && sgteEstado1 !== 0" mat-stroked-button class="btnHeader" (click)="cambiaEstadoSeleccion(sgteEstado1, sgteAccion1)" [disabled]="selection.selected.length === 0">
-        <mat-icon class="maticon">{{sgteIcono1}}</mat-icon>
+        <mat-icon class="maticonmenu">{{sgteIcono1}}</mat-icon>
+        <span class="maticontitle">Aprobar</span>
       </button>
       <button *ngIf="idPantalla !== 1 && sgteEstado2 !== 0" mat-stroked-button class="btnHeader" (click)="cambiaEstadoSeleccion(sgteEstado2, sgteAccion2, true)" [disabled]="selection.selected.length === 0">
-        <mat-icon class="maticon">{{sgteIcono2}}</mat-icon>
+        <mat-icon class="maticonmenu">{{sgteIcono2}}</mat-icon>
+        <span class="maticontitle">Rechazar</span>
       </button>
     </div>
   </mat-toolbar>

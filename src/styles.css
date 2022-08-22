@@ -33,7 +33,8 @@ div, body, span, a, h1, h2, h3, h4, h5, h6, input, textarea { margin: 0; font-fa
   --text-bg-color3: #4D4D51;
   --text-bg-color4: #1367FF;
 
-  --bor-bg-color1: #002c8b7a;
+  --bor-bg-color1: #fff;
+  --bor-bg-color2: #002c8b7a;
 
   --header-bg-color1: #000077;
   --header-bg-color2: #1c0a75;
@@ -108,6 +109,18 @@ div, body, span, a, h1, h2, h3, h4, h5, h6, input, textarea { margin: 0; font-fa
 
 .maticon{
   font-size: 26px;
+}
+
+.maticonmenu{
+  font-size: 26px;
+  display:flex !important;
+  font-size:23px;
+  height:19px;
+  margin-left:4px;
+}
+
+.maticontitle{
+  font-size: 8px;
 }
 
 .labelSubtittle{
@@ -188,19 +201,32 @@ form{
 /* botones en la cabezera formulario */
 .example-button-row .mat-button-base {
   min-width: 60px;
+  /* line-height: 33px; */
+  line-height: 10px;
+  border-radius:11px;
+  /* box-shadow: 0 0.125rem 0.625rem rgb(61 56 138 / 9%), 0 0.0625rem 0.125rem rgb(56 72 138 / 33%); */
+  border-color: var(--bor-bg-color1);
+  margin-left: 7px;
+  margin-top:18px;
+}
+
+/* botones del cuerpo de formulario */
+.example-button-rowC .mat-button-base {
+  min-width: 60px;
   line-height: 33px;
   border-radius:11px;
   box-shadow: 0 0.125rem 0.625rem rgb(61 56 138 / 9%), 0 0.0625rem 0.125rem rgb(56 72 138 / 33%);
-  border-color: var(--bor-bg-color1);
+  border-color: var(--bor-bg-color2);
   margin-left: 7px;
   margin-top:18px;
 }
 
 .example-button-rowR .mat-button-base {
   min-width: 60px;
-  line-height: 33px;
+  /* line-height: 33px; */
+  line-height: 10px;
   border-radius:11px;
-  box-shadow: 0 0.125rem 0.625rem rgb(61 56 138 / 9%), 0 0.0625rem 0.125rem rgb(56 72 138 / 33%);
+  /* box-shadow: 0 0.125rem 0.625rem rgb(61 56 138 / 9%), 0 0.0625rem 0.125rem rgb(56 72 138 / 33%); */
   border-color: var(--bor-bg-color1);
   margin-top:18px;
 }

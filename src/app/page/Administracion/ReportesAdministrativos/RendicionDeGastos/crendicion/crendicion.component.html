@@ -1,35 +1,44 @@
 <mat-toolbar color="primary" class="example-toolbar submenu example-button">
     <div class="example-button-rowR">
-      <button mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Atrás" routerLink="/page/administracion/rendicion/{{idPantalla}}">
-        <mat-icon class="maticon">subdirectory_arrow_left</mat-icon>
+      <button mat-stroked-button class="btnHeader" routerLink="/page/administracion/rendicion/{{idPantalla}}">
+        <mat-icon class="maticonmenu">subdirectory_arrow_left</mat-icon>
+        <span class="maticontitle">Atrás</span>
       </button>
     </div>
     <div class="example-button-row">
-      <button *ngIf="delete" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Eliminar" type="button" (click)="cambiaEstado(0)">
-        <mat-icon class="maticon">delete</mat-icon>
+      <button *ngIf="delete" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Eliminar"  type="button" (click)="cambiaEstado(0)">
+        <mat-icon class="maticonmenu">delete</mat-icon>
+        <span class="maticontitle">Eliminar</span>
       </button>
       <button *ngIf="existenObs" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Observaciones" type="button" (click)="observacion()">
-        <mat-icon class="maticon">comment</mat-icon>
+        <mat-icon class="maticonmenu">comment</mat-icon>
+        <span class="maticontitle">Observaciones</span>
       </button>
       <button *ngIf="edit" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Guardar" type="submit" [disabled]="frmGrupo.invalid" form="ngForm">
-        <mat-icon class="maticon">save</mat-icon>
+        <mat-icon class="maticonmenu">save</mat-icon>
+        <span class="maticontitle">Guardar</span>
       </button>
       <button *ngIf="tienepermiso(sgteEstadoR) && TIPO.value === 'R' && txtEditarR !== ''" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="{{txtEditarR}}" type="button" (click)="cambiaEstado(sgteEstadoR)">
-        <mat-icon class="maticon">{{sgteIconR}}</mat-icon>
+        <mat-icon class="maticonmenu">{{sgteIconR}}</mat-icon>
+        <span class="maticontitle">{{txtEditarR}}</span>
       </button>
       <button *ngIf="tienepermiso(sgteEstadoM) && TIPO.value === 'M' && txtEditarM !== ''" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="{{txtEditarM}}" type="button" (click)="cambiaEstado(sgteEstadoM)">
-        <mat-icon class="maticon">{{sgteIconM}}</mat-icon>
+        <mat-icon class="maticonmenu">{{sgteIconM}}</mat-icon>
+        <span class="maticontitle">{{txtEditarM}}</span>
       </button>
       <!--Rechaza revisión-->
       <button *ngIf="tienepermiso(sgteEstadoR) && TIPO.value === 'R' && rejectRevi" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Rechazar" type="submit" (click)="observacion('R')">
-        <mat-icon class="maticon">cancel</mat-icon>
+        <mat-icon class="maticonmenu">cancel</mat-icon>
+        <span class="maticontitle">Rechazar</span>
       </button>
       <!--Aprueba/Rechaza-->
       <button *ngIf="apruebarechaza" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Aprobar" type="submit" (click)="cambiaEstado(3)">
-        <mat-icon class="maticon">check_circle</mat-icon>
+        <mat-icon class="maticonmenu">check_circle</mat-icon>
+        <span class="maticontitle">Aprobar</span>
       </button>
       <button *ngIf="apruebarechaza" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Rechazar" type="submit" (click)="observacion('A')">
-        <mat-icon class="maticon">cancel</mat-icon>
+        <mat-icon class="maticonmenu">cancel</mat-icon>
+        <span class="maticontitle">Rechazar</span>
       </button>
     </div>
 </mat-toolbar>
@@ -193,7 +202,7 @@
 
         <div class="content contentTable" style="padding: 0 0 24px 0;">           
             
-          <div class="example-button-row padre">
+          <div class="example-button-rowC padre">
             <button *ngIf="edit" mat-stroked-button class="btnHeader hijo" type="button" (click)="abrirDetalle()">
               <mat-icon class="maticon">add</mat-icon>
             </button>  
