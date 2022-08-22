@@ -17,7 +17,7 @@
         "nIdEstado":1,
         "vDescripcion":"EN CURSO",
         "visual":true,
-        "txtCambiarEstado":{"txt1":"Enviar a evaluar","txt2":"Enviar a evaluar"},
+        "txtCambiarEstado":{"txt1":"Enviar","txt2":"Enviar"},
         "sgteIcono":{"icon1":"send","icon2":"send"},
         "sgteEstado":{"num1":2,"num2":2},
         "mostrarPdf":false,
