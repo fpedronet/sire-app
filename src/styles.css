@@ -769,6 +769,11 @@ form{
 
 mat-header-row {
   min-height: 5px !important;
+  height:27px;
+}
+
+mat-row, mat-footer-row{
+  min-height: 44px !important;
 }
 
 @media (max-width:450px){
