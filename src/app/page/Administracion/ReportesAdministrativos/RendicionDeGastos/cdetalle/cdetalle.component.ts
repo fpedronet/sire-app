@@ -496,19 +496,21 @@ export class CdetalleComponent implements OnInit {
           this.notifierService.showNotification(1,'Mensaje','El proveedor fue encontrado');
       }
       else{
-        this.poclabService.obtenerRuc(this.form.value['rucPrv']).subscribe(data=>{
-          if(data.vDocumento!="" && data.vDocumento!=null && data.vDocumento!=undefined){
-            this.form.patchValue({
-              proveedor: data.vNombres
-            })
-            this.existeProveedor = true;
-            if(!blurBusqueda)
-              this.notifierService.showNotification(1,'Mensaje','El proveedor fue encontrado');
-          }else{
-            if(botonBusqueda)
-            this.notifierService.showNotification(0,'Mensaje','No existe el proveedor');
-          }
-        });
+        // this.poclabService.obtenerRuc(this.form.value['rucPrv']).subscribe(data=>{
+        //   if(data.vDocumento!="" && data.vDocumento!=null && data.vDocumento!=undefined){
+        //     this.form.patchValue({
+        //       proveedor: data.vNombres
+        //     })
+        //     this.existeProveedor = true;
+        //     if(!blurBusqueda)
+        //       this.notifierService.showNotification(1,'Mensaje','El proveedor fue encontrado');
+        //   }else{
+        //     if(botonBusqueda)
+        //     this.notifierService.showNotification(0,'Mensaje','No existe el proveedor');
+        //   }
+        // });
+        if(botonBusqueda)
+        this.notifierService.showNotification(0,'Mensaje','No existe el proveedor');
       }
     })
   }
