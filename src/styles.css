@@ -536,10 +536,11 @@ form{
   .mat-table .mat-cell {
     border-bottom: 1px solid #ddddddb0;
     display: block;
+    min-height: fit-content;
     /* font-size: 1em; */
     text-align: right;
     /* font-weight: bold; */
-    /* height: 30px; */
+    min-height: 30px;
     /* margin-bottom: 4%;*/
   }
   .mat-table .mat-cell:before {
@@ -550,7 +551,8 @@ form{
     content: attr(data-label);
     float: left;
     text-transform: uppercase;
-    font-weight: normal;    
+    font-weight: normal;
+    min-height: fit-content;
     font-size: .85em;
   }
   .mat-table .mat-cell:last-child {
