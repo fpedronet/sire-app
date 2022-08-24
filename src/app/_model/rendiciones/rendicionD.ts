@@ -3,9 +3,10 @@ export class RendicionD {
         this.ideRendicionDet = 0;
         this.ideRendicion = 0;
         this.dFecha = new Date();
-        this.fecha = '';
-        this.vFecha = '';
-        this.vHora = '';
+        var difUTC = (5 * 60) * 60000;
+        this.fecha = new Date(this.dFecha.getTime() - difUTC).toISOString();
+        this.vFecha = this.fecha?.slice(0,11) + '00:00:00';
+        this.vHora = this.fecha === undefined ? '' : this.horaFormateada(this.dFecha);
         this.comodato = 'CMD';
         this.ideSede = 0;
         this.nCodLinea = '';
@@ -20,6 +21,12 @@ export class RendicionD {
         this.proveedor = '';
         this.swt = 1;
         this.url = ''
+    }
+    horaFormateada(dHora?: Date){
+        var vHora: string = '';
+        if(dHora !== undefined && dHora !== null)
+            vHora = (`${(dHora.getHours()<10?'0':'') + dHora.getHours()}:${(dHora.getMinutes()<10?'0':'') + dHora.getMinutes()}`);
+        return vHora;
     }
     ideRendicionDet?: number
     ideRendicion?: number

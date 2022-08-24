@@ -56,8 +56,12 @@ export class CdetalleComponent implements OnInit {
   )
   {
     //debugger;
-    if(this.data.detalle !== undefined)
+    if(this.data.detalle !== undefined){
       this.rendDet = this.data.detalle;
+      var fecha = this.rendDet.fecha;
+      this.rendDet.vFecha = fecha?.slice(0,11) + '00:00:00';
+      this.rendDet.vHora = fecha === undefined ? '' : this.horaFormateada(new Date(fecha));
+    }      
     else
       this.rendDet!.ideRendicion = this.data.idPadre;
 
@@ -134,19 +138,16 @@ export class CdetalleComponent implements OnInit {
   }
 
   inicializar(){
-    //debugger;
     var rendD = new RendicionD();
 
     if(this.tipo === 'M')
       rendD.codConcepto = '002' //Movilidad
 
-    //debugger;
-
     this.form = new FormGroup({
       'ideRendicionDet': new FormControl({ value: rendD.ideRendicionDet, disabled: false}),
       'ideRendicion': new FormControl({ value: rendD.ideRendicion, disabled: false}),
       'fecha': new FormControl({ value: rendD.fecha, disabled: false}),
-      'hora': new FormControl({ value: this.horaFormateada(rendD.dFecha), disabled: false}),
+      'hora': new FormControl({ value: rendD.vHora, disabled: false}),
       'comodato': new FormControl({ value: rendD.comodato, disabled: false}),
       'codConcepto': new FormControl({ value: rendD.codConcepto, disabled: false}),
       'nTipDocu': new FormControl({ value: rendD.nTipDocu, disabled: false}),
@@ -187,8 +188,8 @@ export class CdetalleComponent implements OnInit {
     this.form.patchValue({
       ideRendicionDet: rendDet.ideRendicionDet,
       ideRendicion: rendDet.ideRendicion,
-      fecha: rendDet.fecha,
-      hora: rendDet.fecha === undefined ? '' : this.horaFormateada(new Date(rendDet.fecha)),
+      fecha: rendDet.vFecha,
+      hora: rendDet.vHora,
       comodato: rendDet.comodato,
       codConcepto: rendDet.codConcepto,
       nTipDocu: rendDet.nTipDocu,
@@ -320,7 +321,6 @@ export class CdetalleComponent implements OnInit {
   buscarSedes(name: string): Combobox[]{
     this.setCurSede(undefined, true);
     var results: Combobox[] = [];
-    //debugger;
     if(name.length >= this.carBuscaAuto){
       var filtro = name.toLowerCase();
       results = this.tbSede.filter(e => e.descripcion?.toLowerCase().includes(filtro));
@@ -331,7 +331,6 @@ export class CdetalleComponent implements OnInit {
   buscarLineas(name: string): Combobox[]{
     this.setCurLinea(undefined, true);
     var results: Combobox[] = [];
-    //debugger;
     if(name.length >= this.carBuscaAuto){
       var filtro = name.toLowerCase();
       results = this.tbLinea.filter(e => e.descripcion?.toLowerCase().includes(filtro));
@@ -361,10 +360,8 @@ export class CdetalleComponent implements OnInit {
 
     this.form.patchValue({
       fecha: rendDet?.fecha,
-      hora: '',
+      hora: this.horaFormateada(rendDet.dFecha),
       comodato: rendDet?.comodato,
-      //ideSede: rendDet?.ideSede,
-      //nCodLinea: rendDet?.nCodLinea,
       codConcepto: rendDet?.codConcepto,
       nTipDocu: rendDet?.nTipDocu,
       documento: rendDet?.documento,
@@ -376,8 +373,17 @@ export class CdetalleComponent implements OnInit {
     })
     this.existeProveedor = false;
     this.filterComodato = this.tbComodato;
-    this.setCurSede(undefined);
-    this.setCurLinea(undefined);
+    
+    var sedeFind = this.tbSede.find(e => e.valor === rendDet.ideSede?.toString()); //Ruc
+    if(sedeFind !== undefined){
+      var sede: Combobox = sedeFind;      
+      this.setCurSede(sede);
+    }
+    var lineaFind = this.tbLinea.find(e => e.valor === rendDet.nCodLinea); //CodLin
+    if(lineaFind !== undefined){
+      var linea: Combobox = lineaFind;      
+      this.setCurLinea(linea);
+    }
   }
 
   guardar(){
@@ -387,7 +393,9 @@ export class CdetalleComponent implements OnInit {
     model.ideRendicionDet = this.form.value['ideRendicionDet'];
     model.ideRendicion = this.form.value['ideRendicion'];
     
-    var sFecha = new Date(this.form.value['fecha']).toISOString().substring(0,11);
+    var field = new Date(this.form.value['fecha']);
+    var iso = field.toISOString();
+    var sFecha = iso.substring(0,11);
     var sHora = this.form.value['hora'];
     
     var horaValida = /^[[0-9]{2}:[0-9]{2}/.test(sHora);
@@ -538,7 +546,6 @@ export class CdetalleComponent implements OnInit {
   }
 
   setCurSede(sede?: Combobox, notControl: boolean = false, reiniciaCmd: boolean = false){
-    //debugger;
     if(sede === undefined){
       if(!notControl)
         this.controlSedes.setValue(new Combobox());
@@ -554,7 +561,6 @@ export class CdetalleComponent implements OnInit {
       }        
     }
     else{
-      //debugger;
       if(!notControl)
         this.controlSedes.setValue(sede);
       this.ideSede = sede.valor! === ''? 0 : parseInt(sede.valor!);
@@ -741,6 +747,8 @@ export class CdetalleComponent implements OnInit {
             {
               this.rendDet.nTipDocu = "002";
             }
+            //Si no hay tipo de documento setea factura
+            this.rendDet.nTipDocu = "001";
             break;
           case 3:
             this.rendDet.documento = tt_filas[i].trim();
@@ -819,7 +827,10 @@ export class CdetalleComponent implements OnInit {
   camposCambiados(rendDet: RendicionD){
     //debugger;
 
-    var fecha: boolean = rendDet.fecha !== this.getControlLabel('fecha');
+    var f = this.getControlLabel('fecha');
+
+    var fecha: boolean = rendDet.vFecha !== this.getControlLabel('fecha');
+    var hora: boolean = rendDet.vHora !== this.getControlLabel('hora');
     var concepto: boolean = rendDet.codConcepto !== this.getControlLabel('codConcepto');
     var tipDocu: boolean = rendDet.nTipDocu !== this.getControlLabel('nTipDocu');
     var documento: boolean = rendDet.documento !== this.getControlLabel('documento');
@@ -835,6 +846,6 @@ export class CdetalleComponent implements OnInit {
     var adjObj = rendDet.nombreAdjunto;
     var adjFrm = this.getControlLabel('nombreAdjunto');    
     var nombreAdjunto: boolean = ((adjObj === null || adjObj === undefined)? '' : adjObj) !== ((adjFrm === null || adjFrm === undefined) ? '' : adjFrm);
-    return fecha || concepto || tipDocu || documento || codMoneda || monto || descripcion || rucPrv || proveedor || sede || comodato || linea || nombreAdjunto;
+    return fecha || hora || concepto || tipDocu || documento || codMoneda || monto || descripcion || rucPrv || proveedor || sede || comodato || linea || nombreAdjunto;
   }
 }
