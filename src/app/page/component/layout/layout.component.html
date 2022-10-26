@@ -115,7 +115,7 @@
               </mat-expansion-panel-header>
 
               <div class="submenu" *ngFor="let s of m.listaSubMenu1">
-                <mat-expansion-panel>
+                <mat-expansion-panel #SUB1 expanded>
                   <mat-expansion-panel-header style="margin-left:-25px;margin-top:-15px;">
                     <mat-panel-title>
                       <a *ngIf="m.url==''" class="menuvertical"><mat-icon>menuopen</mat-icon>{{s.desPantallaWeb}}</a>
