@@ -459,26 +459,31 @@ export class LrendicionComponent implements OnInit {
     return est <= 1 && (this.permiso.editartodos || this.mismoUsuario(usu));
   }
 
-  reenviarPdf(ideRendicion: number){
-    this.confirmService.openConfirmDialog(false, "¿Desea reenviar el PDF de la rendición seleccionada?").afterClosed().subscribe(res =>{
-      //Ok
-      if(res){
-        //console.log('Sí');
-        this.spinner.showLoading();
-        //debugger;
-        this.rendicionService.reenviarPdf(ideRendicion).subscribe(data=>{
-          if(data.typeResponse==environment.EXITO){
-            this.spinner.hideLoading();
-            this.actualizar();
-          }else{
-            this.spinner.hideLoading();
-          }
-        });  
-      }
-      else{
-        //console.log('No');
-      }
-    });
+  reenviarPdf(ideRendicion: number, aprobador: number = 0){
+    if(aprobador === 0){
+      this.notifierService.showNotification(0,'Mensaje','Error al asignar aprobador');
+    }
+    else{
+      this.confirmService.openConfirmDialog(false, "¿Desea reenviar el PDF de la rendición seleccionada?").afterClosed().subscribe(res =>{
+        //Ok
+        if(res){
+          //console.log('Sí');
+          this.spinner.showLoading();
+          //debugger;
+          this.rendicionService.reenviarPdf(ideRendicion).subscribe(data=>{
+            if(data.typeResponse==environment.EXITO){
+              this.spinner.hideLoading();
+              this.actualizar();
+            }else{
+              this.spinner.hideLoading();
+            }
+          });  
+        }
+        else{
+          //console.log('No');
+        }
+      });
+    }    
   }
 
   mismoUsuario(usu: number){

@@ -136,7 +136,7 @@
                   <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
                   <mat-icon *ngIf="element.correo=='No'" style="color: #1b70c7;">mail_outline_icon</mat-icon>
                 </a>
-                <a *ngIf="permiso.reenviar" matTooltip="Reenviar" style="cursor: pointer !important" (click)='reenviarPdf(element.ideRendicion)'>
+                <a *ngIf="permiso.reenviar" matTooltip="Reenviar" style="cursor: pointer !important" (click)='reenviarPdf(element.ideRendicion, element.ideUsuApruebaRechaza)'>
                   <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
                   <mat-icon *ngIf="element.correo=='No'" style="color: #1b70c7;">mail_outline_icon</mat-icon>
                 </a>                  

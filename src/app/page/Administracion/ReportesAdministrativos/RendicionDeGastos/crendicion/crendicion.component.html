@@ -171,9 +171,14 @@
                   </mat-label>
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="12">
-                  <mat-label *ngIf="nombreAprobador !== ''">
+                  <mat-label *ngIf="nombreAprobador !== '' && ideEstado == 2">
                     <a style="color: red;">
                       Debe ser aprobado por: {{nombreAprobador}}
+                    </a>                    
+                  </mat-label>
+                  <mat-label *ngIf="nombreAprobador !== '' && ideEstado == 3">
+                    <a style="color: blue;">
+                      Aprobado por: {{nombreAprobador}}
                     </a>                    
                   </mat-label>
                 </mat-grid-tile>

@@ -61,7 +61,7 @@ export class CrendicionComponent implements OnInit {
   tbUsuario: Combobox[] = [];
   nombresUsuario?: string = '';
 
-  CodEstado: string = "0";
+  ideEstado: number = 0;
   Codigo?: number;
   id: number = 0;
   edit: boolean = true;
@@ -264,6 +264,7 @@ export class CrendicionComponent implements OnInit {
           //debugger;
           this.rendicionCargada = data;
           this.existRendicion = true;
+          this.ideEstado = data.ideEstado!;
           this.form.patchValue({
             ideRendicion: data.ideRendicion,
             codigo: data.codigo,
@@ -293,10 +294,9 @@ export class CrendicionComponent implements OnInit {
           else{
             this.muestraIngresos = true;
             this.displayedColumns = this.initDisplayedColumns;
-          }
-            
+          }            
 
-          if(data.ideEstado === 2 && data.ideUsuApruebaRechaza !== undefined && data.ideUsuApruebaRechaza !== 0)
+          if((data.ideEstado === 2 || data.ideEstado === 3) && data.ideUsuApruebaRechaza !== undefined && data.ideUsuApruebaRechaza !== 0)
             this.nombreAprobador = this.buscaUsuario(data.ideUsuApruebaRechaza);
 
           this.url_m = data.url_M!;
