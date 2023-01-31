@@ -87,7 +87,7 @@ export class CdetalleComponent implements OnInit {
   tbComodato: Combobox[] = [];
   filterComodato: Combobox[] = [];
 
-  carBuscaAuto: number = 1;
+  carBuscaAuto: number = 3;
   nroMuestraAuto: number = 0;
 
   tbSede: Combobox[] = [];  

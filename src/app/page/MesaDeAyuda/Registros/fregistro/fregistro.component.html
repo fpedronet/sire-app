@@ -1,0 +1,78 @@
+<h3 mat-dialog-title>BÚSQUEDA - LISTA DE TICKETS</h3>
+
+<mat-dialog-content class="modal">
+
+  <mat-form-field appearance="outline">
+      <mat-label>Búsqueda</mat-label>
+      <input #CODIGO [(ngModel)]="codigo" matInput placeholder="Búsqueda" #input (keyup.enter)="buscar()">
+      <button *ngIf="CODIGO.value" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="CODIGO.value=''; codigo = ''">
+        <mat-icon>close</mat-icon>
+      </button>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Estado</mat-label>
+    <mat-select 
+    [(ngModel)]="idEstado"
+    (selectionChange)="selectEstado($event.value)"
+    >
+      <mat-option *ngFor="let el of tbEstado" [value]="el.valor">
+        {{el.descripcion}}
+      </mat-option> 
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Responsable</mat-label>
+    <mat-select 
+    [(ngModel)]="idUsuario"
+    (selectionChange)="selectUsuario($event.value)"
+    >
+      <mat-option *ngFor="let el of tbUsuario" [value]="el.valor">
+        {{el.descripcion}}
+      </mat-option> 
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Categoría</mat-label>
+    <mat-select 
+    [(ngModel)]="idCategoria"
+    (selectionChange)="selectCategoria($event.value)"
+    >
+      <mat-option *ngFor="let el of tbCategoria" [value]="el.valor">
+        {{el.descripcion}}
+      </mat-option> 
+    </mat-select>
+  </mat-form-field>
+
+  <div class="content contentTable">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+        <mat-form-field appearance="outline" style="margin-top: 15px;">
+          <mat-label>Fecha Inicio</mat-label>
+          <input matInput [matDatepicker]="fechaInicio" placeholder="dd/mm/aaaa" [max]="fechaInicio" 
+          [(ngModel)]="fechaSelectIni"  (dateChange)="onDateChange()" [max]="fechaMax">
+          <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+          <mat-datepicker #fechaInicio></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+        <mat-form-field appearance="outline" style="margin-top: 15px;">
+          <mat-label>Fecha Fin</mat-label>
+          <input matInput [matDatepicker]="fechaFin" placeholder="dd/mm/aaaa" [max]="fechaFin" 
+          [(ngModel)]="fechaSelectFin" (dateChange)="onDateChange()" [max]="fechaMax">
+          <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
+          <mat-datepicker #fechaFin></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+</mat-dialog-content>
+
+<div class="btnModal" align="end">
+  <button mat-stroked-button class="btnRed" mat-dialog-close><mat-icon>close</mat-icon>Cerrar</button> 
+  <button mat-stroked-button class="btnYellow"(click)="limpiar()"><mat-icon>cleaning_services</mat-icon>Limpiar</button>
+  <button mat-stroked-button class="btnBlue" (click)="buscar()" [disabled]="idUsuario === ''"><mat-icon>search</mat-icon>Buscar</button>
+</div>

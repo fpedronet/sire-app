@@ -17,6 +17,10 @@ import { FrendicionComponent } from './Administracion/ReportesAdministrativos/Re
 import { CdetalleComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/cdetalle/cdetalle.component';
 import { CrechazoComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crechazo/crechazo.component';
 import { PerfilComponent } from './component/perfil/perfil.component';
+import { CregistroComponent } from './MesaDeAyuda/Registros/cregistro/cregistro.component';
+import { LregistroComponent } from './MesaDeAyuda/Registros/lregistro/lregistro.component';
+import { FregistroComponent } from './MesaDeAyuda/Registros/fregistro/fregistro.component';
+import { IregistroComponent } from './MesaDeAyuda/Registros/iregistro/iregistro.component';
 
 
 @NgModule({
@@ -31,7 +35,11 @@ import { PerfilComponent } from './component/perfil/perfil.component';
     FrendicionComponent,
     CdetalleComponent,
     CrechazoComponent,
-    PerfilComponent
+    PerfilComponent,
+    CregistroComponent,
+    LregistroComponent,
+    FregistroComponent,
+    IregistroComponent
   ],
   imports: [
     MaterialModule,

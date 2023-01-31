@@ -130,7 +130,7 @@ export class LrendicionComponent implements OnInit {
     this.customPaginator.lastPageLabel = 'Última página';
     this.customPaginator.getRangeLabel = (page: number, pageSize: number, length: number) => {
       if (length === 0 || pageSize === 0) {
-        return `0 à ${length }`;
+        return `0 a ${length }`;
       }
       length = Math.max(length, 0);
       const startIndex = page * pageSize;

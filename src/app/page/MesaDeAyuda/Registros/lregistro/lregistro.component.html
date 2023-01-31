@@ -1,0 +1,132 @@
+<mat-toolbar color="primary" class="example-toolbar submenu example-button">
+    <div class="example-button-row">
+      <button mat-stroked-button class="btnHeader" (click)="actualizar()">
+        <mat-icon class="maticonmenu">syncalt</mat-icon>
+        <span class="maticontitle">Actualizar</span>
+      </button>
+      <button mat-stroked-button class="btnHeader" (click)="abrirBusqueda()">
+        <mat-icon class="maticonmenu">filter_alt</mat-icon>
+        <span class="maticontitle">Filtrar</span>
+      </button>
+      <button *ngIf="true" mat-stroked-button class="btnHeader" (click)="abrirAgregar()">
+        <mat-icon class="maticonmenu">add</mat-icon>
+        <span class="maticontitle">Nuevo</span>
+      </button>
+    </div>
+  </mat-toolbar>
+  
+  <div class="container">  
+    <mat-card class="cardborde">   
+      <mat-toolbar class="cardtitle"></mat-toolbar>
+      <h2 class="title-label"> LISTA DE TICKETS </h2>
+      <mat-divider></mat-divider>
+      <form style="padding: 0;">     
+        
+        <div class="example-loading-shade" *ngIf="loading || existRegistro">
+          <mat-spinner *ngIf="loading"></mat-spinner>
+          <div class="example-rate-limit-reached" *ngIf="existRegistro">
+            No se encontraron registros.
+          </div>
+        </div>
+  
+        <div class="example-container mat-elevation-z0">
+          <mat-table [dataSource]="dataSource" matSort>            
+           
+            <ng-container matColumnDef="codigo1">
+              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'">Código</mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Código"> 
+                <div class="tbcodigo"> 
+                  {{element.codigo}}
+                </div>     
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="codigo">
+              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Mobil</mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
+                <div class="responsive-estado" style="font-weight: bold; color: back !important;">{{element.tipo}}</div>
+                <div style="margin-left:auto;" class="tbcodigo">
+                  {{element.codigo}}
+                </div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="tipo">
+              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Tipo </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="Tipo" [ngClass]="'widthTable web'">
+                <div>{{element.tipo}}</div>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="usuario" style="display: contents">
+              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'"> Solicita </mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'" style="display: contents">
+                <div class="fila-usuario-mobil" style="display: none;">
+                  <div class="responsive-estado"><mat-icon>person icon</mat-icon></div>
+                  <div class="responsive-estado">{{element.usuario}}</div>
+                  <div style="margin-left:auto; color: black">{{element.vFecSol}}</div>
+                </div>                
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="categoria">
+              <mat-header-cell *matHeaderCellDef> Categoria </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="Categoria"> {{element.categoria}} </mat-cell>
+            </ng-container>
+          
+            <ng-container matColumnDef="servicio">
+              <mat-header-cell *matHeaderCellDef> Servicio </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="Servicio"> {{element.servicio}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="estado">
+              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Estado </mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="estado">
+                <!--div class="circulo {{getDescripcion(element.ideEstado,listaEstados)}}" style="margin-left: 0px;"></div>
+                <span style="padding-left: 12px"></span-->
+                  <span>{{element.estado}}</span>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="accion">
+              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> </mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
+                <a *ngIf="puedeEditar(element.ideUsuario, element.ideEstado)" class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRegistro]">
+                  <mat-icon>edit</mat-icon>
+                </a>
+                <a *ngIf="!puedeEditar(element.ideUsuario, element.ideEstado)" class="pointer edit" matTooltip="Ver" [routerLink]="['edit', element.ideRegistro]">
+                  <mat-icon>visibility</mat-icon>
+                </a>
+              </mat-cell>
+            </ng-container>   
+
+            <ng-container matColumnDef="mo">
+              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Móbil</mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'">
+                <div class="responsive-estado" style="font-weight:600;color: midnightblue; padding-left: 5px">{{element.estado}}</div>     
+                <div style="margin-left:auto;">  
+                  <a *ngIf="puedeEditar(element.ideUsuario, element.ideEstado)" class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRegistro]">
+                    <mat-icon>edit</mat-icon>
+                  </a>
+                  <a *ngIf="!puedeEditar(element.ideUsuario, element.ideEstado)" class="pointer edit" matTooltip="Ver" [routerLink]="['edit', element.ideRegistro]">
+                    <mat-icon>visibility</mat-icon>
+                  </a>
+                </div>
+              </mat-cell>
+            </ng-container>
+                        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          
+          </mat-table>
+          <mat-paginator 
+            [length]="countRegistro" 
+            [pageSizeOptions]="[5, 10, 20]" 
+            showFirstLastButtons 
+            aria-label="Seleccione página de registros">
+          </mat-paginator>
+        </div>
+  
+      </form>    
+    </mat-card>
+  </div>

@@ -1,0 +1,14 @@
+.responsive-estado{
+    color: rgba(0,0,0,.87);
+    text-align: initial;
+  }
+
+  @media screen and (max-width: 960px){
+    .fila-usuario-mobil{
+      display: flex !important;
+      border-bottom: inset;
+      border-width: thin;
+      border-color:
+      #E3E3E3;
+    }
+  }

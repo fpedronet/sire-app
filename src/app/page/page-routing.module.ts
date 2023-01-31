@@ -7,6 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { Not403Component } from './configuracion/not403/not403.component';
 import { LrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/lrendicion/lrendicion.component';
 import { CrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crendicion/crendicion.component';
+import { LregistroComponent } from './MesaDeAyuda/Registros/lregistro/lregistro.component';
+import { CregistroComponent } from './MesaDeAyuda/Registros/cregistro/cregistro.component';
 
 const routes: Routes = [
   {path:'home', component: HomeComponent},
@@ -16,6 +18,10 @@ const routes: Routes = [
   {path:'administracion/rendicion/:idPantalla', component: LrendicionComponent, canActivate: [GuardService]},
   {path:'administracion/rendicion/:idPantalla/create', component: CrendicionComponent, canActivate: [GuardService]},
   {path:'administracion/rendicion/:idPantalla/edit/:id', component: CrendicionComponent, canActivate: [GuardService]},
+
+  {path:'mesadeayuda/registro', component: LregistroComponent},
+  {path:'mesadeayuda/registro/create', component: CregistroComponent, canActivate: [GuardService]},
+  {path:'mesadeayuda/registro/edit/:id', component: CregistroComponent, canActivate: [GuardService]},
 
   /********* Como ejemplo *******/
   // {path:'donante/donacion', component: LdonacionComponent, canActivate: [GuardService]},

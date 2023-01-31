@@ -71,6 +71,7 @@ export class LayoutComponent implements OnInit {
 
         this.count = (data.listaEmpresa?.length!>1)? true: false;     
         this.menus.listaMenu = data.listaMenu;
+        //debugger;
 
         localStorage.setItem(environment.CODIGO_EMPRESA, this.codigo!);
         localStorage.setItem(environment.PASSWORD_SHAREPOINT, data.contraseniaSharepoint!);
