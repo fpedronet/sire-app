@@ -4,11 +4,14 @@ import { environment } from 'src/environments/environment';
 import { dataCollection } from '../_model/dataCollection';
 import { Response } from 'src/app/_model/response';
 import { Registro, RegistroRequest } from '../_model/registros/registro';
+import * as e from 'express';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistroService {
+
+
 
   constructor(private http: HttpClient
     ) { }
@@ -42,5 +45,8 @@ export class RegistroService {
     let urls = `${this.url}/PostSaveRegistro`;
     return this.http.post<Response>(urls, model);
   }
-
+  GetKPITickets(fdesde: Date, fhasta: Date){
+    let urls = `${this.url}/GetKPITickets?fdesde=${fdesde}&fhasta=${fhasta}`;
+    return this.http.get<Registro>(urls);
+  }
 }

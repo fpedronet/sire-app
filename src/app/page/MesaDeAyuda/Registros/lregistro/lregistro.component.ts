@@ -20,6 +20,7 @@ import { environment } from 'src/environments/environment';
 import { merge, startWith, switchMap, of as observableOf, catchError, map } from 'rxjs';
 import { FregistroComponent } from '../fregistro/fregistro.component';
 import { IregistroComponent } from '../iregistro/iregistro.component';
+import { response } from 'express';
 
 @Component({
   selector: 'app-lregistro',
@@ -33,6 +34,12 @@ export class LregistroComponent implements OnInit {
   loading = true;
   existRegistro = false;
   countRegistro = 0;
+
+  ticketsN1:number = 0;
+  totalTickets:number = 0;
+  kpiTicketsResueltos:number = 0;
+  fdesde:Date = new Date();
+  fhasta:Date = new Date();
 
   idPantalla: number = 0;
   tituloPantalla: string[] = ['','','',''];
@@ -220,6 +227,16 @@ export class LregistroComponent implements OnInit {
       this.permiso = data;
        this.spinner.hideLoading();
     });   
+  }
+
+  GetKPITickets(){
+    this.spinner.showLoading();
+    return this.registroService.GetKPITickets(this.fdesde,this.fhasta).subscribe(datos=>{
+      this.kpiTicketsResueltos = Math.round(datos.kpiTicketsResueltos ? datos.kpiTicketsResueltos : 0);
+      this.totalTickets = Math.round(datos.totalTickets ? datos.totalTickets : 0);
+      this.ticketsN1 = Math.round(datos.ticketsN1 ? datos.ticketsN1 : 0);
+      this.spinner.hideLoading();
+    })
   }
 
   buscaUsuario(idUsuario: number){

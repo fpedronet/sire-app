@@ -12,6 +12,12 @@
         <mat-icon class="maticonmenu">add</mat-icon>
         <span class="maticontitle">Nuevo</span>
       </button>
+      <button *ngIf="true" mat-stroked-button class="btnHeader">
+        <a target="_blank" href="https://sistemasanaliticospe.sharepoint.com/:x:/s/AREATI/EZlxvxIHgPVFv1iqM1o-zUkBft1goIHijq7shRkMvvu9AA?e=HVV7HF">
+          <mat-icon class="maticonmenu">assessment</mat-icon>
+        </a>
+        <span class="maticontitle">Reporte MDA</span>
+      </button>
     </div>
   </mat-toolbar>
   
@@ -130,3 +136,33 @@
       </form>    
     </mat-card>
   </div>
+
+<div>
+  <style>
+    .tablaKPI, .columnaKPI, .filaKPI {
+      border:1px solid black;
+    }
+    </style>
+<section>
+  <h4>KPI Desde</h4>
+  <input type="date" id="fDesde" [(ngModel)] = "fdesde">
+  <h4>KPI Hasta</h4>
+  <input type="date" id="fHasta" [(ngModel)] = "fhasta">
+  <button mat-raised-button color="primary" (click)="GetKPITickets()">
+    <mat-icon>search</mat-icon>
+  </button>
+</section>
+
+ <table class="tablaKPI">
+  <tr>
+    <th class="columnaKPI">Total Tickets</th>
+    <th class="columnaKPI">Tickets resueltos por N1</th>
+    <th class="columnaKPI">KPI Tickets resueltos</th>
+  </tr>
+  <tr>
+    <td class="filaKPI">{{totalTickets}}</td>
+    <td class="filaKPI">{{ticketsN1}}</td>
+    <td class="filaKPI">{{kpiTicketsResueltos}}%</td>
+  </tr>
+ </table> 
+</div>

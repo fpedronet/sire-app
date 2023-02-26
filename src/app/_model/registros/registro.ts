@@ -46,6 +46,12 @@ export class Registro {
     servicio?: string;
     codCanal?: string;
     sgteEstado?: number;    
+
+    fdesde?: Date;
+    fhasta?: Date;
+    kpiTicketsResueltos?:number;
+    ticketsN1?: number;
+    totalTickets?: number;
 }
 
 export class RegistroRequest {
