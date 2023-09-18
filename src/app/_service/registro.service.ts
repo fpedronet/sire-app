@@ -30,7 +30,7 @@ export class RegistroService {
     req.Canal = canal;
     req.Page = page!+1;
     req.Pages = pages;
-   
+
     let urls = `${this.url}/GetAllRegistro`;
     return this.http.post<dataCollection>(urls,req);
   }
@@ -49,4 +49,10 @@ export class RegistroService {
     let urls = `${this.url}/GetKPITickets?fdesde=${fdesde}&fhasta=${fhasta}`;
     return this.http.get<Registro>(urls);
   }
+  GetTotalTicketsXUsuario() {
+    debugger;
+    let urls = `${this.url}/GetTotalTicketsXUsuario`;
+    return this.http.get<dataCollection>(urls);
+  }
+
 }

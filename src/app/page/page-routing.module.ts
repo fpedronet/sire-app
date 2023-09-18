@@ -9,6 +9,7 @@ import { LrendicionComponent } from './Administracion/ReportesAdministrativos/Re
 import { CrendicionComponent } from './Administracion/ReportesAdministrativos/RendicionDeGastos/crendicion/crendicion.component';
 import { LregistroComponent } from './MesaDeAyuda/Registros/lregistro/lregistro.component';
 import { CregistroComponent } from './MesaDeAyuda/Registros/cregistro/cregistro.component';
+import { LreporteComponent } from './MesaDeAyuda/Reportes/lreporte/lreporte.component';
 
 const routes: Routes = [
   {path:'home', component: HomeComponent},
@@ -22,7 +23,7 @@ const routes: Routes = [
   {path:'mesadeayuda/registro', component: LregistroComponent},
   {path:'mesadeayuda/registro/create', component: CregistroComponent, canActivate: [GuardService]},
   {path:'mesadeayuda/registro/edit/:id', component: CregistroComponent, canActivate: [GuardService]},
-
+  {path:'mesadeayuda/reporte', component: LreporteComponent},
   /********* Como ejemplo *******/
   // {path:'donante/donacion', component: LdonacionComponent, canActivate: [GuardService]},
   // {path:'donante/donacion/create', component: CdonacionComponent, canActivate: [GuardService]},

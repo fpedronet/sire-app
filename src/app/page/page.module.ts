@@ -21,6 +21,7 @@ import { CregistroComponent } from './MesaDeAyuda/Registros/cregistro/cregistro.
 import { LregistroComponent } from './MesaDeAyuda/Registros/lregistro/lregistro.component';
 import { FregistroComponent } from './MesaDeAyuda/Registros/fregistro/fregistro.component';
 import { IregistroComponent } from './MesaDeAyuda/Registros/iregistro/iregistro.component';
+import { LreporteComponent } from './MesaDeAyuda/Reportes/lreporte/lreporte.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { IregistroComponent } from './MesaDeAyuda/Registros/iregistro/iregistro.
     CregistroComponent,
     LregistroComponent,
     FregistroComponent,
-    IregistroComponent
+    IregistroComponent,
+    LreporteComponent
   ],
   imports: [
     MaterialModule,

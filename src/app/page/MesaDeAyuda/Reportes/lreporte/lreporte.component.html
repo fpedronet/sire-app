@@ -1,0 +1,62 @@
+<mat-toolbar color="primary" class="example-toolbar submenu example-button">
+  <div class="example-button-row">
+    <button mat-stroked-button class="btnHeader">
+      <mat-icon class="maticonmenu">syncalt</mat-icon>
+      <span class="maticontitle">Actualizar</span>
+    </button>
+  </div>
+</mat-toolbar>
+
+<div class="container">
+  <mat-card class="cardborde">
+    <mat-toolbar class="cardtitle"></mat-toolbar>
+    <h2 class="title-label"> LISTA DE TICKETS </h2>
+    <mat-divider></mat-divider>
+    <form style="padding: 0;">
+
+      <div class="example-loading-shade" *ngIf="loading || existRegistro">
+        <mat-spinner *ngIf="loading"></mat-spinner>
+        <div class="example-rate-limit-reached" *ngIf="existRegistro">
+          No se encontraron registros.
+        </div>
+      </div>
+
+      <div class="example-container mat-elevation-z0">
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="nombreConocido">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'">Nombre</mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Nombre">
+              <div>{{element.nombreConocido}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="ticketsTotal">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Tickets en Total </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="Tickets en Total" [ngClass]="'widthTable web'" data-label="Total">
+              <div>{{element.ticketsTotal}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="ticketsPendientes">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Tickets Pendientes </mat-header-cell>
+            <mat-cell *matCellDef="let element" data-label="Tickets Pendientes" [ngClass]="'widthTable web'" data-label="Pendientes">
+              <div>{{element.ticketsPendientes}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+        <mat-paginator
+          [length]="countRegistro"
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          aria-label="Seleccione página de registros">
+        </mat-paginator>
+      </div>
+
+    </form>
+  </mat-card>
+</div>
