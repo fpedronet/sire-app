@@ -43,12 +43,12 @@ export class LayoutComponent implements OnInit {
   interval:any;
 
   ngOnInit(): void {
-    this.listar();   
+    this.listar();
     // this.startTimer();
   }
 
   listar(){
- 
+
     let session = this.usuarioService.sessionUsuario();
 
     if(session!=null){
@@ -60,7 +60,7 @@ export class LayoutComponent implements OnInit {
       this.spinner.showLoading();
       this.ConfigPermisoService.listar(empresaselect).subscribe(data=>{
         this.menus.listaEmpresa = data.listaEmpresa;
-        
+
         if(empresaselect!=null){
           this.codigo = empresaselect;
           this.empresa = data.listaEmpresa?.filter(x=>x.codigo==empresaselect)[0].nombreEmpresa
@@ -69,19 +69,19 @@ export class LayoutComponent implements OnInit {
           this.empresa = data.listaEmpresa![0].nombreEmpresa;
         }
 
-        this.count = (data.listaEmpresa?.length!>1)? true: false;     
+        this.count = (data.listaEmpresa?.length!>1)? true: false;
         this.menus.listaMenu = data.listaMenu;
         //debugger;
 
         localStorage.setItem(environment.CODIGO_EMPRESA, this.codigo!);
         localStorage.setItem(environment.PASSWORD_SHAREPOINT, data.contraseniaSharepoint!);
-  
+
         this.spinner.hideLoading();
       });
     }else{
       localStorage.clear();
       this.router.navigate(['']);
-    }  
+    }
   }
 
   selectempresa(idbanco: number){
@@ -104,7 +104,7 @@ export class LayoutComponent implements OnInit {
 
   clearLocalStore(){
     this.isshow = false;
-    localStorage.setItem(environment.CODIGO_FILTRO, "");    
+    localStorage.setItem(environment.CODIGO_FILTRO, "");
   }
 
   closeLogin(){
@@ -125,9 +125,9 @@ export class LayoutComponent implements OnInit {
   abrirmenu(){
 
     if(this.isshow){
-      this.isshow = false; 
+      this.isshow = false;
     }else{
-      this.isshow = true;  
+      this.isshow = true;
     }
   }
 

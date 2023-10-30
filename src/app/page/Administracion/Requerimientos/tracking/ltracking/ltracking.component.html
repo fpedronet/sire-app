@@ -1,0 +1,292 @@
+<p>ltracking works!</p>
+<br>
+<!--<label for="cars">Tipo de busqueda:</label>-->
+
+
+<mat-select #FILTRO placeholder="FILTRO" formControlName="filtro" [disabled]="!edit" (selectionChange)="cambiarEstado($event.value)" (selectionChange)="cambiarEstado($event.value)">
+  <mat-option *ngFor="let el of filterFiltro" [value]="el.valor">
+    {{el.descripcion}}
+  </mat-option>
+</mat-select>
+
+
+
+
+<br>
+<br>
+<div *ngIf="swtCMD">
+  <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+    <mat-grid-tile [colspan]="12">
+      <mat-form-field [color]="sedeColor" minlength="1" maxlength="100" appearance="outline">
+        <mat-label>Sede</mat-label>
+        <input #SEDE type="text" matInput [formControl]="controlSedes" [matAutocomplete]="autoSede"  required>
+        <button *ngIf="SEDE.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="SEDE.value=''; setCurSede(undefined, true, true); initFilterSedes();">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete #autoSede="matAutocomplete" [displayWith]="mostrarAutoCombo" (optionSelected)="changeSede($event)">
+            <mat-option *ngFor="let el of filterSedes | async" [value]="el">
+            {{el.descripcion}}
+            </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+    <mat-grid-tile [colspan]="12">
+      <mat-form-field>
+        <mat-select #COMODATO placeholder="Comodato" formControlName="comodato" [disabled]="!edit" (selectionChange)="selectcomodato($event.value)">
+            <mat-option *ngFor="let el of filterComodato" [value]="el.valor">
+            {{el.descripcion}}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<br>
+<div *ngIf="swtSolicitante">
+  <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
+    <mat-grid-tile [colspan]="12">
+      <mat-form-field [color]="usuarioColor" minlength="1" maxlength="100" appearance="outline">
+        <mat-label>Usuario</mat-label>
+        <input #USUARIO type="text" matInput [formControl]="controlUsuarios" [matAutocomplete]="autoUsuario"  required>
+        <button *ngIf="USUARIO.value && edit" type="button" matSuffix mat-icon-button aria-label="Limpiar" (click)="USUARIO.value=''; setCurUsuario(undefined, true); initFilterUsuarios();">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete #autoUsuario="matAutocomplete" [displayWith]="mostrarAutoCombo" (optionSelected)="changeUsuario($event)">
+            <mat-option *ngFor="let el of filterUsuarios | async" [value]="el">
+            {{el.descripcion}}
+            </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<br>
+<div *ngIf="swtRQ">
+<mat-select #RQ placeholder="RQ" formControlName="RQ" [disabled]="!edit" (selectionChange)="selectRQ($event.value)">
+  <mat-option *ngFor="let el of filterRQ" [value]="el.valor">
+  {{el.descripcion}}
+  </mat-option>
+</mat-select>
+<input #txtRQ type="text" matInput  [readonly]="!edit || (edit && RQ.value!=='RQ')" required>
+</div>
+<br>
+<div *ngIf="swtOCS">
+<mat-select #OCS placeholder="OCS" formControlName="OCS" [disabled]="!edit" (selectionChange)="selectOCS($event.value)">
+  <mat-option *ngFor="let el of filterOCS" [value]="el.valor">
+  {{el.descripcion}}
+  </mat-option>
+</mat-select>
+<input #txtOCS type="text" matInput  [readonly]="!edit || (edit && OCS.value!=='OCS')" required>
+</div>
+<br>
+<br>
+
+<div class="container">
+  <mat-card class="cardborde">
+    <mat-toolbar class="cardtitle"></mat-toolbar>
+    <h2 class="title-label"> TRACKING </h2>
+    <mat-divider></mat-divider>
+    <form style="padding: 0;">
+
+      <div class="example-loading-shade" *ngIf="loading || existTracking">
+        <mat-spinner *ngIf="loading"></mat-spinner>
+        <div class="example-rate-limit-reached" *ngIf="existTracking">
+          No se encontraron registros.
+        </div>
+      </div>
+
+      <div class="example-container mat-elevation-z0">
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="Usuario_Solicita">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Usuario Solicita </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Usuario_Solicita">
+              <div>{{element.usuario_Solicita}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Fecha_Solicita">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Fecha Solicita </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Fecha_Solicita">
+              <div>{{element.fecha_Solicita | date: 'dd/MM/yyyy'}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="numero_RQ">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Requerimiento </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="numero_RQ">
+              <div>{{element.numero_RQ}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="aprobador1RQ">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Aprobador 1 </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="aprobador1RQ">
+              <div>{{element.aprobador1RQ}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="estadoAprobacion1RQ">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="estadoAprobacion1RQ">
+              <div>{{element.estadoAprobacion1RQ}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="fechaAprobacion1RQ">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Fecha </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="fechaAprobacion1RQ">
+              <div>{{element.fechaAprobacion1RQ | date: 'dd/MM/yyyy'}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="aprobador2RQ">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Aprobador 2 </mat-header-cell>
+            <mat-cell *matCellDef="let element"  [ngClass]="'widthTable web'" data-label="aprobador2RQ">
+              <div>{{element.aprobador2RQ}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="estadoAprobacion2RQ">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="estadoAprobacion2RQ">
+              <div>{{element.estadoAprobacion2RQ}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+          <ng-container matColumnDef="fechaAprobacion2RQ">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Fecha </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="fechaAprobacion2RQ">
+              <div>{{element.fechaAprobacion2RQ | date: 'dd/MM/yyyy'}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="comodato">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Comodato </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="comodato">
+              <div>{{element.comodato}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="estadoOCS">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Estado OCS </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="estadoOCS">
+              <div>{{element.estadoOCS}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Usuario_OC">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Usuario OC </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Usuario_OC">
+              <div>{{element.usuariO_OC}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Fecha_OC">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Fecha OC </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Fecha_OC">
+              <div>{{element.fecha_OC | date: 'dd/MM/yyyy'}}</div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="numero_OCS">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Numero OCS </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="numero_OCS">
+              <div>{{element.numero_OCS}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="aprobador1OCS">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Aprobador 1 </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="aprobador1OCS">
+              <div>{{element.aprobador1OCS}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="estadoAprobacion1OCS">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="estadoAprobacion1OCS">
+              <div>{{element.estadoAprobacion1OCS}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="fechaAprobacion1OCS">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Fecha </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="fechaAprobacion1OCS">
+              <div>{{element.fechaAprobacion1OCS | date: 'dd/MM/yyyy'}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="aprobador2OCS">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Aprobador 2 </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="aprobador2OCS">
+              <div>{{element.aprobador2OCS}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="estadoAprobacion2OCS">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Estado </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="estadoAprobacion2OCS">
+              <div>{{element.estadoAprobacion2OCS}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="fechaAprobacion2OCS">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Fecha </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="fechaAprobacion2OCS">
+              <div>{{element.fechaAprobacion2OCS | date: 'dd/MM/yyyy'}}</div>
+            </mat-cell>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="estadoOrdenOCS">
+            <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Estado OCS </mat-header-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="estadoOrdenOCS">
+              <div>{{element.estadoOrdenOCS}}</div>
+            </mat-cell>
+          </ng-container>
+          <!-- -->
+
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+        <mat-paginator
+          [length]="countTracking"
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          aria-label="Seleccione página de registros">
+        </mat-paginator>
+      </div>
+
+    </form>
+  </mat-card>
+</div>

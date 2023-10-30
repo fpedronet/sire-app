@@ -50,7 +50,7 @@ export class RegistroService {
     return this.http.get<Registro>(urls);
   }
   GetTotalTicketsXUsuario() {
-    debugger;
+    //debugger;
     let urls = `${this.url}/GetTotalTicketsXUsuario`;
     return this.http.get<dataCollection>(urls);
   }

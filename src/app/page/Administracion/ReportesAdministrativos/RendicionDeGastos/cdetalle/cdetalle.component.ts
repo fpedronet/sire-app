@@ -31,7 +31,7 @@ export class CdetalleComponent implements OnInit {
   barra: boolean = false;
   stop: boolean = false;
 
-  public qrcode:string = '';    
+  public qrcode:string = '';
   public windowsWidth:string = `${window.innerWidth > 500 ? 500 : window.innerWidth}px`;
 
   html5QrCodes! : any;
@@ -61,7 +61,7 @@ export class CdetalleComponent implements OnInit {
       var fecha = this.rendDet.fecha;
       this.rendDet.vFecha = fecha?.slice(0,11) + '00:00:00';
       this.rendDet.vHora = fecha === undefined ? '' : this.horaFormateada(new Date(fecha));
-    }      
+    }
     else
       this.rendDet!.ideRendicion = this.data.idPadre;
 
@@ -90,7 +90,7 @@ export class CdetalleComponent implements OnInit {
   carBuscaAuto: number = 3;
   nroMuestraAuto: number = 0;
 
-  tbSede: Combobox[] = [];  
+  tbSede: Combobox[] = [];
   sedeColor: string = 'warn';
   filterSedes: Observable<Combobox[]> | undefined;
   controlSedes = new FormControl();
@@ -172,10 +172,10 @@ export class CdetalleComponent implements OnInit {
 
     //Si es un registro nuevo, carga caché en campos
     if(rendDet.ideRendicionDet === 0){
-      
+
       if(this.tipo === 'M')
         rendDet.codConcepto = '002' //Movilidad
-      
+
       let filtro = this.usuarioService.sessionDetalle();
       if(filtro!=null){
         rendDet.comodato = filtro[0];
@@ -207,8 +207,8 @@ export class CdetalleComponent implements OnInit {
       var excedeDolares = rendDet.codMoneda == '002' && rendDet.monto! > this.maxDolares;
       if(excedeSoles || excedeDolares)
         this.excedeMonto = true;
-    }    
-  
+    }
+
     this.existCambio = false;
     this.nombreAdjunto = rendDet.nombreAdjunto!;
     this.url = rendDet.url!;
@@ -216,12 +216,12 @@ export class CdetalleComponent implements OnInit {
 
     var sedeFind = this.tbSede.find(e => e.valor === rendDet.ideSede?.toString()); //Ruc
     if(sedeFind !== undefined){
-      var sede: Combobox = sedeFind;      
+      var sede: Combobox = sedeFind;
       this.setCurSede(sede);
     }
     var lineaFind = this.tbLinea.find(e => e.valor === rendDet.nCodLinea); //CodLin
     if(lineaFind !== undefined){
-      var linea: Combobox = lineaFind;      
+      var linea: Combobox = lineaFind;
       this.setCurLinea(linea);
     }
     this.spinner.hideLoading();
@@ -229,7 +229,7 @@ export class CdetalleComponent implements OnInit {
 
   listarCombo(){
     this.spinner.showLoading();
-    
+
     this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
       if(data === undefined){
         this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
@@ -307,7 +307,7 @@ export class CdetalleComponent implements OnInit {
       el.descripcion = json[i].descripcion;
       el.aux1 = json[i].aux1;
       el.visual = json[i].visual;
-      
+
       tbCombo.push(el);
     }
 
@@ -324,7 +324,7 @@ export class CdetalleComponent implements OnInit {
     if(name.length >= this.carBuscaAuto){
       var filtro = name.toLowerCase();
       results = this.tbSede.filter(e => e.descripcion?.toLowerCase().includes(filtro));
-    }    
+    }
     return results.slice(0,this.nroMuestraAuto===0?results.length:this.nroMuestraAuto);
   }
 
@@ -334,13 +334,13 @@ export class CdetalleComponent implements OnInit {
     if(name.length >= this.carBuscaAuto){
       var filtro = name.toLowerCase();
       results = this.tbLinea.filter(e => e.descripcion?.toLowerCase().includes(filtro));
-    }    
+    }
     return results.slice(0,this.nroMuestraAuto===0?results.length:this.nroMuestraAuto);
   }
-  
+
   onDateChange(){
     this.fechaIni = this.fechaSelectIni;
-    this.fechaFin=  this.fechaSelectFin;    
+    this.fechaFin=  this.fechaSelectFin;
   }
 
   limpiar(){
@@ -373,31 +373,31 @@ export class CdetalleComponent implements OnInit {
     })
     this.existeProveedor = false;
     this.filterComodato = this.tbComodato;
-    
+
     var sedeFind = this.tbSede.find(e => e.valor === rendDet.ideSede?.toString()); //Ruc
     if(sedeFind !== undefined){
-      var sede: Combobox = sedeFind;      
+      var sede: Combobox = sedeFind;
       this.setCurSede(sede);
     }
     var lineaFind = this.tbLinea.find(e => e.valor === rendDet.nCodLinea); //CodLin
     if(lineaFind !== undefined){
-      var linea: Combobox = lineaFind;      
+      var linea: Combobox = lineaFind;
       this.setCurLinea(linea);
     }
   }
 
   guardar(){
     let model = new RendicionD();
-    let tipoDocumento = ""; 
-    
+    let tipoDocumento = "";
+
     model.ideRendicionDet = this.form.value['ideRendicionDet'];
     model.ideRendicion = this.form.value['ideRendicion'];
-    
+
     var field = new Date(this.form.value['fecha']);
     var iso = field.toISOString();
     var sFecha = iso.substring(0,11);
     var sHora = this.form.value['hora'];
-    
+
     var horaValida = /^[[0-9]{2}:[0-9]{2}/.test(sHora);
 
     var sFH = sFecha + (!horaValida ? '00:00' : sHora);
@@ -457,23 +457,23 @@ export class CdetalleComponent implements OnInit {
     this.rendicionService.guardarDet(model).subscribe(data=>{
       this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
-      if(data.typeResponse==environment.EXITO){      
+      if(data.typeResponse==environment.EXITO){
         this.spinner.hideLoading();
 
         //Guarda caché de valores ingresados
-        localStorage.setItem(environment.CODIGO_DETALLE, 
+        localStorage.setItem(environment.CODIGO_DETALLE,
           (model.comodato === undefined ? '' : model.comodato) + "|" +
           (model.ideSede === undefined ? '' : model.ideSede?.toString()) + "|" +
           (model.codLinea === undefined ? '' : model.codLinea) + "|" +
           (model.codMoneda === undefined ? '' : model.codMoneda)
         );
-        
+
         this.dialogRef.close();
       }else{
         this.spinner.hideLoading();
       }
-    });    
-    
+    });
+
   }
 
   reiniciaProveedor(){
@@ -558,7 +558,7 @@ export class CdetalleComponent implements OnInit {
           comodato: 'CMD'
         });
         this.setCurLinea(undefined, true);
-      }        
+      }
     }
     else{
       if(!notControl)
@@ -583,16 +583,16 @@ export class CdetalleComponent implements OnInit {
 
     if(filterSegunId.length > 1){
       //Encontro resultados por Id
-      this.filterComodato = filterSegunId 
+      this.filterComodato = filterSegunId
     }
     else if(filterSegunRuc.length > 1){
       //No encontró por Id, pero sí por sede
-      this.filterComodato = filterSegunRuc 
+      this.filterComodato = filterSegunRuc
     }
     else{
       //Solo coincidió Ninguno
       this.filterComodato = this.tbComodato;
-    }      
+    }
   }
 
   changeSede(event: any){
@@ -608,13 +608,13 @@ export class CdetalleComponent implements OnInit {
         this.controlLineas.setValue(new Combobox());
       this.codLinea = '';
       this.lineaColor = 'warn';
-      
+
       if(reiniciaCmd){
         this.form.patchValue({
           comodato: 'CMD'
         });
         this.setCurSede(undefined, true);
-      }        
+      }
     }
     else{
       if(!notControl)
@@ -663,11 +663,11 @@ export class CdetalleComponent implements OnInit {
   getCameras() {
     if(this.stop==false){
       this.stop=true;
-      Html5Qrcode.getCameras().then((devices:any[]) => {    
-      
+      Html5Qrcode.getCameras().then((devices:any[]) => {
+
         // alert(devices.length);
         if (devices && devices.length) {
-         
+
           if(devices.length>=3){
             this.cameraId = devices[2].id;
           }
@@ -683,7 +683,7 @@ export class CdetalleComponent implements OnInit {
     }
   }
 
-  enableScanner() {  
+  enableScanner() {
     const html5QrCode = new Html5Qrcode("reader", true);
 
     this.html5QrCodes = html5QrCode;
@@ -691,11 +691,11 @@ export class CdetalleComponent implements OnInit {
     this.body = "none;";
 
     html5QrCode.start(
-      this.cameraId, 
-      { 
-        fps: 10, 
-        qrbox: { width: 250, height: 250 } 
-      },   
+      this.cameraId,
+      {
+        fps: 10,
+        qrbox: { width: 250, height: 250 }
+      },
       (decodedText, decodedResult) => {
         this.setearValores(decodedText);
       },
@@ -707,8 +707,8 @@ export class CdetalleComponent implements OnInit {
     this.interval = setInterval(() => {
       this.barra = true;
     },2000)
-    
-    
+
+
   }
 
   setearValores($event : string){
@@ -721,7 +721,7 @@ export class CdetalleComponent implements OnInit {
     {
       this.rendDet.fecha = "";
 
-      for (let i = 0; i < tt_filas.length; i++) 
+      for (let i = 0; i < tt_filas.length; i++)
       {
         switch(i + 1)
         {
@@ -769,17 +769,17 @@ export class CdetalleComponent implements OnInit {
           case 7:
             if(tt_filas[i].trim()!="" && tt_filas[i].trim()!=null){
               this.rendDet.fecha = new Date(tt_filas[i].trim()).toISOString();
-            }            
+            }
             break;
           case 8:
             if(this.rendDet.fecha=="" || this.rendDet.fecha==null){
               if(tt_filas[i].trim()!="" && tt_filas[i].trim()!=null){
                 this.rendDet.fecha = new Date(tt_filas[i].trim()).toISOString();
-              }  
-            }          
+              }
+            }
             break;
 
-        }          
+        }
       }
     }
 
@@ -792,7 +792,7 @@ export class CdetalleComponent implements OnInit {
     this.stop = false;
     this.body = "block;";
     clearInterval(this.interval);
-    
+
     if(this.html5QrCodes!=undefined){
       this.html5QrCodes.stop().then(() => {
       }).catch(() => {
@@ -812,7 +812,7 @@ export class CdetalleComponent implements OnInit {
     }
     else{
       this.$closeModal();
-    }    
+    }
   }
 
   $closeModal(){
@@ -844,7 +844,7 @@ export class CdetalleComponent implements OnInit {
     var linea: boolean = (rendDet.codLinea === undefined ? '' : rendDet.codLinea) !== this.codLinea;
 
     var adjObj = rendDet.nombreAdjunto;
-    var adjFrm = this.getControlLabel('nombreAdjunto');    
+    var adjFrm = this.getControlLabel('nombreAdjunto');
     var nombreAdjunto: boolean = ((adjObj === null || adjObj === undefined)? '' : adjObj) !== ((adjFrm === null || adjFrm === undefined) ? '' : adjFrm);
     return fecha || hora || concepto || tipDocu || documento || codMoneda || monto || descripcion || rucPrv || proveedor || sede || comodato || linea || nombreAdjunto;
   }

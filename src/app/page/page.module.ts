@@ -22,6 +22,9 @@ import { LregistroComponent } from './MesaDeAyuda/Registros/lregistro/lregistro.
 import { FregistroComponent } from './MesaDeAyuda/Registros/fregistro/fregistro.component';
 import { IregistroComponent } from './MesaDeAyuda/Registros/iregistro/iregistro.component';
 import { LreporteComponent } from './MesaDeAyuda/Reportes/lreporte/lreporte.component';
+import { LcajachicaComponent } from './Administracion/ReportesAdministrativos/CajaChica/lcajachica/lcajachica.component';
+import { LmargenbrutoComponent } from './Administracion/ReportesAdministrativos/Contabilidad/lmargenbruto/lmargenbruto.component';
+import { LtrackingComponent } from './Administracion/Requerimientos/tracking/ltracking/ltracking.component';
 
 
 @NgModule({
@@ -41,7 +44,10 @@ import { LreporteComponent } from './MesaDeAyuda/Reportes/lreporte/lreporte.comp
     LregistroComponent,
     FregistroComponent,
     IregistroComponent,
-    LreporteComponent
+    LreporteComponent,
+    LcajachicaComponent,
+    LmargenbrutoComponent,
+    LtrackingComponent
   ],
   imports: [
     MaterialModule,

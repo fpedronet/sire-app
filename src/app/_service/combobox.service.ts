@@ -27,5 +27,5 @@ export class ComboboxService {
 
     return this.http.get<Combobox>(urls);
   }
-  
+
 }

@@ -5,8 +5,8 @@
     <h3 *ngIf="rendDet!.ideRendicionDet!==0 && !edit" mat-dialog-title>VER GASTO - {{codigo}}</h3>
   </div>
   <div *ngIf="edit">
-    <button style="margin-right: 4px;" *ngIf="!scannerEnabled" mat-stroked-button class="btnBlue" (click)="getCameras()"><mat-icon>qr_code2</mat-icon> QR</button> 
-    <button style="margin-right: 4px;" *ngIf="scannerEnabled" mat-stroked-button class="btnRed" (click)="disableScanner()"><mat-icon>do_disturb_off</mat-icon> QR</button> 
+    <button style="margin-right: 4px;" *ngIf="!scannerEnabled" mat-stroked-button class="btnBlue" (click)="getCameras()"><mat-icon>qr_code2</mat-icon> QR</button>
+    <button style="margin-right: 4px;" *ngIf="scannerEnabled" mat-stroked-button class="btnRed" (click)="disableScanner()"><mat-icon>do_disturb_off</mat-icon> QR</button>
   </div>
 </div>
 
@@ -20,7 +20,7 @@
   <form onkeydown="return event.key != 'Enter';" class="forms" id="ngForm" [formGroup]="form" #frmGrupo="ngForm" >
       <div class="content">
       <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      
+
       <div [hidden]="true">
         <mat-form-field appearance="outline">
             <input matInput placeholder="Id" formControlName="ideRendicionDet">
@@ -70,7 +70,7 @@
                       </mat-select>
                   </mat-form-field>
                   </mat-grid-tile>
-                </mat-grid-list>                
+                </mat-grid-list>
               </div>
 
               <div div fxFlex="20%" fxFlex.xs="40%" fxFlex.sm="20%">
@@ -86,7 +86,7 @@
                   </mat-grid-tile>
                 </mat-grid-list>
               </div>
-              
+
               <div div fxFlex="50%" fxFlex.xs="60%" fxFlex.sm="50%">
                 <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
                   <mat-grid-tile [colspan]="12">
@@ -151,7 +151,7 @@
                   <button *ngIf="RUC.value && edit" type="button" matSuffix mat-icon-button aria-label="Buscar" (mouseup)="obtenerProveedor($event, true)">
                     <mat-icon>search</mat-icon>
                   </button>
-              </mat-form-field> 
+              </mat-form-field>
             </mat-grid-tile>
           </mat-grid-list>
           <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
@@ -159,7 +159,7 @@
               <mat-form-field appearance="outline">
                 <mat-label>Proveedor</mat-label>
                 <input matInput formControlName="proveedor" [required]="TIPDOCU.value !== '003'" maxlength="100" [readonly]="!edit || existeProveedor">
-              </mat-form-field>  
+              </mat-form-field>
             </mat-grid-tile>
           </mat-grid-list>
 
@@ -171,7 +171,7 @@
               <mat-form-field appearance="outline">
                 <mat-label>Descripción</mat-label>
                 <input matInput formControlName="descripcion" [readonly]="!edit" maxlength="150" required>
-              </mat-form-field>   
+              </mat-form-field>
             </mat-grid-tile>
           </mat-grid-list>
 
@@ -202,7 +202,7 @@
                 </mat-select>
               </mat-form-field>
             </mat-grid-tile>
-          </mat-grid-list>          
+          </mat-grid-list>
 
           <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
             <mat-grid-tile [colspan]="12">
@@ -220,7 +220,7 @@
               </mat-form-field>
             </mat-grid-tile>
 
-            
+
           </mat-grid-list>
 
           <mat-grid-list *ngIf="TIPDOCU.value !== '' && TIPDOCU.value !== '003'" cols="12" rowHeight="75px" gutterSize="15px">
@@ -245,22 +245,22 @@
               <div *ngIf="edit" class="image-upload" matTooltip="Adjuntar">
                 <label for="file-input">
                   <img style="width:26px;" src="https://icons.iconarchive.com/icons/dryicons/aesthetica-2/128/folder-up-icon.png"/>
-                </label>     
+                </label>
 
                 <input id="file-input" type="file" accept="image/*,.pdf" (change)="subirArchivo($event)"/>
               </div>
-            
+
             </mat-grid-tile>
           </mat-grid-list>
 
-        </div>          
+        </div>
       </div>
     </div>
   </form>
 </mat-dialog-content>
 
 <div class="btnModal" align="end" *ngIf="!scannerEnabled">
-  <button style="margin-right: 4px;" mat-stroked-button class="btnRed" (click)="closeModal()"><mat-icon>close</mat-icon>Cerrar</button> 
+  <button style="margin-right: 4px;" mat-stroked-button class="btnRed" (click)="closeModal()"><mat-icon>close</mat-icon>Cerrar</button>
   <button *ngIf="edit" style="margin-right: 4px;" mat-stroked-button class="btnYellow"(click)="limpiar()"><mat-icon>cleaning_services</mat-icon>Limpiar</button>
   <button *ngIf="edit" mat-stroked-button class="btnBlue" (click)="guardar()" [disabled]="frmGrupo.invalid || ideSede === 0 || codLinea === ''"><mat-icon>save</mat-icon>Guardar</button>
 </div>

@@ -10,6 +10,8 @@ import { CrendicionComponent } from './Administracion/ReportesAdministrativos/Re
 import { LregistroComponent } from './MesaDeAyuda/Registros/lregistro/lregistro.component';
 import { CregistroComponent } from './MesaDeAyuda/Registros/cregistro/cregistro.component';
 import { LreporteComponent } from './MesaDeAyuda/Reportes/lreporte/lreporte.component';
+import { LmargenbrutoComponent } from './Administracion/ReportesAdministrativos/Contabilidad/lmargenbruto/lmargenbruto.component';
+import { LtrackingComponent } from './Administracion/Requerimientos/tracking/ltracking/ltracking.component';
 
 const routes: Routes = [
   {path:'home', component: HomeComponent},
@@ -24,6 +26,8 @@ const routes: Routes = [
   {path:'mesadeayuda/registro/create', component: CregistroComponent, canActivate: [GuardService]},
   {path:'mesadeayuda/registro/edit/:id', component: CregistroComponent, canActivate: [GuardService]},
   {path:'mesadeayuda/reporte', component: LreporteComponent},
+  {path:'administracion/margenbruto', component: LmargenbrutoComponent},
+  {path:'administracion/tracking', component: LtrackingComponent},
   /********* Como ejemplo *******/
   // {path:'donante/donacion', component: LdonacionComponent, canActivate: [GuardService]},
   // {path:'donante/donacion/create', component: CdonacionComponent, canActivate: [GuardService]},

@@ -1,6 +1,6 @@
 <app-spinner></app-spinner>
 
-<div class="example-container" style="height: 100vh;"> 
+<div class="example-container" style="height: 100vh;">
   <mat-toolbar color="primary">
 
     <div fxShow="true" fxHide.gt-sm="true">
@@ -9,11 +9,11 @@
       </button>
     </div>
 
-    <a mat-button>      
+    <a mat-button>
       <img style="width: 41px;" src="{{logo}}"/>
-      <span *ngIf="count" > 
+      <span *ngIf="count" >
         <mat-form-field style="padding-left:8px;width:224px;font-weight:400">
-          <mat-select 
+          <mat-select
           [(ngModel)]="codigo"
           (selectionChange)="selectempresa($event.value)"
           >
@@ -28,7 +28,7 @@
 
     <span class="example-spacer"></span>
 
-    <div fxShow="true" fxHide.lt-md="true" class="menu" >      
+    <div fxShow="true" fxHide.lt-md="true" class="menu" >
       <nav class="nav1">
         <ul>
             <li *ngFor="let m of menus.listaMenu">
@@ -40,7 +40,7 @@
                   <a *ngIf="m.url!=''" (click)="clearLocalStore()" routerLink="{{s.url}}" class="opcion">{{s.desPantallaWeb}}</a>
                   <ul>
                     <li *ngFor="let s1 of s.listaSubMenu2">
-                      <a (click)="clearLocalStore()" routerLink="{{s1.url}}" class="opcion">{{s1.desSubMenuWeb}}</a>                    
+                      <a (click)="clearLocalStore()" routerLink="{{s1.url}}" class="opcion">{{s1.desSubMenuWeb}}</a>
                     </li>
                   </ul>
                 </li>
@@ -51,20 +51,20 @@
     </div>
 
     <a style="cursor: pointer;" (click)="abrirperfil()">
-      <div id="abrirmenu"><img style="width: 26px;" src="{{iconSharePoint}}" alt=""/></div> 
+      <div id="abrirmenu"><img style="width: 26px;" src="{{iconSharePoint}}" alt=""/></div>
       <span style="font-size: 9px;">Sharepoint</span>
-    </a> 
+    </a>
 
     <a id="closemenu" style="cursor: pointer;" (click)="closeLogin()">
-      <div style="padding-top: 11px;margin: 0 0 -21px 0;text-align: center;"><mat-icon>logout</mat-icon></div> 
+      <div style="padding-top: 11px;margin: 0 0 -21px 0;text-align: center;"><mat-icon>logout</mat-icon></div>
       <span style="font-size: 9px;">Cerrar sesión</span>
-    </a>    
-     
+    </a>
+
   </mat-toolbar>
 
   <mat-sidenav-container fxFlexFill class="example-container">
     <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over"  opened="{{isshow}}" fxHide.gt-sm="true">
-        
+
       <div>
         <div class="menu-header-bg">Menu</div>
 
@@ -89,10 +89,10 @@
       </div>
 
       <div fxLayout="column">
-        
+
         <mat-accordion class="example-headers-align">
           <div hideToggle *ngFor="let m of menus.listaMenu">
-                        
+
             <mat-expansion-panel *ngIf="m.url=='/page/home'" disabled="">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -102,8 +102,8 @@
                   </a>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-            </mat-expansion-panel>  
-           
+            </mat-expansion-panel>
+
             <mat-divider *ngIf="m.url=='/page/home'"></mat-divider>
 
             <mat-expansion-panel *ngIf="m.url!='/page/home' && m.url!='/page/cerrar'">
@@ -128,7 +128,7 @@
                 </mat-expansion-panel>
               </div>
             </mat-expansion-panel>
-            
+
             <mat-divider *ngIf="m.url!='/page/home' && m.url!='/page/cerrar'"></mat-divider>
 
             <mat-expansion-panel *ngIf="m.url=='/page/cerrar'" disabled="">
@@ -140,9 +140,9 @@
                   </a>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-            </mat-expansion-panel> 
+            </mat-expansion-panel>
 
-          </div>       
+          </div>
         </mat-accordion>
 
       </div>
