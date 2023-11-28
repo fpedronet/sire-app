@@ -22,5 +22,11 @@
         "descripcion": "OTROS",
         "aux1": "M",
         "visual": true
+    },
+    {
+        "valor": "005",
+        "descripcion": "VIATICOS",
+        "aux1": "",
+        "visual": true
     }
 ]

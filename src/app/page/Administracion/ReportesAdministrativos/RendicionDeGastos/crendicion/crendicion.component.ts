@@ -15,6 +15,7 @@ import { RendicionService } from 'src/app/_service/rendicion.service';
 import forms from 'src/assets/json/formulario.json';
 import jsonEstado from 'src/assets/json/rendicion/renestado.json';
 import jsonTipo from 'src/assets/json/rendicion/rentipo.json';
+import jsonProvincia from 'src/assets/json/rendicion/renprovincias.json';
 import { environment } from 'src/environments/environment';
 import { CdetalleComponent } from '../cdetalle/cdetalle.component';
 import jsonConcepto from 'src/assets/json/detalle/concepto.json';
@@ -40,7 +41,8 @@ export class CrendicionComponent implements OnInit {
 
   listaEstados?: Combobox[] = [];
   listaTipos?: Combobox[] = [];
-  
+  listaProvincias?: Combobox[] = [];
+
   estado: string = "";
   documento: string = "";
 
@@ -78,11 +80,13 @@ export class CrendicionComponent implements OnInit {
 
   curUsuario: number = 0;
   curCodigo: string = '';
-  
+
   muestraIngresos: boolean = false;
+  muestraViaticos: boolean = false;
   vIngresos?: string = '0.00';
   vGastos?: string = '0.00';
   vBalance?: string = '0.00';
+  cLugar?: string = '';
 
   idPantalla?: number = 1;
   pantallaPrev?: string = '';
@@ -97,9 +101,9 @@ export class CrendicionComponent implements OnInit {
   iconSharePoint: string =environment.UrlImage + "sharePoint.png";
 
   isLinear = false;
-  
+
   nombreAprobador: string = '';
-  
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -118,17 +122,18 @@ export class CrendicionComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.setItem(environment.CODIGO_DETALLE, "");
-    
+
     this.obtenerpermiso();
-    
+
     this.listarestados();
-    this.listartipos();    
+    this.listartipos();
+    this.listarProvincias();
 
     this.tbConcepto = this.completarCombo(jsonConcepto);
     this.tbMoneda = this.completarCombo(jsonMoneda);
-    
+
     this.inicializar();
-    
+
     this.existRendicion = this.id !== 0
 
     this.route.params.subscribe((data: Params)=>{
@@ -136,7 +141,7 @@ export class CrendicionComponent implements OnInit {
       this.id = (data["id"]==undefined)?0:parseInt(data["id"]);
       this.listarUsuario().then(res => {
         this.obtener(true);
-      });      
+      });
     });
   }
 
@@ -146,14 +151,14 @@ export class CrendicionComponent implements OnInit {
 
   async listarUsuario(){
     return new Promise(async (resolve) => {
-    
+
       this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
         if(data === undefined){
           this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
         }
         else{
           var tbCombobox: Combobox[] = data.items;
-          
+
           this.tbUsuario = this.obtenerSubtabla(tbCombobox,'USUARIO');
         }
 
@@ -175,7 +180,7 @@ export class CrendicionComponent implements OnInit {
       el.valor = json[i].valor;
       el.descripcion = json[i].descripcion;
       el.visual = json[i].visual;
-      
+
       tbCombo.push(el);
     }
 
@@ -187,11 +192,11 @@ export class CrendicionComponent implements OnInit {
 
       for(var i in jsonEstado) {
         let el: Combobox = {};
-  
+
         el.valor = jsonEstado[i].nIdEstado;
         el.descripcion = jsonEstado[i].vDescripcion;
         el.visual = jsonEstado[i].visual;
-        
+
         this.listaEstados.push(el);
       }
   }
@@ -205,10 +210,22 @@ export class CrendicionComponent implements OnInit {
       el.valor = jsonTipo[i].nIdTipo;
       el.descripcion = jsonTipo[i].vDescripcion;
       el.visual = jsonTipo[i].visual;
-      
+
       this.listaTipos.push(el);
     }
     //debugger;
+  }
+  listarProvincias(){
+    this.listaProvincias = [];
+console.log(jsonProvincia);
+    for(var i in jsonProvincia) {
+      let el: Combobox = {};
+
+      el.valor = jsonProvincia[i].ID;
+      el.descripcion = jsonProvincia[i].Ciudad;
+
+      this.listaProvincias.push(el);
+    }
   }
 
   inicializar(){
@@ -242,7 +259,6 @@ export class CrendicionComponent implements OnInit {
   getControlLabel(type: string){
     return this.form.controls[type].value;
   }
-
   getDescTipo(value: string){
     return this.listaTipos?.find(e => e.valor === value)?.descripcion?.toUpperCase();
   }
@@ -268,7 +284,7 @@ export class CrendicionComponent implements OnInit {
           this.form.patchValue({
             ideRendicion: data.ideRendicion,
             codigo: data.codigo,
-            lugar: data.lugar,
+            lugar: this.cLugar,//data.lugar,
             motivo: data.motivo,
             ideUsuario: data.ideUsuario,
             ingresos: data.ingresos?.toFixed(2),
@@ -289,12 +305,18 @@ export class CrendicionComponent implements OnInit {
 
           if(data.tipo === 'M'){
             this.muestraIngresos = false;
+            this.muestraViaticos = false;
             this.displayedColumns = this.initDisplayedColumns.filter(e => e !== 'adjunto');
-          }            
-          else{
+          }
+          else if(data.tipo === 'R'){
             this.muestraIngresos = true;
+            this.muestraViaticos = false;
             this.displayedColumns = this.initDisplayedColumns;
-          }            
+          }else{
+            this.muestraIngresos = false;
+            this.muestraViaticos = true;
+            this.displayedColumns = this.initDisplayedColumns;
+          }
 
           if((data.ideEstado === 2 || data.ideEstado === 3) && data.ideUsuApruebaRechaza !== undefined && data.ideUsuApruebaRechaza !== 0)
             this.nombreAprobador = this.buscaUsuario(data.ideUsuApruebaRechaza);
@@ -303,7 +325,7 @@ export class CrendicionComponent implements OnInit {
           //Muestra creador de rendición
           this.curUsuario = data.ideUsuario!;
           this.nombresUsuario = this.buscaUsuario(this.curUsuario);
-          
+
           //Código de rendición actual
           this.curCodigo = data.codigo!;
 
@@ -330,7 +352,7 @@ export class CrendicionComponent implements OnInit {
             this.existRendicion = true;
             setTimeout(this.changestepper, 250, undefined, 1);
           }
-          
+
         }
         this.spinner.hideLoading();
       });
@@ -395,18 +417,18 @@ export class CrendicionComponent implements OnInit {
       this.delete = objEstado.eliminar && this.edit;
       this.rejectRevi = objEstado.rechazar;
       this.apruebarechaza = objEstado.nIdEstado === 2 && this.soyAprobador(this.usuarioService.sessionUsuario().ideUsuario)
-      
+
       //debugger;
       this.txtEditarR = objEstado.txtCambiarEstado.txt1;
       this.sgteEstadoR = objEstado.sgteEstado.num1;
       this.sgteIconR = objEstado.sgteIcono.icon1;
 
-      this.txtEditarM = objEstado.txtCambiarEstado.txt2;      
+      this.txtEditarM = objEstado.txtCambiarEstado.txt2;
       this.sgteEstadoM = objEstado.sgteEstado.num2;
       this.sgteIconM = objEstado.sgteIcono.icon2;
 
       this.claseEstado = objEstado.class;
-    }    
+    }
   }
 
   soyAprobador(idUsuarioLog: number){
@@ -435,12 +457,12 @@ export class CrendicionComponent implements OnInit {
         }
         else
           this.$cambiaEstado(sgteEstado, obs);
-      }      
-    }      
+      }
+    }
   }
 
   camposCambiados(rend: RendicionM){
-    var lugar: boolean = rend.lugar !== this.getControlLabel('lugar');
+    var lugar: boolean = rend.lugar !== this.cLugar;//this.getControlLabel('lugar');
     var motivo: boolean = rend.motivo !== this.getControlLabel('motivo');
     var tipo: boolean = rend.tipo !== this.getControlLabel('tipo');
     var ingresos: boolean = rend.ingresos !== Number(this.getControlLabel('ingresos'));
@@ -468,13 +490,13 @@ export class CrendicionComponent implements OnInit {
           this.router.navigate(['/page/administracion/rendicion',this.idPantalla]);
         else
           this.obtener();*/
-        
+
       }else{
         this.spinner.hideLoading();
       }
 
-      
-    });  
+
+    });
   }
 
   eliminarDetalle(model: RendicionD){
@@ -490,12 +512,12 @@ export class CrendicionComponent implements OnInit {
           //debugger;
           this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
 
-          if(data.typeResponse==environment.EXITO){      
+          if(data.typeResponse==environment.EXITO){
             this.spinner.hideLoading();
           }else{
             this.spinner.hideLoading();
           }
-          
+
           this.obtener();
         });
       }
@@ -512,7 +534,7 @@ export class CrendicionComponent implements OnInit {
       //debugger;
 
       this.spinner.hideLoading();
-    }); 
+    });
   }
 
   tienepermiso(sgte: number){
@@ -523,8 +545,8 @@ export class CrendicionComponent implements OnInit {
     if(sgte === 5){ //Procesar
       //debugger;
       return this.permiso.procesar;
-    }      
-    
+    }
+
     if(sgte === 6) //Revisar
       return this.permiso.revisar;
 
@@ -540,11 +562,12 @@ export class CrendicionComponent implements OnInit {
   }
 
   guardar(){
+    console.log(this.cLugar);
       let model = new RendicionM();
-     
+
       model.ideUsuario = this.form.value['ideUsuario'];
       model.ideRendicion = this.form.value['ideRendicion'];
-      model.lugar = this.form.value['lugar'];
+      model.lugar = this.cLugar;//this.form.value['lugar'];
       model.motivo = this.form.value['motivo'];
       model.montoRecibe = this.form.value['ingresos'];
       model.tipo = this.form.value['tipo'];
@@ -553,9 +576,9 @@ export class CrendicionComponent implements OnInit {
       this.spinner.showLoading();
       //debugger;
       this.rendicionService.guardar(model).subscribe(data=>{
-  
+
         this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);
-  
+
           if(data.typeResponse==environment.EXITO){
 
             if(this.id === 0){ // Cambia de pestaña y actualiza id en el primer registro
@@ -566,7 +589,7 @@ export class CrendicionComponent implements OnInit {
               this.router.navigate(['/page/administracion/rendicion/'+this.idPantalla+'/edit/',this.id]);
             }
             this.obtener();
-            
+
             this.spinner.hideLoading();
           }else{
             this.spinner.hideLoading();
@@ -598,7 +621,7 @@ export class CrendicionComponent implements OnInit {
       }
     });
 
-    
+
     //dialogRef.beforeClosed().subscribe(res)
 
     dialogRef.afterClosed().subscribe(res => {
@@ -643,8 +666,8 @@ export class CrendicionComponent implements OnInit {
           //Cambia a estado EN CURSO
           this.cambiaEstado(1, result);
         }
-      });  
-    }    
+      });
+    }
   }
 
   mostrarPDF(iderendicion: number){
@@ -676,22 +699,35 @@ export class CrendicionComponent implements OnInit {
     //debugger;
     if(valor === 'M'){ //Si es movilidad no hay ingresos
       this.muestraIngresos = false;
+      this.muestraViaticos = false;
       this.displayedColumns = this.initDisplayedColumns.filter(e => e !== 'adjunto');
       this.form.patchValue({
         ingresos: '0.00'
       })
     }
-    else{
+    else if(valor === 'R'){
       //debugger;
       this.muestraIngresos = true;
+      this.muestraViaticos = false;
       this.displayedColumns = this.initDisplayedColumns;
-      setTimeout(function() {        
+      setTimeout(function() {
         const elemento: any = document.getElementById("INGRESOS");
         if(elemento !== null){
           elemento.focus();
-          elemento.select(); 
-        }           
-      }, 250);      
+          elemento.select();
+        }
+      }, 250);
+    }else{
+      this.muestraIngresos = false;
+      this.muestraViaticos = true;
+      this.displayedColumns = this.initDisplayedColumns;
+      setTimeout(function() {
+        const elemento: any = document.getElementById("INGRESOSV");
+        if(elemento !== null){
+          elemento.focus();
+          elemento.select();
+        }
+      }, 250);
     }
   }
 }

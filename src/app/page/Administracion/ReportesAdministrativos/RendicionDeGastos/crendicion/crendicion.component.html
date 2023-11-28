@@ -26,6 +26,10 @@
         <mat-icon class="maticonmenu">{{sgteIconM}}</mat-icon>
         <span class="maticontitle">{{txtEditarM}}</span>
       </button>
+      <button *ngIf="tienepermiso(sgteEstadoR) && TIPO.value === 'V' && txtEditarM !== ''" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="{{txtEditarM}}" type="button" (click)="cambiaEstado(sgteEstadoM)">
+        <mat-icon class="maticonmenu">{{sgteIconM}}</mat-icon>
+        <span class="maticontitle">{{txtEditarM}}</span>
+      </button>
       <!--Rechaza revisión-->
       <button *ngIf="tienepermiso(sgteEstadoR) && TIPO.value === 'R' && rejectRevi" mat-stroked-button class="btnHeader" #tooltip="matTooltip" matTooltip="Rechazar" type="submit" (click)="observacion('R')">
         <mat-icon class="maticonmenu">cancel</mat-icon>
@@ -43,8 +47,8 @@
     </div>
 </mat-toolbar>
 
-<div class="container">  
-<mat-card class="cardborde">   
+<div class="container">
+<mat-card class="cardborde">
   <mat-toolbar class="cardtitle"></mat-toolbar>
 
   <h2 *ngIf="id==0" class="title-label" style="margin: 0;">CREAR {{getDescTipo(TIPO.value)}}</h2>
@@ -54,17 +58,17 @@
   <h5 *ngIf="id==0" class="title-label">Una vez creada se poderá ingresar el detalle de gastos</h5>
 
   <mat-divider></mat-divider>
-  
-  <div id="content" *ngIf="id !== 0"> 
+
+  <div id="content" *ngIf="id !== 0">
       <div style="width: 100%; float:left;margin-bottom: -17px;">
         <div class="card-title-label1">
           <span style="text-transform: uppercase;">{{nombresUsuario}}</span> - ESTADO {{estado}}
-        </div> 
+        </div>
         <div class="card-title-label2">
           <span>CODIGO: {{documento}}</span>
           <div class="circulotitle {{claseEstado}}"></div>
-        </div> 
-      </div> 
+        </div>
+      </div>
   </div>
 
   <br style="clear:both;"/>
@@ -76,14 +80,14 @@
         </ng-template>
         <ng-template matStepLabel>
           Principal
-        </ng-template>        
+        </ng-template>
         <div class="content">
 
           <div style="padding-bottom: 10px; color: red;">
             <mat-label *ngIf="rendicionCargada !== undefined && id !== 0 && camposCambiados(rendicionCargada!)">
               *Tiene cambios sin guardar
             </mat-label>
-          </div>         
+          </div>
 
           <div fxLayout="row wrap" fxLayoutGap="16px grid">
             <div [hidden]="true">
@@ -98,14 +102,29 @@
               <div>
                   <mat-label>{{getControlLabel('codigo')}}</mat-label>
               </div>
-            </div> 
+            </div>
 
             <div div fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%">
               <mat-grid-list cols="12" rowHeight="75px" gutterSize="15px">
                 <mat-grid-tile [colspan]="12">
                   <mat-form-field appearance="outline">
                     <mat-label>Lugar</mat-label>
-                    <input matInput formControlName="lugar" [readonly]="!edit" maxlength="100" required>
+                    <!--<input matInput formControlName="lugar" [readonly]="!edit" maxlength="100" required>-->
+
+                    <mat-grid-list cols="12" rowHeight="10px" gutterSize="15px">
+                          <mat-select
+                            #PROVINCIA
+                            formControlName="lugar"
+                            [disabled]="!edit"
+                            required
+                          >
+                            <mat-option *ngFor="let el of listaProvincias" [value]="el.valor"
+                            [(ngModel)]="cLugar == el.descripcion">
+                              {{el.descripcion}}
+                            </mat-option>
+                          </mat-select>
+                    </mat-grid-list>
+
                   </mat-form-field>
                 </mat-grid-tile>
               </mat-grid-list>
@@ -158,6 +177,18 @@
                   </mat-form-field>
                 </mat-grid-tile>
               </mat-grid-list>
+
+              <mat-grid-list cols="12" rowHeight="75px" gutterSize="10px" style="max-width: 650px" *ngIf="muestraViaticos">
+                <mat-grid-tile [colspan]="4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Ingresos</mat-label>
+                    <input id="INGRESOSV" #INGRESOSV matInput type="number" class="example-right-align-ingreso"  oninput="if(this.value.length>=7) { this.value = this.value.slice(0,7); }" onkeypress="return /[0-9|.]/i.test(event.key)" formControlName="ingresos" placeholder="0.00" [readonly]="!edit || TIPO.value === 'M'" [required]="TIPO.value === 'R'">
+                  </mat-form-field>
+                </mat-grid-tile>
+              </mat-grid-list>
+
+
+
             </div>
 
             <div div fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%">
@@ -165,7 +196,7 @@
                 <mat-grid-tile [colspan]="12" *ngIf="id !== 0">
                   <mat-label>
                     <a style="font-weight: 500; color: #1a0da4">
-                      Fecha de creación: 
+                      Fecha de creación:
                     </a>
                     {{getControlLabel('fechaCreacion')}}
                   </mat-label>
@@ -174,12 +205,12 @@
                   <mat-label *ngIf="nombreAprobador !== '' && ideEstado == 2">
                     <a style="color: red;">
                       Debe ser aprobado por: {{nombreAprobador}}
-                    </a>                    
+                    </a>
                   </mat-label>
                   <mat-label *ngIf="nombreAprobador !== '' && ideEstado == 3">
                     <a style="color: blue;">
                       Aprobado por: {{nombreAprobador}}
-                    </a>                    
+                    </a>
                   </mat-label>
                 </mat-grid-tile>
               </mat-grid-list>
@@ -205,18 +236,18 @@
           </mat-grid-tile>
         </mat-grid-list>
 
-        <div class="content contentTable" style="padding: 0 0 24px 0;">           
-            
+        <div class="content contentTable" style="padding: 0 0 24px 0;">
+
           <div class="example-button-rowC padre">
             <button *ngIf="edit" mat-stroked-button class="btnHeader hijo" type="button" (click)="abrirDetalle()">
               <mat-icon class="maticon">add</mat-icon>
-            </button>  
+            </button>
             <a *ngIf="url_m!=null && url_m!=''" mat-stroked-button class="btnSharepoint hijo" type="button" matTooltip="SharePoint" href="{{url_m}}" target="_blank">
               <img style="width: 28px;" src="{{iconSharePoint}}" alt=""/>
             </a>
             <button *ngIf="existDetalle" mat-stroked-button class="btnPdf hijo" type="button" (click)="mostrarPDF(id)">
               <mat-icon class="maticon">picture_as_pdf</mat-icon>
-            </button>         
+            </button>
           </div>
 
           <div *ngIf="!existDetalle" style="padding-top: 10px;">
@@ -224,14 +255,14 @@
           </div>
           <br>
           <div *ngIf="existDetalle" class="example-container mat-elevation-z0" style="margin-left:-14px">
-   
+
               <table class="table1" *ngFor="let grupo of dataSource">
                 <thead>
                   <tr>
                     <th style="display: flex; justify-content: space-between;">
                       <span>{{grupo.fecha}}</span>
-                      <span style="margin-right:37px;">{{getDescripcion(grupo.detalle![0].codMoneda, tbMoneda)}} {{grupo.montoTot!.toFixed(2)}}</span>                      
-                    </th>               
+                      <span style="margin-right:37px;">{{getDescripcion(grupo.detalle![0].codMoneda, tbMoneda)}} {{grupo.montoTot!.toFixed(2)}}</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -273,7 +304,7 @@
                                 </a>
                               </div>
                             </td>
-                          </tr>                          
+                          </tr>
                         </tbody>
                       </table>
                     </td>
@@ -282,14 +313,14 @@
               </table>
           </div>
         </div>
-        <div style="padding-top: 10px">          
+        <div style="padding-top: 10px">
           <button class="btnprevio" mat-button matStepperPrevious type="button">Atrás</button>
         </div>
       </mat-step>
 
     </mat-stepper>
-   
+
   </form>
- 
+
 </mat-card>
 </div>

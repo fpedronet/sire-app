@@ -31,6 +31,9 @@ export class CdetalleComponent implements OnInit {
   barra: boolean = false;
   stop: boolean = false;
 
+  tbRENDICION : boolean = false;
+  tbVIATICO : boolean = false;
+
   public qrcode:string = '';
   public windowsWidth:string = `${window.innerWidth > 500 ? 500 : window.innerWidth}px`;
 
@@ -139,7 +142,7 @@ export class CdetalleComponent implements OnInit {
 
   inicializar(){
     var rendD = new RendicionD();
-
+    this.selectTipo(this.tipo);
     if(this.tipo === 'M')
       rendD.codConcepto = '002' //Movilidad
 
@@ -823,6 +826,20 @@ export class CdetalleComponent implements OnInit {
   getControlLabel(type: string){
     return this.form.controls[type].value;
   }
+
+  selectTipo(valor: string){
+    //debugger;
+    if(valor === 'V'){ //Mostrar Viaticos
+      this.tbRENDICION = false;
+      this.tbVIATICO = true;
+    }
+    else{
+      this.tbRENDICION = true;
+      this.tbVIATICO = false;
+    }
+  }
+
+
 
   camposCambiados(rendDet: RendicionD){
     //debugger;

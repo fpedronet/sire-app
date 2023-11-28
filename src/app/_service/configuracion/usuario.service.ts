@@ -15,7 +15,7 @@ import * as MobileDetect from 'mobile-detect';
 export class UsuarioService {
 
   private url: string = `${environment.UrlApi}/usuario`;
-  
+
   constructor(
     private http: HttpClient,
     private router: Router
@@ -60,7 +60,7 @@ export class UsuarioService {
 
     // if (!helper.isTokenExpired(token!)){
       if(token!=null){
-        let decodedToken = helper.decodeToken(token!);       
+        let decodedToken = helper.decodeToken(token!);
         decodedToken.codigoempresa =codigoempresa;
         decodedToken.contraseniaSharepoint = contraseniaSharepoint;
         decodedToken.strFoto = localStorage.getItem(environment.FOTO);
@@ -79,7 +79,7 @@ export class UsuarioService {
     let result = null;
     if(filtro!="" && filtro!=null && filtro!=undefined){
        result = filtro?.split('|');
-    }      
+    }
     return result;
   }
 
@@ -89,7 +89,7 @@ export class UsuarioService {
     let result = null;
     if(filtro!="" && filtro!=null && filtro!=undefined){
        result = filtro?.split('|');
-    }      
+    }
     return result;
   }
 

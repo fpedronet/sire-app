@@ -1,0 +1,194 @@
+[
+  {
+   "ID": 1,
+   "Ciudad": "Lima"
+  },
+  {
+   "ID": 2,
+   "Ciudad": "Callao"
+  },
+  {
+   "ID": 3,
+   "Ciudad": "Arequipa"
+  },
+  {
+   "ID": 4,
+   "Ciudad": "Trujillo"
+  },
+  {
+   "ID": 5,
+   "Ciudad": "Chiclayo"
+  },
+  {
+   "ID": 6,
+   "Ciudad": "Chimbote"
+  },
+  {
+   "ID": 7,
+   "Ciudad": "Piura"
+  },
+  {
+   "ID": 8,
+   "Ciudad": "Cusco"
+  },
+  {
+   "ID": 9,
+   "Ciudad": "Huancayo"
+  },
+  {
+   "ID": 10,
+   "Ciudad": "Iquitos"
+  },
+  {
+   "ID": 11,
+   "Ciudad": "Pucallpa"
+  },
+  {
+   "ID": 12,
+   "Ciudad": "Juliaca"
+  },
+  {
+   "ID": 13,
+   "Ciudad": "Tacna"
+  },
+  {
+   "ID": 14,
+   "Ciudad": "Ica"
+  },
+  {
+   "ID": 15,
+   "Ciudad": "Tarapoto"
+  },
+  {
+   "ID": 16,
+   "Ciudad": "Ayacucho"
+  },
+  {
+   "ID": 17,
+   "Ciudad": "Cajamarca"
+  },
+  {
+   "ID": 18,
+   "Ciudad": "Huacho"
+  },
+  {
+   "ID": 19,
+   "Ciudad": "Huánuco"
+  },
+  {
+   "ID": 20,
+   "Ciudad": "Paita"
+  },
+  {
+   "ID": 21,
+   "Ciudad": "Sullana"
+  },
+  {
+   "ID": 22,
+   "Ciudad": "Huaycan"
+  },
+  {
+   "ID": 23,
+   "Ciudad": "Barranca"
+  },
+  {
+   "ID": 24,
+   "Ciudad": "Puno"
+  },
+  {
+   "ID": 25,
+   "Ciudad": "San Ignacio"
+  },
+  {
+   "ID": 26,
+   "Ciudad": "Huaraz"
+  },
+  {
+   "ID": 27,
+   "Ciudad": "Pisco"
+  },
+  {
+   "ID": 28,
+   "Ciudad": "Tumbes"
+  },
+  {
+   "ID": 29,
+   "Ciudad": "Chosica"
+  },
+  {
+   "ID": 30,
+   "Ciudad": "Puerto Maldonado"
+  },
+  {
+   "ID": 31,
+   "Ciudad": "Abancay"
+  },
+  {
+   "ID": 32,
+   "Ciudad": "Moquegua"
+  },
+  {
+   "ID": 33,
+   "Ciudad": "Víctor Larco Herrera"
+  },
+  {
+   "ID": 34,
+   "Ciudad": "Cerro de Pasco"
+  },
+  {
+   "ID": 35,
+   "Ciudad": "Moyobamba"
+  },
+  {
+   "ID": 36,
+   "Ciudad": "Huancavelica"
+  },
+  {
+   "ID": 37,
+   "Ciudad": "Camana"
+  },
+  {
+   "ID": 38,
+   "Ciudad": "Chancay"
+  },
+  {
+   "ID": 39,
+   "Ciudad": "Chachapoyas"
+  },
+  {
+   "ID": 40,
+   "Ciudad": "Ferrenafe"
+  },
+  {
+   "ID": 41,
+   "Ciudad": "Moche"
+  },
+  {
+   "ID": 42,
+   "Ciudad": "Jauja"
+  },
+  {
+   "ID": 43,
+   "Ciudad": "Pacasmayo"
+  },
+  {
+   "ID": 44,
+   "Ciudad": "Monsefu"
+  },
+  {
+   "ID": 45,
+   "Ciudad": "Zarumilla"
+  },
+  {
+   "ID": 46,
+   "Ciudad": "Puerto Pimentel"
+  },
+  {
+   "ID": 47,
+   "Ciudad": "Concepcion"
+  },
+  {
+   "ID": 48,
+   "Ciudad": "Chupaca"
+  }
+ ]

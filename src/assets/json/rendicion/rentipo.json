@@ -8,5 +8,10 @@
         "nIdTipo":"M",
         "vDescripcion":"Movilidad",
         "visual":true
+    },
+    {
+        "nIdTipo":"V",
+        "vDescripcion":"Viaticos",
+        "visual":true
     }
 ]

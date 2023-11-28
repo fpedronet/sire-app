@@ -59,11 +59,12 @@ export class LayoutComponent implements OnInit {
 
       this.spinner.showLoading();
       this.ConfigPermisoService.listar(empresaselect).subscribe(data=>{
+
         this.menus.listaEmpresa = data.listaEmpresa;
 
         if(empresaselect!=null){
           this.codigo = empresaselect;
-          this.empresa = data.listaEmpresa?.filter(x=>x.codigo==empresaselect)[0].nombreEmpresa
+          this.empresa = data.listaEmpresa?.filter(x=>x.codigo==empresaselect)[0].nombreEmpresa;
         }else{
           this.codigo = data.listaEmpresa![0].codigo;
           this.empresa = data.listaEmpresa![0].nombreEmpresa;

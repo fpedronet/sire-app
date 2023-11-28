@@ -7,8 +7,8 @@ import { DigitalPlanet } from 'src/app/_model/digitalPlanet';
 })
 export class PoclabService {
 
-  constructor(private http: HttpClient) {} 
-  
+  constructor(private http: HttpClient) {}
+
   private url: string = `https://service.poclab.pe/poclab/`;
   //private url: string = `http://localhost:64389/`;
 
