@@ -1,194 +1,112 @@
 [
   {
    "ID": 1,
-   "Ciudad": "Lima"
+   "Ciudad": "Arequipa",
+   "Monto": 320
   },
   {
    "ID": 2,
-   "Ciudad": "Callao"
+   "Ciudad": "Trujillo",
+   "Monto": 275
   },
   {
    "ID": 3,
-   "Ciudad": "Arequipa"
+   "Ciudad": "Chiclayo",
+   "Monto": 300
   },
   {
    "ID": 4,
-   "Ciudad": "Trujillo"
+   "Ciudad": "Chimbote",
+   "Monto": 285
   },
   {
    "ID": 5,
-   "Ciudad": "Chiclayo"
+   "Ciudad": "Piura",
+   "Monto": 320
   },
   {
    "ID": 6,
-   "Ciudad": "Chimbote"
+   "Ciudad": "Cusco",
+   "Monto": 300
   },
   {
    "ID": 7,
-   "Ciudad": "Piura"
+   "Ciudad": "Huancayo",
+   "Monto": 280
   },
   {
    "ID": 8,
-   "Ciudad": "Cusco"
+   "Ciudad": "Iquitos",
+   "Monto": 295
   },
   {
    "ID": 9,
-   "Ciudad": "Huancayo"
+   "Ciudad": "Pucallpa",
+   "Monto": 290
   },
   {
    "ID": 10,
-   "Ciudad": "Iquitos"
+   "Ciudad": "Juliaca",
+   "Monto": 305
   },
   {
    "ID": 11,
-   "Ciudad": "Pucallpa"
+   "Ciudad": "Tacna",
+   "Monto": 275
   },
   {
    "ID": 12,
-   "Ciudad": "Juliaca"
+   "Ciudad": "Ica",
+   "Monto": 275
   },
   {
    "ID": 13,
-   "Ciudad": "Tacna"
+   "Ciudad": "Tarapoto",
+   "Monto": 275
   },
   {
    "ID": 14,
-   "Ciudad": "Ica"
+   "Ciudad": "Ayacucho",
+   "Monto": 290
   },
   {
    "ID": 15,
-   "Ciudad": "Tarapoto"
+   "Ciudad": "Cajamarca",
+   "Monto": 320
   },
   {
    "ID": 16,
-   "Ciudad": "Ayacucho"
+   "Ciudad": "Puno",
+   "Monto": 300
   },
   {
    "ID": 17,
-   "Ciudad": "Cajamarca"
+   "Ciudad": "Tumbes",
+   "Monto": 300
   },
   {
    "ID": 18,
-   "Ciudad": "Huacho"
+   "Ciudad": "Moquegua",
+   "Monto": 295
   },
   {
    "ID": 19,
-   "Ciudad": "Huánuco"
+   "Ciudad": "Cerro de Pasco",
+   "Monto": 285
   },
   {
    "ID": 20,
-   "Ciudad": "Paita"
+   "Ciudad": "Moyobamba",
+   "Monto": 295
   },
   {
    "ID": 21,
-   "Ciudad": "Sullana"
+   "Ciudad": "Chachapoyas",
+   "Monto": 315
   },
   {
    "ID": 22,
-   "Ciudad": "Huaycan"
-  },
-  {
-   "ID": 23,
-   "Ciudad": "Barranca"
-  },
-  {
-   "ID": 24,
-   "Ciudad": "Puno"
-  },
-  {
-   "ID": 25,
-   "Ciudad": "San Ignacio"
-  },
-  {
-   "ID": 26,
-   "Ciudad": "Huaraz"
-  },
-  {
-   "ID": 27,
-   "Ciudad": "Pisco"
-  },
-  {
-   "ID": 28,
-   "Ciudad": "Tumbes"
-  },
-  {
-   "ID": 29,
-   "Ciudad": "Chosica"
-  },
-  {
-   "ID": 30,
-   "Ciudad": "Puerto Maldonado"
-  },
-  {
-   "ID": 31,
-   "Ciudad": "Abancay"
-  },
-  {
-   "ID": 32,
-   "Ciudad": "Moquegua"
-  },
-  {
-   "ID": 33,
-   "Ciudad": "Víctor Larco Herrera"
-  },
-  {
-   "ID": 34,
-   "Ciudad": "Cerro de Pasco"
-  },
-  {
-   "ID": 35,
-   "Ciudad": "Moyobamba"
-  },
-  {
-   "ID": 36,
-   "Ciudad": "Huancavelica"
-  },
-  {
-   "ID": 37,
-   "Ciudad": "Camana"
-  },
-  {
-   "ID": 38,
-   "Ciudad": "Chancay"
-  },
-  {
-   "ID": 39,
-   "Ciudad": "Chachapoyas"
-  },
-  {
-   "ID": 40,
-   "Ciudad": "Ferrenafe"
-  },
-  {
-   "ID": 41,
-   "Ciudad": "Moche"
-  },
-  {
-   "ID": 42,
-   "Ciudad": "Jauja"
-  },
-  {
-   "ID": 43,
-   "Ciudad": "Pacasmayo"
-  },
-  {
-   "ID": 44,
-   "Ciudad": "Monsefu"
-  },
-  {
-   "ID": 45,
-   "Ciudad": "Zarumilla"
-  },
-  {
-   "ID": 46,
-   "Ciudad": "Puerto Pimentel"
-  },
-  {
-   "ID": 47,
-   "Ciudad": "Concepcion"
-  },
-  {
-   "ID": 48,
-   "Ciudad": "Chupaca"
+   "Ciudad": "Jauja",
+   "Monto": 290
   }
  ]

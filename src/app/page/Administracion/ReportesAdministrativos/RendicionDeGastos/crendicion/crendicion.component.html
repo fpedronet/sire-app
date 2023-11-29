@@ -113,13 +113,14 @@
 
                     <mat-grid-list cols="12" rowHeight="10px" gutterSize="15px">
                           <mat-select
-                            #PROVINCIA
+                            #LUGAR
                             formControlName="lugar"
                             [disabled]="!edit"
+                            [(ngModel)]="cLugar"
+                            (selectionChange)="seleccionarProvincia();"
                             required
                           >
-                            <mat-option *ngFor="let el of listaProvincias" [value]="el.valor"
-                            [(ngModel)]="cLugar == el.descripcion">
+                            <mat-option *ngFor="let el of listaProvincias" [value]="el.valor">
                               {{el.descripcion}}
                             </mat-option>
                           </mat-select>
@@ -179,17 +180,53 @@
               </mat-grid-list>
 
               <mat-grid-list cols="12" rowHeight="75px" gutterSize="10px" style="max-width: 650px" *ngIf="muestraViaticos">
+
+                <!--
+                  <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+                <mat-form-field appearance="outline" style="margin-top: 15px;">
+                  <mat-label>Fecha Inicio</mat-label>
+                  <input matInput [matDatepicker]="fechaInicio" placeholder="dd/mm/aaaa" [max]="fechaInicio" (dateChange)="seleccionarProvincia();">
+                  [(ngModel)]="fechaSelectIni"  (dateChange)="onDateChange()" [max]="fechaMax"
+                  <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+                  <mat-datepicker #fechaInicio></mat-datepicker>
+                </mat-form-field>
+                  </div>
+
+                <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+                <mat-form-field appearance="outline" style="margin-top: 15px;">
+                  <mat-label>Fecha Fin</mat-label>
+                  <input matInput [matDatepicker]="fechaFin" placeholder="dd/mm/aaaa" [max]="fechaFin" (dateChange)="seleccionarProvincia();">
+                  [(ngModel)]="fechaSelectFin" (dateChange)="onDateChange()" [max]="fechaMax"
+                  <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
+                  <mat-datepicker #fechaFin></mat-datepicker>
+                </mat-form-field>
+              -->
+              <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+              <mat-grid-tile [colspan]="4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Cantidad días</mat-label>
+                  <input matInput type="number" class="example-right-align-balance" oninput="if(this.value.length>=7) { this.value = this.value.slice(0,7); }" onkeypress="return /[0-9|.]/i.test(event.key)" placeholder="0.00" [(ngModel)]="cantdias" [value]="actualizarMonto()" [disabled]="true" formControlName="cantdias">
+                </mat-form-field>
+              </mat-grid-tile>
+            </div>
+                <div div fxFlex="50%" fxFlex.xs="50%" fxFlex.sm="50%">
+
+                  <mat-grid-tile [colspan]="4">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Ingresos</mat-label>
+                      <input id="INGRESOS" #INGRESOS matInput type="number" class="example-right-align-ingreso"  oninput="if(this.value.length>=7) { this.value = this.value.slice(0,7); }" onkeypress="return /[0-9|.]/i.test(event.key)" formControlName="ingresos" placeholder="0.00"  [value]="seleccionarProvincia()">
+                    </mat-form-field>
+                  </mat-grid-tile>
+<!--
                 <mat-grid-tile [colspan]="4">
                   <mat-form-field appearance="outline">
-                    <mat-label>Ingresos</mat-label>
-                    <input id="INGRESOSV" #INGRESOSV matInput type="number" class="example-right-align-ingreso"  oninput="if(this.value.length>=7) { this.value = this.value.slice(0,7); }" onkeypress="return /[0-9|.]/i.test(event.key)" formControlName="ingresos" placeholder="0.00" [readonly]="!edit || TIPO.value === 'M'" [required]="TIPO.value === 'R'">
+                    <mat-label>Gastos</mat-label>
+                    <input [disabled]="true" #GASTOS matInput type="number" class="example-right-align-gasto" oninput="if(this.value.length>=7) { this.value = this.value.slice(0,7); }" onkeypress="return /[0-9|.]/i.test(event.key)" formControlName="gastos" placeholder="0.00" readonly [disabled]="true" [value]="seleccionarProvincia()">
                   </mat-form-field>
-                </mat-grid-tile>
-              </mat-grid-list>
-
-
-
-            </div>
+                </mat-grid-tile>-->
+                </div>
+          </mat-grid-list>
+        </div>
 
             <div div fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="100%">
               <mat-grid-list cols="12" rowHeight="40px" gutterSize="10px">

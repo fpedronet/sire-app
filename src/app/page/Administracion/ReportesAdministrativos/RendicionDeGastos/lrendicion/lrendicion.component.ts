@@ -66,7 +66,7 @@ export class LrendicionComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private spinner: SpinnerService,    
+    private spinner: SpinnerService,
     private rendicionService : RendicionService,
     private usuarioService : UsuarioService,
     private configPermisoService : ConfigPermisoService,
@@ -80,7 +80,7 @@ export class LrendicionComponent implements OnInit {
 
   ngOnInit(): void {
     this.configurarPaginador();
-    
+
     //debugger;
     this.obtenerpermiso();
     this.listarestados();
@@ -91,11 +91,11 @@ export class LrendicionComponent implements OnInit {
       this.idPantalla = (data["idPantalla"]==undefined)?1:parseInt(data["idPantalla"]);
     });
 
-    this.tituloPantalla[0] = 'MIS RENDICIONES/MOVILIDADES';
-    this.tituloPantalla[1] = 'SEGUIMIENTO DE RENDICIONES/MOVILIDADES';
+    this.tituloPantalla[0] = 'MIS RENDICIONES/MOVILIDADES/VIATICOS';
+    this.tituloPantalla[1] = 'SEGUIMIENTO DE RENDICIONES/MOVILIDADES/VIATICOS';
     this.tituloPantalla[2] = 'REVISIÓN DE RENDICIONES';
-    this.tituloPantalla[3] = 'APROBACIÓN DE RENDICIONES/MOVILIDADES';
-    
+    this.tituloPantalla[3] = 'APROBACIÓN DE RENDICIONES/MOVILIDADES/VIATICOS';
+
     if(this.idPantalla === 1)
       this.displayedColumns = this.displayedColumns.filter(e => e !== 'select');
     else
@@ -104,14 +104,14 @@ export class LrendicionComponent implements OnInit {
     this.listarUsuario();
   }
 
-  listarUsuario(){    
+  listarUsuario(){
     this.comboboxService.cargarDatos(this.tablasMaestras).subscribe(data=>{
       if(data === undefined){
         this.notifierService.showNotification(0,'Mensaje','Error en el servidor');
       }
       else{
         var tbCombobox: Combobox[] = data.items;
-        
+
         this.tbUsuario = this.obtenerSubtabla(tbCombobox,'USUARIO');
       }
 
@@ -124,8 +124,8 @@ export class LrendicionComponent implements OnInit {
 
   configurarPaginador(){
     this.customPaginator.itemsPerPageLabel = 'Ítems por página';
-    this.customPaginator.firstPageLabel = 'Primera página';    
-    this.customPaginator.previousPageLabel = 'Página anterior'; 
+    this.customPaginator.firstPageLabel = 'Primera página';
+    this.customPaginator.previousPageLabel = 'Página anterior';
     this.customPaginator.nextPageLabel  = 'Página siguiente';
     this.customPaginator.lastPageLabel = 'Última página';
     this.customPaginator.getRangeLabel = (page: number, pageSize: number, length: number) => {
@@ -149,7 +149,7 @@ export class LrendicionComponent implements OnInit {
       el.valor = json[i].valor;
       el.descripcion = json[i].descripcion;
       el.visual = json[i].visual;
-      
+
       tbCombo.push(el);
     }
 
@@ -187,7 +187,7 @@ export class LrendicionComponent implements OnInit {
     let filtro = this.usuarioService.sessionFiltro();
 
     let strEstados = "";
-    if(filtro!=null){   
+    if(filtro!=null){
       this.request.Codigo! = filtro[0];
       strEstados! = filtro![1];
       this.request.Tipo! = filtro[2];
@@ -195,7 +195,7 @@ export class LrendicionComponent implements OnInit {
       this.request.FechaFin! = new Date(filtro[4]);
       this.request.IdeUsuario = parseInt(filtro[5]);
     }else{
-      this.request.Codigo! = "";      
+      this.request.Codigo! = "";
       if(this.idPantalla === 1)
         strEstados! = "0,1,1,0,0,0,0";
       if(this.idPantalla === 2)
@@ -203,7 +203,7 @@ export class LrendicionComponent implements OnInit {
       if(this.idPantalla === 3)
         strEstados! = "0,0,0,1,0,0,0";
       if(this.idPantalla === 4)
-        strEstados! = "0,0,1,0,0,0,0";      
+        strEstados! = "0,0,1,0,0,0,0";
       this.request.Tipo! = "";
       this.request.FechaIni! = new Date();
       this.request.FechaIni.setMonth(this.request.FechaIni!.getMonth() - 6);
@@ -238,7 +238,7 @@ export class LrendicionComponent implements OnInit {
       .pipe(
         startWith({}),
         switchMap(() => {
-         
+
           this.loading = true;
           this.request.LstEstados = [];
 
@@ -275,7 +275,7 @@ export class LrendicionComponent implements OnInit {
           this.countRegistro = res.pagination.total;
           return res.items;
         }),
-      ).subscribe(data => (this.dataSource = data));      
+      ).subscribe(data => (this.dataSource = data));
   }
 
   obtenerpermiso(){
@@ -284,7 +284,7 @@ export class LrendicionComponent implements OnInit {
       //debugger;
       this.permiso = data;
        this.spinner.hideLoading();
-    });   
+    });
   }
 
   buscaUsuario(idUsuario: number){
@@ -307,7 +307,7 @@ export class LrendicionComponent implements OnInit {
       el.descripcion = jsonEstado[i].vDescripcion;
       el.visual = jsonEstado[i].visual;
       el.aux1 = jsonEstado[i].class;
-      
+
       this.listaEstados.push(el);
     }
     //debugger;
@@ -412,7 +412,7 @@ export class LrendicionComponent implements OnInit {
           //console.log('No');
         }
       });
-    }    
+    }
   }
 
   cambiaEstadoLista(lista: RendicionM[], sgteEstado: number, obs?: string){
@@ -420,7 +420,7 @@ export class LrendicionComponent implements OnInit {
     lista.forEach(item => {
       this.cambiaEstado(item.ideRendicion!, sgteEstado, obs===undefined?'':obs,i===lista.length-1);
       i++;
-    });    
+    });
   }
 
   cambiaEstado(ideRendicion: number, sgteEstado: number, obs?: string, ultimo: boolean = false){
@@ -434,7 +434,7 @@ export class LrendicionComponent implements OnInit {
       }else{
         this.spinner.hideLoading();
       }
-    });  
+    });
   }
 
   observacion(lista: RendicionM[], sgteEstado: number, rol: string = ''){
@@ -477,13 +477,13 @@ export class LrendicionComponent implements OnInit {
             }else{
               this.spinner.hideLoading();
             }
-          });  
+          });
         }
         else{
           //console.log('No');
         }
       });
-    }    
+    }
   }
 
   mismoUsuario(usu: number){

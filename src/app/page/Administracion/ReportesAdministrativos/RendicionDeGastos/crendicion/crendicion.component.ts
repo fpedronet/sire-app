@@ -63,6 +63,15 @@ export class CrendicionComponent implements OnInit {
   tbUsuario: Combobox[] = [];
   nombresUsuario?: string = '';
 
+  fechaIni?: Date;
+  fechaSelectIni?: Date;
+  fechaFin?: Date;
+  fechaSelectFin?: Date;
+
+  nombreProvincia?: string = '';
+  montoProvincia?: string = '';
+  cantdias?: number = 1;
+
   ideEstado: number = 0;
   Codigo?: number;
   id: number = 0;
@@ -217,7 +226,7 @@ export class CrendicionComponent implements OnInit {
   }
   listarProvincias(){
     this.listaProvincias = [];
-console.log(jsonProvincia);
+    //console.log(jsonProvincia);
     for(var i in jsonProvincia) {
       let el: Combobox = {};
 
@@ -229,10 +238,11 @@ console.log(jsonProvincia);
   }
 
   inicializar(){
+    //console.log(this.nombreProvincia);
     this.form = new FormGroup({
       'ideRendicion': new FormControl({ value: 0, disabled: false}),
       'codigo': new FormControl({ value: '', disabled: false}),
-      'lugar': new FormControl({ value: '', disabled: false}),
+      'lugar': new FormControl({ value: this.cLugar, disabled: false}),
       'motivo': new FormControl({ value: '', disabled: false}),
       'ideUsuario': new FormControl({ value: 0, disabled: false}),
       'monedaRecibe': new FormControl({ value: '', disabled: true}),
@@ -251,6 +261,7 @@ console.log(jsonProvincia);
       'obsAprobador': new FormControl({ value: '', disabled: false}),
       'obsRevisor': new FormControl({ value: '', disabled: false}),
       'tipo': new FormControl({ value: 'M', disabled: false}),
+      'cantdias':new FormControl({value:1,disabled:false}),
       'fechaRevisado': new FormControl({ value: '', disabled: false}),
       'ideUsuRevisa': new FormControl({ value: 0, disabled: false})
     });
@@ -281,6 +292,10 @@ console.log(jsonProvincia);
           this.rendicionCargada = data;
           this.existRendicion = true;
           this.ideEstado = data.ideEstado!;
+          this.obtenerIdeProvincia(data.lugar);
+          //console.log(data.lugar);
+          //console.log(this.cLugar);
+          //console.log(data.tipo);
           this.form.patchValue({
             ideRendicion: data.ideRendicion,
             codigo: data.codigo,
@@ -462,7 +477,7 @@ console.log(jsonProvincia);
   }
 
   camposCambiados(rend: RendicionM){
-    var lugar: boolean = rend.lugar !== this.cLugar;//this.getControlLabel('lugar');
+    var lugar: boolean = rend.lugar !== this.nombreProvincia;//this.getControlLabel('lugar');
     var motivo: boolean = rend.motivo !== this.getControlLabel('motivo');
     var tipo: boolean = rend.tipo !== this.getControlLabel('tipo');
     var ingresos: boolean = rend.ingresos !== Number(this.getControlLabel('ingresos'));
@@ -561,13 +576,56 @@ console.log(jsonProvincia);
       this.currentTab = numTab;
   }
 
+  seleccionarProvincia(){
+    this.form.value['ingresos'] = 0;
+    for(var i in jsonProvincia) {
+      let el: Combobox = {};
+
+      el.valor = jsonProvincia[i].ID;
+      el.descripcion = jsonProvincia[i].Ciudad;
+      if(el.valor == this.cLugar){
+        this.nombreProvincia = jsonProvincia[i].Ciudad;
+        this.montoProvincia = jsonProvincia[i].Monto;
+      }
+    }
+    this.cantdias = this.form.value['cantdias'];
+    let valor: number;
+    if(this.cantdias == undefined || this.montoProvincia == undefined){
+      this.montoProvincia = '';
+      this.cantdias = 1;
+      valor = parseInt(this.montoProvincia) * this.cantdias;
+    }else{
+      valor = parseInt(this.montoProvincia) * this.cantdias;
+    }
+    //this.form.value['ingresos'] = valor.toFixed(2);
+    this.form.value['ingresos'] = valor.toFixed(2);
+    return valor.toFixed(2);
+  }
+  actualizarMonto(){
+    this.seleccionarProvincia()
+    console.log(this.form.value['ingresos']);
+  }
+
+  obtenerIdeProvincia(nomprovincia?: string){
+    for(var i in jsonProvincia) {
+      let nomProv: string;
+
+      nomProv = jsonProvincia[i].Ciudad;
+      //console.log(i + " - " + nomProv + " - " +nomprovincia);
+      if(nomProv == nomprovincia){
+        this.cLugar = jsonProvincia[i].ID;
+      }
+    }
+    //console.log(this.cLugar);
+  }
+
   guardar(){
-    console.log(this.cLugar);
+    console.log(this.form.value['ingresos']);
       let model = new RendicionM();
 
       model.ideUsuario = this.form.value['ideUsuario'];
       model.ideRendicion = this.form.value['ideRendicion'];
-      model.lugar = this.cLugar;//this.form.value['lugar'];
+      model.lugar = this.nombreProvincia//this.cLugar;//this.form.value['lugar'];
       model.motivo = this.form.value['motivo'];
       model.montoRecibe = this.form.value['ingresos'];
       model.tipo = this.form.value['tipo'];
@@ -631,6 +689,10 @@ console.log(jsonProvincia);
     })
   }
 
+  restarDias(){
+
+
+  }
 
   restarCampos(num1: string, num2: string){
     let valor = parseFloat(num1 === '' ? '0' : num1) - parseFloat(num2 === '' ? '0' : num2);
