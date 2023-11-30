@@ -2,6 +2,7 @@ import { RendicionD } from "./rendicionD"
 
 export class RendicionM {
     ideRendicion?: number
+    cantDias?: number
     codigo?: string
     ideUsuario?: number
     vUsuario?: string

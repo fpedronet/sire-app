@@ -108,5 +108,50 @@
    "ID": 22,
    "Ciudad": "Jauja",
    "Monto": 290
+  },
+  {
+   "ID": 23,
+   "Ciudad": "Huaraz",
+   "Monto": 0
+  },
+  {
+   "ID": 24,
+   "Ciudad": "Abancay",
+   "Monto": 0
+  },
+  {
+   "ID": 25,
+   "Ciudad": "Callao",
+   "Monto": 0
+  },
+  {
+   "ID": 26,
+   "Ciudad": "Cuzco",
+   "Monto": 0
+  },
+  {
+   "ID": 27,
+   "Ciudad": "Huancavelica",
+   "Monto": 0
+  },
+  {
+   "ID": 28,
+   "Ciudad": "Huánuco",
+   "Monto": 0
+  },
+  {
+   "ID": 29,
+   "Ciudad": "Lima",
+   "Monto": 0
+  },
+  {
+   "ID": 30,
+   "Ciudad": "Huacho",
+   "Monto": 0
+  },
+  {
+   "ID": 31,
+   "Ciudad": "Puerto Maldonado",
+   "Monto": 0
   }
  ]
