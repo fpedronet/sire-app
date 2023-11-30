@@ -93,7 +93,7 @@ export class LrendicionComponent implements OnInit {
 
     this.tituloPantalla[0] = 'MIS RENDICIONES/MOVILIDADES/VIATICOS';
     this.tituloPantalla[1] = 'SEGUIMIENTO DE RENDICIONES/MOVILIDADES/VIATICOS';
-    this.tituloPantalla[2] = 'REVISIÓN DE RENDICIONES';
+    this.tituloPantalla[2] = 'REVISIÓN DE RENDICIONES/VIATICOS';
     this.tituloPantalla[3] = 'APROBACIÓN DE RENDICIONES/MOVILIDADES/VIATICOS';
 
     if(this.idPantalla === 1)

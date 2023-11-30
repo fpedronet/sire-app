@@ -308,6 +308,7 @@ export class CrendicionComponent implements OnInit {
             estado: this.listaEstados?.find(e => e.valor === data.ideEstado)?.descripcion,
             fechaCreacion: data.vFechaCreacion,
             tipo: data.tipo,
+            cantdias: data.cantDias,
             //Aprobador
             fechaApruebaRechaza: data.vFechaApruebaRechaza,
             ideUsuApruebaRechaza: data.ideUsuApruebaRechaza,
@@ -369,6 +370,8 @@ export class CrendicionComponent implements OnInit {
           }
 
         }
+        console.log(data.cantDias);
+        this.cantdias = data.cantDias;
         this.spinner.hideLoading();
       });
     }
@@ -603,7 +606,7 @@ export class CrendicionComponent implements OnInit {
   }
   actualizarMonto(){
     this.seleccionarProvincia()
-    console.log(this.form.value['ingresos']);
+    //console.log(this.form.value['ingresos']);
   }
 
   obtenerIdeProvincia(nomprovincia?: string){
@@ -620,7 +623,7 @@ export class CrendicionComponent implements OnInit {
   }
 
   guardar(){
-    console.log(this.form.value['ingresos']);
+    //console.log(this.form.value['ingresos']);
       let model = new RendicionM();
 
       model.ideUsuario = this.form.value['ideUsuario'];
@@ -629,6 +632,7 @@ export class CrendicionComponent implements OnInit {
       model.motivo = this.form.value['motivo'];
       model.montoRecibe = this.form.value['ingresos'];
       model.tipo = this.form.value['tipo'];
+      model.cantDias = this.form.value['cantdias'];
       model.fechaCreacion = new Date();
 
       this.spinner.showLoading();
