@@ -480,12 +480,13 @@ export class CrendicionComponent implements OnInit {
   }
 
   camposCambiados(rend: RendicionM){
-    var lugar: boolean = rend.lugar !== this.nombreProvincia;//this.getControlLabel('lugar');
+    //var lugar: boolean = rend.lugar !== this.nombreProvincia;//this.getControlLabel('lugar');
     var motivo: boolean = rend.motivo !== this.getControlLabel('motivo');
     var tipo: boolean = rend.tipo !== this.getControlLabel('tipo');
     var ingresos: boolean = rend.ingresos !== Number(this.getControlLabel('ingresos'));
     //debugger;
-    return lugar || motivo || tipo || ingresos;
+    //return lugar || motivo || tipo || ingresos;
+    return motivo || tipo || ingresos;
   }
 
   $cambiaEstado(sgteEstado: number, obs?: string){
@@ -628,7 +629,8 @@ export class CrendicionComponent implements OnInit {
 
       model.ideUsuario = this.form.value['ideUsuario'];
       model.ideRendicion = this.form.value['ideRendicion'];
-      model.lugar = this.nombreProvincia//this.cLugar;//this.form.value['lugar'];
+      model.lugar = this.nombreProvincia;
+      //model.lugar = this.form.value['lugar'];//this.nombreProvincia//this.cLugar;//this.form.value['lugar'];
       model.motivo = this.form.value['motivo'];
       model.montoRecibe = this.form.value['ingresos'];
       model.tipo = this.form.value['tipo'];
@@ -636,7 +638,7 @@ export class CrendicionComponent implements OnInit {
       model.fechaCreacion = new Date();
 
       this.spinner.showLoading();
-      //debugger;
+      debugger;
       this.rendicionService.guardar(model).subscribe(data=>{
 
         this.notifierService.showNotification(data.typeResponse!,'Mensaje',data.message!);

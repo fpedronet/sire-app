@@ -32,15 +32,13 @@ intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<un
      }
 
      request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
-
      return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-       
           let errorMsg = '';
-          if(error.status === 401){           
+          if(error.status === 401){
            return this.handleRefreshToken(req,next);
           }
-          else if (error.error instanceof ErrorEvent) {            
+          else if (error.error instanceof ErrorEvent) {
               errorMsg = `Error: ${error.error.message}`;
               this.notifierService.showNotification(0,"Error",errorMsg);
               this.spinner.hideLoading();
@@ -48,8 +46,8 @@ intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<un
               errorMsg = `Error Code: ${error.status},  Message: ${error.message}`;
               this.notifierService.showNotification(0,"Error",errorMsg);
               this.spinner.hideLoading();
-          }    
-          return throwError(errorMsg);      
+          }
+          return throwError(errorMsg);
          })
       );
 
@@ -63,7 +61,7 @@ intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<un
     }),
     catchError(errorMsg => {
       this.usuarioService.closeLogin();
-      return throwError(errorMsg);      
+      return throwError(errorMsg);
     })
    );
   }

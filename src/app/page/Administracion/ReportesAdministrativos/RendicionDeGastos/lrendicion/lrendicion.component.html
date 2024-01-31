@@ -22,23 +22,23 @@
       </button>
     </div>
   </mat-toolbar>
-  
-  <div class="container">  
-    <mat-card class="cardborde">   
+
+  <div class="container" >
+    <mat-card class="cardborde">
       <mat-toolbar class="cardtitle"></mat-toolbar>
       <h2 class="title-label"> {{tituloPantalla[idPantalla-1]}} </h2>
       <mat-divider></mat-divider>
-      <form style="padding: 0;">     
-        
+      <form style="padding: 0;">
+
         <div class="example-loading-shade" *ngIf="loading || existRegistro">
           <mat-spinner *ngIf="loading"></mat-spinner>
           <div class="example-rate-limit-reached" *ngIf="existRegistro">
             No se encontraron registros.
           </div>
         </div>
-  
+
         <div class="example-container mat-elevation-z0">
-          <mat-table [dataSource]="dataSource" matSort>
+          <mat-table [dataSource]="dataSource" matSort >
 
             <!-- Checkbox Column -->
             <ng-container matColumnDef="select" >
@@ -56,13 +56,13 @@
                 </mat-checkbox>
               </td>
             </ng-container>
-           
+
             <ng-container matColumnDef="codigo1">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'">Código</mat-header-cell>
-              <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Código"> 
-                <div class="tbcodigo"> 
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Código">
+                <div class="tbcodigo">
                   {{element.codigo}}
-                </div>     
+                </div>
               </mat-cell>
             </ng-container>
 
@@ -74,22 +74,15 @@
                   <mat-checkbox *ngIf="puedeAccionEstado(element.ideEstado)" (click)="$event.stopPropagation()"
                     (change)="$event ? selection.toggle(element) : null"
                     [checked]="selection.isSelected(element)">
-                  </mat-checkbox> 
+                  </mat-checkbox>
                   {{element.codigo}}
                 </div>
               </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="tipo">
-              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Tipo </mat-header-cell>
-              <mat-cell *matCellDef="let element" data-label="Tipo" [ngClass]="'widthTable web'">
-                <div>{{element.tipo}}</div>
-              </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="usuario" style="display: contents">
-              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'"> Usuario </mat-header-cell>
-              <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'" style="display: contents">
+            <ng-container matColumnDef="usuario" style="display: none">
+              <mat-header-cell *matHeaderCellDef> Usuario </mat-header-cell>
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable mobil'" style="display: none">
                 <div class="fila-usuario-mobil" style="display: none;" *ngIf="!(mismoUsuario(element.ideUsuario) && idPantalla === 1)">
                   <div class="responsive-estado"><mat-icon>person icon</mat-icon></div>
                   <div class="responsive-estado">{{buscaUsuario(element.ideUsuario)}}</div>
@@ -103,24 +96,37 @@
               </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="tipo">
+              <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Tipo </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="Tipo" [ngClass]="'widthTable web'">
+                <div>{{element.tipo}}</div>
+              </mat-cell>
+            </ng-container>
+
+
             <ng-container matColumnDef="lugar">
               <mat-header-cell *matHeaderCellDef> Lugar </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="Lugar"> {{element.lugar}} </mat-cell>
             </ng-container>
-          
-            <ng-container matColumnDef="motivo">
-              <mat-header-cell *matHeaderCellDef> Motivo </mat-header-cell>
+
+            <ng-container matColumnDef="motivo" style="width: 100px;">
+              <mat-header-cell *matHeaderCellDef > Motivo </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="Motivo"> {{element.motivo}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="ingresos">
+              <mat-header-cell *matHeaderCellDef > Ingresos </mat-header-cell>
+              <mat-cell *matCellDef="let element" data-label="Ingresos">{{mostrarBalance(element.monedaRecibe, element.ingresos)}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="balance">
               <mat-header-cell *matHeaderCellDef> Balance </mat-header-cell>
               <mat-cell *matCellDef="let element" data-label="Balance">
                 <div *ngIf="element.balance < 0" class="balancenegativo">{{mostrarBalance(element.monedaRecibe, element.balance)}}</div>
-                <div *ngIf="element.balance >= 0" class="balancenonegativo">{{mostrarBalance(element.monedaRecibe, element.balance)}}</div> 
+                <div *ngIf="element.balance >= 0" class="balancenonegativo">{{mostrarBalance(element.monedaRecibe, element.balance)}}</div>
               </mat-cell>
             </ng-container>
-            
+
             <ng-container matColumnDef="estado">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> Estado </mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="estado">
@@ -128,7 +134,7 @@
                 <span style="padding-left: 12px">{{element.estado}}</span>
               </mat-cell>
             </ng-container>
-            
+
             <ng-container matColumnDef="correo">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"></mat-header-cell>
               <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Correo">
@@ -139,13 +145,13 @@
                 <a *ngIf="permiso.reenviar" matTooltip="Reenviar" style="cursor: pointer !important" (click)='reenviarPdf(element.ideRendicion, element.ideUsuApruebaRechaza)'>
                   <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
                   <mat-icon *ngIf="element.correo=='No'" style="color: #1b70c7;">mail_outline_icon</mat-icon>
-                </a>                  
+                </a>
               </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="accion">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable web'"> </mat-header-cell>
-              <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">            
+              <mat-cell *matCellDef="let element" [ngClass]="'widthTable web'" data-label="Accion">
                 <a *ngIf="puedeEditar(element.ideUsuario, element.ideEstado)" class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion]">
                   <mat-icon>edit</mat-icon>
                 </a>
@@ -153,7 +159,7 @@
                   <mat-icon>visibility</mat-icon>
                 </a>
               </mat-cell>
-            </ng-container>   
+            </ng-container>
 
             <ng-container matColumnDef="mo">
               <mat-header-cell *matHeaderCellDef [ngClass]="'widthTable mobil'">Móbil</mat-header-cell>
@@ -161,7 +167,7 @@
                 <a class="pointer edit">
                   <div class="circulo {{getClassEstado(element.ideEstado)}}" style="margin-left: 0px;"></div>
                 </a>
-                <div class="responsive-estado" style="font-weight:600;color: midnightblue; padding-left: 5px">{{element.estado}}</div>     
+                <div class="responsive-estado" style="font-weight:600;color: midnightblue; padding-left: 5px">{{element.estado}}</div>
                 <div style="margin-left:auto;">
                   <a *ngIf="!permiso.reenviar">
                     <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
@@ -170,7 +176,7 @@
                   <a *ngIf="permiso.reenviar" matTooltip="Reenviar" style="cursor: pointer !important" (click)='reenviarPdf(element.ideRendicion)'>
                     <mat-icon *ngIf="element.correo=='Sí'" style="color: #1b70c7;">mark_email_read_sharp_icon</mat-icon>
                     <mat-icon *ngIf="element.correo=='No'" style="color: #1b70c7;">mail_outline_icon</mat-icon>
-                  </a>                           
+                  </a>
                   <a *ngIf="puedeEditar(element.ideUsuario, element.ideEstado)" class="pointer edit" matTooltip="Editar" [routerLink]="['edit', element.ideRendicion]">
                     <mat-icon>edit</mat-icon>
                   </a>
@@ -180,19 +186,19 @@
                 </div>
               </mat-cell>
             </ng-container>
-                        
+
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-          
+
           </mat-table>
-          <mat-paginator 
-            [length]="countRegistro" 
-            [pageSizeOptions]="[5, 10, 20]" 
-            showFirstLastButtons 
+          <mat-paginator
+            [length]="countRegistro"
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
             aria-label="Seleccione página de rendiciones">
           </mat-paginator>
         </div>
-  
-      </form>    
+
+      </form>
     </mat-card>
   </div>

@@ -142,16 +142,31 @@
   {
    "ID": 29,
    "Ciudad": "Lima",
-   "Monto": 0
+   "Monto": 275
   },
   {
    "ID": 30,
    "Ciudad": "Huacho",
-   "Monto": 0
+   "Monto": 275
   },
   {
    "ID": 31,
    "Ciudad": "Puerto Maldonado",
    "Monto": 0
+  },
+  {
+   "ID": 32,
+   "Ciudad": "Centro/Sur America",
+   "Monto": 160
+  },
+  {
+   "ID": 33,
+   "Ciudad": "USA",
+   "Monto": 160
+  },
+  {
+   "ID": 34,
+   "Ciudad": "Europa",
+   "Monto": 170
   }
  ]

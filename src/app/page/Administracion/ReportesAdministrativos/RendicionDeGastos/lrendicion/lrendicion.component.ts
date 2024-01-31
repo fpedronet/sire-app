@@ -32,7 +32,7 @@ import { NotifierService } from 'src/app/page/component/notifier/notifier.servic
 export class LrendicionComponent implements OnInit {
 
   dataSource: RendicionM[] = [];
-  displayedColumns: string[] = ['select', 'codigo1', 'codigo', 'tipo', 'usuario', 'lugar', 'motivo', 'balance','estado','correo','accion','mo'];
+  displayedColumns: string[] = ['select', 'codigo1', 'codigo', 'tipo', 'lugar', 'motivo', 'ingresos', 'balance','estado','correo','accion','mo'];
   loading = true;
   existRegistro = false;
   countRegistro = 0;
@@ -229,6 +229,7 @@ export class LrendicionComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    //debugger;
     this.cargarFiltros();
 
     this.rendicionService = new RendicionService(this.http);
@@ -363,6 +364,7 @@ export class LrendicionComponent implements OnInit {
 
     return cadena;
   }
+
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;

@@ -28,7 +28,7 @@ export class RendicionService {
     req.Tipo = tipo;
     req.Page = page!+1;
     req.Pages = pages;
-    //debugger;
+
 
     let urls = `${this.url}/GetAllRendicionM`;
     return this.http.post<dataCollection>(urls,req);

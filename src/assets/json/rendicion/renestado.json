@@ -86,7 +86,7 @@
         "edicion":false,
         "rechazar":false,
         "class":"azul",
-        "pantallas":[1,1,0,0]
+        "pantallas":[1,1,1,1]
     },
     {
         "nIdEstado":6,
